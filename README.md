@@ -12,6 +12,12 @@ Planit! is a personal offline application designed for productivity using only k
 
 </p>
 
+<p>
+
+Test paragraph. To be removed
+
+</p>
+
 #### Features
 
 <p>
