@@ -9,7 +9,7 @@ Planit! is a personal offline application designed for productivity using only k
 <p>
 <b>Add new task</b> with or without specific deadline. Type add [event/task] [date] [time] to insert [event/task] into user’s schedule for stated [date] and [time].
 </p> <p>
-<b>View existing tasks</b> for the day or without specific time. Type show <date> to display the task scheduled for user on [date], sorted by time.
+<b>View existing tasks</b> for the day or without specific time. Type show [date] to display the task scheduled for user on [date], sorted by time.
 </p> <p>
 <b>Delete task</b> to cancel existing task from the list. Type delete [task] [date] to remove [task] from [date].
 To view basic command of the application. Type help to show list of basic commands.
