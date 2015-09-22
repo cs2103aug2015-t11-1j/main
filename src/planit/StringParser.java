@@ -9,11 +9,14 @@
 
 package planit;
 
+import java.util.ArrayList;
+
 public class StringParser {
 	/*
 	 * ATTRIBUTES
 	 */
 	private String userStringInput;
+	private ArrayList<String> stringArray = new ArrayList<String>(); 
 	private String userCommand = null;
 	private String userEventTask = null;
 	private String userDate = null;
@@ -115,8 +118,15 @@ public class StringParser {
 	/*
 	 * METHODS
 	 */
+	public ArrayList<String> splitStringIntoArray(String userStringInput) {
+		String[] stringSplitArray = userStringInput.trim().split("\\s+");
+		for (String string : stringSplitArray) {
+			stringArray.add(string);
+		}
+		return stringArray;
+	}
 	
-	public String extractUserCommand(String userStringInput) {
-		return userStringInput.trim().split("\\s++")[0];
+	public String extractUserCommand(ArrayList<String> stringArray) {
+		return stringArray.get(0);
 	}
 }
