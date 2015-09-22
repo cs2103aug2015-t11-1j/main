@@ -13,15 +13,15 @@ public class StringParser {
 	/*
 	 * ATTRIBUTES
 	 */
-	private static String userStringInput;
-	private static String userCommand = null;
-	private static String userEventTask = null;
-	private static String userDate = null;
-	private static String userStartDate = null;
-	private static String userEndDate = null;
-	private static String userTime = null;
-	private static String userStartTime = null;
-	private static String userEndTime = null;
+	private String userStringInput;
+	private String userCommand = null;
+	private String userEventTask = null;
+	private String userDate = null;
+	private String userStartDate = null;
+	private String userEndDate = null;
+	private String userTime = null;
+	private String userStartTime = null;
+	private String userEndTime = null;
 	
 	/*
 	 * CONSTRUCTORS
@@ -110,5 +110,13 @@ public class StringParser {
 	public String setUserEndTime(String string) {
 		userEndTime = string;
 		return userEndTime;
+	}
+	
+	/*
+	 * METHODS
+	 */
+	
+	public String extractUserCommand(String userStringInput) {
+		return userStringInput.trim().split("\\s++")[0];
 	}
 }
