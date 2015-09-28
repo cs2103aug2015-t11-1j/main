@@ -77,6 +77,6 @@ public class Command {
 	}
 	
 	public void setUserEventTask() {
-		userEventTask = sp.extractEventTask(sp.splitStringIntoArrayDelimColon(userStringInput));
+		userEventTask = sp.extractUserEventTask(sp.splitStringIntoArrayDelimColon(userStringInput));
 	}
 }
