@@ -68,4 +68,26 @@ public class StringParserTest {
 
 		assertTrue("the strings are not similar", expectedString.equals(resultString));
 	}
+	
+	@Test
+	public void testExtractUserDate() {
+		String testString = "add this event :1111 2222 - 3333 4444";
+		StringParser sp = new StringParser(testString);
+		ArrayList<String> testArray = sp.splitStringIntoArrayDelimColon(testString);
+		String resultString = sp.extractUserDate(sp.splitStringIntoArrayDelimSpace(testArray.get(1)));
+		String expectedString = "1111";
+		
+		assertTrue("the date is not similar", expectedString.equals(resultString));
+	}
+	
+	@Test
+	public void testExtractUserTime() {
+		String testString = "add this event :1111 2222 - 3333 4444";
+		StringParser sp = new StringParser(testString);
+		ArrayList<String> testArray = sp.splitStringIntoArrayDelimColon(testString);
+		String resultString = sp.extractUserTime(sp.splitStringIntoArrayDelimSpace(testArray.get(1)));
+		String expectedString = "2222";
+		
+		assertTrue("the time is not similar", expectedString.equals(resultString));
+	}
 }

@@ -17,7 +17,11 @@ public class StringParser {
 	private String userStringInput;
 
 	private static final String REGEX_WHITESPACES = "[\\s,]+";
-	private static final String REGEX_COLON = ":";
+	private static final String STRING_COLON = ":";
+	private static final String STRING_HYPHEN = "-";
+	
+	private static final int INDEX_FIRST = 0;
+	private static final int INDEX_SECOND = 1;
 
 	private static final int INDEX_ADD_ONE = 1;
 
@@ -34,25 +38,25 @@ public class StringParser {
 	}
 
 	public ArrayList<String> splitStringIntoArrayDelimColon(String userStringInput) {
-		String[] stringSplitArrayDelimColon = userStringInput.trim().split(REGEX_COLON);
+		String[] stringSplitArrayDelimColon = userStringInput.trim().split(STRING_COLON);
 		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimColon));
 	}
 
 	public String extractUserCommand(ArrayList<String> stringArray) {
-		return stringArray.get(0);
+		return stringArray.get(INDEX_FIRST);
 	}
 
 	public String extractUserEventTask(ArrayList<String> stringArray) {
-		String commandAndEventTask = stringArray.get(0);
+		String commandAndEventTask = stringArray.get(INDEX_FIRST);
 		return commandAndEventTask.substring(commandAndEventTask.indexOf(" ") + INDEX_ADD_ONE).trim();
 	}
 	
 	public String extractUserDate(ArrayList<String> stringArray) {
-		
+		return stringArray.get(INDEX_FIRST);
 	}
 	
 	public String extractUserTime(ArrayList<String> stringArray) {
-		
+		return stringArray.get(INDEX_SECOND);
 	}
 	
 	public String[] extractUserDateRange(ArrayList<String> stringArray) {

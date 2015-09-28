@@ -1,10 +1,17 @@
 package planit;
 
+import java.util.ArrayList;
+
 public class Command {
 	
 	public enum actionType{
 		ADD, SHOW, SEARCH, UPDATE, DONE, UNDO;
 	}
+	
+	private static final int INDEX_FIRST = 0;
+	private static final int INDEX_SECOND = 1;
+	
+	private static final int RANGE_ARRAY_SIZE = 2;
 	
 	private actionType type;
 	private StringParser sp;
@@ -16,10 +23,10 @@ public class Command {
 	private String userEventTask = null;
 	
 	private String userDate = null;
-	private String[] userDateRange = new String[2];
+	private String[] userDateRange = new String[RANGE_ARRAY_SIZE];
 	
 	private String userTime = null;
-	private String[] userTimeRange = new String[2];
+	private String[] userTimeRange = new String[RANGE_ARRAY_SIZE];
 	
 	public Command(String userStringInput) {
 		this.userStringInput = userStringInput;
@@ -46,11 +53,11 @@ public class Command {
 	}
 	
 	public String getUserDateStart() {
-		return userDateRange[0];
+		return userDateRange[INDEX_FIRST];
 	}
 	
 	public String getUserDateEnd() {
-		return userDateRange[1];
+		return userDateRange[INDEX_SECOND];
 	}
 	
 	public String getUserTime() {
@@ -58,11 +65,11 @@ public class Command {
 	}
 	
 	public String getUserTimeStart() {
-		return userTimeRange[0];
+		return userTimeRange[INDEX_FIRST];
 	}
 	
 	public String getUserTimeEnd() {
-		return userTimeRange[1];
+		return userTimeRange[INDEX_SECOND];
 	}
 	
 	/*
@@ -81,7 +88,8 @@ public class Command {
 	}
 	
 	public void setUserDate() {
-		
+		ArrayList<String> stringArray = sp.splitStringIntoArrayDelimColon(userStringInput);
+		userDate = sp.extractUserDate(sp.splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND)));
 	}
 	
 	public void setUserTime() {
