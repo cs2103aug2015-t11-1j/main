@@ -46,6 +46,22 @@ public class StringParser {
 		String commandAndEventTask = stringArray.get(0);
 		return commandAndEventTask.substring(commandAndEventTask.indexOf(" ") + INDEX_ADD_ONE).trim();
 	}
+	
+	public String extractUserDate(ArrayList<String> stringArray) {
+		
+	}
+	
+	public String extractUserTime(ArrayList<String> stringArray) {
+		
+	}
+	
+	public String[] extractUserDateRange(ArrayList<String> stringArray) {
+		
+	}
+	
+	public String[] extractUserTimeRange(ArrayList<String> stringArray) {
+		
+	}
 
 	/*
 	 * ACCESSORS

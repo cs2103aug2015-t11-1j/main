@@ -79,4 +79,20 @@ public class Command {
 	public void setUserEventTask() {
 		userEventTask = sp.extractUserEventTask(sp.splitStringIntoArrayDelimColon(userStringInput));
 	}
+	
+	public void setUserDate() {
+		
+	}
+	
+	public void setUserTime() {
+		
+	}
+	
+	public void setUserDateRange() {
+		
+	}
+	
+	public void setUserTimeRange() {
+		
+	}
 }
