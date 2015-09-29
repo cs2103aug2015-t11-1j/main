@@ -134,4 +134,16 @@ public class Command {
 		userCommand = sp.extractUserCommand(userStringInput);
 	}
 	
+	public void setUserEventTask() {
+		userEventTask = sp.extractUserEventTask(userStringInput);
+	}
+	
+	public void setUserDate() {
+	//	userDate = sp.extractUserDate(userStringInput);
+	}
+	
+	public void setUserTime() {
+		
+	}
+	
 }

@@ -1,6 +1,7 @@
 package planit;
 
 import java.util.Calendar;
+import java.util.Scanner;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -16,13 +17,14 @@ public class Welcome {
 	
 	private static DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private static Calendar cal = Calendar.getInstance();
+	private static Scanner sc;
 	
 	public static void main(String[] args) {
 		welcomeMessage();
 		
 	}
 
-	private static void welcomeMessage() {
+	public static void welcomeMessage() {
 		if(getMornNight() >= 4 && getMornNight() < 12) {
 			 printWelcomeMorning();
 		}
@@ -71,6 +73,12 @@ public class Welcome {
 		int i = cal.get(Calendar.HOUR_OF_DAY);
 		return i;
 		 
+	}
+
+	public static String requestInput() {
+		sc = new Scanner(System.in);
+		String userInput = sc.nextLine();
+		return userInput;
 	}
 	
 }
