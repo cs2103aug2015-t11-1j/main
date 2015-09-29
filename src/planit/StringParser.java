@@ -3,7 +3,7 @@
  * 
  * This class parses an entire string command into its respective <categories>
  * ASSUMPTIONS:
- * 1) Commands are entered in this general format: <command> <event> <date> <time>
+ * 1) Commands are entered in the correct supported format.
  * TODO  
  */
 
@@ -14,12 +14,10 @@ import java.util.Arrays;
 
 public class StringParser {
 
-	private String userStringInput;
-
 	private static final String REGEX_WHITESPACES = "[\\s,]+";
 	private static final String STRING_COLON = ":";
 	private static final String STRING_HYPHEN = "-";
-	
+
 	private static final int INDEX_FIRST = 0;
 	private static final int INDEX_SECOND = 1;
 
@@ -28,21 +26,15 @@ public class StringParser {
 	/*
 	 * CONSTRUCTORS
 	 */
-	public StringParser(String userStringInput) {
-		this.userStringInput = userStringInput;
+	public StringParser() {
+		
 	}
 
-	public ArrayList<String> splitStringIntoArrayDelimSpace(String userStringInput) {
-		String[] stringSplitArray = userStringInput.trim().split(REGEX_WHITESPACES);
-		return new ArrayList<String>(Arrays.asList(stringSplitArray));
-	}
-
-	public ArrayList<String> splitStringIntoArrayDelimColon(String userStringInput) {
-		String[] stringSplitArrayDelimColon = userStringInput.trim().split(STRING_COLON);
-		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimColon));
-	}
-
-	public String extractUserCommand(ArrayList<String> stringArray) {
+	/*
+	 * METHODS
+	 */
+	public String extractUserCommand(String userStringInput) {
+		ArrayList<String> stringArray = splitStringIntoArrayDelimSpace(userStringInput);
 		return stringArray.get(INDEX_FIRST);
 	}
 
@@ -50,27 +42,34 @@ public class StringParser {
 		String commandAndEventTask = stringArray.get(INDEX_FIRST);
 		return commandAndEventTask.substring(commandAndEventTask.indexOf(" ") + INDEX_ADD_ONE).trim();
 	}
-	
+
 	public String extractUserDate(ArrayList<String> stringArray) {
 		return stringArray.get(INDEX_FIRST);
 	}
-	
+
 	public String extractUserTime(ArrayList<String> stringArray) {
 		return stringArray.get(INDEX_SECOND);
 	}
-	
+
 	public String[] extractUserDateRange(ArrayList<String> stringArray) {
-		
-	}
-	
-	public String[] extractUserTimeRange(ArrayList<String> stringArray) {
-		
 	}
 
-	/*
-	 * ACCESSORS
-	 */
-	public String getUserStringInput() {
-		return userStringInput;
+	public String[] extractUserTimeRange(ArrayList<String> stringArray) {
+
+	}
+
+	public ArrayList<String> splitStringIntoArrayDelimSpace(String userStringInput) {
+		String[] stringSplitArrayDelimSpace = userStringInput.trim().split(REGEX_WHITESPACES);
+		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimSpace));
+	}
+
+	public ArrayList<String> splitStringIntoArrayDelimColon(String userStringInput) {
+		String[] stringSplitArrayDelimColon = userStringInput.trim().split(STRING_COLON);
+		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimColon));
+	}
+
+	public ArrayList<String> splitStringIntoArrayDelimHyphen(String userStringInput) {
+		String[] stringSplitArrayDelimHyphen = userStringInput.trim().split(STRING_HYPHEN);
+		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimHyphen));
 	}
 }
