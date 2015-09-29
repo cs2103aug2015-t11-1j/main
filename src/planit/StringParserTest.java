@@ -36,34 +36,34 @@ public class StringParserTest {
 	}
 
 	@Test
-	public void testSplitStringIntoArrayDelimColon1() {
-		String testString = "add this event :1111 2222 - 1111 2222";
+	public void testSplitStringIntoArrayDelimAngleBrackets1() {
+		String testString = "add this event >1111@2222 - 1111@2222";
 		StringParser sp = new StringParser();
-		ArrayList<String> resultArray = sp.splitStringIntoArrayDelimColon(testString);
+		ArrayList<String> resultArray = sp.splitStringIntoArrayDelimAngleBrackets(testString);
 
 		ArrayList<String> expectedArray = new ArrayList<String>();
 		expectedArray.add("add this event ");
-		expectedArray.add("1111 2222 - 1111 2222");
+		expectedArray.add("1111@2222 - 1111@2222");
 		assertTrue("the arrays are not similar", expectedArray.equals(resultArray));
 	}
 
 	@Test
-	public void testSplitStringIntoArrayDelimColon2() {
-		String testString = ":1111 2222 - 1111 2222";
+	public void testSplitStringIntoArrayDelimAngleBrackets2() {
+		String testString = ">1111@2222 - 1111@2222";
 		StringParser sp = new StringParser();
-		ArrayList<String> resultArray = sp.splitStringIntoArrayDelimColon(testString);
+		ArrayList<String> resultArray = sp.splitStringIntoArrayDelimAngleBrackets(testString);
 
 		ArrayList<String> expectedArray = new ArrayList<String>();
 		expectedArray.add("");
-		expectedArray.add("1111 2222 - 1111 2222");
+		expectedArray.add("1111@2222 - 1111@2222");
 		assertTrue("the arrays are not similar", expectedArray.equals(resultArray));
 	}
 
 	@Test
 	public void testExtractUserEventTask() {
-		String testString = "add this event :1111 2222 - 1111 2222";
+		String testString = "add this event >1111@2222 - 1111@2222";
 		StringParser sp = new StringParser();
-		String resultString = sp.extractUserEventTask(sp.splitStringIntoArrayDelimColon(testString));
+		String resultString = sp.extractUserEventTask(testString);
 		String expectedString = "this event";
 
 		assertTrue("the strings are not similar", expectedString.equals(resultString));
@@ -71,9 +71,9 @@ public class StringParserTest {
 	
 	@Test
 	public void testExtractUserDate() {
-		String testString = "add this event :1111 2222 - 3333 4444";
+		String testString = "add this event >1111@2222 - 3333@4444";
 		StringParser sp = new StringParser();
-		ArrayList<String> testArray = sp.splitStringIntoArrayDelimColon(testString);
+		ArrayList<String> testArray = sp.splitStringIntoArrayDelimAngleBrackets(testString);
 		String resultString = sp.extractUserDate(sp.splitStringIntoArrayDelimSpace(testArray.get(1)));
 		String expectedString = "1111";
 		
@@ -82,9 +82,9 @@ public class StringParserTest {
 	
 	@Test
 	public void testExtractUserTime() {
-		String testString = "add this event :1111 2222 - 3333 4444";
+		String testString = "add this event >1111@2222 - 3333@4444";
 		StringParser sp = new StringParser();
-		ArrayList<String> testArray = sp.splitStringIntoArrayDelimColon(testString);
+		ArrayList<String> testArray = sp.splitStringIntoArrayDelimAngleBrackets(testString);
 		String resultString = sp.extractUserTime(sp.splitStringIntoArrayDelimSpace(testArray.get(1)));
 		String expectedString = "2222";
 		

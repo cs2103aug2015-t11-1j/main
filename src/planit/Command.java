@@ -1,7 +1,5 @@
 package planit;
 
-import java.util.ArrayList;
-
 public class Command {
 
 	public enum ACTION_TYPE {
@@ -59,6 +57,7 @@ public class Command {
 
 		switch (actionType) {
 		case ADD:
+			extractAddArguments();
 			break;
 		case SHOW:
 			break;
@@ -75,6 +74,10 @@ public class Command {
 		default:
 			break;
 		}
+	}
+
+	private static void extractAddArguments() {
+		
 	}
 
 	/*
@@ -130,26 +133,5 @@ public class Command {
 	public void setUserCommand() {
 		userCommand = sp.extractUserCommand(userStringInput);
 	}
-	// TODO: all methods listen below needs fixing
-	public void setUserEventTask() {
-		userEventTask = sp.extractUserEventTask(userStringInput);
-	}
-
-	public void setUserDate() {
-		ArrayList<String> stringArray = sp.splitStringIntoArrayDelimColon(userStringInput);
-		userDate = sp.extractUserDate(sp.splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND)));
-	}
-
-	public void setUserTime() {
-		ArrayList<String> stringArray = sp.splitStringIntoArrayDelimColon(userStringInput);
-		userDate = sp.extractUserTime(sp.splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND)));
-	}
-
-	public void setUserDateRange() {
-
-	}
-
-	public void setUserTimeRange() {
-
-	}
+	
 }

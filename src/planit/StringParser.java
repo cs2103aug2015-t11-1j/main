@@ -15,7 +15,9 @@ import java.util.Arrays;
 public class StringParser {
 
 	private static final String REGEX_WHITESPACES = "[\\s,]+";
-	private static final String STRING_COLON = ":";
+
+	private static final String STRING_WHITESPACE = " ";
+	private static final String STRING_RIGHT_ANGLE_BRACKETS = ">";
 	private static final String STRING_HYPHEN = "-";
 
 	private static final int INDEX_FIRST = 0;
@@ -27,7 +29,7 @@ public class StringParser {
 	 * CONSTRUCTORS
 	 */
 	public StringParser() {
-		
+
 	}
 
 	/*
@@ -38,9 +40,10 @@ public class StringParser {
 		return stringArray.get(INDEX_FIRST);
 	}
 
-	public String extractUserEventTask(ArrayList<String> stringArray) {
-		String commandAndEventTask = stringArray.get(INDEX_FIRST);
-		return commandAndEventTask.substring(commandAndEventTask.indexOf(" ") + INDEX_ADD_ONE).trim();
+	public String extractUserEventTask(String userStringInput) {
+		ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput);
+		return stringArray.get(INDEX_FIRST)
+				.substring(stringArray.get(INDEX_FIRST).indexOf(STRING_WHITESPACE) + INDEX_ADD_ONE).trim();
 	}
 
 	public String extractUserDate(ArrayList<String> stringArray) {
@@ -63,8 +66,8 @@ public class StringParser {
 		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimSpace));
 	}
 
-	public ArrayList<String> splitStringIntoArrayDelimColon(String userStringInput) {
-		String[] stringSplitArrayDelimColon = userStringInput.trim().split(STRING_COLON);
+	public ArrayList<String> splitStringIntoArrayDelimAngleBrackets(String userStringInput) {
+		String[] stringSplitArrayDelimColon = userStringInput.trim().split(STRING_RIGHT_ANGLE_BRACKETS);
 		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimColon));
 	}
 
