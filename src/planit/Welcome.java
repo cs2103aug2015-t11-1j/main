@@ -76,5 +76,26 @@ public class Welcome {
 		String userInput = sc.nextLine();
 		return userInput;
 	}
+
+	public static void printAddedEvent(String addedTask) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void printShowEvent(String eventToShow) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void printSearchEvent(String searchedEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void printDeletedTask(String taskToDelete) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 }

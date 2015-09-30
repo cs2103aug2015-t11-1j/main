@@ -13,15 +13,15 @@ public class Command {
 
 	private String userStringInput;
 
-	private static String userCommand = null;
+	private static String userCommand = null; //Action type
 
-	private static String userEventTask = null;
+	private static String userEventTask = null; // Type of event/task
 
-	private static String[] userDateRange = new String[RANGE_ARRAY_SIZE];
-	private static String userDateString = null; // there's a warning because the variable isn't used anywhere yet
+	private static String[] userDateRange = new String[RANGE_ARRAY_SIZE]; // Array of dates
+	private static String userDateString = null; // formatted string of date/dates
 	
 	private static String[] userTimeRange = new String[RANGE_ARRAY_SIZE];
-	private static String userTimeString = null; // there's a warning because the variable isn't used anywhere yet
+	private static String userTimeString = null; // formatted string of date/dates
 	
 	
 	public Command(String userStringInput) {

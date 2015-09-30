@@ -26,8 +26,7 @@ public class Logic {
 	
 	public static void main(String[] args) {
 		Welcome.welcomeMessage();
-		String userInput = Welcome.requestInput();
-		executeCommand(userInput);
+		executeCommand();
 	}
 
 	private static ACTION_TYPE getActionType(String userAction) {
@@ -54,31 +53,48 @@ public class Logic {
 	 * Operations
 	 */
 	
-	private static void executeCommand(String userInput) {
-		userCommand = new Command(userInput);
-		type = getActionType(userInput);
-		switch (type) {
-		case ADD:
-			formatDateString(userCommand);
-			formatTimeString(userCommand);
-			Storage.storeNewEvent(userCommand);
-			break;
-		case SHOW:
-			break;
-		case SEARCH:
-			break;
-		case UPDATE:
-			break;
-		case DONE:
-			break;
-		case DELETE:
-			break;
-		case UNDO:
-			break;
-		default:
-			break;
+	private static void executeCommand() {
+		String userInput = Welcome.requestInput();
+		while (!userInput.equals(null)) {
+			userCommand = new Command(userInput);
+			type = getActionType(userCommand.getUserCommand());
+			switch (type) {
+			case ADD:
+				formatEventDetails(userCommand);
+				String addedTask = Storage.storeNewEvent(userCommand);
+				Welcome.printAddedEvent(addedTask);
+				break;
+			case SHOW:
+				formatEventDetails(userCommand);
+				String eventToShow = Storage.searchCommandParam(userCommand.getUserEventTask());
+				Welcome.printShowEvent(eventToShow);
+				break;
+			case SEARCH:
+				String searchParam = userCommand.getUserEventTask();
+				String searchedEvent = Storage.searchCommandParam(searchParam);
+				Welcome.printSearchEvent(searchedEvent);
+				break;
+			case UPDATE:
+				break;
+			case DONE:
+				break;
+			case DELETE:
+				String taskToDelete = userCommand.getUserEventTask();
+				Storage.deleteTask(taskToDelete);
+				Welcome.printDeletedTask(taskToDelete);
+				break;
+			case UNDO:
+				break;
+			default:
+				break;
+			}
 		}
 		
+	}
+
+	private static void formatEventDetails(Command userCommand) {
+		formatDateString(userCommand);
+		formatTimeString(userCommand);
 	}
 
 	private static void formatTimeString(Command userCommand) {
@@ -89,13 +105,13 @@ public class Logic {
 		} else {
 			String timeString1 = timeToTimeString(timeArray[INDEX_FIRST]);
 			String timeString2 = timeToTimeString(timeArray[INDEX_SECOND]);
-			String newTimeString = timeString1 + " to " + timeString2;
+			String newTimeString = timeString1 + "-" + timeString2;
 			userCommand.setUserTimeString(newTimeString);
 		}
 	}
 
 	private static String timeToTimeString(String timeString) {
-		String newTimeString = timeString + " HRS";
+		String newTimeString = timeString + "HRS";
 		return newTimeString;
 	}
 
@@ -107,7 +123,7 @@ public class Logic {
 		} else {
 			String dateString1 = dateToDateString(dateArray[INDEX_FIRST]);
 			String dateString2 = dateToDateString(dateArray[INDEX_SECOND]);
-			String newDateString = dateString1 + " to " + dateString2;
+			String newDateString = dateString1 + "-" + dateString2;
 			userCommand.setUserDateString(newDateString);
 		}
 	}
