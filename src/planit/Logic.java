@@ -10,13 +10,18 @@ public class Logic {
 	public enum ACTION_TYPE {
 		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID;
 	}
+
+	private static final int INDEX_FIRST = 0;
+	private static final int INDEX_SECOND = 1;
+
+	private static final int RANGE_ARRAY_SIZE = 2;
 	
 	private static Command userCommand;
 	
 	private static ACTION_TYPE type;
 	
-	public Logic() {
-		
+	public Logic (Command userCommand) {
+		this.userCommand = userCommand;
 	}
 	
 	public static void main(String[] args) {
@@ -45,13 +50,18 @@ public class Logic {
 		}
 	}
 	
-	
+	/*
+	 * Operations
+	 */
 	
 	private static void executeCommand(String userInput) {
 		userCommand = new Command(userInput);
 		type = getActionType(userInput);
 		switch (type) {
 		case ADD:
+			formatDateString(userCommand);
+			formatTimeString(userCommand);
+			Storage.storeNewEvent(userCommand);
 			break;
 		case SHOW:
 			break;
@@ -69,6 +79,45 @@ public class Logic {
 			break;
 		}
 		
+	}
+
+	private static void formatTimeString(Command userCommand) {
+		String[] timeArray = userCommand.getUserTimeRange();
+		if (timeArray.length == 1) {
+			String newTimeString = timeToTimeString(timeArray[INDEX_FIRST]);
+			userCommand.setUserTimeString(newTimeString);
+		} else {
+			String timeString1 = timeToTimeString(timeArray[INDEX_FIRST]);
+			String timeString2 = timeToTimeString(timeArray[INDEX_SECOND]);
+			String newTimeString = timeString1 + " to " + timeString2;
+			userCommand.setUserTimeString(newTimeString);
+		}
+	}
+
+	private static String timeToTimeString(String timeString) {
+		String newTimeString = timeString + " HRS";
+		return newTimeString;
+	}
+
+	private static void formatDateString(Command userCommand) {
+		String[] dateArray = userCommand.getUserDateRange();
+		if (dateArray.length == 1) {
+			String newDateString = dateToDateString(dateArray[INDEX_FIRST]);
+			userCommand.setUserDateString(newDateString);
+		} else {
+			String dateString1 = dateToDateString(dateArray[INDEX_FIRST]);
+			String dateString2 = dateToDateString(dateArray[INDEX_SECOND]);
+			String newDateString = dateString1 + " to " + dateString2;
+			userCommand.setUserDateString(newDateString);
+		}
+	}
+
+	private static String dateToDateString(String dateString) {
+		String dateDay = dateString.substring(0, 2);
+		String dateMonth = dateString.substring(2,4);
+		String dateYear = dateString.substring(4);
+		String newDateString = dateDay + "/" + dateMonth + "/" + dateYear;
+		return newDateString;
 	}
 
 }

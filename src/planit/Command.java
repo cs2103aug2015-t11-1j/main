@@ -13,22 +13,27 @@ public class Command {
 
 	private String userStringInput;
 
-	private String userCommand = null;
+	private static String userCommand = null;
 
-	private String userEventTask = null;
+	private static String userEventTask = null;
 
-	private String[] userDateRange = new String[RANGE_ARRAY_SIZE];
-
-	private String[] userTimeRange = new String[RANGE_ARRAY_SIZE];
-
+	private static String[] userDateRange = new String[RANGE_ARRAY_SIZE];
+	private static String userDateString = null; // there's a warning because the variable isn't used anywhere yet
+	
+	private static String[] userTimeRange = new String[RANGE_ARRAY_SIZE];
+	private static String userTimeString = null; // there's a warning because the variable isn't used anywhere yet
+	
 	
 	public Command(String userStringInput) {
-		this.userStringInput = userStringInput;
+		setUserStringInput(userStringInput);
 		executeParsing(userStringInput);
 	}
 
 	private static void executeParsing(String userStringInput) {
-		
+		setUserCommand(userStringInput);
+		setUserEventTask(userStringInput);
+		setUserDate(userStringInput);
+		setUserTime(userStringInput);		
 	}
 
 
@@ -72,6 +77,11 @@ public class Command {
 		return userTimeRange[INDEX_SECOND];
 	}
 
+	public String getUserStringInput() {
+		return userStringInput;
+	}
+
+	
 	/*
 	 * MUTATORS
 	 * 
@@ -79,20 +89,32 @@ public class Command {
 	 * class
 	 * 
 	 */
-	public void setUserCommand() {
+	public void setUserStringInput(String userStringInput) {
+		this.userStringInput = userStringInput;
+	}
+	
+	private static void setUserCommand(String userStringInput) {
 		userCommand = sp.extractUserCommand(userStringInput);
 	}
 	
-	public void setUserEventTask() {
+	private static void setUserEventTask(String userStringInput) {
 		userEventTask = sp.extractUserEventTask(userStringInput);
 	}
 	
-	public void setUserDate() {
+	private static void setUserDate(String userStringInput) {
 		userDateRange = sp.extractUserDate(userStringInput);
 	}
 	
-	public void setUserTime() {
+	private static void setUserTime(String userStringInput) {
 		userTimeRange = sp.extractUserTime(userStringInput);
+	}
+	
+	public void setUserDateString(String dateString) {
+		userDateString = dateString;
+	}
+	
+	public void setUserTimeString(String timeString) {
+		userTimeString = timeString;
 	}
 	
 }
