@@ -54,8 +54,7 @@ public class StringParser {
 	}
 
 	public String[] extractUserDate(String userStringInput) {
-		ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
-		ArrayList<String> timeArray = splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND).trim());
+		ArrayList<String> timeArray = extractTimeArguments(userStringInput);
 		ArrayList<String> userDate = new ArrayList<String>();
 		for (String date : timeArray) {
 			if (date.length() == DATE_LENGTH) {
@@ -67,8 +66,7 @@ public class StringParser {
 	}
 
 	public String[] extractUserTime(String userStringInput) {
-		ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
-		ArrayList<String> timeArray = splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND).trim());
+		ArrayList<String> timeArray = extractTimeArguments(userStringInput);
 		ArrayList<String> userTime = new ArrayList<String>();
 		for (String time : timeArray) {
 			if (time.length() == TIME_LENGTH) {
@@ -79,12 +77,21 @@ public class StringParser {
 		return resultString;
 	}
 
-	public ArrayList<String> splitStringIntoArrayDelimSpace(String userStringInput) {
+	private ArrayList<String> extractTimeArguments(String userStringInput) {
+		ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
+		ArrayList<String> timeArray = splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND).trim());
+		return timeArray;
+	}
+
+	/*
+	 * STRING SPLITTERS
+	 */
+	private ArrayList<String> splitStringIntoArrayDelimSpace(String userStringInput) {
 		String[] stringSplitArrayDelimSpace = userStringInput.trim().split(REGEX_WHITESPACES);
 		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimSpace));
 	}
 
-	public ArrayList<String> splitStringIntoArrayDelimAngleBrackets(String userStringInput) {
+	private ArrayList<String> splitStringIntoArrayDelimAngleBrackets(String userStringInput) {
 		String[] stringSplitArrayDelimAngleBrackets = userStringInput.trim().split(STRING_RIGHT_ANGLE_BRACKETS);
 		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimAngleBrackets));
 	}
