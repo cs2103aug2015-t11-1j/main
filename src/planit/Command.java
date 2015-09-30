@@ -2,17 +2,14 @@ package planit;
 
 public class Command {
 
-	public enum ACTION_TYPE {
-		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID;
-	}
+	
 
 	private static final int INDEX_FIRST = 0;
 	private static final int INDEX_SECOND = 1;
 
 	private static final int RANGE_ARRAY_SIZE = 2;
 
-	private ACTION_TYPE type;
-	private static StringParser sp;
+	private static StringParser sp = new StringParser();
 
 	private String userStringInput;
 
@@ -20,65 +17,20 @@ public class Command {
 
 	private String userEventTask = null;
 
-	private String userDate = null;
 	private String[] userDateRange = new String[RANGE_ARRAY_SIZE];
 
-	private String userTime = null;
 	private String[] userTimeRange = new String[RANGE_ARRAY_SIZE];
 
-	private static ACTION_TYPE getActionType(String userAction) {
-		if (userAction.equalsIgnoreCase("add")) {
-			return ACTION_TYPE.ADD;
-		} else if (userAction.equalsIgnoreCase("show")) {
-			return ACTION_TYPE.SHOW;
-		} else if (userAction.equalsIgnoreCase("search")) {
-			return ACTION_TYPE.SEARCH;
-		} else if (userAction.equalsIgnoreCase("update")) {
-			return ACTION_TYPE.UPDATE;
-		} else if (userAction.equalsIgnoreCase("done")) {
-			return ACTION_TYPE.DONE;
-		} else if (userAction.equalsIgnoreCase("delete")) {
-			return ACTION_TYPE.DELETE;
-		} else if (userAction.equalsIgnoreCase("undo")) {
-			return ACTION_TYPE.UNDO;
-		} else {
-			return ACTION_TYPE.INVALID;
-		}
-	}
-
+	
 	public Command(String userStringInput) {
 		this.userStringInput = userStringInput;
-		executeAction(userStringInput);
+		executeParsing(userStringInput);
 	}
 
-	private static void executeAction(String userStringInput) {
-		sp = new StringParser();
-		ACTION_TYPE actionType = getActionType(sp.extractUserCommand(userStringInput));
-
-		switch (actionType) {
-		case ADD:
-			extractAddArguments();
-			break;
-		case SHOW:
-			break;
-		case SEARCH:
-			break;
-		case UPDATE:
-			break;
-		case DONE:
-			break;
-		case DELETE:
-			break;
-		case UNDO:
-			break;
-		default:
-			break;
-		}
-	}
-
-	private static void extractAddArguments() {
+	private static void executeParsing(String userStringInput) {
 		
 	}
+
 
 	/*
 	 * ACCESSORS
@@ -87,10 +39,7 @@ public class Command {
 	 * <time> inputs
 	 * 
 	 */
-	public ACTION_TYPE getActionType() {
-		return type;
-	}
-
+	
 	public String getUserCommand() {
 		return userCommand;
 	}
@@ -99,8 +48,8 @@ public class Command {
 		return userEventTask;
 	}
 
-	public String getUserDate() {
-		return userDate;
+	public String[] getUserDateRange() {
+		return userDateRange;
 	}
 
 	public String getUserDateStart() {
@@ -111,8 +60,8 @@ public class Command {
 		return userDateRange[INDEX_SECOND];
 	}
 
-	public String getUserTime() {
-		return userTime;
+	public String[] getUserTimeRange() {
+		return userTimeRange;
 	}
 
 	public String getUserTimeStart() {
@@ -139,11 +88,11 @@ public class Command {
 	}
 	
 	public void setUserDate() {
-	//	userDate = sp.extractUserDate(userStringInput);
+		userDateRange = sp.extractUserDate(userStringInput);
 	}
 	
 	public void setUserTime() {
-		
+		userTimeRange = sp.extractUserTime(userStringInput);
 	}
 	
 }

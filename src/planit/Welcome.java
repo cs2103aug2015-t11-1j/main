@@ -19,10 +19,6 @@ public class Welcome {
 	private static Calendar cal = Calendar.getInstance();
 	private static Scanner sc;
 	
-	public static void main(String[] args) {
-		welcomeMessage();
-		
-	}
 
 	public static void welcomeMessage() {
 		if(getMornNight() >= 4 && getMornNight() < 12) {
