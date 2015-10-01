@@ -6,9 +6,9 @@ import java.io.IOException;
 
 public class Storage {
 	private String mainFileName;
-	private File mainFile;
+	private static File mainFile;
 	private String toDoFileName;
-	private File toDoFile;
+	private static File toDoFile;
 	
 	public Storage(){
 		mainFile = new File("main.txt");
@@ -19,20 +19,24 @@ public class Storage {
 		mainFileName = "todo.txt";
 	}
 	
-	FileWriter fwMain = new FileWriter(this.mainFile, true);
-	FileWriter fwTodo= new FileWriter(this.toDoFile, true);
 	
 	//
-	public static String storeNewEvent(Command userCommand) {
+	public static String storeNewEvent(Command cmd) throws IOException {
 //		String item = userCommand.
-		if(userCommand.getUserTimeStart().equals("null")){
-			
+		if(cmd.getUserDateString().equals(null) && cmd.getUserTimeString().equals(null)){
+			FileWriter fwTodo= new FileWriter(toDoFile, true);
+			fwTodo.write(cmd.getUserEventTask());
+			fwTodo.write(System.lineSeparator());
+			fwTodo.close();
+			return cmd.getUserEventTask();
 		} else {
-			
+			// TODO Auto-generated method stub
+			// Return String with <event><dateString><timeString>
+
+			FileWriter fwMain = new FileWriter(mainFile, true);
+			fwMain.close();
 		}
 		return null;
-		// TODO Auto-generated method stub
-		// Return String with <event><dateString><timeString>
 	}
 
 	public static String searchCommandParam(String userEventTask) {

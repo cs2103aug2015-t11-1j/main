@@ -81,6 +81,13 @@ public class Command {
 		return userStringInput;
 	}
 
+	public String getUserDateString() {
+		return userDateString;
+	}
+	
+	public String getUserTimeString() {
+		return userTimeString;
+	}
 	
 	/*
 	 * MUTATORS
