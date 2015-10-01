@@ -32,11 +32,13 @@ public class Storage {
 		} else {
 			// TODO Auto-generated method stub
 			// Return String with <event><dateString><timeString>
-
+			String line = new String(cmd.getUserDateString() + " " + cmd.getUserTimeString() + " " + cmd.getUserEventTask());
 			FileWriter fwMain = new FileWriter(mainFile, true);
+			fwMain.write(line);
+			fwMain.write(System.lineSeparator());
 			fwMain.close();
+			return line;
 		}
-		return null;
 	}
 
 	public static String searchCommandParam(String userEventTask) {

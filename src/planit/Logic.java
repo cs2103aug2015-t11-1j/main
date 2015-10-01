@@ -5,6 +5,8 @@
 
 package planit;
 
+import java.io.IOException;
+
 public class Logic {
 
 	public enum ACTION_TYPE {
@@ -24,7 +26,7 @@ public class Logic {
 		this.userCommand = userCommand;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		Welcome.welcomeMessage();
 		executeCommand();
 	}
@@ -53,7 +55,7 @@ public class Logic {
 	 * Operations
 	 */
 	
-	private static void executeCommand() {
+	private static void executeCommand() throws IOException {
 		String userInput = Welcome.requestInput();
 		while (!userInput.equals(null)) {
 			userCommand = new Command(userInput);
