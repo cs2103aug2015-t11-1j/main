@@ -106,6 +106,16 @@ public class StringParserTest {
 
 		assertArrayEquals(expectedArray, resultArray);
 	}
+	
+	@Test
+	public void testExtractUserDate4() {
+		String testString = "show > 111111";
+		StringParser sp = new StringParser();
+		String[] resultArray = sp.extractUserDate(testString);
+		String[] expectedArray = { "111111", null };
+
+		assertArrayEquals(expectedArray, resultArray);
+	}
 
 	@Test
 	public void testExtractUserTime1() {
