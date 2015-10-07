@@ -1,6 +1,7 @@
 package planit;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -9,7 +10,7 @@ public class Command {
 	private static final int INDEX_FIRST = 0;
 	private static final int INDEX_SECOND = 1;
 
-	private static final int RANGE_ARRAY_SIZE = 2;
+//	private static final int RANGE_ARRAY_SIZE = 2;
 
 	private static StringParser sp = new StringParser();
 
@@ -19,10 +20,10 @@ public class Command {
 
 	private String userEventTask = null; // Type of event/task
 
-	private String[] userDateRange = new String[RANGE_ARRAY_SIZE]; // Array of dates
+	private ArrayList<String> userDateRange = new ArrayList<String>(); // ArrayList of dates
 	private String userDateString = null; // formatted string of date/dates
 	
-	private String[] userTimeRange = new String[RANGE_ARRAY_SIZE];
+	private ArrayList<String> userTimeRange = new ArrayList<String>(); // ArrayList of times
 	private String userTimeString = null; // formatted string of date/dates
 	
 	
@@ -55,28 +56,28 @@ public class Command {
 		return userEventTask;
 	}
 
-	public String[] getUserDateRange() {
+	public ArrayList<String> getUserDateRange() {
 		return userDateRange;
 	}
 
 	public String getUserDateStart() {
-		return userDateRange[INDEX_FIRST];
+		return userDateRange.get(INDEX_FIRST);
 	}
 
 	public String getUserDateEnd() {
-		return userDateRange[INDEX_SECOND];
+		return userDateRange.get(INDEX_SECOND);
 	}
 
-	public String[] getUserTimeRange() {
+	public ArrayList<String> getUserTimeRange() {
 		return userTimeRange;
 	}
 
 	public String getUserTimeStart() {
-		return userTimeRange[INDEX_FIRST];
+		return userTimeRange.get(INDEX_FIRST);
 	}
 
 	public String getUserTimeEnd() {
-		return userTimeRange[INDEX_SECOND];
+		return userTimeRange.get(INDEX_SECOND);
 	}
 
 	public String getUserStringInput() {
@@ -112,10 +113,10 @@ public class Command {
 	
 	private void setUserDate(String userStringInput) {
 		userDateRange = sp.extractUserDate(userStringInput);
-		if (userDateRange[INDEX_FIRST].equals(null)) {
+		if (userDateRange.get(INDEX_FIRST).equals(null)) {
 			Date today = Calendar.getInstance().getTime();
 			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
-			userDateRange[INDEX_FIRST] = sdf.format(today);
+			userDateRange.set(INDEX_FIRST, sdf.format(today));
 		}
 	}
 	
