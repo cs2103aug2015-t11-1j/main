@@ -53,7 +53,6 @@ public class Logic {
 
 	public static void executeCommand(String userInput) throws IOException {
 		Storage sto = new Storage();
-		// while (!userInput.equals(null)) {
 		userCommand = new Command(userInput);
 		type = getActionType(userCommand.getUserCommand());
 		switch (type) {
@@ -64,7 +63,7 @@ public class Logic {
 			break;
 		case SHOW:
 			formatEventDetails(userCommand);
-			ArrayList<String> eventToShow = sto.searchCommandParam(userCommand.getUserEventTask());
+			ArrayList<String> eventToShow = sto.showDateEvents(userCommand.getUserDateString());
 			Welcome.printShowEvent(eventToShow);
 			break;
 		case SEARCH:
@@ -88,8 +87,6 @@ public class Logic {
 		}
 	}
 
-	// }
-
 	private static void formatEventDetails(Command userCommand) {
 		formatDateString(userCommand);
 		formatTimeString(userCommand);
@@ -105,7 +102,7 @@ public class Logic {
 			String timeString2 = timeToTimeString(timeArray.get(INDEX_SECOND));
 			String newTimeString = timeString1 + "-" + timeString2;
 			userCommand.setUserTimeString(newTimeString);
-		}
+		} 
 	}
 
 	private static String timeToTimeString(String timeString) {

@@ -16,10 +16,10 @@ public class Storage {
 	public Storage(){
 		mainFile = new File("main.txt");
 		this.checkFileExist(mainFile);
-		mainFileName = "main.txt";
+		setMainFileName("main.txt");
 		toDoFile = new File("todo.txt");
 		this.checkFileExist(toDoFile);
-		mainFileName = "todo.txt";
+		setMainFileName("todo.txt");
 	}
 	
 	
@@ -66,9 +66,37 @@ public class Storage {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private String changeToYYMMDD(String date){
 		date = date.substring(4,6) + date.substring(2,3) + date.substring(0, 2);
 		return date;
+	}
+
+
+	public ArrayList<String> showDateEvents(String userDateString) {
+		// TODO Auto-generated method stub
+		ArrayList<String> list = new ArrayList<String>();
+		return list;
+	}
+
+
+	public String getMainFileName() {
+		return mainFileName;
+	}
+
+
+	public void setMainFileName(String mainFileName) {
+		this.mainFileName = mainFileName;
+	}
+
+
+	public String getToDoFileName() {
+		return toDoFileName;
+	}
+
+
+	public void setToDoFileName(String toDoFileName) {
+		this.toDoFileName = toDoFileName;
 	}
 	
 }
