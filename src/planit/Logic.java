@@ -53,8 +53,7 @@ public class Logic {
 	 * Operations
 	 */
 	
-	public static void executeCommand() throws IOException {
-		String userInput = Welcome.requestInput();
+	public static void executeCommand(String userInput) throws IOException {
 		Storage sto = new Storage();
 //		while (!userInput.equals(null)) {
 			userCommand = new Command(userInput);

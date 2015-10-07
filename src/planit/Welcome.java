@@ -14,8 +14,10 @@ public class Welcome {
 	private static final String MESSAGE_EVENING = "Good evening, Jim!";
 	private static final String MESSAGE_TODAY = "Your tasks for today are as follows: ";
 	private static final String MESSAGE_PROMPT = "Do you have any tasks to add?";
-	private static final String MESSAGE_SUCCESS = "Success!";
+	private static final String MESSAGE_SUCCESS = "Success! ";
 	private static final String MESSAGE_ADDED = " has been added to your schedule:)";
+	
+	private static final String COMMAND_EXIT = "exit";
 	
 	
 	private static DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -24,7 +26,15 @@ public class Welcome {
 	
 	public static void main(String[] args) throws IOException {
 		welcomeMessage();
-		Logic.executeCommand();
+		String userInput = requestInput();
+
+		while(!userInput.equals(COMMAND_EXIT)) {
+			Logic.executeCommand(userInput);
+			printPrompt();
+			userInput = requestInput();
+		}
+		System.exit(0);
+		
 	}
 	public static void welcomeMessage() {
 		if(getMornNight() >= 4 && getMornNight() < 12) {
