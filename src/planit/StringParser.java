@@ -28,7 +28,7 @@ public class StringParser {
 	private static final int DATE_LENGTH = 6;
 	private static final int TIME_LENGTH = 4;
 
-	private static final int ARRAY_SIZE = 2;
+	//private static final int ARRAY_SIZE = 2;
 
 	private static final int INDEX_ADD_ONE = 1;
 
@@ -53,7 +53,7 @@ public class StringParser {
 				.substring(stringArray.get(INDEX_FIRST).indexOf(STRING_WHITESPACE) + INDEX_ADD_ONE).trim();
 	}
 
-	public String[] extractUserDate(String userStringInput) {
+	public ArrayList<String> extractUserDate(String userStringInput) {
 		ArrayList<String> timeArray = extractTimeArguments(userStringInput);
 		ArrayList<String> userDate = new ArrayList<String>();
 		for (String date : timeArray) {
@@ -61,11 +61,11 @@ public class StringParser {
 				userDate.add(date);
 			}
 		}
-		String[] resultString = userDate.toArray(new String[ARRAY_SIZE]);
-		return resultString;
+		//String[] resultString = userDate.toArray(new String[ARRAY_SIZE]);
+		return userDate;
 	}
 
-	public String[] extractUserTime(String userStringInput) {
+	public ArrayList<String> extractUserTime(String userStringInput) {
 		ArrayList<String> timeArray = extractTimeArguments(userStringInput);
 		ArrayList<String> userTime = new ArrayList<String>();
 		for (String time : timeArray) {
@@ -73,8 +73,8 @@ public class StringParser {
 				userTime.add(time);
 			}
 		}
-		String[] resultString = userTime.toArray(new String[ARRAY_SIZE]);
-		return resultString;
+		//String[] resultString = userTime.toArray(new String[ARRAY_SIZE]);
+		return userTime;
 	}
 
 	private ArrayList<String> extractTimeArguments(String userStringInput) {
