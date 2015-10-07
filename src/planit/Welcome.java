@@ -20,9 +20,7 @@ public class Welcome {
 	private static final String MESSAGE_DELETED = "is deleted from your schedule! ";
 	private static final String MESSAGE_SEARCHED = "is found in your schedule! ";
 	
-	
 	private static final String COMMAND_EXIT = "exit";
-	
 	
 	private static DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private static Calendar cal = Calendar.getInstance();
@@ -47,39 +45,41 @@ public class Welcome {
 	
 	public static void welcomeMessage() {
 		if(getMornNight() >= 4 && getMornNight() < 12) {
-			 printWelcomeMorning();
+			 printWelcome(MESSAGE_MORNING);
 		}
 		else if(getMornNight() >= 12 && getMornNight() < 18) {
-			printWelcomeAfternoon();
+			printWelcome(MESSAGE_AFTERNOON);
 		}
 		else if(getMornNight() >= 18 && getMornNight() < 4) {
-			printWelcomeEvening();
+			printWelcome(MESSAGE_EVENING);
 		}
-		else {
-			printWelcomeEvening();
-		}
+//		else {
+//			printWelcomeEvening();
+//		}
 		getDate();
 		printToday();
 		printPrompt();
 	}
 	
 	private static void printPrompt() {
-		System.out.println(MESSAGE_PROMPT);
-		
+		System.out.println(MESSAGE_PROMPT);	
 	}
 
-	private static void printWelcomeMorning() {
-		System.out.println(MESSAGE_MORNING);
+	private static void printWelcome(String msg) {
+		System.out.println(msg);
 	}
 
-	private static void printWelcomeEvening() {
-		System.out.println(MESSAGE_EVENING);
-		
-	}
-
-	private static void printWelcomeAfternoon() {
-		System.out.println(MESSAGE_AFTERNOON);
-	}
+//	private static void printWelcomeMorning() {
+//		System.out.println(MESSAGE_MORNING);
+//	}
+//
+//	private static void printWelcomeEvening() {
+//		System.out.println(MESSAGE_EVENING);
+//	}
+//
+//	private static void printWelcomeAfternoon() {
+//		System.out.println(MESSAGE_AFTERNOON);
+//	}
 
 	private static void printToday() {
 		System.out.println(MESSAGE_TODAY);
