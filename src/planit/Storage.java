@@ -66,9 +66,11 @@ public class Storage {
 		}
 	}
 	
-	private String changeToYYMMDD(String date){
-		date = date.substring(4,6) + date.substring(2,3) + date.substring(0, 2);
+	//change DD/MM/YY to YY/MM/DD and otherwise
+	protected static String changeDDMMYY(String date){
+		date = date.substring(6,8) + date.substring(2,6) + date.substring(0, 2);
 		return date;
 	}
+	
 	
 }
