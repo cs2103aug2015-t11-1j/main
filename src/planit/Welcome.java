@@ -13,6 +13,8 @@ public class Welcome {
 	private static final String MESSAGE_EVENING = "Good evening, Jim!";
 	private static final String MESSAGE_TODAY = "Your tasks for today are as follows: ";
 	private static final String MESSAGE_PROMPT = "Do you have any tasks to add?";
+	private static final String MESSAGE_SUCCESS = "Success!";
+	private static final String MESSAGE_ADDED = " has been added to your schedule:)";
 	
 	
 	private static DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -78,7 +80,7 @@ public class Welcome {
 	}
 
 	public static void printAddedEvent(String addedTask) {
-		// TODO Auto-generated method stub
+		System.out.println(MESSAGE_SUCCESS + addedTask + MESSAGE_ADDED);
 		
 	}
 

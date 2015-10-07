@@ -118,7 +118,9 @@ public class Logic {
 	}
 
 	private static void formatDateString(Command userCommand) {
-		String[] dateArray = userCommand.getUserDateRange();
+		
+		String [] dateArray = userCommand.getUserDateRange();
+		
 		if (dateArray.length == 1) {
 			String newDateString = dateToDateString(dateArray[INDEX_FIRST]);
 			userCommand.setUserDateString(newDateString);
