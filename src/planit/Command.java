@@ -11,7 +11,7 @@ public class Command {
 	private static final int INDEX_SECOND = 1;
 
 //	private static final int RANGE_ARRAY_SIZE = 2;
-
+	
 	private static StringParser sp = new StringParser();
 
 	private String userStringInput;
@@ -35,7 +35,7 @@ public class Command {
 		this.setUserCommand(userStringInput);
 		this.setUserEventTask(userStringInput);
 		this.setUserDate(userStringInput);
-		this.setUserTime(userStringInput);		
+		this.setUserTime(userStringInput);
 	}
 
 
@@ -112,11 +112,11 @@ public class Command {
 	
 	private void setUserDate(String userStringInput) {
 		userDateRange = sp.extractUserDate(userStringInput);
-		if (userDateRange.isEmpty()) {
+		/*if (userDateRange.isEmpty() && !userTimeRange.isEmpty()) {
 			Date today = Calendar.getInstance().getTime();
 			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
 			userDateRange.add(sdf.format(today));
-		}
+		}*/
 	}
 	
 	private void setUserTime(String userStringInput) {
