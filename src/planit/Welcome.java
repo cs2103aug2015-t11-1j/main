@@ -37,7 +37,7 @@ public class Welcome {
 
 		while(!userInput.equals(COMMAND_EXIT)) {
 			Logic.executeCommand(userInput);
-			printPrompt();
+			printMsg(MESSAGE_PROMPT);
 			userInput = requestInput();
 		}
 		System.exit(0);
@@ -45,41 +45,22 @@ public class Welcome {
 	
 	public static void welcomeMessage() {
 		if(getMornNight() >= 4 && getMornNight() < 12) {
-			 printWelcome(MESSAGE_MORNING);
+			 printMsg(MESSAGE_MORNING);
 		}
 		else if(getMornNight() >= 12 && getMornNight() < 18) {
-			printWelcome(MESSAGE_AFTERNOON);
+			printMsg(MESSAGE_AFTERNOON);
 		}
-		else if(getMornNight() >= 18 && getMornNight() < 4) {
-			printWelcome(MESSAGE_EVENING);
+		else {
+			printMsg(MESSAGE_EVENING);
 		}
-//		else {
-//			printWelcomeEvening();
-//		}
 		getDate();
 		printToday();
-		printPrompt();
+		printMsg(MESSAGE_PROMPT);
 	}
 	
-	private static void printPrompt() {
-		System.out.println(MESSAGE_PROMPT);	
+	private static void printMsg(String message) {
+		System.out.println(message);
 	}
-
-	private static void printWelcome(String msg) {
-		System.out.println(msg);
-	}
-
-//	private static void printWelcomeMorning() {
-//		System.out.println(MESSAGE_MORNING);
-//	}
-//
-//	private static void printWelcomeEvening() {
-//		System.out.println(MESSAGE_EVENING);
-//	}
-//
-//	private static void printWelcomeAfternoon() {
-//		System.out.println(MESSAGE_AFTERNOON);
-//	}
 
 	private static void printToday() {
 		System.out.println(MESSAGE_TODAY);
@@ -103,27 +84,26 @@ public class Welcome {
 	}
 
 	public static void printAddedEvent(String addedTask) {
-		System.out.println(MESSAGE_SUCCESS + addedTask + MESSAGE_ADDED);
+		printMsg(MESSAGE_SUCCESS + addedTask + MESSAGE_ADDED);
 		
 	}
 
 	public static void printShowEvent(ArrayList<String> eventToShow) {
-		// TODO Auto-generated method stub
 		for(int i=0; i<eventToShow.size(); i++){
-			System.out.println(eventToShow.get(i));
+			printMsg(eventToShow.get(i));
 		}
 	}
 
 	public static void printSearchEvent(ArrayList<String> searchedEvent) {
 		System.out.println(MESSAGE_SUCCESS);
 		for(int i=0; i<searchedEvent.size(); i++){
-			System.out.println(searchedEvent.get(i));
+			printMsg(searchedEvent.get(i));
 		}
-		System.out.println(MESSAGE_SEARCHED);
+		printMsg(MESSAGE_SEARCHED);
 	}
 
 	public static void printDeletedTask(String taskToDelete) {
-		System.out.println(MESSAGE_SUCCESS + taskToDelete + MESSAGE_DELETED);
+		printMsg(MESSAGE_SUCCESS + taskToDelete + MESSAGE_DELETED);
 	}
 	
 	
