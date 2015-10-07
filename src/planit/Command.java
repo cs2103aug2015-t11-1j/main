@@ -15,27 +15,27 @@ public class Command {
 
 	private String userStringInput;
 
-	private static String userCommand = null; //Action type
+	private String userCommand = null; //Action type
 
-	private static String userEventTask = null; // Type of event/task
+	private String userEventTask = null; // Type of event/task
 
-	private static String[] userDateRange = new String[RANGE_ARRAY_SIZE]; // Array of dates
-	private static String userDateString = null; // formatted string of date/dates
+	private String[] userDateRange = new String[RANGE_ARRAY_SIZE]; // Array of dates
+	private String userDateString = null; // formatted string of date/dates
 	
-	private static String[] userTimeRange = new String[RANGE_ARRAY_SIZE];
-	private static String userTimeString = null; // formatted string of date/dates
+	private String[] userTimeRange = new String[RANGE_ARRAY_SIZE];
+	private String userTimeString = null; // formatted string of date/dates
 	
 	
 	public Command(String userStringInput) {
-		setUserStringInput(userStringInput);
-		executeParsing(userStringInput);
+		this.setUserStringInput(userStringInput);
+		this.executeParsing(userStringInput);
 	}
 
-	private static void executeParsing(String userStringInput) {
-		setUserCommand(userStringInput);
-		setUserEventTask(userStringInput);
-		setUserDate(userStringInput);
-		setUserTime(userStringInput);		
+	private void executeParsing(String userStringInput) {
+		this.setUserCommand(userStringInput);
+		this.setUserEventTask(userStringInput);
+		this.setUserDate(userStringInput);
+		this.setUserTime(userStringInput);		
 	}
 
 
@@ -102,24 +102,24 @@ public class Command {
 		this.userStringInput = userStringInput;
 	}
 	
-	private static void setUserCommand(String userStringInput) {
+	private void setUserCommand(String userStringInput) {
 		userCommand = sp.extractUserCommand(userStringInput);
 	}
 	
-	private static void setUserEventTask(String userStringInput) {
+	private void setUserEventTask(String userStringInput) {
 		userEventTask = sp.extractUserEventTask(userStringInput);
 	}
 	
-	private static void setUserDate(String userStringInput) {
+	private void setUserDate(String userStringInput) {
 		userDateRange = sp.extractUserDate(userStringInput);
-		if (userDateRange[INDEX_FIRST].equals(null) && userDateRange[INDEX_SECOND].equals(null)) {
+		if (userDateRange[INDEX_FIRST].equals(null)) {
 			Date today = Calendar.getInstance().getTime();
 			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
 			userDateRange[INDEX_FIRST] = sdf.format(today);
 		}
 	}
 	
-	private static void setUserTime(String userStringInput) {
+	private void setUserTime(String userStringInput) {
 		userTimeRange = sp.extractUserTime(userStringInput);
 	}
 	

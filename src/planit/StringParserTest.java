@@ -110,7 +110,7 @@ public class StringParserTest {
 		String testString = "add this event > 1111 to 2222";
 		StringParser sp = new StringParser();
 		String[] resultArray = sp.extractUserDate(testString);
-		String[] expectedArray = {null, null};
+		String[] expectedArray = { null, null };
 
 		assertArrayEquals(expectedArray, resultArray);
 	}
