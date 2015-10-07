@@ -1,8 +1,10 @@
 package planit;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Storage {
 	private String mainFileName;
@@ -21,7 +23,7 @@ public class Storage {
 	
 	
 	//
-	public static String storeNewEvent(Command cmd) throws IOException {
+	public String storeNewEvent(Command cmd) throws IOException {
 //		String item = userCommand.
 		if(cmd.getUserDateString().equals(null) && cmd.getUserTimeString().equals(null)){
 			FileWriter fwTodo= new FileWriter(toDoFile, true);
@@ -32,9 +34,11 @@ public class Storage {
 		} else {
 			String line = new String(cmd.getUserDateString() + " " + cmd.getUserTimeString() + " " + cmd.getUserEventTask());
 			FileWriter fwMain = new FileWriter(mainFile, true);
-			fwMain.write(line);
-			fwMain.write(System.lineSeparator());
-			fwMain.close();
+			BufferedWriter bwMain = new BufferedWriter(fwMain);
+			PrintWriter pwMain = new PrintWriter(bwMain);
+			pwMain.write(line);
+			pwMain.write(System.lineSeparator());
+			pwMain.close();
 			return line;
 		}
 	}

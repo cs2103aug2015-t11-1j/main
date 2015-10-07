@@ -2,6 +2,7 @@ package planit;
 
 import java.util.Calendar;
 import java.util.Scanner;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -21,7 +22,10 @@ public class Welcome {
 	private static Calendar cal = Calendar.getInstance();
 	private static Scanner sc;
 	
-
+	public static void main(String[] args) throws IOException {
+		welcomeMessage();
+		Logic.executeCommand();
+	}
 	public static void welcomeMessage() {
 		if(getMornNight() >= 4 && getMornNight() < 12) {
 			 printWelcomeMorning();

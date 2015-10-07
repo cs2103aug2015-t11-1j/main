@@ -27,10 +27,7 @@ public class Logic {
 		this.userCommand = userCommand;
 	}
 	
-	public static void main(String[] args) throws IOException {
-		Welcome.welcomeMessage();
-		executeCommand();
-	}
+
 
 	private static ACTION_TYPE getActionType(String userAction) {
 		if (userAction.equalsIgnoreCase("add")) {
@@ -56,15 +53,16 @@ public class Logic {
 	 * Operations
 	 */
 	
-	private static void executeCommand() throws IOException {
+	public static void executeCommand() throws IOException {
 		String userInput = Welcome.requestInput();
-		while (!userInput.equals(null)) {
+		Storage sto = new Storage();
+//		while (!userInput.equals(null)) {
 			userCommand = new Command(userInput);
 			type = getActionType(userCommand.getUserCommand());
 			switch (type) {
 			case ADD:
 				formatEventDetails(userCommand);
-				String addedTask = Storage.storeNewEvent(userCommand);
+				String addedTask = sto.storeNewEvent(userCommand);
 				Welcome.printAddedEvent(addedTask);
 				break;
 			case SHOW:
@@ -93,7 +91,7 @@ public class Logic {
 			}
 		}
 		
-	}
+//	}
 
 	private static void formatEventDetails(Command userCommand) {
 		formatDateString(userCommand);
