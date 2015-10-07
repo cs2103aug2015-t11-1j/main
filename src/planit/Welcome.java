@@ -14,11 +14,12 @@ public class Welcome {
 	private static final String MESSAGE_AFTERNOON = "Good afternoon, Jim!";
 	private static final String MESSAGE_EVENING = "Good evening, Jim!";
 	private static final String MESSAGE_TODAY = "Your tasks for today are as follows: ";
-	private static final String MESSAGE_PROMPT = "Do you have any tasks to add?";
+	private static final String MESSAGE_PROMPT = "What would you like to do today?";
 	private static final String MESSAGE_SUCCESS = "Success! ";
 	private static final String MESSAGE_ADDED = " is added to your schedule:)";
 	private static final String MESSAGE_DELETED = "is deleted from your schedule! ";
 	private static final String MESSAGE_SEARCHED = "is found in your schedule! ";
+	private static final String MESSAGE_SEARCH_ERROR = "Sadly your event is not found:(";
 	
 	private static final String COMMAND_EXIT = "exit";
 	
@@ -95,11 +96,16 @@ public class Welcome {
 	}
 
 	public static void printSearchEvent(ArrayList<String> searchedEvent) {
-		System.out.println(MESSAGE_SUCCESS);
-		for(int i=0; i<searchedEvent.size(); i++){
-			printMsg(searchedEvent.get(i));
+		if(searchedEvent.size() == 0) {
+			printMsg(MESSAGE_SEARCH_ERROR);
 		}
+		else {
+			System.out.println(MESSAGE_SUCCESS);
+			for(int i=0; i<searchedEvent.size(); i++){
+				printMsg(searchedEvent.get(i));
+			}
 		printMsg(MESSAGE_SEARCHED);
+		}
 	}
 
 	public static void printDeletedTask(String taskToDelete) {
