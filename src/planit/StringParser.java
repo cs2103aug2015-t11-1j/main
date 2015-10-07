@@ -94,9 +94,15 @@ public class StringParser {
 	}
 
 	private ArrayList<String> extractTimeArguments(String userStringInput) {
-		ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
-		ArrayList<String> timeArray = splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND).trim());
-		return timeArray;
+		ArrayList<String> timeArray = new ArrayList<String>();
+		if (userStringInput.contains(STRING_RIGHT_ANGLE_BRACKETS)) {
+			ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
+			timeArray = splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND).trim());
+			return timeArray;
+		}
+		else {
+			return timeArray;
+		}
 	}
 
 	/*

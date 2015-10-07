@@ -116,7 +116,8 @@ public class StringParserTest {
 		StringParser sp = new StringParser();
 		ArrayList<String> resultArray = sp.extractUserDate(testString);
 		String[] resultString = resultArray.toArray(new String[2]);
-		String[] expectedArray = { null, null };
+		// first index is dependent on the current date
+		String[] expectedArray = { "081015", null };
 
 		assertArrayEquals(expectedArray, resultString);
 	}
