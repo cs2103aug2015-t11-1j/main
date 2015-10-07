@@ -1,8 +1,8 @@
 package planit;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -25,26 +25,12 @@ public class Storage {
 	
 	//
 	public String storeNewEvent(Command cmd) throws IOException {
-//		String item = userCommand.
-		if(cmd.getUserDateString().equals(null) && cmd.getUserTimeString().equals(null)){
-			FileWriter fwTodo= new FileWriter(toDoFile, true);
-			fwTodo.write(cmd.getUserEventTask());
-			fwTodo.write(System.lineSeparator());
-			fwTodo.close();
-			return cmd.getUserEventTask();
-		} else {
-			String line = new String(cmd.getUserDateString() + " " + cmd.getUserTimeString() + " " + cmd.getUserEventTask());
-			FileWriter fwMain = new FileWriter(mainFile, true);
-			BufferedWriter bwMain = new BufferedWriter(fwMain);
-			PrintWriter pwMain = new PrintWriter(bwMain);
-			pwMain.write(line);
-			pwMain.write(System.lineSeparator());
-			pwMain.close();
-			return line;
-		}
+		String line = new String(changeDDMMYY(cmd.getUserDateString()) + " " + cmd.getUserTimeString() + " " + cmd.getUserEventTask());
+		writeToFile(line, mainFile);
+		return line;
 	}
 
-	public ArrayList<String> searchCommandParam(String userEventTask) {
+	public ArrayList<String> searchCommandKey(String userEventTask) {
 		// TODO Auto-generated method stub
 		ArrayList<String> list = new ArrayList<String>();
 		return list;
@@ -66,8 +52,21 @@ public class Storage {
 		}
 	}
 	
+	//write line to file
+	private void writeToFile(String line, File file){
+		PrintWriter pwMain;
+		try {
+			pwMain = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+			pwMain.write(line);
+			pwMain.write(System.lineSeparator());
+			pwMain.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//change DD/MM/YY to YY/MM/DD and otherwise
-	protected static String changeDDMMYY(String date){
+	private static String changeDDMMYY(String date){
 		date = date.substring(6,8) + date.substring(2,6) + date.substring(0, 2);
 		return date;
 	}

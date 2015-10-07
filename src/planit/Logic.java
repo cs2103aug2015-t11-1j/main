@@ -64,12 +64,12 @@ public class Logic {
 			break;
 		case SHOW:
 			formatEventDetails(userCommand);
-			ArrayList<String> eventToShow = sto.searchCommandParam(userCommand.getUserEventTask());
+			ArrayList<String> eventToShow = sto.searchCommandKey(userCommand.getUserEventTask());
 			Welcome.printShowEvent(eventToShow);
 			break;
 		case SEARCH:
-			String searchParam = userCommand.getUserEventTask();
-			ArrayList<String> searchedEvent = sto.searchCommandParam(searchParam);
+			String searchKey = userCommand.getUserEventTask();
+			ArrayList<String> searchedEvent = sto.searchCommandKey(searchKey);
 			Welcome.printSearchEvent(searchedEvent);
 			break;
 		case UPDATE:
