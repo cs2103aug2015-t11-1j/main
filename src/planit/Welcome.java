@@ -1,5 +1,6 @@
 package planit;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 import java.io.IOException;
@@ -15,7 +16,10 @@ public class Welcome {
 	private static final String MESSAGE_TODAY = "Your tasks for today are as follows: ";
 	private static final String MESSAGE_PROMPT = "Do you have any tasks to add?";
 	private static final String MESSAGE_SUCCESS = "Success! ";
-	private static final String MESSAGE_ADDED = " has been added to your schedule:)";
+	private static final String MESSAGE_ADDED = " is added to your schedule:)";
+	private static final String MESSAGE_DELETED = "is deleted from your schedule! ";
+	private static final String MESSAGE_SEARCHED = "is found in your schedule! ";
+	
 	
 	private static final String COMMAND_EXIT = "exit";
 	
@@ -26,6 +30,11 @@ public class Welcome {
 	
 	public static void main(String[] args) throws IOException {
 		welcomeMessage();
+		initiateProg();
+		
+	}
+	
+	private static void initiateProg() throws IOException {
 		String userInput = requestInput();
 
 		while(!userInput.equals(COMMAND_EXIT)) {
@@ -34,8 +43,8 @@ public class Welcome {
 			userInput = requestInput();
 		}
 		System.exit(0);
-		
 	}
+	
 	public static void welcomeMessage() {
 		if(getMornNight() >= 4 && getMornNight() < 12) {
 			 printWelcomeMorning();
@@ -98,19 +107,23 @@ public class Welcome {
 		
 	}
 
-	public static void printShowEvent(String eventToShow) {
+	public static void printShowEvent(ArrayList<String> eventToShow) {
 		// TODO Auto-generated method stub
-		
+		for(int i=0; i<eventToShow.size(); i++){
+			System.out.println(eventToShow.get(i));
+		}
 	}
 
-	public static void printSearchEvent(String searchedEvent) {
-		// TODO Auto-generated method stub
-		
+	public static void printSearchEvent(ArrayList<String> searchedEvent) {
+		System.out.println(MESSAGE_SUCCESS);
+		for(int i=0; i<searchedEvent.size(); i++){
+			System.out.println(searchedEvent.get(i));
+		}
+		System.out.println(MESSAGE_SEARCHED);
 	}
 
 	public static void printDeletedTask(String taskToDelete) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(MESSAGE_SUCCESS + taskToDelete + MESSAGE_DELETED);
 	}
 	
 	
