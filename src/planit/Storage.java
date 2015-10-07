@@ -15,10 +15,11 @@ public class Storage {
 	private String mainFileName;
 	private int mainCount;
 	
-	public Storage(){
+	public Storage() throws IOException{
 		mainFile = new File("main.txt");
 		this.checkFileExist(mainFile);
 		setMainFileName("main.txt");
+		mainCount = lineCounter(mainFile);
 	}
 
 	/*****MAIN FEATURES METHOD*****/
@@ -31,9 +32,8 @@ public class Storage {
 	}
 
 	public ArrayList<String> searchCommandKey(String key) {
-		// TODO Auto-generated method stub
-		ArrayList<String> list = extract(mainFile);
 		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String> list = extract(mainFile);
 		int count = 0;
 		while (count < this.mainCount){
 			if(list.get(count).toLowerCase().contains(key.toLowerCase())){
@@ -100,6 +100,17 @@ public class Storage {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	//count lines in file
+	private static int lineCounter(File file) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		int lineCount = 0;
+		while (br.readLine() != null) {
+			lineCount++;
+		}
+		br.close();
+		return lineCount;
 	}
 	
 	//change DD/MM/YY to YY/MM/DD and otherwise
