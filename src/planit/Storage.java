@@ -66,9 +66,13 @@ public class Storage {
 		}
 	}
 	
-	@SuppressWarnings("unused")
+
 	private String changeToYYMMDD(String date){
-		date = date.substring(4,6) + date.substring(2,3) + date.substring(0, 2);
+		return date = date.substring(4,6) + date.substring(2,3) + date.substring(0, 2);
+	}
+	//change DD/MM/YY to YY/MM/DD and otherwise
+	private static String changeDDMMYY(String date){
+		date = date.substring(6,8) + date.substring(2,6) + date.substring(0, 2);
 		return date;
 	}
 
@@ -98,5 +102,6 @@ public class Storage {
 	public void setToDoFileName(String toDoFileName) {
 		this.toDoFileName = toDoFileName;
 	}
+	
 	
 }
