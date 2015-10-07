@@ -30,8 +30,6 @@ public class Storage {
 			fwTodo.close();
 			return cmd.getUserEventTask();
 		} else {
-			// TODO Auto-generated method stub
-			// Return String with <event><dateString><timeString>
 			String line = new String(cmd.getUserDateString() + " " + cmd.getUserTimeString() + " " + cmd.getUserEventTask());
 			FileWriter fwMain = new FileWriter(mainFile, true);
 			fwMain.write(line);
@@ -60,6 +58,11 @@ public class Storage {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private String changeToYYMMDD(String date){
+		date = date.substring(4,6) + date.substring(2,3) + date.substring(0, 2);
+		return date;
 	}
 	
 }
