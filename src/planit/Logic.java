@@ -6,6 +6,7 @@
 package planit;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Logic {
 
@@ -16,7 +17,7 @@ public class Logic {
 	private static final int INDEX_FIRST = 0;
 	private static final int INDEX_SECOND = 1;
 
-	private static final int RANGE_ARRAY_SIZE = 2;
+//	private static final int RANGE_ARRAY_SIZE = 2;
 	
 	private static Command userCommand;
 	
@@ -100,13 +101,13 @@ public class Logic {
 	}
 
 	private static void formatTimeString(Command userCommand) {
-		String[] timeArray = userCommand.getUserTimeRange();
-		if (timeArray.length == 1) {
-			String newTimeString = timeToTimeString(timeArray[INDEX_FIRST]);
+		ArrayList<String> timeArray = userCommand.getUserTimeRange();
+		if (timeArray.size() == 1) {
+			String newTimeString = timeToTimeString(timeArray.get(INDEX_FIRST));
 			userCommand.setUserTimeString(newTimeString);
 		} else {
-			String timeString1 = timeToTimeString(timeArray[INDEX_FIRST]);
-			String timeString2 = timeToTimeString(timeArray[INDEX_SECOND]);
+			String timeString1 = timeToTimeString(timeArray.get(INDEX_FIRST));
+			String timeString2 = timeToTimeString(timeArray.get(INDEX_SECOND));
 			String newTimeString = timeString1 + "-" + timeString2;
 			userCommand.setUserTimeString(newTimeString);
 		}
@@ -119,14 +120,14 @@ public class Logic {
 
 	private static void formatDateString(Command userCommand) {
 		
-		String [] dateArray = userCommand.getUserDateRange();
+		ArrayList<String> dateArray = userCommand.getUserDateRange();
 		
-		if (dateArray.length == 1) {
-			String newDateString = dateToDateString(dateArray[INDEX_FIRST]);
+		if (dateArray.size() == 1) {
+			String newDateString = dateToDateString(dateArray.get(INDEX_FIRST));
 			userCommand.setUserDateString(newDateString);
 		} else {
-			String dateString1 = dateToDateString(dateArray[INDEX_FIRST]);
-			String dateString2 = dateToDateString(dateArray[INDEX_SECOND]);
+			String dateString1 = dateToDateString(dateArray.get(INDEX_FIRST));
+			String dateString2 = dateToDateString(dateArray.get(INDEX_SECOND));
 			String newDateString = dateString1 + "-" + dateString2;
 			userCommand.setUserDateString(newDateString);
 		}
