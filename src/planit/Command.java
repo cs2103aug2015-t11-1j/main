@@ -112,11 +112,11 @@ public class Command {
 	
 	private void setUserDate(String userStringInput) {
 		userDateRange = sp.extractUserDate(userStringInput);
-		if (userDateRange.isEmpty() && !userTimeRange.isEmpty()) {
+		/*if (userDateRange.isEmpty() && !userTimeRange.isEmpty()) {
 			Date today = Calendar.getInstance().getTime();
 			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
 			userDateRange.add(sdf.format(today));
-		}
+		}*/
 	}
 	
 	private void setUserTime(String userStringInput) {

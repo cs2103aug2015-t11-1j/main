@@ -15,6 +15,7 @@
 
 package planit;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class StringParser {
@@ -30,7 +31,7 @@ public class StringParser {
 	private static final int DATE_LENGTH = 6;
 	private static final int TIME_LENGTH = 4;
 
-	//private static final int ARRAY_SIZE = 2;
+	// private static final int ARRAY_SIZE = 2;
 
 	private static final int INDEX_ADD_ONE = 1;
 
@@ -56,14 +57,23 @@ public class StringParser {
 	}
 
 	public ArrayList<String> extractUserDate(String userStringInput) {
+		boolean containsTimeInput = false;
 		ArrayList<String> timeArray = extractTimeArguments(userStringInput);
 		ArrayList<String> userDate = new ArrayList<String>();
 		for (String date : timeArray) {
 			if (date.length() == DATE_LENGTH) {
 				userDate.add(date);
 			}
+			if (date.length() == TIME_LENGTH) {
+				containsTimeInput = true;
+			}
 		}
-		//String[] resultString = userDate.toArray(new String[ARRAY_SIZE]);
+		if (userDate.isEmpty() && containsTimeInput == true) {
+			Date today = Calendar.getInstance().getTime();
+			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+			userDate.add(sdf.format(today));
+		}
+		// String[] resultString = userDate.toArray(new String[ARRAY_SIZE]);
 		return userDate;
 	}
 
@@ -75,7 +85,11 @@ public class StringParser {
 				userTime.add(time);
 			}
 		}
-		//String[] resultString = userTime.toArray(new String[ARRAY_SIZE]);
+		if (userTime.isEmpty()) {
+			userTime.add("???");
+			userTime.add("???");
+		}
+		// String[] resultString = userTime.toArray(new String[ARRAY_SIZE]);
 		return userTime;
 	}
 
