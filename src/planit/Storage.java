@@ -44,10 +44,17 @@ public class Storage {
 		return result;
 	}
 
-	public ArrayList<String> showDateEvents(String userDateString) {
-		// TODO Auto-generated method stub
-		ArrayList<String> list = new ArrayList<String>();
-		return list;
+	public ArrayList<String> showDateEvents(String key) {
+		ArrayList<String> result = new ArrayList<String>();
+		ArrayList<String> list = extract(mainFile);
+		int count = 0;
+		while (count < this.mainCount){
+			if(list.get(count).contains(changeDDMMYY(key))){
+				result.add(list.get(count));
+			}
+			count++;
+		}
+		return result;
 	}
 
 	public static void deleteTask(String taskToDelete) {
