@@ -95,6 +95,4 @@ public class StringParser {
 		String[] stringSplitArrayDelimAngleBrackets = userStringInput.trim().split(STRING_RIGHT_ANGLE_BRACKETS);
 		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimAngleBrackets));
 	}
-	
-	// TODO : assume today's date if time is given but no date is given
 }

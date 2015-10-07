@@ -2,8 +2,6 @@ package planit;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 
 public class StringParserTest {
@@ -109,10 +107,10 @@ public class StringParserTest {
 	
 	@Test
 	public void testExtractUserDate4() {
-		String testString = "show > 111111";
+		String testString = "add this event > 1111 to 2222";
 		StringParser sp = new StringParser();
 		String[] resultArray = sp.extractUserDate(testString);
-		String[] expectedArray = { "111111", null };
+		String[] expectedArray = {null, null};
 
 		assertArrayEquals(expectedArray, resultArray);
 	}

@@ -1,8 +1,10 @@
 package planit;
 
-public class Command {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-	
+public class Command {
 
 	private static final int INDEX_FIRST = 0;
 	private static final int INDEX_SECOND = 1;
@@ -110,6 +112,11 @@ public class Command {
 	
 	private static void setUserDate(String userStringInput) {
 		userDateRange = sp.extractUserDate(userStringInput);
+		if (userDateRange[INDEX_FIRST].equals(null) && userDateRange[INDEX_SECOND].equals(null)) {
+			Date today = Calendar.getInstance().getTime();
+			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+			userDateRange[INDEX_FIRST] = sdf.format(today);
+		}
 	}
 	
 	private static void setUserTime(String userStringInput) {
