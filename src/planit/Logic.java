@@ -17,17 +17,15 @@ public class Logic {
 	private static final int INDEX_FIRST = 0;
 	private static final int INDEX_SECOND = 1;
 
-//	private static final int RANGE_ARRAY_SIZE = 2;
-	
-	private static Command userCommand;
-	
-	private static ACTION_TYPE type;
-	
-	public Logic (Command userCommand) {
-		this.userCommand = userCommand;
-	}
-	
+	// private static final int RANGE_ARRAY_SIZE = 2;
 
+	private static Command userCommand;
+
+	private static ACTION_TYPE type;
+
+	public Logic() {
+		
+	}
 
 	private static ACTION_TYPE getActionType(String userAction) {
 		if (userAction.equalsIgnoreCase("add")) {
@@ -48,49 +46,49 @@ public class Logic {
 			return ACTION_TYPE.INVALID;
 		}
 	}
-	
+
 	/*
 	 * Operations
 	 */
-	
+
 	public static void executeCommand(String userInput) throws IOException {
 		Storage sto = new Storage();
-//		while (!userInput.equals(null)) {
-			userCommand = new Command(userInput);
-			type = getActionType(userCommand.getUserCommand());
-			switch (type) {
-			case ADD:
-				formatEventDetails(userCommand);
-				String addedTask = sto.storeNewEvent(userCommand);
-				Welcome.printAddedEvent(addedTask);
-				break;
-			case SHOW:
-				formatEventDetails(userCommand);
-				String eventToShow = Storage.searchCommandParam(userCommand.getUserEventTask());
-				Welcome.printShowEvent(eventToShow);
-				break;
-			case SEARCH:
-				String searchParam = userCommand.getUserEventTask();
-				String searchedEvent = Storage.searchCommandParam(searchParam);
-				Welcome.printSearchEvent(searchedEvent);
-				break;
-			case UPDATE:
-				break;
-			case DONE:
-				break;
-			case DELETE:
-				String taskToDelete = userCommand.getUserEventTask();
-				Storage.deleteTask(taskToDelete);
-				Welcome.printDeletedTask(taskToDelete);
-				break;
-			case UNDO:
-				break;
-			default:
-				break;
-			}
+		// while (!userInput.equals(null)) {
+		userCommand = new Command(userInput);
+		type = getActionType(userCommand.getUserCommand());
+		switch (type) {
+		case ADD:
+			formatEventDetails(userCommand);
+			String addedTask = sto.storeNewEvent(userCommand);
+			Welcome.printAddedEvent(addedTask);
+			break;
+		case SHOW:
+			formatEventDetails(userCommand);
+			ArrayList<String> eventToShow = sto.searchCommandParam(userCommand.getUserEventTask());
+			Welcome.printShowEvent(eventToShow);
+			break;
+		case SEARCH:
+			String searchParam = userCommand.getUserEventTask();
+			ArrayList<String> searchedEvent = sto.searchCommandParam(searchParam);
+			Welcome.printSearchEvent(searchedEvent);
+			break;
+		case UPDATE:
+			break;
+		case DONE:
+			break;
+		case DELETE:
+			String taskToDelete = userCommand.getUserEventTask();
+			Storage.deleteTask(taskToDelete);
+			Welcome.printDeletedTask(taskToDelete);
+			break;
+		case UNDO:
+			break;
+		default:
+			break;
 		}
-		
-//	}
+	}
+
+	// }
 
 	private static void formatEventDetails(Command userCommand) {
 		formatDateString(userCommand);
@@ -116,9 +114,9 @@ public class Logic {
 	}
 
 	private static void formatDateString(Command userCommand) {
-		
+
 		ArrayList<String> dateArray = userCommand.getUserDateRange();
-		
+
 		if (dateArray.size() == 1) {
 			String newDateString = dateToDateString(dateArray.get(INDEX_FIRST));
 			userCommand.setUserDateString(newDateString);
@@ -132,7 +130,7 @@ public class Logic {
 
 	private static String dateToDateString(String dateString) {
 		String dateDay = dateString.substring(0, 2);
-		String dateMonth = dateString.substring(2,4);
+		String dateMonth = dateString.substring(2, 4);
 		String dateYear = dateString.substring(4);
 		String newDateString = dateDay + "/" + dateMonth + "/" + dateYear;
 		return newDateString;

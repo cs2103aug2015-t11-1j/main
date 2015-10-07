@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class Storage {
 	private String mainFileName;
@@ -43,9 +44,10 @@ public class Storage {
 		}
 	}
 
-	public static String searchCommandParam(String userEventTask) {
+	public ArrayList<String> searchCommandParam(String userEventTask) {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> list = new ArrayList<String>();
+		return list;
 	}
 
 	public static void deleteTask(String taskToDelete) {
