@@ -9,6 +9,8 @@
  * 4) <time> is in 24hr format
  * 5) ">" character always comes before date/time arguments
  * 7) There will always be a white space between <date> and <time>
+ * 
+ * TODO: consider parse(String) from Calendar api
  */
 
 package planit;

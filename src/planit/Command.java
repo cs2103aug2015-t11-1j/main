@@ -26,7 +26,6 @@ public class Command {
 	private ArrayList<String> userTimeRange = new ArrayList<String>(); // ArrayList of times
 	private String userTimeString = null; // formatted string of date/dates
 	
-	
 	public Command(String userStringInput) {
 		this.setUserStringInput(userStringInput);
 		this.executeParsing(userStringInput);
@@ -113,10 +112,10 @@ public class Command {
 	
 	private void setUserDate(String userStringInput) {
 		userDateRange = sp.extractUserDate(userStringInput);
-		if (userDateRange.get(INDEX_FIRST).equals(null)) {
+		if (userDateRange.isEmpty()) {
 			Date today = Calendar.getInstance().getTime();
 			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
-			userDateRange.set(INDEX_FIRST, sdf.format(today));
+			userDateRange.add(sdf.format(today));
 		}
 	}
 	
