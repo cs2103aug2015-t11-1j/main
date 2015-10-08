@@ -101,6 +101,7 @@ public class StringParser {
 			return timeArray;
 		}
 		else {
+			timeArray.addAll(null);
 			return timeArray;
 		}
 	}

@@ -1,3 +1,9 @@
+/*
+ * Command class allows a Command object to be created. This object holds all the necessary
+ * arguments present in the user's input
+ * 
+ */
+
 package planit;
 
 import java.text.SimpleDateFormat;
@@ -12,7 +18,7 @@ public class Command {
 
 //	private static final int RANGE_ARRAY_SIZE = 2;
 	
-	private static StringParser sp = new StringParser();
+//	private static StringParser sp = new StringParser();
 
 	private String userStringInput;
 
@@ -20,23 +26,23 @@ public class Command {
 
 	private String userEventTask = null; // Type of event/task
 
-	private ArrayList<String> userDateRange = new ArrayList<String>(); // ArrayList of dates
-	private String userDateString = null; // formatted string of date/dates
+	private ArrayList<String> userDateRange = new ArrayList<String>(2); // ArrayList of dates
+//	private String userDateString = null; // formatted string of date/dates
 	
-	private ArrayList<String> userTimeRange = new ArrayList<String>(); // ArrayList of times
-	private String userTimeString = null; // formatted string of date/dates
+	private ArrayList<String> userTimeRange = new ArrayList<String>(2); // ArrayList of times
+//	private String userTimeString = null; // formatted string of date/dates
 	
 	public Command(String userStringInput) {
 		this.setUserStringInput(userStringInput);
 		this.executeParsing(userStringInput);
 	}
 
-	private void executeParsing(String userStringInput) {
+/*	private void executeParsing(String userStringInput) {
 		this.setUserCommand(userStringInput);
 		this.setUserEventTask(userStringInput);
 		this.setUserDate(userStringInput);
 		this.setUserTime(userStringInput);
-	}
+	}*/
 
 
 	/*
@@ -46,7 +52,6 @@ public class Command {
 	 * <time> inputs
 	 * 
 	 */
-	
 	public String getUserCommand() {
 		return userCommand;
 	}
@@ -83,13 +88,13 @@ public class Command {
 		return userStringInput;
 	}
 
-	public String getUserDateString() {
+	/*public String getUserDateString() {
 		return userDateString;
 	}
 	
 	public String getUserTimeString() {
 		return userTimeString;
-	}
+	}*/
 	
 	/*
 	 * MUTATORS
@@ -98,20 +103,20 @@ public class Command {
 	 * class
 	 * 
 	 */
-	public void setUserStringInput(String userStringInput) {
-		this.userStringInput = userStringInput;
+	public void setUserStringInput(String str) {
+		this.userStringInput = str;
 	}
 	
-	private void setUserCommand(String userStringInput) {
-		userCommand = sp.extractUserCommand(userStringInput);
+	private void setUserCommand(String str) {
+		this.userCommand = str;
 	}
 	
-	private void setUserEventTask(String userStringInput) {
-		userEventTask = sp.extractUserEventTask(userStringInput);
+	private void setUserEventTask(String str) {
+		this.userEventTask = str;
 	}
 	
-	private void setUserDate(String userStringInput) {
-		userDateRange = sp.extractUserDate(userStringInput);
+	private void setUserDate(ArrayList<String> strArrayList) {
+		this.userDateRange = strArrayList;
 		/*if (userDateRange.isEmpty() && !userTimeRange.isEmpty()) {
 			Date today = Calendar.getInstance().getTime();
 			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
@@ -119,16 +124,16 @@ public class Command {
 		}*/
 	}
 	
-	private void setUserTime(String userStringInput) {
-		userTimeRange = sp.extractUserTime(userStringInput);
+	private void setUserTime(ArrayList<String> strArrayList) {
+		this.userTimeRange = strArrayList;
 	}
 	
-	public void setUserDateString(String dateString) {
+	/*public void setUserDateString(String dateString) {
 		userDateString = dateString;
 	}
 	
 	public void setUserTimeString(String timeString) {
 		userTimeString = timeString;
-	}
+	}*/
 	
 }
