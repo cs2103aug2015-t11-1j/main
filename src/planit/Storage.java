@@ -14,18 +14,19 @@ public class Storage {
 	private static File mainFile;
 	private String mainFileName;
 	private int mainCount;
-	
-	public Storage() throws IOException{
+
+	public Storage() throws IOException {
 		mainFile = new File("main.txt");
 		this.checkFileExist(mainFile);
 		setMainFileName("main.txt");
 		mainCount = lineCounter(mainFile);
 	}
 
-	/*****MAIN FEATURES METHOD*****/
-	//write new event or task into file
+	/***** MAIN FEATURES METHOD *****/
+	// write new event or task into file
 	public String storeNewEvent(Command cmd) throws IOException {
-		String line = new String(changeDDMMYY(cmd.getUserDateString()) + " " + cmd.getUserTimeString() + " " + cmd.getUserEventTask());
+		String line = new String(
+				changeDDMMYY(cmd.getUserDateString()) + " " + cmd.getUserTimeString() + " " + cmd.getUserEventTask());
 		writeToFile(line, mainFile);
 		mainCount++;
 		return line;
@@ -35,9 +36,9 @@ public class Storage {
 		ArrayList<String> result = new ArrayList<String>();
 		ArrayList<String> list = extract(mainFile);
 		int count = 0;
-		while (count < this.mainCount){
-			if(list.get(count).toLowerCase().contains(key.toLowerCase())){
-				result.add(list.get(count));
+		while (count < this.mainCount) {
+			if (list.get(count).toLowerCase().contains(key.toLowerCase())) {
+				result.add(changeDFinLine(list.get(count)));
 			}
 			count++;
 		}
@@ -48,35 +49,36 @@ public class Storage {
 		ArrayList<String> result = new ArrayList<String>();
 		ArrayList<String> list = extract(mainFile);
 		int count = 0;
-		while (count < this.mainCount){
-			if(list.get(count).contains(changeDDMMYY(key))){
-				result.add(list.get(count));
+		while (count < this.mainCount) {
+			if (list.get(count).contains(changeDDMMYY(key))) {
+				result.add(changeDFinLine(list.get(count)));
 			}
 			count++;
 		}
 		return result;
 	}
 
-	public static void deleteTask(String taskToDelete) {
-		// TODO Auto-generated method stub
+	public ArrayList<String> deleteTask(String key) {
+		ArrayList<String> result = searchCommandKey(key);
 		
+		return result;
 	}
 
-	/*****PRIVATE METHODS*****/
-	//catch IOException create file
+	/***** PRIVATE METHODS *****/
+	// catch IOException create file
 	private void checkFileExist(File file) {
-		try{
-			if(!file.exists()){
+		try {
+			if (!file.exists()) {
 				file.createNewFile();
 			}
-		} catch(IOException e) {
-			//TODO
+		} catch (IOException e) {
+			// TODO
 			e.printStackTrace();
 		}
 	}
-	
-	//write line to file
-	private void writeToFile(String line, File file){
+
+	// write line to file
+	private void writeToFile(String line, File file) {
 		PrintWriter pwMain;
 		try {
 			pwMain = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
@@ -87,29 +89,29 @@ public class Storage {
 			e.printStackTrace();
 		}
 	}
-	
-	private ArrayList<String> extract(File file){
+
+	private ArrayList<String> extract(File file) {
 		ArrayList<String> list = new ArrayList<String>();
 		BufferedReader br;
 		try {
 			br = new BufferedReader(new FileReader(file));
 			int count = 0;
-			while(count < this.mainCount){
-					list.add(br.readLine());
-					count++;
+			while (count < this.mainCount) {
+				list.add(br.readLine());
+				count++;
 			}
-			br.close();	
+			br.close();
 		} catch (FileNotFoundException e) {
-			//TODO
+			// TODO
 			e.printStackTrace();
 		} catch (IOException e) {
-			//TODO
+			// TODO
 			e.printStackTrace();
 		}
 		return list;
 	}
-	
-	//count lines in file
+
+	// count lines in file
 	private static int lineCounter(File file) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		int lineCount = 0;
@@ -119,14 +121,19 @@ public class Storage {
 		br.close();
 		return lineCount;
 	}
-	
-	//change DD/MM/YY to YY/MM/DD and otherwise
-	private static String changeDDMMYY(String date){
-		date = date.substring(6,8) + date.substring(2,6) + date.substring(0, 2);
+
+	// change DD/MM/YY to YY/MM/DD and otherwise
+	private static String changeDDMMYY(String date) {
+		date = date.substring(6, 8) + date.substring(2, 6) + date.substring(0, 2);
 		return date;
 	}
 
-	/*****GETTERS & SETTERS*****/
+	private static String changeDFinLine(String line) {
+		line = changeDDMMYY(line.substring(0, 8)) + line.substring(8);
+		return line;
+	}
+
+	/***** GETTERS & SETTERS *****/
 	public String getMainFileName() {
 		return mainFileName;
 	}
@@ -134,5 +141,5 @@ public class Storage {
 	public void setMainFileName(String mainFileName) {
 		this.mainFileName = mainFileName;
 	}
-		
+
 }
