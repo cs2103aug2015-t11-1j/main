@@ -49,7 +49,7 @@ public class StringParser {
 	}
 
 	private ACTION_TYPE getUserActionType() {
-		String userAction = this.extractUserCommand(userStringInput);
+		String userAction = extractUserCommand(userStringInput);
 		if (userAction.equalsIgnoreCase("add")) {
 			return ACTION_TYPE.ADD;
 		} else if (userAction.equalsIgnoreCase("display")) {
