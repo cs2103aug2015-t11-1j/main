@@ -1,16 +1,15 @@
 /*
  * @author: Jeston Teo
  * 
- * This class parses an entire string command into its respective <categories>
+ * This class parses an entire string into its respective <categories> and returns a command object
  * ASSUMPTIONS:
- * 1) Commands are entered in the correct supported format.
+ * 1) Strings are entered in the correct supported format.
  * 2) <action> includes: ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO
  * 3) <date> is entered as DDMMYY
  * 4) <time> is in 24hr format
- * 5) ">" character always comes before date/time arguments
+ * 5) ">" character always comes before any date/time arguments.
  * 7) There will always be a white space between <date> and <time>
  * 
- * TODO: consider parse(String) from Calendar api
  */
 
 package planit;
@@ -35,6 +34,13 @@ public class StringParser {
 
 	private static final int INDEX_ADD_ONE = 1;
 
+	private String userStringInput;
+	private Command command;
+
+	enum ACTION_TYPE {
+		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID;
+	}
+
 	/*
 	 * CONSTRUCTORS
 	 */
@@ -42,9 +48,63 @@ public class StringParser {
 
 	}
 
+	private ACTION_TYPE getUserActionType() {
+		String userAction = this.extractUserCommand(userStringInput);
+		if (userAction.equalsIgnoreCase("add")) {
+			return ACTION_TYPE.ADD;
+		} else if (userAction.equalsIgnoreCase("display")) {
+			return ACTION_TYPE.SHOW;
+		} else if (userAction.equalsIgnoreCase("search")) {
+			return ACTION_TYPE.SEARCH;
+		} else if (userAction.equalsIgnoreCase("update")) {
+			return ACTION_TYPE.UPDATE;
+		} else if (userAction.equalsIgnoreCase("done")) {
+			return ACTION_TYPE.DONE;
+		} else if (userAction.equalsIgnoreCase("delete")) {
+			return ACTION_TYPE.DELETE;
+		} else if (userAction.equalsIgnoreCase("undo")) {
+			return ACTION_TYPE.UNDO;
+		} else {
+			return ACTION_TYPE.INVALID;
+		}
+	}
+
 	/*
 	 * METHODS
 	 */
+	public Command parseStringIntoCommand(String userStringInput) {
+		this.userStringInput = userStringInput;
+		command = new Command(userStringInput); // so i can use setter methods
+												// in Command class
+		ACTION_TYPE actionType = this.getUserActionType();
+
+		switch (actionType) {
+		case ADD:
+			if (this.timeArgumentExist()) {
+				// TODO scan for both event and time arguments
+			} else {
+				// TODO scan for event only
+			}
+			break;
+		case SHOW:
+			break;
+		case SEARCH:
+			break;
+		case UPDATE:
+			break;
+		case DONE:
+			break;
+		case DELETE:
+			break;
+		case UNDO:
+			break;
+		case INVALID:
+			break;
+		}
+
+		return command;
+	}
+
 	public String extractUserCommand(String userStringInput) {
 		ArrayList<String> stringArray = splitStringIntoArrayDelimSpace(userStringInput.trim());
 		return stringArray.get(INDEX_FIRST);
@@ -99,11 +159,18 @@ public class StringParser {
 			ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
 			timeArray = splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND).trim());
 			return timeArray;
-		}
-		else {
+		} else {
 			timeArray.addAll(null);
 			return timeArray;
 		}
+	}
+	
+	/*
+	 * Checks if any date/time arguments are specified by the user in the input
+	 * Returns true if present and false if otherwise
+	 */
+	private boolean timeArgumentExist() {
+		return userStringInput.contains(STRING_RIGHT_ANGLE_BRACKETS);
 	}
 
 	/*

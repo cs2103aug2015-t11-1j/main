@@ -16,34 +16,39 @@ public class Command {
 	private static final int INDEX_FIRST = 0;
 	private static final int INDEX_SECOND = 1;
 
-//	private static final int RANGE_ARRAY_SIZE = 2;
-	
-//	private static StringParser sp = new StringParser();
+	// private static final int RANGE_ARRAY_SIZE = 2;
+
+	// private static StringParser sp = new StringParser();
 
 	private String userStringInput;
 
-	private String userCommand = null; //Action type
+	private String userCommand = null; // Action type
 
 	private String userEventTask = null; // Type of event/task
 
-	private ArrayList<String> userDateRange = new ArrayList<String>(2); // ArrayList of dates
-//	private String userDateString = null; // formatted string of date/dates
-	
-	private ArrayList<String> userTimeRange = new ArrayList<String>(2); // ArrayList of times
-//	private String userTimeString = null; // formatted string of date/dates
-	
+	private ArrayList<String> userDateRange = new ArrayList<String>(2);
+	// ArrayList
+	// of
+	// dates
+	// private String userDateString = null; // formatted string of date/dates
+
+	private ArrayList<String> userTimeRange = new ArrayList<String>(2);
+	// ArrayList
+	// of
+	// times
+	// private String userTimeString = null; // formatted string of date/dates
+
 	public Command(String userStringInput) {
 		this.setUserStringInput(userStringInput);
-		this.executeParsing(userStringInput);
+		// this.executeParsing(userStringInput);
 	}
 
-/*	private void executeParsing(String userStringInput) {
-		this.setUserCommand(userStringInput);
-		this.setUserEventTask(userStringInput);
-		this.setUserDate(userStringInput);
-		this.setUserTime(userStringInput);
-	}*/
-
+	/*
+	 * private void executeParsing(String userStringInput) {
+	 * this.setUserCommand(userStringInput);
+	 * this.setUserEventTask(userStringInput);
+	 * this.setUserDate(userStringInput); this.setUserTime(userStringInput); }
+	 */
 
 	/*
 	 * ACCESSORS
@@ -88,14 +93,12 @@ public class Command {
 		return userStringInput;
 	}
 
-	/*public String getUserDateString() {
-		return userDateString;
-	}
-	
-	public String getUserTimeString() {
-		return userTimeString;
-	}*/
-	
+	/*
+	 * public String getUserDateString() { return userDateString; }
+	 * 
+	 * public String getUserTimeString() { return userTimeString; }
+	 */
+
 	/*
 	 * MUTATORS
 	 * 
@@ -106,34 +109,34 @@ public class Command {
 	public void setUserStringInput(String str) {
 		this.userStringInput = str;
 	}
-	
+
 	private void setUserCommand(String str) {
 		this.userCommand = str;
 	}
-	
+
 	private void setUserEventTask(String str) {
 		this.userEventTask = str;
 	}
-	
+
 	private void setUserDate(ArrayList<String> strArrayList) {
 		this.userDateRange = strArrayList;
-		/*if (userDateRange.isEmpty() && !userTimeRange.isEmpty()) {
-			Date today = Calendar.getInstance().getTime();
-			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
-			userDateRange.add(sdf.format(today));
-		}*/
+		/*
+		 * if (userDateRange.isEmpty() && !userTimeRange.isEmpty()) { Date today
+		 * = Calendar.getInstance().getTime(); SimpleDateFormat sdf = new
+		 * SimpleDateFormat("ddMMyy"); userDateRange.add(sdf.format(today)); }
+		 */
 	}
-	
+
 	private void setUserTime(ArrayList<String> strArrayList) {
 		this.userTimeRange = strArrayList;
 	}
-	
-	/*public void setUserDateString(String dateString) {
-		userDateString = dateString;
-	}
-	
-	public void setUserTimeString(String timeString) {
-		userTimeString = timeString;
-	}*/
-	
+
+	/*
+	 * public void setUserDateString(String dateString) { userDateString =
+	 * dateString; }
+	 * 
+	 * public void setUserTimeString(String timeString) { userTimeString =
+	 * timeString; }
+	 */
+
 }
