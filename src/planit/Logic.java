@@ -77,7 +77,8 @@ public class Logic {
 			break;
 		case DELETE:
 			String taskToDelete = userCommand.getUserEventTask();
-			Storage.deleteTask(taskToDelete);
+			//TODO
+			//Storage.deleteTask(taskToDelete);
 			Welcome.printDeletedTask(taskToDelete);
 			break;
 		case UNDO:
