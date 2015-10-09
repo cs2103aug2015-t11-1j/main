@@ -71,13 +71,12 @@ public class Logic {
 	private static void formatTimeString(Command userCommand) {
 		ArrayList<String> timeArray = userCommand.getUserTimeRange();
 		if (timeArray.size() == 1) {
-			String newTimeString = timeToTimeString(timeArray.get(INDEX_FIRST));
-			userCommand.setUserTimeString(newTimeString);
+			timeArray.set(0, timeToTimeString(timeArray.get(INDEX_FIRST)));
+			userCommand.setUserTime(timeArray);
 		} else {
-			String timeString1 = timeToTimeString(timeArray.get(INDEX_FIRST));
-			String timeString2 = timeToTimeString(timeArray.get(INDEX_SECOND));
-			String newTimeString = timeString1 + "-" + timeString2;
-			userCommand.setUserTimeString(newTimeString);
+			timeArray.set(0, timeToTimeString(timeArray.get(INDEX_FIRST)));
+			timeArray.set(1, timeToTimeString(timeArray.get(INDEX_SECOND)));
+			userCommand.setUserTime(timeArray);
 		} 
 	}
 
@@ -91,13 +90,12 @@ public class Logic {
 		ArrayList<String> dateArray = userCommand.getUserDateRange();
 
 		if (dateArray.size() == 1) {
-			String newDateString = dateToDateString(dateArray.get(INDEX_FIRST));
-			userCommand.setUserDateString(newDateString);
+			dateArray.set(0, dateToDateString(dateArray.get(INDEX_FIRST)));
+			userCommand.setUserDate(dateArray);
 		} else {
-			String dateString1 = dateToDateString(dateArray.get(INDEX_FIRST));
-			String dateString2 = dateToDateString(dateArray.get(INDEX_SECOND));
-			String newDateString = dateString1 + "-" + dateString2;
-			userCommand.setUserDateString(newDateString);
+			dateArray.set(0, dateToDateString(dateArray.get(INDEX_FIRST)));
+			dateArray.set(1, dateToDateString(dateArray.get(INDEX_SECOND)));
+			userCommand.setUserDate(dateArray);
 		}
 	}
 
