@@ -110,15 +110,15 @@ public class Command {
 		this.userStringInput = str;
 	}
 
-	private void setUserCommand(String str) {
+	public void setUserCommand(String str) {
 		this.userCommand = str;
 	}
 
-	private void setUserEventTask(String str) {
+	public void setUserEventTask(String str) {
 		this.userEventTask = str;
 	}
 
-	private void setUserDate(ArrayList<String> strArrayList) {
+	public void setUserDate(ArrayList<String> strArrayList) {
 		this.userDateRange = strArrayList;
 		/*
 		 * if (userDateRange.isEmpty() && !userTimeRange.isEmpty()) { Date today
@@ -127,7 +127,7 @@ public class Command {
 		 */
 	}
 
-	private void setUserTime(ArrayList<String> strArrayList) {
+	public void setUserTime(ArrayList<String> strArrayList) {
 		this.userTimeRange = strArrayList;
 	}
 

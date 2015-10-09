@@ -80,10 +80,14 @@ public class StringParser {
 
 		switch (actionType) {
 		case ADD:
-			if (this.timeArgumentExist()) {
-				// TODO scan for both event and time arguments
+			if (timeArgumentExist(userStringInput)) {
+				command.setUserCommand(extractUserCommand(userStringInput));
+				command.setUserEventTask(extractUserEventTask(userStringInput));
+				command.setUserDate(extractUserDate(userStringInput));
+				command.setUserTime(extractUserTime(userStringInput));
 			} else {
-				// TODO scan for event only
+				command.setUserCommand(extractUserCommand(userStringInput));
+				command.setUserEventTask(extractUserEventTask(userStringInput));
 			}
 			break;
 		case SHOW:
@@ -105,18 +109,18 @@ public class StringParser {
 		return command;
 	}
 
-	public String extractUserCommand(String userStringInput) {
+	private static String extractUserCommand(String userStringInput) {
 		ArrayList<String> stringArray = splitStringIntoArrayDelimSpace(userStringInput.trim());
 		return stringArray.get(INDEX_FIRST);
 	}
 
-	public String extractUserEventTask(String userStringInput) {
+	private static String extractUserEventTask(String userStringInput) {
 		ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
 		return stringArray.get(INDEX_FIRST)
 				.substring(stringArray.get(INDEX_FIRST).indexOf(STRING_WHITESPACE) + INDEX_ADD_ONE).trim();
 	}
 
-	public ArrayList<String> extractUserDate(String userStringInput) {
+	private static ArrayList<String> extractUserDate(String userStringInput) {
 		boolean containsTimeInput = false;
 		ArrayList<String> timeArray = extractTimeArguments(userStringInput);
 		ArrayList<String> userDate = new ArrayList<String>();
@@ -128,7 +132,7 @@ public class StringParser {
 				containsTimeInput = true;
 			}
 		}
-		if (userDate.isEmpty() && containsTimeInput == true) {
+		if (userDate.isEmpty() && containsTimeInput) {
 			Date today = Calendar.getInstance().getTime();
 			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
 			userDate.add(sdf.format(today));
@@ -137,7 +141,7 @@ public class StringParser {
 		return userDate;
 	}
 
-	public ArrayList<String> extractUserTime(String userStringInput) {
+	private static ArrayList<String> extractUserTime(String userStringInput) {
 		ArrayList<String> timeArray = extractTimeArguments(userStringInput);
 		ArrayList<String> userTime = new ArrayList<String>();
 		for (String time : timeArray) {
@@ -153,35 +157,29 @@ public class StringParser {
 		return userTime;
 	}
 
-	private ArrayList<String> extractTimeArguments(String userStringInput) {
-		ArrayList<String> timeArray = new ArrayList<String>();
-		if (userStringInput.contains(STRING_RIGHT_ANGLE_BRACKETS)) {
-			ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
-			timeArray = splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND).trim());
-			return timeArray;
-		} else {
-			timeArray.addAll(null);
-			return timeArray;
-		}
+	private static ArrayList<String> extractTimeArguments(String userStringInput) {
+		ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
+		ArrayList<String> timeArray = splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND).trim());
+		return timeArray;
 	}
-	
+
 	/*
 	 * Checks if any date/time arguments are specified by the user in the input
 	 * Returns true if present and false if otherwise
 	 */
-	private boolean timeArgumentExist() {
+	private static boolean timeArgumentExist(String userStringInput) {
 		return userStringInput.contains(STRING_RIGHT_ANGLE_BRACKETS);
 	}
 
 	/*
 	 * STRING SPLITTERS
 	 */
-	private ArrayList<String> splitStringIntoArrayDelimSpace(String userStringInput) {
+	private static ArrayList<String> splitStringIntoArrayDelimSpace(String userStringInput) {
 		String[] stringSplitArrayDelimSpace = userStringInput.trim().split(REGEX_WHITESPACES);
 		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimSpace));
 	}
 
-	private ArrayList<String> splitStringIntoArrayDelimAngleBrackets(String userStringInput) {
+	private static ArrayList<String> splitStringIntoArrayDelimAngleBrackets(String userStringInput) {
 		String[] stringSplitArrayDelimAngleBrackets = userStringInput.trim().split(STRING_RIGHT_ANGLE_BRACKETS);
 		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimAngleBrackets));
 	}
