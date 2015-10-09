@@ -7,45 +7,19 @@ package planit;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import planit.StringParser.ACTION_TYPE;
 
 public class Logic {
-
-	public enum ACTION_TYPE {
-		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID;
-	}
 
 	private static final int INDEX_FIRST = 0;
 	private static final int INDEX_SECOND = 1;
 
-	// private static final int RANGE_ARRAY_SIZE = 2;
-
 	private static Command userCommand;
-
-	private static ACTION_TYPE type;
 
 	public Logic() {
 		
 	}
 
-	private static ACTION_TYPE getActionType(String userAction) {
-		if (userAction.equalsIgnoreCase("add")) {
-			return ACTION_TYPE.ADD;
-		} else if (userAction.equalsIgnoreCase("show")) {
-			return ACTION_TYPE.SHOW;
-		} else if (userAction.equalsIgnoreCase("search")) {
-			return ACTION_TYPE.SEARCH;
-		} else if (userAction.equalsIgnoreCase("update")) {
-			return ACTION_TYPE.UPDATE;
-		} else if (userAction.equalsIgnoreCase("done")) {
-			return ACTION_TYPE.DONE;
-		} else if (userAction.equalsIgnoreCase("delete")) {
-			return ACTION_TYPE.DELETE;
-		} else if (userAction.equalsIgnoreCase("undo")) {
-			return ACTION_TYPE.UNDO;
-		} else {
-			return ACTION_TYPE.INVALID;
-		}
-	}
 
 	/*
 	 * Operations
@@ -53,8 +27,9 @@ public class Logic {
 
 	public static void executeCommand(String userInput) throws IOException {
 		Storage sto = new Storage();
-		userCommand = new Command(userInput);
-		type = getActionType(userCommand.getUserCommand());
+		StringParser sp = new StringParser();
+		userCommand = sp.parseStringIntoCommand(userInput);
+		ACTION_TYPE type = userCommand.getActionType();
 		switch (type) {
 		case ADD:
 			formatEventDetails(userCommand);
@@ -63,7 +38,7 @@ public class Logic {
 			break;
 		case SHOW:
 			formatEventDetails(userCommand);
-			ArrayList<String> eventToShow = sto.showDateEvents(userCommand.getUserDateString());
+			ArrayList<String> eventToShow = sto.showDateEvents(userCommand.getUserDateStart());
 			Welcome.printShowEvent(eventToShow);
 			break;
 		case SEARCH:
