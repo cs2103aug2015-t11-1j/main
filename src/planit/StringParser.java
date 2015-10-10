@@ -17,6 +17,8 @@ package planit;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.sun.media.sound.InvalidFormatException;
+
 public class StringParser {
 
 	private static final String REGEX_WHITESPACES = "[\\s,]+";
@@ -72,7 +74,7 @@ public class StringParser {
 	/*
 	 * METHODS
 	 */
-	public Command parseStringIntoCommand(String userStringInput) {
+	public Command parseStringIntoCommand(String userStringInput) throws InvalidFormatException {
 		this.userStringInput = userStringInput;
 		command = new Command(userStringInput); // so i can use setter methods
 												// in Command class
@@ -80,6 +82,7 @@ public class StringParser {
 
 		switch (actionType) {
 		case ADD:
+			command.setUserActionType(actionType);
 			if (timeArgumentExist(userStringInput)) {
 				command.setUserCommand(extractUserCommand(userStringInput));
 				command.setUserEventTask(extractUserEventTask(userStringInput));
@@ -91,36 +94,93 @@ public class StringParser {
 			}
 			break;
 		case SHOW:
+			command.setUserActionType(actionType);
+			if (timeArgumentExist(userStringInput)) {
+				command.setUserCommand(extractUserCommand(userStringInput));
+				command.setUserDate(extractUserDate(userStringInput));
+			} else {
+				command.setUserCommand(extractUserCommand(userStringInput));
+			}
 			break;
 		case SEARCH:
+			try {
+				command.setUserActionType(actionType);
+				if (timeArgumentExist(userStringInput)) {
+					throw new InvalidFormatException("invalid format for search function");
+				} else {
+					command.setUserCommand(extractUserCommand(userStringInput));
+					command.setUserEventTask(extractUserEventTask(userStringInput));
+				}
+			}
+			catch (InvalidFormatException e){
+				System.err.println("InvalidFormatException: " + e.getMessage());
+			}
 			break;
 		case UPDATE:
-			break;
+			/*
+			 * command.setUserActionType(actionType); if
+			 * (timeArgumentExist(userStringInput)) {
+			 * command.setUserCommand(extractUserCommand(userStringInput));
+			 * command.setUserEventTask(extractUserEventTask(userStringInput));
+			 * command.setUserDate(extractUserDate(userStringInput));
+			 * command.setUserTime(extractUserTime(userStringInput)); } else {
+			 * 
+			 * } break;
+			 */
 		case DONE:
+			try {
+				command.setUserActionType(actionType);
+				if (timeArgumentExist(userStringInput)) {
+					throw new InvalidFormatException("invalid format for done function");
+				} else {
+					command.setUserCommand(extractUserCommand(userStringInput));
+					command.setUserEventTask(extractUserEventTask(userStringInput));
+				}
+			}
+			catch (InvalidFormatException e) {
+				System.err.println("InvalidFormatException: " + e.getMessage());
+			}
 			break;
 		case DELETE:
+			try {
+				command.setUserActionType(actionType);
+				if (timeArgumentExist(userStringInput)) {
+					throw new InvalidFormatException("invalid format for delete function");
+				} else {
+					command.setUserCommand(extractUserCommand(userStringInput));
+					command.setUserEventTask(extractUserEventTask(userStringInput));
+				}
+			}
+			catch (InvalidFormatException e) {
+				System.err.println("InvalidFormatException: " + e.getMessage());
+			}
 			break;
 		case UNDO:
+			command.setUserActionType(actionType);
+			command.setUserCommand(extractUserCommand(userStringInput));
 			break;
 		case INVALID:
+			command.setUserActionType(actionType);
+			command.setUserCommand(extractUserCommand(userStringInput));
 			break;
 		}
 
 		return command;
+
 	}
 
-	private static String extractUserCommand(String userStringInput) {
+	private String extractUserCommand(String userStringInput) {
 		ArrayList<String> stringArray = splitStringIntoArrayDelimSpace(userStringInput.trim());
 		return stringArray.get(INDEX_FIRST);
 	}
 
-	private static String extractUserEventTask(String userStringInput) {
+	private String extractUserEventTask(String userStringInput) {
 		ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
 		return stringArray.get(INDEX_FIRST)
 				.substring(stringArray.get(INDEX_FIRST).indexOf(STRING_WHITESPACE) + INDEX_ADD_ONE).trim();
 	}
 
-	private static ArrayList<String> extractUserDate(String userStringInput) {
+	private ArrayList<String> extractUserDate(String userStringInput) {
 		boolean containsTimeInput = false;
 		ArrayList<String> timeArray = extractTimeArguments(userStringInput);
 		ArrayList<String> userDate = new ArrayList<String>();
@@ -141,7 +201,7 @@ public class StringParser {
 		return userDate;
 	}
 
-	private static ArrayList<String> extractUserTime(String userStringInput) {
+	private ArrayList<String> extractUserTime(String userStringInput) {
 		ArrayList<String> timeArray = extractTimeArguments(userStringInput);
 		ArrayList<String> userTime = new ArrayList<String>();
 		for (String time : timeArray) {
@@ -157,7 +217,7 @@ public class StringParser {
 		return userTime;
 	}
 
-	private static ArrayList<String> extractTimeArguments(String userStringInput) {
+	private ArrayList<String> extractTimeArguments(String userStringInput) {
 		ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
 		ArrayList<String> timeArray = splitStringIntoArrayDelimSpace(stringArray.get(INDEX_SECOND).trim());
 		return timeArray;
@@ -167,7 +227,7 @@ public class StringParser {
 	 * Checks if any date/time arguments are specified by the user in the input
 	 * Returns true if present and false if otherwise
 	 */
-	private static boolean timeArgumentExist(String userStringInput) {
+	private boolean timeArgumentExist(String userStringInput) {
 		return userStringInput.contains(STRING_RIGHT_ANGLE_BRACKETS);
 	}
 

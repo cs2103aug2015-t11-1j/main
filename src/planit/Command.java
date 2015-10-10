@@ -8,28 +8,29 @@ package planit;
 
 import java.util.ArrayList;
 
+import planit.StringParser.ACTION_TYPE;
+
 public class Command {
 
 	private static final int INDEX_FIRST = 0;
 	private static final int INDEX_SECOND = 1;
 
-	// private static final int RANGE_ARRAY_SIZE = 2;
+	private static final int RANGE_ARRAY_SIZE = 2;
 
 	// private static StringParser sp = new StringParser();
 
-	private String userStringInput;
-
+	private String userStringInput = null;
 	private String userCommand = null; // Action type
-
+	private ACTION_TYPE userActionType = null;
 	private String userEventTask = null; // Type of event/task
 
-	private ArrayList<String> userDateRange = new ArrayList<String>(2);
+	private ArrayList<String> userDateRange = new ArrayList<String>(RANGE_ARRAY_SIZE);
 	// ArrayList
 	// of
 	// dates
 	// private String userDateString = null; // formatted string of date/dates
 
-	private ArrayList<String> userTimeRange = new ArrayList<String>(2);
+	private ArrayList<String> userTimeRange = new ArrayList<String>(RANGE_ARRAY_SIZE);
 	// ArrayList
 	// of
 	// times
@@ -56,6 +57,10 @@ public class Command {
 	 */
 	public String getUserCommand() {
 		return userCommand;
+	}
+	
+	public ACTION_TYPE getActionType() {
+		return userActionType;
 	}
 
 	public String getUserEventTask() {
@@ -109,6 +114,10 @@ public class Command {
 
 	public void setUserCommand(String str) {
 		this.userCommand = str;
+	}
+	
+	public void setUserActionType(ACTION_TYPE action) {
+		this.userActionType = action;
 	}
 
 	public void setUserEventTask(String str) {
