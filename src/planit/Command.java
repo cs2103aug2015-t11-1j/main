@@ -36,8 +36,8 @@ public class Command {
 	// times
 	// private String userTimeString = null; // formatted string of date/dates
 
-	public Command(String userStringInput) {
-		this.setUserStringInput(userStringInput);
+	public Command() {
+		// this.setUserStringInput(userStringInput);
 		// this.executeParsing(userStringInput);
 	}
 

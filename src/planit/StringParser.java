@@ -76,8 +76,9 @@ public class StringParser {
 	 */
 	public Command parseStringIntoCommand(String userStringInput) throws InvalidFormatException {
 		this.userStringInput = userStringInput;
-		command = new Command(userStringInput); // so i can use setter methods
-												// in Command class
+		command = new Command(); // so i can use setter methods
+									// in Command class
+		command.setUserStringInput(userStringInput);
 		ACTION_TYPE actionType = this.getUserActionType();
 
 		switch (actionType) {
@@ -111,8 +112,7 @@ public class StringParser {
 					command.setUserCommand(extractUserCommand(userStringInput));
 					command.setUserEventTask(extractUserEventTask(userStringInput));
 				}
-			}
-			catch (InvalidFormatException e){
+			} catch (InvalidFormatException e) {
 				System.err.println("InvalidFormatException: " + e.getMessage());
 			}
 			break;
@@ -136,8 +136,7 @@ public class StringParser {
 					command.setUserCommand(extractUserCommand(userStringInput));
 					command.setUserEventTask(extractUserEventTask(userStringInput));
 				}
-			}
-			catch (InvalidFormatException e) {
+			} catch (InvalidFormatException e) {
 				System.err.println("InvalidFormatException: " + e.getMessage());
 			}
 			break;
@@ -150,8 +149,7 @@ public class StringParser {
 					command.setUserCommand(extractUserCommand(userStringInput));
 					command.setUserEventTask(extractUserEventTask(userStringInput));
 				}
-			}
-			catch (InvalidFormatException e) {
+			} catch (InvalidFormatException e) {
 				System.err.println("InvalidFormatException: " + e.getMessage());
 			}
 			break;
