@@ -25,8 +25,7 @@ public class Storage {
 	/***** MAIN FEATURES METHOD *****/
 	// write new event or task into file
 	public String storeNewEvent(Command cmd) throws IOException {
-		String line = new String(
-				changeDDMMYY(cmd.getUserDateString()) + " " + cmd.getUserTimeString() + " " + cmd.getUserEventTask());
+		String line = new String(changeDDMMYY(cmd.getDateString() + " " + cmd.getTimeString() + " " + cmd.getUserEventTask()));
 		writeToFile(line, mainFile);
 		mainCount++;
 		return line;

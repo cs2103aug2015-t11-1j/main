@@ -36,6 +36,7 @@ public class Command {
 	// times
 	// private String userTimeString = null; // formatted string of date/dates
 
+	/*****CONSTRUCTOR*****/
 	public Command() {
 		// this.setUserStringInput(userStringInput);
 		// this.executeParsing(userStringInput);
@@ -94,12 +95,16 @@ public class Command {
 	public String getUserStringInput() {
 		return userStringInput;
 	}
-
-	/*
-	 * public String getUserDateString() { return userDateString; }
-	 * 
-	 * public String getUserTimeString() { return userTimeString; }
-	 */
+	
+	//return date range in String form
+	public String getDateString() {
+		return userDateRange.get(INDEX_FIRST) + userDateRange.get(INDEX_SECOND);
+	}
+	
+	//return time range in String form
+	public String getTimeString() {
+		return userTimeRange.get(INDEX_FIRST) + userTimeRange.get(INDEX_SECOND);
+	}
 
 	/*
 	 * MUTATORS
@@ -136,13 +141,5 @@ public class Command {
 	public void setUserTime(ArrayList<String> strArrayList) {
 		this.userTimeRange = strArrayList;
 	}
-
-	/*
-	 * public void setUserDateString(String dateString) { userDateString =
-	 * dateString; }
-	 * 
-	 * public void setUserTimeString(String timeString) { userTimeString =
-	 * timeString; }
-	 */
 
 }
