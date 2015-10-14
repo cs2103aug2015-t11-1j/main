@@ -51,7 +51,7 @@ public class StringParser {
 	public StringParser() {
 		todayDate = getTodayDate();
 		dateArray = new ArrayList<String>(ARRAY_SIZE);
-		dateArray.add(todayDate);
+		dateArray.add("??????");
 		dateArray.add("??????");
 		
 	}
@@ -198,10 +198,9 @@ public class StringParser {
 			}
 		}
 		if (userDate.isEmpty() && containsTimeInput) {
-			userDate.add(getTodayDate());
+			userDate.add(todayDate);
 			userDate.add("??????");
 		}
-		// String[] resultString = userDate.toArray(new String[ARRAY_SIZE]);
 		return userDate;
 	}
 
@@ -214,10 +213,9 @@ public class StringParser {
 			}
 		}
 		/*if (userTime.isEmpty()) {
-			userTime.add("????");
-			userTime.add("????");
+			userTime.add(null);
+			userTime.add(null);
 		}*/
-		// String[] resultString = userTime.toArray(new String[ARRAY_SIZE]);
 		return userTime;
 	}
 
