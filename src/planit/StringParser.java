@@ -32,12 +32,14 @@ public class StringParser {
 	private static final int DATE_LENGTH = 6;
 	private static final int TIME_LENGTH = 4;
 
-	// private static final int ARRAY_SIZE = 2;
+	private static final int ARRAY_SIZE = 2;
 
 	private static final int INDEX_ADD_ONE = 1;
 
 	private String userStringInput;
 	private Command command;
+	private String todayDate;
+	private ArrayList<String> dateArray;
 
 	enum ACTION_TYPE {
 		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID;
@@ -47,7 +49,11 @@ public class StringParser {
 	 * CONSTRUCTORS
 	 */
 	public StringParser() {
-
+		todayDate = getTodayDate();
+		dateArray = new ArrayList<String>(ARRAY_SIZE);
+		dateArray.add(todayDate);
+		dateArray.add("??????");
+		
 	}
 
 	private ACTION_TYPE getUserActionType() {
@@ -92,6 +98,7 @@ public class StringParser {
 			} else {
 				command.setUserCommand(extractUserCommand(userStringInput));
 				command.setUserEventTask(extractUserEventTask(userStringInput));
+				command.setUserDate(dateArray);
 			}
 			break;
 		case SHOW:
@@ -191,9 +198,8 @@ public class StringParser {
 			}
 		}
 		if (userDate.isEmpty() && containsTimeInput) {
-			Date today = Calendar.getInstance().getTime();
-			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
-			userDate.add(sdf.format(today));
+			userDate.add(getTodayDate());
+			userDate.add("??????");
 		}
 		// String[] resultString = userDate.toArray(new String[ARRAY_SIZE]);
 		return userDate;
@@ -207,10 +213,10 @@ public class StringParser {
 				userTime.add(time);
 			}
 		}
-		if (userTime.isEmpty()) {
-			userTime.add("???");
-			userTime.add("???");
-		}
+		/*if (userTime.isEmpty()) {
+			userTime.add("????");
+			userTime.add("????");
+		}*/
 		// String[] resultString = userTime.toArray(new String[ARRAY_SIZE]);
 		return userTime;
 	}
@@ -227,6 +233,16 @@ public class StringParser {
 	 */
 	private boolean timeArgumentExist(String userStringInput) {
 		return userStringInput.contains(STRING_RIGHT_ANGLE_BRACKETS);
+	}
+	
+	/*
+	 * Returns today's date as a String type in the format DDMMYY
+	 */
+	private String getTodayDate() {
+		Date today = Calendar.getInstance().getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+		String todayDate = sdf.format(today);
+		return todayDate;
 	}
 
 	/*
