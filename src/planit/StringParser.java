@@ -9,7 +9,9 @@
  * 4) <time> is in 24hr format
  * 5) ">" character always comes before any date/time arguments.
  * 7) There will always be a white space between <date> and <time>
- * 
+ * 8) For the "UPDATE" command, users can only update either the event/task's name or the specified
+ * 	  event/task's date and time every command input
+ * 9) Correct format of input: <update> <event/task> : <new event/task>
  */
 
 package planit;
@@ -25,6 +27,7 @@ public class StringParser {
 
 	private static final String STRING_WHITESPACE = " ";
 	private static final String STRING_RIGHT_ANGLE_BRACKETS = ">";
+	private static final String STRING_COLON = ":";
 
 	private static final int INDEX_FIRST = 0;
 	private static final int INDEX_SECOND = 1;
@@ -32,12 +35,14 @@ public class StringParser {
 	private static final int DATE_LENGTH = 6;
 	private static final int TIME_LENGTH = 4;
 
-	// private static final int ARRAY_SIZE = 2;
+	private static final int ARRAY_SIZE = 2;
 
 	private static final int INDEX_ADD_ONE = 1;
 
 	private String userStringInput;
 	private Command command;
+	private String todayDate;
+	private ArrayList<String> dateArray;
 
 	enum ACTION_TYPE {
 		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID;
@@ -47,7 +52,10 @@ public class StringParser {
 	 * CONSTRUCTORS
 	 */
 	public StringParser() {
-
+		todayDate = getTodayDate();
+		dateArray = new ArrayList<String>(ARRAY_SIZE);
+		dateArray.add("??????");
+		dateArray.add("??????");
 	}
 
 	private ACTION_TYPE getUserActionType() {
@@ -92,6 +100,7 @@ public class StringParser {
 			} else {
 				command.setUserCommand(extractUserCommand(userStringInput));
 				command.setUserEventTask(extractUserEventTask(userStringInput));
+				command.setUserDate(dateArray);
 			}
 			break;
 		case SHOW:
@@ -107,7 +116,7 @@ public class StringParser {
 			try {
 				command.setUserActionType(actionType);
 				if (timeArgumentExist(userStringInput)) {
-					throw new InvalidFormatException("invalid format for search function");
+					throw new InvalidFormatException();
 				} else {
 					command.setUserCommand(extractUserCommand(userStringInput));
 					command.setUserEventTask(extractUserEventTask(userStringInput));
@@ -117,6 +126,17 @@ public class StringParser {
 			}
 			break;
 		case UPDATE:
+			command.setUserActionType(actionType);
+			if (timeArgumentExist(userStringInput)) {
+				command.setUserCommand(extractUserCommand(userStringInput));
+				command.setUserEventTask(extractUserEventTask(userStringInput));
+				command.setUserDate(extractUserDate(userStringInput));
+				command.setUserTime(extractUserTime(userStringInput));
+			} else {
+				command.setUserCommand(extractUserCommand(userStringInput));
+				command.setUserEventTask(extractUserEventTask(userStringInput));
+				command.setUserUpdateEventTask(extractUpdateEventTask(userStringInput));
+			}
 			/*
 			 * command.setUserActionType(actionType); if
 			 * (timeArgumentExist(userStringInput)) {
@@ -131,7 +151,7 @@ public class StringParser {
 			try {
 				command.setUserActionType(actionType);
 				if (timeArgumentExist(userStringInput)) {
-					throw new InvalidFormatException("invalid format for done function");
+					throw new InvalidFormatException();
 				} else {
 					command.setUserCommand(extractUserCommand(userStringInput));
 					command.setUserEventTask(extractUserEventTask(userStringInput));
@@ -144,7 +164,7 @@ public class StringParser {
 			try {
 				command.setUserActionType(actionType);
 				if (timeArgumentExist(userStringInput)) {
-					throw new InvalidFormatException("invalid format for delete function");
+					throw new InvalidFormatException();
 				} else {
 					command.setUserCommand(extractUserCommand(userStringInput));
 					command.setUserEventTask(extractUserEventTask(userStringInput));
@@ -173,9 +193,20 @@ public class StringParser {
 	}
 
 	private String extractUserEventTask(String userStringInput) {
-		ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
-		return stringArray.get(INDEX_FIRST)
-				.substring(stringArray.get(INDEX_FIRST).indexOf(STRING_WHITESPACE) + INDEX_ADD_ONE).trim();
+		if (!colonCharExist(userStringInput)) {
+			ArrayList<String> stringArray = splitStringIntoArrayDelimAngleBrackets(userStringInput.trim());
+			return stringArray.get(INDEX_FIRST)
+					.substring(stringArray.get(INDEX_FIRST).indexOf(STRING_WHITESPACE) + INDEX_ADD_ONE).trim();
+		} else {
+			ArrayList<String> stringArray = splitStringIntoArrayDelimColon(userStringInput.trim());
+			return stringArray.get(INDEX_FIRST)
+					.substring(stringArray.get(INDEX_FIRST).indexOf(STRING_WHITESPACE) + INDEX_ADD_ONE).trim();
+		}
+	}
+
+	private String extractUpdateEventTask(String userStringInput) {
+		ArrayList<String> stringArray = splitStringIntoArrayDelimColon(userStringInput.trim());
+		return stringArray.get(INDEX_SECOND).trim();
 	}
 
 	private ArrayList<String> extractUserDate(String userStringInput) {
@@ -191,11 +222,9 @@ public class StringParser {
 			}
 		}
 		if (userDate.isEmpty() && containsTimeInput) {
-			Date today = Calendar.getInstance().getTime();
-			SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
-			userDate.add(sdf.format(today));
+			userDate.add(todayDate);
+			userDate.add("??????");
 		}
-		// String[] resultString = userDate.toArray(new String[ARRAY_SIZE]);
 		return userDate;
 	}
 
@@ -207,11 +236,9 @@ public class StringParser {
 				userTime.add(time);
 			}
 		}
-		if (userTime.isEmpty()) {
-			userTime.add("???");
-			userTime.add("???");
-		}
-		// String[] resultString = userTime.toArray(new String[ARRAY_SIZE]);
+		/*
+		 * if (userTime.isEmpty()) { userTime.add(null); userTime.add(null); }
+		 */
 		return userTime;
 	}
 
@@ -230,6 +257,24 @@ public class StringParser {
 	}
 
 	/*
+	 * Checks if the ":" character exists in the user string input Returns true
+	 * if present and false if otherwise
+	 */
+	private boolean colonCharExist(String userStringInput) {
+		return userStringInput.contains(STRING_COLON);
+	}
+
+	/*
+	 * Returns today's date as a String type in the format DDMMYY
+	 */
+	private String getTodayDate() {
+		Date today = Calendar.getInstance().getTime();
+		SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+		String todayDate = sdf.format(today);
+		return todayDate;
+	}
+
+	/*
 	 * STRING SPLITTERS
 	 */
 	private static ArrayList<String> splitStringIntoArrayDelimSpace(String userStringInput) {
@@ -240,5 +285,10 @@ public class StringParser {
 	private static ArrayList<String> splitStringIntoArrayDelimAngleBrackets(String userStringInput) {
 		String[] stringSplitArrayDelimAngleBrackets = userStringInput.trim().split(STRING_RIGHT_ANGLE_BRACKETS);
 		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimAngleBrackets));
+	}
+
+	private static ArrayList<String> splitStringIntoArrayDelimColon(String userStringInput) {
+		String[] stringSplitArrayDelimColon = userStringInput.trim().split(STRING_COLON);
+		return new ArrayList<String>(Arrays.asList(stringSplitArrayDelimColon));
 	}
 }
