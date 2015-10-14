@@ -2,6 +2,14 @@
  * Command class allows a Command object to be created. This object holds all the necessary
  * arguments present in the user's input
  * 
+ * userStringInput: the entire string input by the user
+ * userCommand: the string representing the intended command of the user. Always the first word of userStringInput
+ * userActionType: the ACTION_TYPE representing the intended command of the user
+ * userEventTask: the event/task specified by the user in userStringInput
+ * userUpdateEventTask: the event/task which the user wants updated to
+ * userDateRange: an array list containing the date frame specified by the user. 1st index is the start date, 2nd index is the end date
+ * userTimeRange: an array list containing the time frame specified by the user. 1st index is the start time, 2nd index is the end time
+ * 
  */
 
 package planit;
@@ -17,8 +25,6 @@ public class Command {
 
 	private static final int RANGE_ARRAY_SIZE = 2;
 
-	// private static StringParser sp = new StringParser();
-
 	private String userStringInput = null;
 	private String userCommand = null; // Action type
 	private ACTION_TYPE userActionType = null;
@@ -26,30 +32,13 @@ public class Command {
 	private String userUpdateEventTask = null;
 
 	private ArrayList<String> userDateRange = new ArrayList<String>(RANGE_ARRAY_SIZE);
-	// ArrayList
-	// of
-	// dates
-	// private String userDateString = null; // formatted string of date/dates
-
 	private ArrayList<String> userTimeRange = new ArrayList<String>(RANGE_ARRAY_SIZE);
-	// ArrayList
-	// of
-	// times
-	// private String userTimeString = null; // formatted string of date/dates
 
 	/*****CONSTRUCTOR*****/
 	public Command() {
-		// this.setUserStringInput(userStringInput);
-		// this.executeParsing(userStringInput);
+
 	}
-
-	/*
-	 * private void executeParsing(String userStringInput) {
-	 * this.setUserCommand(userStringInput);
-	 * this.setUserEventTask(userStringInput);
-	 * this.setUserDate(userStringInput); this.setUserTime(userStringInput); }
-	 */
-
+	
 	/*
 	 * ACCESSORS
 	 * 
@@ -140,11 +129,6 @@ public class Command {
 
 	public void setUserDate(ArrayList<String> strArrayList) {
 		this.userDateRange = strArrayList;
-		/*
-		 * if (userDateRange.isEmpty() && !userTimeRange.isEmpty()) { Date today
-		 * = Calendar.getInstance().getTime(); SimpleDateFormat sdf = new
-		 * SimpleDateFormat("ddMMyy"); userDateRange.add(sdf.format(today)); }
-		 */
 	}
 
 	public void setUserTime(ArrayList<String> strArrayList) {
