@@ -46,6 +46,7 @@ public class StringParserTest {
 		
 		assertEquals("add", cmd.getUserCommand());
 		assertEquals("event", cmd.getUserEventTask());
+		assertNull(cmd.getUserUpdateEventTask());
 		assertEquals(dateArray, cmd.getUserDateRange());
 		assertEquals(timeArray, cmd.getUserTimeRange());
 		assertEquals(ACTION_TYPE.ADD, cmd.getActionType());
@@ -66,6 +67,7 @@ public class StringParserTest {
 		
 		assertEquals("add", cmd.getUserCommand());
 		assertEquals("event", cmd.getUserEventTask());
+		assertNull(cmd.getUserUpdateEventTask());
 		assertEquals(dateArray, cmd.getUserDateRange());
 		assertEquals(timeArray, cmd.getUserTimeRange());
 		assertEquals(ACTION_TYPE.ADD, cmd.getActionType());
@@ -84,8 +86,28 @@ public class StringParserTest {
 		
 		assertEquals("add", cmd.getUserCommand());
 		assertEquals("floating event", cmd.getUserEventTask());
+		assertNull(cmd.getUserUpdateEventTask());
 		assertEquals(dateArray, cmd.getUserDateRange());
 		assertTrue("timeArray is not empty", cmd.getUserTimeRange().isEmpty());
 		assertEquals(ACTION_TYPE.ADD, cmd.getActionType());
 	}
+	
+	@Test
+	public void testCommandObject4() throws InvalidFormatException {
+		String test = "update this event : that event";
+		cmd = sp.parseStringIntoCommand(test);
+		
+		assertEquals("update", cmd.getUserCommand());
+		assertEquals("this event", cmd.getUserEventTask());
+		assertEquals("that event", cmd.getUserUpdateEventTask());
+		assertTrue("dateArray is not empty", cmd.getUserDateRange().isEmpty());
+		assertTrue("timeArray is not empty", cmd.getUserTimeRange().isEmpty());
+		assertEquals(ACTION_TYPE.UPDATE, cmd.getActionType());
+	}
+	
+	/*@Test (expected = InvalidFormatException.class)
+	public void testCommandObject4() throws InvalidFormatException {
+		String test = "done this event > 1234";
+		cmd = sp.parseStringIntoCommand(test);
+	}*/
 }
