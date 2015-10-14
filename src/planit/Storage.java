@@ -80,6 +80,16 @@ public class Storage {
 		return displayFormat(result);
 	}
 
+	public ArrayList<String> markDone(String completeTask) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public ArrayList<String> updateEvent(String eventToUpdate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	/***** PRIVATE METHODS *****/
 	// catch IOException create file
 	private void checkFileExist(File file) {
@@ -215,14 +225,4 @@ public class Storage {
 		oldFile.delete();
 	}
 
-	public ArrayList<String> markDone(String completeTask) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ArrayList<String> updateEvent(String eventToUpdate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }
