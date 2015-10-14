@@ -18,7 +18,7 @@ public class Storage {
 
 	/*****CONSTRUCTOR*****/
 	//two type of constructor: with or without filename
-	public Storage() throws IOException {
+	public Storage() {
 		this("planner.txt");
 	}
 	
