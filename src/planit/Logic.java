@@ -47,8 +47,14 @@ public class Logic {
 			Welcome.printSearchEvent(searchedEvent);
 			break;
 		case UPDATE:
+			String eventToUpdate = userCommand.getUserEventTask();
+			ArrayList<String> updatedEvent = sto.updateEvent(eventToUpdate);
+			Welcome.printUpdatedEvent(updatedEvent);
 			break;
 		case DONE:
+			String completeTask = userCommand.getUserEventTask();
+			ArrayList<String> completedTask = sto.markDone(completeTask);
+			Welcome.printCompletedTask(completedTask);
 			break;
 		case DELETE:
 			String taskToDelete = userCommand.getUserEventTask();

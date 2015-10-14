@@ -23,6 +23,7 @@ public class Command {
 	private String userCommand = null; // Action type
 	private ACTION_TYPE userActionType = null;
 	private String userEventTask = null; // Type of event/task
+	private String userUpdateEventTask = null;
 
 	private ArrayList<String> userDateRange = new ArrayList<String>(RANGE_ARRAY_SIZE);
 	// ArrayList
@@ -66,6 +67,10 @@ public class Command {
 
 	public String getUserEventTask() {
 		return userEventTask;
+	}
+	
+	public String getUserUpdateEventTask() {
+		return userUpdateEventTask;
 	}
 
 	public ArrayList<String> getUserDateRange() {
@@ -127,6 +132,10 @@ public class Command {
 
 	public void setUserEventTask(String str) {
 		this.userEventTask = str;
+	}
+	
+	public void setUserUpdateEventTask(String str) {
+		this.userUpdateEventTask = str;
 	}
 
 	public void setUserDate(ArrayList<String> strArrayList) {
