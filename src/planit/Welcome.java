@@ -111,6 +111,17 @@ public class Welcome {
 	public static void printDeletedTask(String taskToDelete) {
 		printMsg(MESSAGE_SUCCESS + taskToDelete + MESSAGE_DELETED);
 	}
+
+	public static void printUpdatedEvent(ArrayList<String> updatedEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void printCompletedTask(ArrayList<String> completedTask) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 }

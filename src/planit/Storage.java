@@ -141,4 +141,16 @@ public class Storage {
 		this.mainFileName = mainFileName;
 	}
 
+	public ArrayList<String> markDone(String completeTask) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<String> updateEvent(String eventToUpdate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
 }
