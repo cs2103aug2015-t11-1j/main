@@ -9,60 +9,87 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Storage {
-	private static File mainFile;
-	private String mainFileName;
-	private int mainCount;
+	private static File _file;
+	private String _fileName;
+	private int _entryCount;
 
-	public Storage() throws IOException {
-		mainFile = new File("main.txt");
-		this.checkFileExist(mainFile);
-		setMainFileName("main.txt");
-		mainCount = lineCounter(mainFile);
+	/*****CONSTRUCTOR*****/
+	//two type of constructor: with or without filename
+	public Storage() {
+		this("planner.txt");
 	}
+	
+	public Storage(String fileName){
+		setFileName(fileName);
+		_file = new File(_fileName);
+		this.checkFileExist(_file);
+		_entryCount = countEntry(_file);
+	}
+	
 
 	/***** MAIN FEATURES METHOD *****/
+	// ACTION_TYPE: ADD
 	// write new event or task into file
 	public String storeNewEvent(Command cmd) throws IOException {
-		String line = new String(changeDDMMYY(cmd.getDateString() + " " + cmd.getTimeString() + " " + cmd.getUserEventTask()));
-		writeToFile(line, mainFile);
-		mainCount++;
-		return line;
+		String line = new String(changeDDMMYY(cmd.getDateString()) + " " + cmd.getTimeString() + " " + cmd.getUserEventTask());
+		writeToFile(line, _file);
+		_entryCount++;
+		return displayFormat(line);
 	}
 
 	public ArrayList<String> searchCommandKey(String key) {
 		ArrayList<String> result = new ArrayList<String>();
-		ArrayList<String> list = extract(mainFile);
+		ArrayList<String> list = extract(_file);
 		int count = 0;
-		while (count < this.mainCount) {
+		while (count < this._entryCount) {
 			if (list.get(count).toLowerCase().contains(key.toLowerCase())) {
-				result.add(changeDFinLine(list.get(count)));
+				result.add(list.get(count));
 			}
 			count++;
 		}
-		return result;
+		return displayFormat(result);
 	}
 
 	public ArrayList<String> showDateEvents(String key) {
 		ArrayList<String> result = new ArrayList<String>();
-		ArrayList<String> list = extract(mainFile);
+		ArrayList<String> list = extract(_file);
 		int count = 0;
-		while (count < this.mainCount) {
+		while (count < this._entryCount) {
 			if (list.get(count).contains(changeDDMMYY(key))) {
-				result.add(changeDFinLine(list.get(count)));
+				result.add(list.get(count));
 			}
 			count++;
 		}
-		return result;
+		return displayFormat(result);
 	}
 
+	// return array of entries containing key
+	// delete only if array size is 1
 	public ArrayList<String> deleteTask(String key) {
+		ArrayList<String> list = extract(_file);
 		ArrayList<String> result = searchCommandKey(key);
-		
-		return result;
+		if(result.size()==1){
+			list.remove(list.indexOf(result.get(0)));
+			clearFile(_file);
+			writeToFile(list, _file);
+			_entryCount--;
+		}
+		return displayFormat(result);
 	}
 
+	public ArrayList<String> markDone(String completeTask) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public ArrayList<String> updateEvent(String eventToUpdate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	/***** PRIVATE METHODS *****/
 	// catch IOException create file
 	private void checkFileExist(File file) {
@@ -78,24 +105,41 @@ public class Storage {
 
 	// write line to file
 	private void writeToFile(String line, File file) {
-		PrintWriter pwMain;
 		try {
-			pwMain = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
-			pwMain.write(line);
-			pwMain.write(System.lineSeparator());
-			pwMain.close();
+			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+			pw.write(line);
+			pw.write(System.lineSeparator());
+			pw.close();
 		} catch (IOException e) {
+			//TODO
+			e.printStackTrace();
+		}
+	}
+	
+	private void writeToFile(ArrayList<String> list, File file) {
+		Collections.sort(list);
+		try {
+			clearFile(file);
+			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+			for(String line : list){
+				pw.write(line);
+				pw.write(System.lineSeparator());
+			}
+			pw.close();
+			_entryCount = list.size();
+		}
+		catch(IOException e){
 			e.printStackTrace();
 		}
 	}
 
+	// extract lines in file into list
 	private ArrayList<String> extract(File file) {
 		ArrayList<String> list = new ArrayList<String>();
-		BufferedReader br;
 		try {
-			br = new BufferedReader(new FileReader(file));
+			BufferedReader br = new BufferedReader(new FileReader(file));
 			int count = 0;
-			while (count < this.mainCount) {
+			while (count < this._entryCount) {
 				list.add(br.readLine());
 				count++;
 			}
@@ -107,18 +151,38 @@ public class Storage {
 			// TODO
 			e.printStackTrace();
 		}
+		Collections.sort(list);
 		return list;
 	}
-
-	// count lines in file
-	private static int lineCounter(File file) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(file));
-		int lineCount = 0;
-		while (br.readLine() != null) {
-			lineCount++;
+	
+	// clear this file content
+	private void clearFile(File file){
+		try{
+			FileWriter fw = new FileWriter(file, false);
+			fw.write("");
+			fw.close();
 		}
-		br.close();
-		return lineCount;
+		catch(IOException e){
+			//TODO
+			e.printStackTrace();
+		}
+	}
+	
+	// count lines in file
+	private static int countEntry(File file) {
+		int count = 0;
+		try{
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			while (br.readLine() != null) {
+				count++;
+			}
+			br.close();
+		}
+		catch(IOException e){
+			//TODO
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 	// change DD/MM/YY to YY/MM/DD and otherwise
@@ -127,30 +191,38 @@ public class Storage {
 		return date;
 	}
 
-	private static String changeDFinLine(String line) {
+	private static String displayFormat(String line) {
 		line = changeDDMMYY(line.substring(0, 8)) + line.substring(8);
 		return line;
 	}
 
+	private static ArrayList<String> displayFormat(ArrayList<String> list){
+		for(String line : list)
+		{
+			line = displayFormat(line);
+		}
+		return list;
+	}
+	
 	/***** GETTERS & SETTERS *****/
-	public String getMainFileName() {
-		return mainFileName;
+	public String getFileName() {
+		return _fileName;
 	}
 
-	public void setMainFileName(String mainFileName) {
-		this.mainFileName = mainFileName;
+	public void setFileName(String fileName) {
+		this._fileName = fileName;
 	}
 
-	public ArrayList<String> markDone(String completeTask) {
-		// TODO Auto-generated method stub
-		return null;
+	//change file name
+	public void changeFileName(String fileName){
+		this._fileName = fileName;
+		
+		File oldFile = _file;
+		File newFile = new File(_fileName);
+		checkFileExist(newFile);
+		writeToFile(extract(oldFile), newFile);
+		_file = newFile;
+		oldFile.delete();
 	}
-
-	public ArrayList<String> updateEvent(String eventToUpdate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
 
 }

@@ -33,7 +33,6 @@ public class Welcome {
 	private static final String COMMAND_UNDO = "undo";
 	private static final String COMMAND_HELP = "help";
 	private static final String COMMAND_DONE = "done";
-	
 
 	private static DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private static Calendar cal = Calendar.getInstance();
@@ -112,7 +111,7 @@ public class Welcome {
 	}
 
 	public static void printSearchEvent(ArrayList<String> searchedEvent) {
-		if(searchedEvent.isEmpty()){
+		if (searchedEvent.isEmpty()) {
 			printMsg(MESSAGE_SEARCH_FAIL);
 		}
 		printMsg(MESSAGE_SUCCESS);
@@ -122,19 +121,16 @@ public class Welcome {
 		printMsg(MESSAGE_SEARCHED);
 	}
 
-
-
 	public static void printDeletedTask(String taskToDelete) {
 		printMsg(MESSAGE_SUCCESS + taskToDelete + MESSAGE_DELETED);
 	}
 
 	public static void printUpdatedEvent(ArrayList<String> updatedEvent) {
-		if(updatedEvent.isEmpty()){
+		if (updatedEvent.isEmpty()) {
 			printMsg(MESSAGE_UPDATE_FAIL);
-		}
-		else {
+		} else {
 			printMsg(MESSAGE_SUCCESS);
-			for(int i=0; i<updatedEvent.size(); i++){
+			for (int i = 0; i < updatedEvent.size(); i++) {
 				printMsg(updatedEvent.get(i));
 			}
 		}
@@ -142,14 +138,14 @@ public class Welcome {
 	}
 
 	public static void printCompletedTask(ArrayList<String> completedTask) {
-		
+
 		printMsg(MESSAGE_SUCCESS);
-		for(int i=0; i<completedTask.size(); i++){
+		for (int i = 0; i < completedTask.size(); i++) {
 			printMsg(completedTask.get(i));
 		}
 		printMsg(MESSAGE_COMPLETED);
 	}
-	
+
 	public static void printHelp() {
 		printMsg(MESSAGE_HELP);
 		printMsg(COMMAND_ADD);
