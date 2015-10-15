@@ -137,7 +137,7 @@ public class StringParser {
 				command.setUserEventTask(extractUserEventTask(userStringInput));
 				command.setUserUpdateEventTask(extractUpdateEventTask(userStringInput));
 			}
-		case DONE:
+		case DONE:			
 			try {
 				command.setUserActionType(actionType);
 				if (timeArgumentExist(userStringInput)) {
