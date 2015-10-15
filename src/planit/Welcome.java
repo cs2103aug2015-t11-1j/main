@@ -18,10 +18,10 @@ public class Welcome {
 	private static final String MESSAGE_ADDED = " is added to your schedule:)";
 	private static final String MESSAGE_DELETED = "is deleted from your schedule! ";
 	private static final String MESSAGE_SEARCHED = "is found in your schedule! ";
-	private static final String MESSAGE_SEARCH_ERROR = "Sadly your event is not found:(";
-	private static final String MESSAGE_UPDATE_FAIL = "Update failed!";
 	private static final String MESSAGE_UPDATED = "Your event has been successfully updated!";
 	private static final String MESSAGE_COMPLETED = " is complete :)";
+	private static final String MESSAGE_SEARCH_FAIL = "Sadly your event is not found:(";
+	private static final String MESSAGE_UPDATE_FAIL = "Update failed!";
 	private static final String MESSAGE_HELP = "The commands that can be used are: ";
 
 	private static final String COMMAND_EXIT = "exit";
@@ -112,8 +112,9 @@ public class Welcome {
 	}
 
 	public static void printSearchEvent(ArrayList<String> searchedEvent) {
-		assert searchedEvent.size() >= 1 : MESSAGE_SEARCH_ERROR;
-
+		if(searchedEvent.isEmpty()){
+			printMsg(MESSAGE_SEARCH_FAIL);
+		}
 		printMsg(MESSAGE_SUCCESS);
 		for (int i = 0; i < searchedEvent.size(); i++) {
 			printMsg(searchedEvent.get(i));
@@ -128,7 +129,7 @@ public class Welcome {
 	}
 
 	public static void printUpdatedEvent(ArrayList<String> updatedEvent) {
-		if(updatedEvent.size() == 0){
+		if(updatedEvent.isEmpty()){
 			printMsg(MESSAGE_UPDATE_FAIL);
 		}
 		else {

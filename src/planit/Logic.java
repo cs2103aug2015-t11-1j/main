@@ -62,6 +62,9 @@ public class Logic {
 			//Storage.deleteTask(taskToDelete);
 			Welcome.printDeletedTask(taskToDelete);
 			break;
+		//case HELP:
+		//	Welcome.printHelp()
+		//	break;
 		case UNDO:
 			break;
 		default:
