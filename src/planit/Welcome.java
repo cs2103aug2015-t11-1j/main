@@ -124,7 +124,6 @@ public class Welcome {
 	public static void printDeletedTask(String taskToDelete) {
 		printMsg(MESSAGE_SUCCESS + taskToDelete + MESSAGE_DELETED);
 	}
-<<<<<<< HEAD
 
 	public static void printUpdatedEvent(ArrayList<String> updatedEvent) {
 		if (updatedEvent.isEmpty()) {
@@ -159,8 +158,4 @@ public class Welcome {
 		printMsg(COMMAND_HELP);
 		printMsg(COMMAND_EXIT);
 	}
-=======
-	
-	
->>>>>>> origin/master
 }
