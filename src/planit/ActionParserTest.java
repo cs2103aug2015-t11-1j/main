@@ -4,14 +4,14 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import planit.Parser.ACTION_TYPE;
+import planit.ActionParser.ACTION_TYPE;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class ParserTest {
+public class ActionParserTest {
 
-	ArrayList<ACTION_TYPE> arr = new ArrayList<ACTION_TYPE>();
+	private static ArrayList<ACTION_TYPE> arr = new ArrayList<ACTION_TYPE>();
 
 	@Before
 	public void setUp() {
@@ -30,10 +30,10 @@ public class ParserTest {
 	}
 
 	@Test
-	public void testParser() {
+	public void testActionParser() {
 		String test[] = { "add", "del", "show", "LOL", "new", "rm", "display", "find", "done", "mark", "undo", "QUIT" };
 		for (int i = 0; i < test.length; i++) {
-			Parser testParser = new Parser(test[i]);
+			ActionParser testParser = new ActionParser(test[i]);
 
 			ACTION_TYPE result = testParser.getUserAction();
 			ACTION_TYPE expected = arr.get(i);
