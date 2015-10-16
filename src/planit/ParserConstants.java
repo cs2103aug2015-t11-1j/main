@@ -34,11 +34,8 @@ public class ParserConstants {
 	public static final String[] KW_COMMAND_EXIT = { "exit", "quit" };
 
 	// User string input Keywords (KW)
-	public static final String[] KW_START_DATE = { "from", "on" };
-	public static final String[] KW_END_DATE = { "by", "until", "till" };
-
-	public static final String[] KW_START_TIME = { "between" };
-	public static final String[] KW_END_TIME = { "at", "to" };
+	public static final String[] KW_START = { "from", "on", "between" };
+	public static final String[] KW_END = { "by", "until", "till", "at", "to" };
 	
 	// Indexes
 	public static final int INDEX_FIRST = 0;

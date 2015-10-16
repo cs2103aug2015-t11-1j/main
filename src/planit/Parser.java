@@ -4,12 +4,14 @@ import planit.ParserConstants;
 
 public class Parser {
 
+	private ACTION_TYPE userAction;
+
 	enum ACTION_TYPE {
-		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID, HELP;
+		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID, EXIT, HELP;
 	}
 
 	public Parser(String str) {
-		setUserAction(str);
+		userAction = setUserAction(str);
 	}
 
 	private ACTION_TYPE setUserAction(String str) {
@@ -30,7 +32,9 @@ public class Parser {
 			return ACTION_TYPE.DELETE;
 		} else if (compareUndoKeywords(userAction)) {
 			return ACTION_TYPE.UNDO;
-		} else if (compareHelpKeywords(userAction)) {
+		} else if (compareExitKeywords(userAction)) {
+			return ACTION_TYPE.EXIT;
+		} else if (userAction.equalsIgnoreCase("help")) {
 			return ACTION_TYPE.HELP;
 		} else {
 			return ACTION_TYPE.INVALID;
@@ -40,25 +44,90 @@ public class Parser {
 	/*
 	 * Comparison Methods
 	 * 
-	 * Compares the first word of the user's string input to the keywords specified under ParserConstants
+	 * Compares the first word of the user's string input to the keywords
+	 * specified under ParserConstants
 	 */
 	private boolean compareAddKeywords(String str) {
 		boolean containKeywords = false;
 		for (String keyWords : ParserConstants.KW_COMMAND_ADD) {
-			if (keyWords.equals(str)) {
+			if (keyWords.equalsIgnoreCase(str)) {
 				containKeywords = true;
 			}
 		}
 		return containKeywords;
 	}
-	
+
 	private boolean compareShowKeywords(String str) {
 		boolean containKeywords = false;
 		for (String keyWords : ParserConstants.KW_COMMAND_SHOW) {
-			if (keyWords.equals(str)) {
+			if (keyWords.equalsIgnoreCase(str)) {
 				containKeywords = true;
 			}
 		}
 		return containKeywords;
+	}
+
+	private boolean compareSearchKeywords(String str) {
+		boolean containKeywords = false;
+		for (String keyWords : ParserConstants.KW_COMMAND_SEARCH) {
+			if (keyWords.equalsIgnoreCase(str)) {
+				containKeywords = true;
+			}
+		}
+		return containKeywords;
+	}
+
+	private boolean compareUpdateKeywords(String str) {
+		boolean containKeywords = false;
+		for (String keyWords : ParserConstants.KW_COMMAND_UPDATE) {
+			if (keyWords.equalsIgnoreCase(str)) {
+				containKeywords = true;
+			}
+		}
+		return containKeywords;
+	}
+
+	private boolean compareDoneKeywords(String str) {
+		boolean containKeywords = false;
+		for (String keyWords : ParserConstants.KW_COMMAND_DONE) {
+			if (keyWords.equalsIgnoreCase(str)) {
+				containKeywords = true;
+			}
+		}
+		return containKeywords;
+	}
+
+	private boolean compareDeleteKeywords(String str) {
+		boolean containKeywords = false;
+		for (String keyWords : ParserConstants.KW_COMMAND_DELETE) {
+			if (keyWords.equalsIgnoreCase(str)) {
+				containKeywords = true;
+			}
+		}
+		return containKeywords;
+	}
+
+	private boolean compareUndoKeywords(String str) {
+		boolean containKeywords = false;
+		for (String keyWords : ParserConstants.KW_COMMAND_UNDO) {
+			if (keyWords.equalsIgnoreCase(str)) {
+				containKeywords = true;
+			}
+		}
+		return containKeywords;
+	}
+
+	private boolean compareExitKeywords(String str) {
+		boolean containKeywords = false;
+		for (String keyWords : ParserConstants.KW_COMMAND_EXIT) {
+			if (keyWords.equalsIgnoreCase(str)) {
+				containKeywords = true;
+			}
+		}
+		return containKeywords;
+	}
+
+	public ACTION_TYPE getUserAction() {
+		return this.userAction;
 	}
 }
