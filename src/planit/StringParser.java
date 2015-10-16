@@ -74,6 +74,8 @@ public class StringParser {
 			return ACTION_TYPE.DELETE;
 		} else if (userAction.equalsIgnoreCase("undo")) {
 			return ACTION_TYPE.UNDO;
+		} else if (userAction.equalsIgnoreCase("help")) {
+			return ACTION_TYPE.HELP;
 		} else {
 			return ACTION_TYPE.INVALID;
 		}
@@ -137,7 +139,7 @@ public class StringParser {
 				command.setUserEventTask(extractUserEventTask(userStringInput));
 				command.setUserUpdateEventTask(extractUpdateEventTask(userStringInput));
 			}
-		case DONE:			
+		case DONE:
 			try {
 				command.setUserActionType(actionType);
 				if (timeArgumentExist(userStringInput)) {
@@ -166,6 +168,9 @@ public class StringParser {
 		case UNDO:
 			command.setUserActionType(actionType);
 			command.setUserCommand(extractUserCommand(userStringInput));
+			break;
+		case HELP:
+			command.setUserActionType(actionType);
 			break;
 		case INVALID:
 			command.setUserActionType(actionType);
