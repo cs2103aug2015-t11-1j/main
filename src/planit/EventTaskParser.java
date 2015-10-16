@@ -16,7 +16,7 @@ public class EventTaskParser {
 
 	private String extractEventTask() {
 		userEventTaskArr.remove(ParserConstants.INDEX_FIRST);
-		List<String> list = Arrays.asList(ParserConstants.KW_TIMEFRAMES);
+		List<String> list = Arrays.asList(ParserConstants.KW_TO_EXCLUDE);
 		userEventTaskArr.removeAll(list);
 
 		String strReturn = ParserConstants.CHAR_SINGLE_BLANK;

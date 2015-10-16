@@ -8,7 +8,7 @@ public class EventTaskParserTest {
 
 	@Test
 	public void testEventTaskParser() {
-		String test = "add meeting 12.30pm to 1am";
+		String test = "add meeting on monday from 1pm to 2pm";
 		Parser parser = new Parser(test);
 		
 		EventTaskParser etp = new EventTaskParser(parser.getUserInputArray());
