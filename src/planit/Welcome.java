@@ -121,8 +121,8 @@ public class Welcome {
 		printMsg(MESSAGE_SEARCHED);
 	}
 
-	public static void printDeletedTask(String taskToDelete) {
-		printMsg(MESSAGE_SUCCESS + taskToDelete + MESSAGE_DELETED);
+	public static void printDeletedTask(ArrayList<String> taskToDelete) {
+		printMsg(MESSAGE_SUCCESS + taskToDelete.get(0) + MESSAGE_DELETED);
 	}
 
 	public static void printUpdatedEvent(ArrayList<String> updatedEvent) {
