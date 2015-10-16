@@ -39,4 +39,14 @@ public class ParserConstants {
 
 	public static final String[] KW_START_TIME = { "between" };
 	public static final String[] KW_END_TIME = { "at", "to" };
+	
+	// Indexes
+	public static final int INDEX_FIRST = 0;
+	
+	// REGEX
+	public static final String REGEX_WHITESPACES = "[\\s,]+";
+	
+	// Single Characters
+	public static final String CHAR_SINGLE_WHITESPACE = " ";
+	
 }
