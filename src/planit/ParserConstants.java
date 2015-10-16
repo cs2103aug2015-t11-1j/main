@@ -1,6 +1,6 @@
 package planit;
 
-public class Constants {
+public class ParserConstants {
 
 	// Day Keywords (KW)
 	public static final String[] KW_MONDAY = { "mon", "monday" };
