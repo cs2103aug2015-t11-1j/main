@@ -17,7 +17,7 @@ public class Logic {
 	private static Command userCommand;
 
 	public Logic() {
-		
+		// test comment
 	}
 
 
