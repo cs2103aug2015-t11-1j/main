@@ -104,4 +104,10 @@ public class StringParserTest {
 		assertTrue("timeArray is not empty", cmd.getUserTimeRange().isEmpty());
 		assertEquals(ACTION_TYPE.UPDATE, cmd.getActionType());
 	}
+	
+	/*@Test (expected = InvalidFormatException.class)
+	public void testCommandObject4() throws InvalidFormatException {
+		String test = "done this event > 1234";
+		cmd = sp.parseStringIntoCommand(test);
+	}*/
 }

@@ -26,7 +26,6 @@ public class Logic {
 	 */
 
 	public static void executeCommand(String userInput) throws IOException {
-		// Storage and StringParser objects instantiated to handle operations on command object
 		Storage sto = new Storage();
 		StringParser sp = new StringParser();
 		userCommand = sp.parseStringIntoCommand(userInput);
@@ -59,12 +58,13 @@ public class Logic {
 			break;
 		case DELETE:
 			String taskToDelete = userCommand.getUserEventTask();
-			ArrayList<String> deletedTask = sto.deleteTask(taskToDelete);
-			Welcome.printDeletedTask(deletedTask);
+			//TODO
+			//Storage.deleteTask(taskToDelete);
+			Welcome.printDeletedTask(taskToDelete);
 			break;
-		case HELP:
-			Welcome.printHelp();
-			break;
+		//case HELP:
+		//	Welcome.printHelp()
+		//	break;
 		case UNDO:
 			break;
 		default:

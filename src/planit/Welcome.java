@@ -16,7 +16,8 @@ public class Welcome {
 	private static final String MESSAGE_PROMPT = "What would you like to do today?";
 	private static final String MESSAGE_SUCCESS = "Success! ";
 	private static final String MESSAGE_ADDED = " is added to your schedule:)";
-	private static final String MESSAGE_DELETED = "is deleted from your schedule! ";
+	private static final String MESSAGE_DELETED = " is deleted from your schedule! ";
+	private static final String MESSAGE_DELETE_FAIL = "Sadly there is no such event to delete";
 	private static final String MESSAGE_SEARCHED = "is found in your schedule! ";
 	private static final String MESSAGE_UPDATED = "Your event has been successfully updated!";
 	private static final String MESSAGE_COMPLETED = " is complete :)";
@@ -113,16 +114,26 @@ public class Welcome {
 	public static void printSearchEvent(ArrayList<String> searchedEvent) {
 		if (searchedEvent.isEmpty()) {
 			printMsg(MESSAGE_SEARCH_FAIL);
+		} else {
+			printMsg(MESSAGE_SUCCESS);
+			for (int i = 0; i < searchedEvent.size(); i++) {
+				printMsg(searchedEvent.get(i));
+			}
+			printMsg(MESSAGE_SEARCHED);
+
 		}
-		printMsg(MESSAGE_SUCCESS);
-		for (int i = 0; i < searchedEvent.size(); i++) {
-			printMsg(searchedEvent.get(i));
-		}
-		printMsg(MESSAGE_SEARCHED);
 	}
 
-	public static void printDeletedTask(ArrayList<String> taskToDelete) {
-		printMsg(MESSAGE_SUCCESS + taskToDelete.get(0) + MESSAGE_DELETED);
+	public static void printDeletedTask(ArrayList<String> deletedTask) {
+		if (deletedTask.isEmpty()){
+			printMsg(MESSAGE_DELETE_FAIL);
+		} else {
+			printMsg(MESSAGE_SUCCESS);
+			for (int i = 0; i < deletedTask.size(); i++) {
+				printMsg(deletedTask.get(i));
+			}
+			printMsg(MESSAGE_DELETED);
+		}
 	}
 
 	public static void printUpdatedEvent(ArrayList<String> updatedEvent) {
@@ -158,4 +169,5 @@ public class Welcome {
 		printMsg(COMMAND_HELP);
 		printMsg(COMMAND_EXIT);
 	}
+
 }

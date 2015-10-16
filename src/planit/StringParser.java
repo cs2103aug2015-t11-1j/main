@@ -45,7 +45,7 @@ public class StringParser {
 	private ArrayList<String> dateArray;
 
 	enum ACTION_TYPE {
-		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID, HELP;
+		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID;
 	}
 
 	/*
@@ -74,8 +74,6 @@ public class StringParser {
 			return ACTION_TYPE.DELETE;
 		} else if (userAction.equalsIgnoreCase("undo")) {
 			return ACTION_TYPE.UNDO;
-		} else if (userAction.equalsIgnoreCase("help")) {
-			return ACTION_TYPE.HELP;
 		} else {
 			return ACTION_TYPE.INVALID;
 		}
@@ -139,6 +137,16 @@ public class StringParser {
 				command.setUserEventTask(extractUserEventTask(userStringInput));
 				command.setUserUpdateEventTask(extractUpdateEventTask(userStringInput));
 			}
+			/*
+			 * command.setUserActionType(actionType); if
+			 * (timeArgumentExist(userStringInput)) {
+			 * command.setUserCommand(extractUserCommand(userStringInput));
+			 * command.setUserEventTask(extractUserEventTask(userStringInput));
+			 * command.setUserDate(extractUserDate(userStringInput));
+			 * command.setUserTime(extractUserTime(userStringInput)); } else {
+			 * 
+			 * } break;
+			 */
 		case DONE:
 			try {
 				command.setUserActionType(actionType);
@@ -168,9 +176,6 @@ public class StringParser {
 		case UNDO:
 			command.setUserActionType(actionType);
 			command.setUserCommand(extractUserCommand(userStringInput));
-			break;
-		case HELP:
-			command.setUserActionType(actionType);
 			break;
 		case INVALID:
 			command.setUserActionType(actionType);
