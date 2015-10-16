@@ -8,6 +8,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class Welcome {
+	
+	// test comment
 
 	private static final String MESSAGE_MORNING = "Good morning, Jim!";
 	private static final String MESSAGE_AFTERNOON = "Good afternoon, Jim!";
