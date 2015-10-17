@@ -23,6 +23,10 @@ public class ParserConstants {
 	public static final String[] KW_MONTHS_1ST_UPPER_LONG = { "January", "February", "March", "April", "May", "June",
 			"July", "August", "September", "October", "November", "December" };
 
+	// DateTimeFormat formats
+	public static final String[] FORMAT_DATETIME = { "ddMMyy", "dd-MM-yy", "dd/MM/yy", "dd-MM", "dd/MM", "dd-MMM-yy",
+			"dd/MMM/yy", "dd-MMM", "dd/MMM" };
+
 	// Command Keywords (KW)
 	public static final String[] KW_COMMAND_ADD = { "add", "new" };
 	public static final String[] KW_COMMAND_DELETE = { "delete", "rm", "del" };
