@@ -45,7 +45,7 @@ public class StringParser {
 	private ArrayList<String> dateArray;
 
 	enum ACTION_TYPE {
-		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID;
+		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID, HELP;
 	}
 
 	/*
