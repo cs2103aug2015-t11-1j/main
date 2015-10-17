@@ -1,35 +1,32 @@
-/*
- * This class extracts the string representing the user's event/task
- * ASSUMPTIONS
- * 1) Event/task arguments always comes after the user's command
- * 2) Event/task arguments always comes before any arguments related to time
- */
-
 package planit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class EventTaskParser {
 
-	public static String extractEventTask(String str) {
-		ArrayList<String> arr = Parser.toArrayList(str.trim());
-		int index = Parser.isDateTimePresent(str.trim());
-		if (index != -1) {
-			for (int i = index; i < arr.size();) {
-				arr.remove(i);
-			}
-			return getEventString(arr).trim();
-		} else {
-			return getEventString(arr).trim();
-		}
+	private ArrayList<String> userEventTaskArr;
+	private String userEventTask;
+
+	public EventTaskParser(ArrayList<String> strArr) {
+		userEventTaskArr = strArr;
+		userEventTask = extractEventTask();
 	}
 
-	private static String getEventString(ArrayList<String> arr) {
-		arr.remove(ParserConstants.INDEX_FIRST);
-		String toReturn = "";
-		for (int j = 0; j < arr.size(); j++) {
-			toReturn = toReturn + ParserConstants.CHAR_SINGLE_WHITESPACE + arr.get(j);
+	private String extractEventTask() {
+		userEventTaskArr.remove(ParserConstants.INDEX_FIRST);
+		List<String> list = Arrays.asList(ParserConstants.KW_TO_EXCLUDE);
+		userEventTaskArr.removeAll(list);
+
+		String strReturn = ParserConstants.CHAR_SINGLE_BLANK;
+		for (String str : userEventTaskArr) {
+			strReturn = strReturn + ParserConstants.CHAR_SINGLE_WHITESPACE + str;
 		}
-		return toReturn;
+		return strReturn.trim();
+	}
+
+	public String getUserEventTask() {
+		return this.userEventTask;
 	}
 }
