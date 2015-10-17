@@ -12,12 +12,23 @@ public class DateParser {
 		ArrayList<String> arr = Parser.toArrayList(str.trim().toLowerCase());
 		int index = Parser.isDateTimePresent(str.trim());
 		if (index != -1 && Parser.isTodayTmr(arr.get(index)) == 1) {
-			LocalDateTime date = LocalDateTime.now();
-			return date.toString(ParserConstants.FORMAT_DATE_STORAGE);
+			return getTodayDate();
 		} else if (index != -1 && Parser.isTodayTmr(arr.get(index)) == -1) {
-			LocalDateTime date = LocalDateTime.now();
-			date = date.plusDays(ParserConstants.INT_ONE);
-			return date.toString(ParserConstants.FORMAT_DATE_STORAGE);
+			return getTmrDate();
 		}
+	}
+	
+	public static String getEndDate(String str) {
+	}
+
+	private static String getTodayDate() {
+		LocalDateTime date = LocalDateTime.now();
+		return date.toString(ParserConstants.FORMAT_DATE_STORAGE);
+	}
+
+	private static String getTmrDate() {
+		LocalDateTime date = LocalDateTime.now();
+		date = date.plusDays(ParserConstants.INT_ONE);
+		return date.toString(ParserConstants.FORMAT_DATE_STORAGE);
 	}
 }
