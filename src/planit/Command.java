@@ -2,7 +2,7 @@ package planit;
 
 public interface Command {
 	
-	public void execute();
-	public void parse();
-	public void undo();
+	void execute();
+	void parse();
+	void undo();
 }
