@@ -33,9 +33,7 @@ public class ActionParserTest {
 	public void testActionParser() {
 		String test[] = { "add", "del", "show", "LOL", "new", "rm", "display", "find", "done", "mark", "undo", "QUIT" };
 		for (int i = 0; i < test.length; i++) {
-			ActionParser testParser = new ActionParser(test[i]);
-
-			ACTION_TYPE result = testParser.getUserAction();
+			ACTION_TYPE result = ActionParser.setUserAction(test[i]);
 			ACTION_TYPE expected = arr.get(i);
 			assertEquals(expected, result);
 		}
