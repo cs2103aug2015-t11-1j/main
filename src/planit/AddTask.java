@@ -21,8 +21,8 @@ public class AddTask implements Command {
 	@Override
 	public void parse() {
 		eventTask = EventTaskParser.getEventTask(str);
-		date = DateParser.extractDate(str);
-		time = TimeParser.extractTime(str);
+		date = DateParser.extractDate(strArr);
+		time = TimeParser.extractTime(strArr);
 	}
 
 	@Override
