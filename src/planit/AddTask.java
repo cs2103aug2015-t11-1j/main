@@ -4,8 +4,8 @@ public class AddTask implements Command {
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-
+		// TODO
+//		Storage.storeNewEvent(StorageFormatter.formatAdd());
 	}
 
 	@Override
