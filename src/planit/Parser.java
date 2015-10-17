@@ -15,8 +15,8 @@ public class Parser {
 	}
 
 	/*
-	 * Returns the first occurrence of arguments signifying a date or time
-	 * If none exists, return -1;
+	 * Returns the first occurrence of arguments signifying a date or time if
+	 * none exists, return -1;
 	 */
 	public static int isDateTimePresent(String str) {
 		ArrayList<String> list = new ArrayList<String>();
@@ -32,7 +32,7 @@ public class Parser {
 		list.addAll(Arrays.asList(ParserConstants.KW_TOMORROW));
 		list.add(ParserConstants.KW_NEXT);
 		list.add(ParserConstants.CHAR_RIGHT_ANGLE_BRACKET);
-		ArrayList<String> arr = Parser.toArrayList(str.trim().toLowerCase());
+		ArrayList<String> arr = toArrayList(str.trim().toLowerCase());
 		int index = arr.size();
 		for (String s : list) {
 			if (arr.indexOf(s) < index && arr.indexOf(s) != ParserConstants.INDEX_NEGATIVE_ONE) {
@@ -45,14 +45,12 @@ public class Parser {
 			return index;
 		}
 	}
-	
+
 	/*
-	 * Checks if the first occurrence of arguments signifying a date
-	 * belongs under KW_TODAY or KW_TOMORROW
+	 * Checks if the first occurrence of arguments signifying a date belongs
+	 * under KW_TODAY or KW_TOMORROW
 	 * 
-	 * Return 1 if it's KW_TODAY
-	 * -1 if it's KW_TOMORROW
-	 * 0 if both are absent
+	 * Return 1 if it's KW_TODAY -1 if it's KW_TOMORROW 0 if both are absent
 	 */
 	public static int isTodayTmr(String str) {
 		str = str.trim().toLowerCase();

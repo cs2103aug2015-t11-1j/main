@@ -32,14 +32,15 @@ public class Storage {
 
 	/***** MAIN FEATURES METHOD *****/
 	// ACTION_TYPE: ADD
-	// write new event or task into file
-	public String storeNewEvent(Command cmd) throws IOException {
-		String line = new String(changeDDMMYY(cmd.getDateString()) + " " + cmd.getTimeString() + " " + cmd.getUserEventTask());
+	// write line into file
+	// str: DDMMYY TIME(if exist) details
+	public Output storeNewEvent(String str) throws IOException {
+		String line = new String(displayFormat(str));
 		writeToFile(line, _file);
 		_entryCount++;
-		return displayFormat(line);
+		return new Output(true, line);
 	}
-
+	
 	public ArrayList<String> searchCommandKey(String key) {
 		ArrayList<String> result = new ArrayList<String>();
 		ArrayList<String> list = extract(_file);
@@ -225,6 +226,4 @@ public class Storage {
 		oldFile.delete();
 	}
 	
-	// test comment
-
 }

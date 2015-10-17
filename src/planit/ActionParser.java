@@ -1,7 +1,5 @@
 package planit;
 
-import java.util.ArrayList;
-
 public class ActionParser {
 
 	enum ACTION_TYPE {
