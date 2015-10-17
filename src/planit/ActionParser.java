@@ -1,5 +1,7 @@
 package planit;
 
+import java.util.ArrayList;
+
 public class ActionParser {
 
 	enum ACTION_TYPE {
@@ -117,5 +119,14 @@ public class ActionParser {
 			}
 		}
 		return containKeywords;
+	}
+	
+	public static ArrayList<String> stringToArrayList(String str) {
+		String[] strArr = str.split(ParserConstants.REGEX_WHITESPACES);
+		ArrayList<String> strArrList = new ArrayList<String>();
+		for (String strTransfer : strArr) {
+			strArrList.add(strTransfer);
+		}
+		return strArrList;
 	}
 }
