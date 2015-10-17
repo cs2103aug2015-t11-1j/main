@@ -2,17 +2,11 @@ package planit;
 
 public class ActionParser {
 
-	private ACTION_TYPE userAction;
-
 	enum ACTION_TYPE {
 		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID, EXIT, HELP;
 	}
 
-	public ActionParser(String str) {
-		userAction = setUserAction(str);
-	}
-
-	private ACTION_TYPE setUserAction(String str) {
+	public static ACTION_TYPE setUserAction(String str) {
 		String[] strArray = str.split(ParserConstants.REGEX_WHITESPACES);
 		String userAction = strArray[ParserConstants.INDEX_FIRST];
 
@@ -45,7 +39,7 @@ public class ActionParser {
 	 * Compares the first word of the user's string input to the keywords
 	 * specified under ParserConstants
 	 */
-	private boolean compareAddKeywords(String str) {
+	private static boolean compareAddKeywords(String str) {
 		boolean containKeywords = false;
 		for (String keyWords : ParserConstants.KW_COMMAND_ADD) {
 			if (keyWords.equalsIgnoreCase(str)) {
@@ -55,7 +49,7 @@ public class ActionParser {
 		return containKeywords;
 	}
 
-	private boolean compareShowKeywords(String str) {
+	private static boolean compareShowKeywords(String str) {
 		boolean containKeywords = false;
 		for (String keyWords : ParserConstants.KW_COMMAND_SHOW) {
 			if (keyWords.equalsIgnoreCase(str)) {
@@ -65,7 +59,7 @@ public class ActionParser {
 		return containKeywords;
 	}
 
-	private boolean compareSearchKeywords(String str) {
+	private static boolean compareSearchKeywords(String str) {
 		boolean containKeywords = false;
 		for (String keyWords : ParserConstants.KW_COMMAND_SEARCH) {
 			if (keyWords.equalsIgnoreCase(str)) {
@@ -75,7 +69,7 @@ public class ActionParser {
 		return containKeywords;
 	}
 
-	private boolean compareUpdateKeywords(String str) {
+	private static boolean compareUpdateKeywords(String str) {
 		boolean containKeywords = false;
 		for (String keyWords : ParserConstants.KW_COMMAND_UPDATE) {
 			if (keyWords.equalsIgnoreCase(str)) {
@@ -85,7 +79,7 @@ public class ActionParser {
 		return containKeywords;
 	}
 
-	private boolean compareDoneKeywords(String str) {
+	private static boolean compareDoneKeywords(String str) {
 		boolean containKeywords = false;
 		for (String keyWords : ParserConstants.KW_COMMAND_DONE) {
 			if (keyWords.equalsIgnoreCase(str)) {
@@ -95,7 +89,7 @@ public class ActionParser {
 		return containKeywords;
 	}
 
-	private boolean compareDeleteKeywords(String str) {
+	private static boolean compareDeleteKeywords(String str) {
 		boolean containKeywords = false;
 		for (String keyWords : ParserConstants.KW_COMMAND_DELETE) {
 			if (keyWords.equalsIgnoreCase(str)) {
@@ -105,7 +99,7 @@ public class ActionParser {
 		return containKeywords;
 	}
 
-	private boolean compareUndoKeywords(String str) {
+	private static boolean compareUndoKeywords(String str) {
 		boolean containKeywords = false;
 		for (String keyWords : ParserConstants.KW_COMMAND_UNDO) {
 			if (keyWords.equalsIgnoreCase(str)) {
@@ -115,7 +109,7 @@ public class ActionParser {
 		return containKeywords;
 	}
 
-	private boolean compareExitKeywords(String str) {
+	private static boolean compareExitKeywords(String str) {
 		boolean containKeywords = false;
 		for (String keyWords : ParserConstants.KW_COMMAND_EXIT) {
 			if (keyWords.equalsIgnoreCase(str)) {
@@ -123,9 +117,5 @@ public class ActionParser {
 			}
 		}
 		return containKeywords;
-	}
-
-	public ACTION_TYPE getUserAction() {
-		return this.userAction;
 	}
 }
