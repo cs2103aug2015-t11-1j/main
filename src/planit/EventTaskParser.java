@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class EventTaskParser {
 
-	public static String extractEventTask(String str) {
+	public static String getEventTask(String str) {
 		ArrayList<String> arr = Parser.toArrayList(str.trim());
 		int index = Parser.isDateTimePresent(str.trim());
 		if (index != -1) {
