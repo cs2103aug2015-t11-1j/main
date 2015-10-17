@@ -17,7 +17,7 @@ public class Logic {
 	private static Command userCommand;
 
 	public Logic() {
-		// test comment
+		
 	}
 
 
@@ -58,13 +58,12 @@ public class Logic {
 			break;
 		case DELETE:
 			String taskToDelete = userCommand.getUserEventTask();
-			//TODO
-			//Storage.deleteTask(taskToDelete);
-			Welcome.printDeletedTask(taskToDelete);
+			ArrayList<String> deletedTask = sto.deleteTask(taskToDelete);
+			Welcome.printDeletedTask(deletedTask);
 			break;
-		//case HELP:
-		//	Welcome.printHelp()
-		//	break;
+		case HELP:
+			Welcome.printHelp();
+			break;
 		case UNDO:
 			break;
 		default:
