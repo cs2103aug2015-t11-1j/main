@@ -24,8 +24,14 @@ public class ParserConstants {
 			"July", "August", "September", "October", "November", "December" };
 
 	// DateTimeFormat formats
-	public static final String[] FORMAT_DATETIME = { "ddMMyy", "dd-MM-yy", "dd/MM/yy", "dd-MM", "dd/MM", "dd-MMM-yy",
-			"dd/MMM/yy", "dd-MMM", "dd/MMM" };
+	public static final String[] FORMAT_DATE = { "d-MM-yy", "d/MM/yy", "d.MM.yy", "d-MM", "d/MM", "d.MM", "d-MMM-yy",
+			"d/MMM/yy", "d.MMM.yy", "d-MMM", "d/MMM", "d.MMM", "d-MM-yyyy", "d/MM/yyyy", "d.MM.yyyy", "d-MM", "d/MM",
+			"d.MM", "d-MMM-yyyy", "d/MMM/yyyy", "d.MMM.yyyy", "d-MMM", "d/MMM", "d.MMM", "d MMM yyyy", "d MMM yy",
+			"d MMMM yyyy", "d MMMM yy", "dd-MM-yy", "dd/MM/yy", "dd.MM.yy", "dd-MM", "dd/MM", "dd.MM", "dd-MMM-yy",
+			"dd/MMM/yy", "dd.MMM.yy", "dd-MMM", "dd/MMM", "dd.MMM", "dd-MM-yyyy", "dd/MM/yyyy", "dd.MM.yyyy",
+			"dd-MMM-yyyy", "dd/MMM/yyyy", "dd.MMM.yyyy", "dd-MMM", "dd/MMM", "dd.MMM", "dd MMM yyyy", "dd MMM yy",
+			"dd MMMM yyyy", "dd MMMM yy" };
+	public static final String[] FORMAT_TIME = { "HHmm", "HH:mm", "HH.mm", "H:mm", "H.mm" };
 
 	// Command Keywords (KW)
 	public static final String[] KW_COMMAND_ADD = { "add", "new" };
@@ -38,11 +44,12 @@ public class ParserConstants {
 	public static final String[] KW_COMMAND_EXIT = { "exit", "quit" };
 
 	// User string input Keywords (KW)
-	public static final String[] KW_START = { "from", "on" };
+	public static final String[] KW_START = { "in", "from", "on" };
 	public static final String[] KW_END = { "by", "until", "till", "at", "to" };
-	public static final String[] KW_TO_EXCLUDE = { "from", "on", "by", "until", "till", "at", "to", "pm", "am", "1am",
-			"2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12am", "12noon", "12pm", "1pm",
-			"2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12pm", "1.15am", "2.15am",
+	// this needs changing
+	public static final String[] KW_TO_EXCLUDE = { "in", "from", "on", "by", "until", "till", "at", "to", "pm", "am",
+			"1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12am", "12noon", "12pm",
+			"1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm", "12pm", "1.15am", "2.15am",
 			"3.15am", "4.15am", "5.15am", "6.15am", "7.15am", "8.15am", "9.15am", "10.15am", "11.15am", "12.15am",
 			"12.15pm", "1.15pm", "2.15pm", "3.15pm", "4.15pm", "5.15pm", "6.15pm", "7.15pm", "8.15pm", "9.15pm",
 			"10.15pm", "11.15pm", "12.15pm", "1.30am", "2.30am", "3.30am", "4.30am", "5.30am", "6.30am", "7.30am",
