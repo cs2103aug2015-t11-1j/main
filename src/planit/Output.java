@@ -7,7 +7,7 @@ public class Output {
 	private String _entry;
 	private ArrayList<String> _results;
 	
-	/***********COSTRUCTOR**********/
+	/***********CONSTRUCTOR**********/
 	public Output(boolean status, String entry) {
 		this._status = status;
 		this._entry = entry;
@@ -29,5 +29,18 @@ public class Output {
 	
 	public ArrayList<String> getresults(){
 		return _results;
+	}
+	
+	/**********  SETTER  **********/
+	public void setStatus(boolean status) {
+		this._status = status;
+	}
+	
+	public void setEntry(String entry) {
+		this._entry = entry;
+	}
+	
+	public void setResults(ArrayList<String> results) {
+		this._results = results;
 	}
 }
