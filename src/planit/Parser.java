@@ -1,7 +1,6 @@
 package planit;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Parser {
 
@@ -15,55 +14,50 @@ public class Parser {
 	}
 
 	/*
-	 * Returns the first occurrence of arguments signifying a date or time if
-	 * none exists, return -1;
+	 * Returns the index of the first occurrence of the specified element in the
+	 * String, or -1 if it does not contain the element.
 	 */
-	public static int isDateTimePresent(String str) {
-		ArrayList<String> list = new ArrayList<String>();
-		list.addAll(Arrays.asList(ParserConstants.KW_START));
-		/*list.addAll(Arrays.asList(ParserConstants.KW_MONDAY));
-		list.addAll(Arrays.asList(ParserConstants.KW_TUESDAY));
-		list.addAll(Arrays.asList(ParserConstants.KW_WEDNESDAY));
-		list.addAll(Arrays.asList(ParserConstants.KW_THURSDAY));
-		list.addAll(Arrays.asList(ParserConstants.KW_FRIDAY));
-		list.addAll(Arrays.asList(ParserConstants.KW_SATURDAY));
-		list.addAll(Arrays.asList(ParserConstants.KW_SUNDAY));*/
-		list.addAll(Arrays.asList(ParserConstants.KW_TODAY));
-		list.addAll(Arrays.asList(ParserConstants.KW_TOMORROW));
-		list.add(ParserConstants.KW_NEXT);
-		list.add(ParserConstants.CHAR_RIGHT_ANGLE_BRACKET);
-		ArrayList<String> arr = toArrayList(str.trim().toLowerCase());
-		int index = arr.size();
-		for (String s : list) {
-			if (arr.indexOf(s) < index && arr.indexOf(s) != ParserConstants.INDEX_NEGATIVE_ONE) {
-				index = arr.indexOf(s);
+	public static int indexOf(String[] arr, String str) {
+		ArrayList<String> strArr = toArrayList(str.trim().toLowerCase());
+		int index = strArr.size();
+		for (String s : arr) {
+			if (strArr.indexOf(s) < index && strArr.indexOf(s) != -1) {
+				index = strArr.indexOf(s);
 			}
 		}
-		if (index == arr.size()) {
-			return ParserConstants.INDEX_NEGATIVE_ONE;
+		if (index == strArr.size()) {
+			return -1;
 		} else {
 			return index;
 		}
 	}
 
 	/*
-	 * Checks if the first occurrence of arguments signifying a date belongs
-	 * under KW_TODAY or KW_TOMORROW
-	 * 
-	 * Return 1 if it's KW_TODAY -1 if it's KW_TOMORROW 0 if both are absent
+	 * Returns the index of the last occurrence of the specified element in the
+	 * String, or -1 if it does not contain the element.
 	 */
-	public static int isTodayTmr(String str) {
-		str = str.trim().toLowerCase();
-		for (String s : ParserConstants.KW_TODAY) {
-			if (str.equals(s)) {
-				return 1;
+	public static int lastIndexOf(String[] arr, String str) {
+		ArrayList<String> strArr = toArrayList(str.trim().toLowerCase());
+		int index = -1;
+		for (String s : arr) {
+			if (strArr.lastIndexOf(s) > index && strArr.lastIndexOf(s) != -1) {
+				index = strArr.lastIndexOf(s);
 			}
 		}
-		for (String s : ParserConstants.KW_TOMORROW) {
-			if (str.equals(s)) {
-				return -1;
+		if (index == -1) {
+			return -1;
+		} else {
+			return index;
+		}
+	}
+
+	public static boolean isPresent(String[] arr, String str) {
+		ArrayList<String> strArr = toArrayList(str.trim().toLowerCase());
+		for (String s : arr) {
+			if (strArr.contains(s)) {
+				return true;
 			}
 		}
-		return 0;
+		return false;
 	}
 }
