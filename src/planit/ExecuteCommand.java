@@ -46,7 +46,49 @@ public class ExecuteCommand {
 	}
 
 	public void executeCommand(ACTION_TYPE userAction, String userInput) {
-		// TODO Auto-generated method stub
-		
+		switch(userAction) {
+		case ADD:
+			AddTask addTask = new AddTask(userInput);
+			addTask.parse();
+			addTask.execute();
+			undoStack.push(addTask);
+			break;
+		case SHOW:
+			ShowTask showTask = new ShowTask(userInput);
+			showTask.parse();
+			showTask.execute();
+			break;
+		case SEARCH:
+			SearchTask searchTask = new SearchTask(userInput);
+			searchTask.parse();
+			searchTask.execute();
+			break;
+		case UPDATE:
+			UpdateTask updateTask = new UpdateTask(userInput);
+			updateTask.parse();
+			updateTask.execute();
+			undoStack.push(updateTask);
+			break;
+		case DONE:
+			DoneTask doneTask = new DoneTask(userInput);
+			doneTask.parse();
+			doneTask.execute();
+			undoStack.push(doneTask);
+			break;
+		case DELETE:
+			DeleteTask deleteTask = new DeleteTask(userInput);
+			deleteTask.parse();
+			deleteTask.execute();
+			undoStack.push(deleteTask);
+			break;
+		case HELP:
+			Welcome.printHelp();
+			break;
+		case UNDO:
+		//	Command taskToUndo = undoStack.pop();
+			break;
+		default:
+			break;
+		}
 	}
 }
