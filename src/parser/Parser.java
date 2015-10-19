@@ -29,6 +29,7 @@ public class Parser {
 			return add;
 		case SHOW:
 			ShowTask show = new ShowTask();
+			show.setDate(DateParser.getStartDate(str));
 			return show;
 		case SEARCH:
 			SearchTask search = new SearchTask();
