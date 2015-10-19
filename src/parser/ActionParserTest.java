@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import parser.ActionParser.ACTION_TYPE;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import parser.ActionParser.ACTION_TYPE;
 
 public class ActionParserTest {
 
