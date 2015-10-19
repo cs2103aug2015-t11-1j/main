@@ -30,7 +30,7 @@ public class ParserConstants {
 			"d MMMM yyyy", "d MMMM yy", "dd-MM-yy", "dd/MM/yy", "dd.MM.yy", "dd-MM", "dd/MM", "dd.MM", "dd-MMM-yy",
 			"dd/MMM/yy", "dd.MMM.yy", "dd-MMM", "dd/MMM", "dd.MMM", "dd-MM-yyyy", "dd/MM/yyyy", "dd.MM.yyyy",
 			"dd-MMM-yyyy", "dd/MMM/yyyy", "dd.MMM.yyyy", "dd-MMM", "dd/MMM", "dd.MMM", "dd MMM yyyy", "dd MMM yy",
-			"dd MMMM yyyy", "dd MMMM yy" };
+			"dd MMMM yyyy", "dd MMMM yy", "ddMMyy", "dd MMMM" };
 	public static final String[] FORMAT_TIME = { "HHmm", "HH:mm", "HH.mm", "H:mm", "H.mm" };
 	public static final String FORMAT_DATE_STORAGE = "dd/MM/yy";
 
@@ -45,7 +45,8 @@ public class ParserConstants {
 	public static final String[] KW_COMMAND_EXIT = { "exit", "quit" };
 
 	// User string input Keywords (KW)
-	public static final String[] KW_START = { "by", "from", "on", "at" };
+	public static final String[] KW_START = { "by", "from", "on", "at", ">", "tomorrow", "tmr", "today",
+			"tdy" };
 	public static final String[] KW_END = { "by", "until", "till", "to" };
 	public static final String KW_NEXT = "next";
 
@@ -90,4 +91,7 @@ public class ParserConstants {
 	public static final String CHAR_SINGLE_WHITESPACE = " ";
 	public static final String CHAR_SINGLE_BLANK = "";
 	public static final String CHAR_RIGHT_ANGLE_BRACKET = ">";
+	public static final String CHAR_PERIOD = ".";
+	public static final String CHAR_FORWARD_SLASH = "/";
+	public static final String CHAR_FORWARD_HYPHEN = "-";
 }
