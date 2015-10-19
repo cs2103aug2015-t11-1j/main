@@ -8,15 +8,14 @@ import storage.Output;
 
 public class AddTask implements Command {
 
-	private String userInput;
 	private String eventTask;
 	private ArrayList<String> date = new ArrayList<String>();
 	private ArrayList<String> time = new ArrayList<String>();
 	
 	
 	/***********CONSTRUCTOR**********/
-	public AddTask(String str) {
-		this.setUserInput(str);
+	public AddTask() {
+	
 	}
 	
 	@Override
@@ -40,10 +39,6 @@ public class AddTask implements Command {
 	}
 
 	/**********  GETTER   **********/
-	public String getUserInput() {
-		return userInput;
-	}
-
 	public String getEventTask() {
 		return eventTask;
 	}
@@ -58,10 +53,6 @@ public class AddTask implements Command {
 
 	
 	/**********  SETTER   **********/
-	public void setUserInput(String userInput) {
-		this.userInput = userInput;
-	}
-
 	public void setEventTask(String eventTask) {
 		this.eventTask = eventTask;
 	}
