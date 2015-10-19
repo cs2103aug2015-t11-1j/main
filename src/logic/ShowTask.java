@@ -25,10 +25,12 @@ public class ShowTask implements Command {
 
 	}
 	
+	/**********  GETTER   **********/
 	public String getDate() {
 		return date;
 	}
-
+	
+	/**********  SETTER   **********/
 	public void setDate(String str) {
 		this.date = str;
 	}

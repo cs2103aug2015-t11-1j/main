@@ -33,6 +33,7 @@ public class Parser {
 			return show;
 		case SEARCH:
 			SearchTask search = new SearchTask();
+			search.setEventTask(EventTaskParser.getEventTask(str));
 			return search;
 		case UPDATE:
 			UpdateTask update = new UpdateTask();
