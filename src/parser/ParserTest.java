@@ -40,4 +40,14 @@ public class ParserTest {
 		System.out.println(result1);
 		System.out.println(result2);
 	}
+	
+	@Test
+	public void test3() {
+		String test = "add this > 210493 02:00 to 220493 03:00";
+		
+		System.out.println(DateParser.getStartDate(test));
+		System.out.println(DateParser.getEndDate(test));
+		System.out.println(TimeParser.getStartTime(test));
+		System.out.println(TimeParser.getEndTime(test));
+	}
 }
