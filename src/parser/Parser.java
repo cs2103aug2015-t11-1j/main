@@ -2,7 +2,55 @@ package parser;
 
 import java.util.ArrayList;
 
+import logic.AddTask;
+import logic.Command;
+import logic.DeleteTask;
+import logic.DoneTask;
+import logic.SearchTask;
+import logic.ShowTask;
+import logic.UpdateTask;
+import parser.ActionParser.ACTION_TYPE;
+
 public class Parser {
+
+	public static Command setCommand(String str) {
+		ACTION_TYPE action = ActionParser.setUserAction(str);
+
+		switch (action) {
+		case ADD:
+			AddTask add = new AddTask();
+			return add;
+		case SHOW:
+			ShowTask show = new ShowTask();
+			return show;
+		case SEARCH:
+			SearchTask search = new SearchTask();
+			return search;
+		case UPDATE:
+			UpdateTask update = new UpdateTask();
+			return update;
+		case DONE:
+			DoneTask done = new DoneTask();
+			return done;
+		case DELETE:
+			DeleteTask delete = new DeleteTask();
+			return delete;
+		case UNDO:
+			UndoTask undo = new UndoTask();
+			return undo;
+		case EXIT:
+			ExitTask exit = new ExitTask();
+			return exit;
+		case HELP:
+			HelpTask help = new HelpTask();
+			return help;
+		case INVALID:
+			InvalidTask invalid = new InvalidTask();
+			return invalid;
+		default:
+			return null;
+		}
+	}
 
 	/*
 	 * Takes a String input and return it as an ArrayList with the specified
@@ -18,8 +66,7 @@ public class Parser {
 	}
 
 	/*
-	 * Takes an ArrayList and appends its elements into a String and
-	 * returns it
+	 * Takes an ArrayList and appends its elements into a String and returns it
 	 */
 	protected static String toString(ArrayList<String> arr) {
 		String toReturn = "";
@@ -34,7 +81,8 @@ public class Parser {
 	 * String, or -1 if it does not contain the element.
 	 */
 	protected static int indexOf(String[] arr, ArrayList<String> str) {
-		//ArrayList<String> strArr = toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
+		// ArrayList<String> strArr = toArrayList(str.trim().toLowerCase(),
+		// ParserConstants.CHAR_SINGLE_WHITESPACE);
 		int index = str.size();
 		for (String s : arr) {
 			if (str.indexOf(s) < index && str.indexOf(s) != -1) {
@@ -53,7 +101,8 @@ public class Parser {
 	 * String, or -1 if it does not contain the element.
 	 */
 	protected static int lastIndexOf(String[] arr, ArrayList<String> str) {
-		// ArrayList<String> strArr = toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
+		// ArrayList<String> strArr = toArrayList(str.trim().toLowerCase(),
+		// ParserConstants.CHAR_SINGLE_WHITESPACE);
 		int index = -1;
 		for (String s : arr) {
 			if (str.lastIndexOf(s) > index && str.lastIndexOf(s) != -1) {
