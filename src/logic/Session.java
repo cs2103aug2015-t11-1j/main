@@ -13,8 +13,8 @@ public class Session {
 		
 	}
 	
-	public static void initialSetup() {
-		undoStack.push(Storage.updateState());
+	public static State initialSetup() {
+		undoStack.push(Storage.extractState());
 	}
 	
 }

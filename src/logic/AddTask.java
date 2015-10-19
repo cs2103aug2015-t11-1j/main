@@ -26,13 +26,6 @@ public class AddTask implements Command {
 	}
 
 	@Override
-	public void parse() {
-		setEventTask(EventTaskParser.getEventTask(str));
-		setDate(DateParser.extractDate(strArr));
-		setTime(TimeParser.extractTime(strArr));
-	}
-
-	@Override
 	public void undo() {
 		// TODO Auto-generated method stub
 
