@@ -28,7 +28,7 @@ public class DateParser {
 		}
 	}
 
-	public static String getStartDate(String str) {
+	protected static String getStartDate(String str) {
 		ArrayList<String> arr = Parser.toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
 		int index = Parser.indexOf(ParserConstants.KW_START, arr);
 		if (index != -1) {
@@ -66,7 +66,7 @@ public class DateParser {
 		}
 	}
 
-	public static String getEndDate(String str) {
+	protected static String getEndDate(String str) {
 		ArrayList<String> arr = Parser.toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
 		int index = Parser.lastIndexOf(ParserConstants.KW_END, arr);
 		if (index != -1) {

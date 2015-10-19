@@ -30,7 +30,7 @@ public class TimeParser {
 		return timeArr;
 	}
 	
-	public static String getStartTime(String str) {
+	protected static String getStartTime(String str) {
 		ArrayList<String> timeArr = new ArrayList<String>(2);
 		timeArr = getTimeArray(str);
 		try {
@@ -42,7 +42,7 @@ public class TimeParser {
 		}
 	}
 	
-	public static String getEndTime(String str) {
+	protected static String getEndTime(String str) {
 		ArrayList<String> timeArr = new ArrayList<String>(2);
 		timeArr = getTimeArray(str);
 		try {
