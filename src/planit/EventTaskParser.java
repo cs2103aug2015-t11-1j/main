@@ -12,24 +12,17 @@ import java.util.ArrayList;
 public class EventTaskParser {
 
 	public static String getEventTask(String str) {
-		ArrayList<String> arr = Parser.toArrayList(str.trim());
-		int index = Parser.isDateTimePresent(str.trim());
+		ArrayList<String> arr = Parser.toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
+		int index = Parser.indexOf(ParserConstants.KW_START, arr);
 		if (index != -1) {
 			for (int i = index; i < arr.size();) {
 				arr.remove(i);
 			}
-			return getEventString(arr).trim();
+			arr.remove(0);
+			return Parser.toString(arr).trim();
 		} else {
-			return getEventString(arr).trim();
+			arr.remove(0);
+			return Parser.toString(arr).trim();
 		}
-	}
-
-	private static String getEventString(ArrayList<String> arr) {
-		arr.remove(ParserConstants.INDEX_FIRST);
-		String toReturn = "";
-		for (int j = 0; j < arr.size(); j++) {
-			toReturn = toReturn + ParserConstants.CHAR_SINGLE_WHITESPACE + arr.get(j);
-		}
-		return toReturn;
 	}
 }
