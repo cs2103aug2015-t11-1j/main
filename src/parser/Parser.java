@@ -19,6 +19,13 @@ public class Parser {
 		switch (action) {
 		case ADD:
 			AddTask add = new AddTask();
+			add.setEventTask(EventTaskParser.getEventTask(str));
+			ArrayList<String> date = new ArrayList<String>(2);
+			ArrayList<String> time = new ArrayList<String>(2);
+			date.add(DateParser.getStartDate(str));
+			date.add(DateParser.getEndDate(str));
+			time.add(TimeParser.getStartTime(str));
+			time.add(TimeParser.getEndTime(str));
 			return add;
 		case SHOW:
 			ShowTask show = new ShowTask();
