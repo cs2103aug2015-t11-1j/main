@@ -24,7 +24,7 @@ public class EventTaskParserTest {
 	
 	@Test
 	public void testEventTaskParser3() {
-		String test = "add this event next week";
+		String test = "add this event by MONDAY";
 		String result = EventTaskParser.getEventTask(test);
 		String expected = "this event";
 		assertEquals(expected, result);
