@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class EventTaskParser {
 
-	public static String getEventTask(String str) {
+	protected static String getEventTask(String str) {
 		ArrayList<String> arr = Parser.toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
 		int index = Parser.indexOf(ParserConstants.KW_START, arr);
 		if (index != -1) {
