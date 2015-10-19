@@ -6,7 +6,7 @@ public class ActionParser {
 		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID, EXIT, HELP;
 	}
 
-	public static ACTION_TYPE setUserAction(String str) {
+	protected static ACTION_TYPE setUserAction(String str) {
 		String[] strArray = str.split(ParserConstants.REGEX_WHITESPACES);
 		String userAction = strArray[ParserConstants.INDEX_FIRST];
 
