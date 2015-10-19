@@ -3,11 +3,15 @@
  * 
  */
 
-package planit;
+package logic;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import planit.StringParser.ACTION_TYPE;
+
+import parser.StringParser;
+import parser.StringParser.ACTION_TYPE;
+import storage.Storage;
+import ui.Welcome;
 
 public class Logic {
 

@@ -1,6 +1,8 @@
-package planit;
+package logic;
 
 import java.util.ArrayList;
+
+import storage.Output;
 
 public class UpdateTask implements Command {
 
@@ -15,7 +17,8 @@ public class UpdateTask implements Command {
 	}
 	
 	@Override
-	public void execute() {
+	public Output execute() {
+		return null;
 		// TODO Auto-generated method stub
 
 	}

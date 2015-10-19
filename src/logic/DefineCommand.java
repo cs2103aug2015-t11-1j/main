@@ -1,16 +1,20 @@
-package planit;
+package logic;
 
-import planit.ActionParser.ACTION_TYPE;
+import parser.ActionParser;
+import parser.ActionParser.ACTION_TYPE;
+import storage.Output;
 
 public class DefineCommand {
 
 	public static ExecuteCommand exeCmd = ExecuteCommand.getInstance();
 	public static ACTION_TYPE userAction;
-	public static Output op = new Output();
+	public static Output op;
 	
 	public static void executeUserCommand(String userInput) {
 		userAction = ActionParser.setUserAction(userInput);
-		exeCmd.executeCommand(userAction, userInput);
+		op = exeCmd.executeCommand(userAction, userInput);
+		
+		
 	}
 	
 	

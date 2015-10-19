@@ -1,8 +1,11 @@
-package planit;
+package logic;
 
 import java.util.Stack;
 
-import planit.ActionParser.ACTION_TYPE;
+import parser.ActionParser;
+import parser.ActionParser.ACTION_TYPE;
+import storage.Output;
+import ui.Welcome;
 
 public class ExecuteCommand {
 	
@@ -45,42 +48,43 @@ public class ExecuteCommand {
 		ExecuteCommand.redoStack = redoStack;
 	}
 
-	public void executeCommand(ACTION_TYPE userAction, String userInput) {
+	public Output executeCommand(ACTION_TYPE userAction, String userInput) {
+		Output op = null;
 		switch(userAction) {
 		case ADD:
 			AddTask addTask = new AddTask(userInput);
 			addTask.parse();
-			addTask.execute();
+			op = addTask.execute();
 			undoStack.push(addTask);
-			break;
+			return op;
 		case SHOW:
 			ShowTask showTask = new ShowTask(userInput);
 			showTask.parse();
-			showTask.execute();
-			break;
+			op = showTask.execute();
+			return op;
 		case SEARCH:
 			SearchTask searchTask = new SearchTask(userInput);
 			searchTask.parse();
-			searchTask.execute();
-			break;
+			op = searchTask.execute();
+			return op;
 		case UPDATE:
 			UpdateTask updateTask = new UpdateTask(userInput);
 			updateTask.parse();
-			updateTask.execute();
+			op = updateTask.execute();
 			undoStack.push(updateTask);
-			break;
+			return op;
 		case DONE:
 			DoneTask doneTask = new DoneTask(userInput);
 			doneTask.parse();
-			doneTask.execute();
+			op = doneTask.execute();
 			undoStack.push(doneTask);
-			break;
+			return op;
 		case DELETE:
 			DeleteTask deleteTask = new DeleteTask(userInput);
 			deleteTask.parse();
-			deleteTask.execute();
+			op = deleteTask.execute();
 			undoStack.push(deleteTask);
-			break;
+			return op;
 		case HELP:
 			Welcome.printHelp();
 			break;
@@ -90,5 +94,6 @@ public class ExecuteCommand {
 		default:
 			break;
 		}
+		return op;
 	}
 }

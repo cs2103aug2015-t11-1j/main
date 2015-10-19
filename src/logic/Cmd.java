@@ -4,11 +4,11 @@
  * 
  */
 
-package planit;
+package logic;
 
 import java.util.ArrayList;
 
-import planit.StringParser.ACTION_TYPE;
+import parser.StringParser.ACTION_TYPE;
 
 public class Cmd {
 

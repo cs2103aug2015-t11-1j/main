@@ -14,12 +14,14 @@
  * 9) Correct format of input: <update> <event/task> : <new event/task>
  */
 
-package planit;
+package parser;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.sun.media.sound.InvalidFormatException;
+
+import logic.Command;
 
 public class StringParser {
 

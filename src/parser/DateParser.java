@@ -5,7 +5,7 @@
  * ADD SUPPORT FOR "DD MMMM YY" KIND OF FORMAT
  */
 
-package planit;
+package parser;
 
 import java.util.ArrayList;
 

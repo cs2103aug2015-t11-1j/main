@@ -1,4 +1,4 @@
-package planit;
+package storage;
 
 import static org.junit.Assert.*;
 

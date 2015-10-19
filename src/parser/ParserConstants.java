@@ -1,4 +1,4 @@
-package planit;
+package parser;
 
 public class ParserConstants {
 

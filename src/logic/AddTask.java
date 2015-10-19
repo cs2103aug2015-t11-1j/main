@@ -1,29 +1,36 @@
-package planit;
+package logic;
 
 import java.util.ArrayList;
 
-public class SearchTask implements Command {
+import parser.DateParser;
+import parser.EventTaskParser;
+import storage.Output;
+
+public class AddTask implements Command {
 
 	private String userInput;
 	private String eventTask;
 	private ArrayList<String> date = new ArrayList<String>();
 	private ArrayList<String> time = new ArrayList<String>();
 	
+	
 	/***********CONSTRUCTOR**********/
-	public SearchTask(String str) {
-		this.userInput = str;
+	public AddTask(String str) {
+		this.setUserInput(str);
 	}
 	
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-
+	public Output execute() {
+		// TODO
+//		Output outputObject = Storage.storeNewEvent(StorageFormatter.formatAdd());
+		return null;
 	}
 
 	@Override
 	public void parse() {
-		// TODO Auto-generated method stub
-
+		setEventTask(EventTaskParser.getEventTask(str));
+		setDate(DateParser.extractDate(strArr));
+		setTime(TimeParser.extractTime(strArr));
 	}
 
 	@Override
@@ -31,7 +38,7 @@ public class SearchTask implements Command {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	/**********  GETTER   **********/
 	public String getUserInput() {
 		return userInput;
@@ -66,5 +73,4 @@ public class SearchTask implements Command {
 	public void setTime(ArrayList<String> time) {
 		this.time = time;
 	}
-
 }

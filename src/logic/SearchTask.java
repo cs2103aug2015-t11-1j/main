@@ -1,8 +1,10 @@
-package planit;
+package logic;
 
 import java.util.ArrayList;
 
-public class DeleteTask implements Command {
+import storage.Output;
+
+public class SearchTask implements Command {
 
 	private String userInput;
 	private String eventTask;
@@ -10,12 +12,13 @@ public class DeleteTask implements Command {
 	private ArrayList<String> time = new ArrayList<String>();
 	
 	/***********CONSTRUCTOR**********/
-	public DeleteTask(String str) {
+	public SearchTask(String str) {
 		this.userInput = str;
 	}
 	
 	@Override
-	public void execute() {
+	public Output execute() {
+		return null;
 		// TODO Auto-generated method stub
 
 	}
@@ -31,7 +34,7 @@ public class DeleteTask implements Command {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	/**********  GETTER   **********/
 	public String getUserInput() {
 		return userInput;
@@ -66,4 +69,5 @@ public class DeleteTask implements Command {
 	public void setTime(ArrayList<String> time) {
 		this.time = time;
 	}
+
 }

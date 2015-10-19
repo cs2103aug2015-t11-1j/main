@@ -5,7 +5,7 @@
  * 2) Event/task arguments always comes before any arguments related to time
  */
 
-package planit;
+package parser;
 
 import java.util.ArrayList;
 

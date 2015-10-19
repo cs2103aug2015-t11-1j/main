@@ -1,8 +1,11 @@
-package planit;
+package ui;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
+
+import logic.Logic;
+
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

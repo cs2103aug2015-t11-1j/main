@@ -1,4 +1,4 @@
-package planit;
+package parser;
 
 import static org.junit.Assert.*;
 
@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import planit.StringParser.ACTION_TYPE;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import com.sun.media.sound.InvalidFormatException;
+
+import logic.Command;
+import parser.StringParser.ACTION_TYPE;
 
 public class StringParserTest {
 	private StringParser sp;

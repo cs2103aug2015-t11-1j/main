@@ -1,8 +1,10 @@
-package planit;
+package logic;
+
+import storage.Output;
 
 public interface Command {
 	
-	void execute();
+	Output execute();
 	void parse();
 	void undo();
 }
