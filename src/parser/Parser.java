@@ -36,24 +36,37 @@ public class Parser {
 			search.setEventTask(EventTaskParser.getEventTask(str));
 			return search;
 		case UPDATE:
+			// TODO Changes to EventTaskParser: using index to update the
+			// relevant event/tasks. Additional argument before updated
+			// EventTask String
 			UpdateTask update = new UpdateTask();
 			return update;
 		case DONE:
+			// TODO Changes to EventTaskParser: using index to update the
+			// relevant event/tasks. Additional argument before updated
+			// EventTask String
 			DoneTask done = new DoneTask();
 			return done;
 		case DELETE:
+			// TODO Changes to EventTaskParser: using index to update the
+			// relevant event/tasks. Additional argument before updated
+			// EventTask String
 			DeleteTask delete = new DeleteTask();
 			return delete;
 		case UNDO:
+			// TODO Create the class
 			UndoTask undo = new UndoTask();
 			return undo;
 		case EXIT:
+			// TODO Create the class
 			ExitTask exit = new ExitTask();
 			return exit;
 		case HELP:
+			// TODO Create the class
 			HelpTask help = new HelpTask();
 			return help;
 		case INVALID:
+			// TODO Create the class
 			InvalidTask invalid = new InvalidTask();
 			return invalid;
 		default:
