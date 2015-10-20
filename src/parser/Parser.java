@@ -57,6 +57,7 @@ public class Parser {
 			// relevant event/tasks. Additional argument before updated
 			// EventTask String
 			DoneTask done = new DoneTask();
+			done.setIndex(IndexParser.getIndex(str));
 			return done;
 		case DELETE:
 			// TODO Changes to EventTaskParser: using index to update the

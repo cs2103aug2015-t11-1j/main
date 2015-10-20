@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import storage.Output;
 
 public class DoneTask implements Command {
-
-	private String userInput;
-	private String eventTask;
-	private ArrayList<String> date = new ArrayList<String>();
-	private ArrayList<String> time = new ArrayList<String>();
+	
+	private int index;
 	
 	/***********CONSTRUCTOR**********/
-	public DoneTask(String str) {
-		this.userInput = str;
+	public DoneTask() {
+
 	}
 	
 	@Override
@@ -22,13 +19,7 @@ public class DoneTask implements Command {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void parse() {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	@Override
 	public void undo() {
 		// TODO Auto-generated method stub
@@ -36,38 +27,12 @@ public class DoneTask implements Command {
 	}
 	
 	/**********  GETTER   **********/
-	public String getUserInput() {
-		return userInput;
+	public int getIndex() {
+		return index;
 	}
-
-	public String getEventTask() {
-		return eventTask;
-	}
-	
-	public ArrayList<String> getDate() {
-		return date;
-	}
-
-	public ArrayList<String> getTime() {
-		return time;
-	}
-
 	
 	/**********  SETTER   **********/
-	public void setUserInput(String userInput) {
-		this.userInput = userInput;
+	public void setIndex(int index) {
+		this.index = index;
 	}
-
-	public void setEventTask(String eventTask) {
-		this.eventTask = eventTask;
-	}
-
-	public void setDate(ArrayList<String> date) {
-		this.date = date;
-	}
-
-	public void setTime(ArrayList<String> time) {
-		this.time = time;
-	}
-
 }
