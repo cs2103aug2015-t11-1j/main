@@ -15,17 +15,20 @@ public class Parser {
 
 	public static Command setCommand(String str) {
 		ACTION_TYPE action = ActionParser.setUserAction(str);
-
+		
+		ArrayList<String> date = new ArrayList<String>();
+		ArrayList<String> time = new ArrayList<String>();
+		
 		switch (action) {
 		case ADD:
 			AddTask add = new AddTask();
 			add.setEventTask(EventTaskParser.getEventTask(str));
-			ArrayList<String> date = new ArrayList<String>(2);
-			ArrayList<String> time = new ArrayList<String>(2);
 			date.add(DateParser.getStartDate(str));
 			date.add(DateParser.getEndDate(str));
 			time.add(TimeParser.getStartTime(str));
 			time.add(TimeParser.getEndTime(str));
+			add.setDate(date);
+			add.setTime(time);
 			return add;
 		case SHOW:
 			ShowTask show = new ShowTask();
@@ -40,6 +43,13 @@ public class Parser {
 			// relevant event/tasks. Additional argument before updated
 			// EventTask String
 			UpdateTask update = new UpdateTask();
+			update.setEventTask(EventTaskParser.getEventTask(str));
+			date.add(DateParser.getStartDate(str));
+			date.add(DateParser.getEndDate(str));
+			time.add(TimeParser.getStartTime(str));
+			time.add(TimeParser.getEndTime(str));
+			update.setDate(date);
+			update.setTime(time);
 			return update;
 		case DONE:
 			// TODO Changes to EventTaskParser: using index to update the
