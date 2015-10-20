@@ -31,8 +31,9 @@ public class ParserConstants {
 			"dd/MMM/yy", "dd.MMM.yy", "dd-MMM", "dd/MMM", "dd.MMM", "dd-MM-yyyy", "dd/MM/yyyy", "dd.MM.yyyy",
 			"dd-MMM-yyyy", "dd/MMM/yyyy", "dd.MMM.yyyy", "dd-MMM", "dd/MMM", "dd.MMM", "dd MMM yyyy", "dd MMM yy",
 			"dd MMMM yyyy", "dd MMMM yy", "ddMMyy", "dd MMMM" };
-	public static final String[] FORMAT_TIME = { "HHmm", "HH:mm", "HH.mm", "H:mm", "H.mm" };
+	public static final String[] FORMAT_TIME = { "HHmm", "HH:mm", "HH.mm", };
 	public static final String FORMAT_DATE_STORAGE = "dd/MM/yy";
+	public static final String FORMAT_TIME_STORAGE = "HHmm";
 
 	// Command Keywords (KW)
 	public static final String[] KW_COMMAND_ADD = { "add", "new" };
@@ -45,8 +46,7 @@ public class ParserConstants {
 	public static final String[] KW_COMMAND_EXIT = { "exit", "quit" };
 
 	// User string input Keywords (KW)
-	public static final String[] KW_START = { "by", "from", "on", "at", ">", "tomorrow", "tmr", "today",
-			"tdy" };
+	public static final String[] KW_START = { "by", "from", "on", "at", ">", "tomorrow", "tmr", "today", "tdy" };
 	public static final String[] KW_END = { "by", "until", "till", "to" };
 	public static final String KW_NEXT = "next";
 
@@ -79,7 +79,7 @@ public class ParserConstants {
 
 	// Indexes
 	public static final int INDEX_FIRST = 0;
-	public static final int INDEX_NEGATIVE_ONE = -1;
+	public static final int INDEX_SECOND = 1;
 
 	// Integers
 	public static final int INT_ONE = 1;
