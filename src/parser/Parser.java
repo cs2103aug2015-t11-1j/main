@@ -6,8 +6,12 @@ import logic.AddTask;
 import logic.Command;
 import logic.DeleteTask;
 import logic.DoneTask;
+import logic.ExitTask;
+import logic.HelpTask;
+import logic.InvalidTask;
 import logic.SearchTask;
 import logic.ShowTask;
+import logic.UndoTask;
 import logic.UpdateTask;
 import parser.ActionParser.ACTION_TYPE;
 
@@ -15,17 +19,20 @@ public class Parser {
 
 	public static Command setCommand(String str) {
 		ACTION_TYPE action = ActionParser.setUserAction(str);
-
+		
+		ArrayList<String> date = new ArrayList<String>();
+		ArrayList<String> time = new ArrayList<String>();
+		
 		switch (action) {
 		case ADD:
 			AddTask add = new AddTask();
 			add.setEventTask(EventTaskParser.getEventTask(str));
-			ArrayList<String> date = new ArrayList<String>(2);
-			ArrayList<String> time = new ArrayList<String>(2);
 			date.add(DateParser.getStartDate(str));
 			date.add(DateParser.getEndDate(str));
 			time.add(TimeParser.getStartTime(str));
 			time.add(TimeParser.getEndTime(str));
+			add.setDate(date);
+			add.setTime(time);
 			return add;
 		case SHOW:
 			ShowTask show = new ShowTask();
@@ -36,13 +43,32 @@ public class Parser {
 			search.setEventTask(EventTaskParser.getEventTask(str));
 			return search;
 		case UPDATE:
+			// TODO Changes to EventTaskParser: using index to update the
+			// relevant event/tasks. Additional argument before updated
+			// EventTask String
 			UpdateTask update = new UpdateTask();
+			update.setIndex(IndexParser.getIndex(str));
+			update.setEventTask(EventTaskParser.getEventTask(str));
+			date.add(DateParser.getStartDate(str));
+			date.add(DateParser.getEndDate(str));
+			time.add(TimeParser.getStartTime(str));
+			time.add(TimeParser.getEndTime(str));
+			update.setDate(date);
+			update.setTime(time);
 			return update;
 		case DONE:
+			// TODO Changes to EventTaskParser: using index to update the
+			// relevant event/tasks. Additional argument before updated
+			// EventTask String
 			DoneTask done = new DoneTask();
+			done.setIndex(IndexParser.getIndex(str));
 			return done;
 		case DELETE:
+			// TODO Changes to EventTaskParser: using index to update the
+			// relevant event/tasks. Additional argument before updated
+			// EventTask String
 			DeleteTask delete = new DeleteTask();
+			delete.setIndex(IndexParser.getIndex(str));
 			return delete;
 		case UNDO:
 			UndoTask undo = new UndoTask();

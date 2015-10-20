@@ -5,26 +5,16 @@ import java.util.ArrayList;
 import storage.Output;
 
 public class UpdateTask implements Command {
-
-	private String userInput;
+	
+	private int index;
 	private String eventTask;
 	private ArrayList<String> date = new ArrayList<String>();
 	private ArrayList<String> time = new ArrayList<String>();
 	
 	/***********CONSTRUCTOR**********/
-	public UpdateTask(String str) {
-		this.userInput = str;
-	}
-	
 	@Override
 	public Output execute() {
 		return null;
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void parse() {
 		// TODO Auto-generated method stub
 
 	}
@@ -36,10 +26,10 @@ public class UpdateTask implements Command {
 	}
 
 	/**********  GETTER   **********/
-	public String getUserInput() {
-		return userInput;
+	public int getIndex() {
+		return index;
 	}
-
+	
 	public String getEventTask() {
 		return eventTask;
 	}
@@ -54,10 +44,10 @@ public class UpdateTask implements Command {
 
 	
 	/**********  SETTER   **********/
-	public void setUserInput(String userInput) {
-		this.userInput = userInput;
+	public void setIndex(int index) {
+		this.index = index;
 	}
-
+	
 	public void setEventTask(String eventTask) {
 		this.eventTask = eventTask;
 	}
