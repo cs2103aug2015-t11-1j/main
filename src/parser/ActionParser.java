@@ -1,3 +1,10 @@
+/*
+ * This class extracts the user's specified action and returns it as an ACTION_TYPE
+ * 
+ *  ASSUMPTIONS:
+ *  1) The user action is always in the first index in the entire String
+ */
+
 package parser;
 
 public class ActionParser {
@@ -6,7 +13,7 @@ public class ActionParser {
 		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID, EXIT, HELP;
 	}
 
-	public static ACTION_TYPE setUserAction(String str) {
+	protected static ACTION_TYPE setUserAction(String str) {
 		String[] strArray = str.split(ParserConstants.REGEX_WHITESPACES);
 		String userAction = strArray[ParserConstants.INDEX_FIRST];
 
