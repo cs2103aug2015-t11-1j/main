@@ -37,5 +37,21 @@ public class EventTaskParserTest {
 		String expected = "this event";
 		assertEquals(expected, result);
 	}
+	
+	@Test
+	public void testEventTaskParser5() {
+		String test = "update 1 meeting";
+		String result = EventTaskParser.getEventTask(test);
+		String expected = "meeting";
+		assertEquals(expected, result);
+	}
+	
+	@Test
+	public void testEventTaskParser6() {
+		String test = "add event";
+		String result = EventTaskParser.getEventTask(test);
+		String expected = "event";
+		assertEquals(expected, result);
+	}
 
 }
