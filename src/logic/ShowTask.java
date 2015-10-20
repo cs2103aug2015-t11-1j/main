@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import storage.Output;
 
 public class ShowTask implements Command {
-
-	private String userInput;
-	private String eventTask;
-	private ArrayList<String> date = new ArrayList<String>();
-	private ArrayList<String> time = new ArrayList<String>();
+	
+	private String date;
 	
 	/***********CONSTRUCTOR**********/
-	public ShowTask(String str) {
-		this.userInput = str;
+	public ShowTask() {
+		
 	}
 	
 	@Override
@@ -23,50 +20,19 @@ public class ShowTask implements Command {
 	}
 
 	@Override
-	public void parse() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void undo() {
 		// TODO Auto-generated method stub
 
 	}
-
-	/**********  GETTER   **********/
-	public String getUserInput() {
-		return userInput;
-	}
-
-	public String getEventTask() {
-		return eventTask;
-	}
 	
-	public ArrayList<String> getDate() {
+	/**********  GETTER   **********/
+	public String getDate() {
 		return date;
 	}
-
-	public ArrayList<String> getTime() {
-		return time;
-	}
-
 	
 	/**********  SETTER   **********/
-	public void setUserInput(String userInput) {
-		this.userInput = userInput;
-	}
-
-	public void setEventTask(String eventTask) {
-		this.eventTask = eventTask;
-	}
-
-	public void setDate(ArrayList<String> date) {
-		this.date = date;
-	}
-
-	public void setTime(ArrayList<String> time) {
-		this.time = time;
+	public void setDate(String str) {
+		this.date = str;
 	}
 	
 }
