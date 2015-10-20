@@ -1,7 +1,5 @@
 package logic;
 
-import java.util.ArrayList;
-
 import storage.Output;
 
 public class SearchTask implements Command {

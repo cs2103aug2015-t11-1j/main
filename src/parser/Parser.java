@@ -1,3 +1,7 @@
+/*
+ * TODO Description of class
+ */
+
 package parser;
 
 import java.util.ArrayList;
@@ -6,8 +10,12 @@ import logic.AddTask;
 import logic.Command;
 import logic.DeleteTask;
 import logic.DoneTask;
+import logic.ExitTask;
+import logic.HelpTask;
+import logic.InvalidTask;
 import logic.SearchTask;
 import logic.ShowTask;
+import logic.UndoTask;
 import logic.UpdateTask;
 import parser.ActionParser.ACTION_TYPE;
 
@@ -16,16 +24,19 @@ public class Parser {
 	public static Command setCommand(String str) {
 		ACTION_TYPE action = ActionParser.setUserAction(str);
 
+		ArrayList<String> date = new ArrayList<String>();
+		ArrayList<String> time = new ArrayList<String>();
+
 		switch (action) {
 		case ADD:
 			AddTask add = new AddTask();
 			add.setEventTask(EventTaskParser.getEventTask(str));
-			ArrayList<String> date = new ArrayList<String>(2);
-			ArrayList<String> time = new ArrayList<String>(2);
 			date.add(DateParser.getStartDate(str));
 			date.add(DateParser.getEndDate(str));
 			time.add(TimeParser.getStartTime(str));
 			time.add(TimeParser.getEndTime(str));
+			add.setDate(date);
+			add.setTime(time);
 			return add;
 		case SHOW:
 			ShowTask show = new ShowTask();
@@ -37,23 +48,37 @@ public class Parser {
 			return search;
 		case UPDATE:
 			UpdateTask update = new UpdateTask();
+			update.setIndex(IndexParser.getIndex(str));
+			update.setEventTask(EventTaskParser.getEventTask(str));
+			date.add(DateParser.getStartDate(str));
+			date.add(DateParser.getEndDate(str));
+			time.add(TimeParser.getStartTime(str));
+			time.add(TimeParser.getEndTime(str));
+			update.setDate(date);
+			update.setTime(time);
 			return update;
 		case DONE:
 			DoneTask done = new DoneTask();
+			done.setIndex(IndexParser.getIndex(str));
 			return done;
 		case DELETE:
 			DeleteTask delete = new DeleteTask();
+			delete.setIndex(IndexParser.getIndex(str));
 			return delete;
 		case UNDO:
+			// TODO
 			UndoTask undo = new UndoTask();
 			return undo;
 		case EXIT:
+			// TODO
 			ExitTask exit = new ExitTask();
 			return exit;
 		case HELP:
+			// TODO
 			HelpTask help = new HelpTask();
 			return help;
 		case INVALID:
+			// TODO
 			InvalidTask invalid = new InvalidTask();
 			return invalid;
 		default:
@@ -137,5 +162,22 @@ public class Parser {
 			}
 		}
 		return false;
+	}
+
+	/*
+	 * Checks if there's an index argument in the String
+	 * 
+	 * Removes it if it's present and returns the new ArrayList returns the
+	 * original ArrayList if it's absent
+	 * 
+	 * ASSUMPTIONS: 1) The index argument always comes before the event/task
+	 * argument and after the action argument
+	 */
+	protected static boolean indexPresent(ArrayList<String> arr) {
+		if (arr.get(ParserConstants.INDEX_SECOND).matches(".*\\d+/*")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
