@@ -43,6 +43,7 @@ public class Parser {
 			// relevant event/tasks. Additional argument before updated
 			// EventTask String
 			UpdateTask update = new UpdateTask();
+			update.setIndex(IndexParser.getIndex(str));
 			update.setEventTask(EventTaskParser.getEventTask(str));
 			date.add(DateParser.getStartDate(str));
 			date.add(DateParser.getEndDate(str));

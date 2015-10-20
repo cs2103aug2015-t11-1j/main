@@ -6,6 +6,7 @@ import storage.Output;
 
 public class UpdateTask implements Command {
 	
+	private int index;
 	private String eventTask;
 	private ArrayList<String> date = new ArrayList<String>();
 	private ArrayList<String> time = new ArrayList<String>();
@@ -25,6 +26,10 @@ public class UpdateTask implements Command {
 	}
 
 	/**********  GETTER   **********/
+	public int getIndex() {
+		return index;
+	}
+	
 	public String getEventTask() {
 		return eventTask;
 	}
@@ -39,6 +44,10 @@ public class UpdateTask implements Command {
 
 	
 	/**********  SETTER   **********/
+	public void setIndex(int index) {
+		this.index = index;
+	}
+	
 	public void setEventTask(String eventTask) {
 		this.eventTask = eventTask;
 	}
