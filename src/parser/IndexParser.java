@@ -1,3 +1,9 @@
+/*
+ * This class returns the index argument if it is present in the user String input
+ * 
+ * Returns -1 if it is absent.
+ */
+
 package parser;
 
 import java.util.ArrayList;
