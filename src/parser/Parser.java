@@ -1,3 +1,7 @@
+/*
+ * TODO Description of class
+ */
+
 package parser;
 
 import java.util.ArrayList;
@@ -19,10 +23,10 @@ public class Parser {
 
 	public static Command setCommand(String str) {
 		ACTION_TYPE action = ActionParser.setUserAction(str);
-		
+
 		ArrayList<String> date = new ArrayList<String>();
 		ArrayList<String> time = new ArrayList<String>();
-		
+
 		switch (action) {
 		case ADD:
 			AddTask add = new AddTask();
@@ -163,5 +167,22 @@ public class Parser {
 			}
 		}
 		return false;
+	}
+
+	/*
+	 * Checks if there's an index argument in the String
+	 * 
+	 * Removes it if it's present and returns the new ArrayList returns the
+	 * original ArrayList if it's absent
+	 * 
+	 * ASSUMPTIONS: 1) The index argument always comes before the event/task
+	 * argument and after the action argument
+	 */
+	protected static boolean indexPresent(ArrayList<String> arr) {
+		if (arr.get(ParserConstants.INDEX_SECOND).matches(".*\\d+/*")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

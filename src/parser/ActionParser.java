@@ -1,3 +1,10 @@
+/*
+ * This class extracts the user's specified action and returns it as an ACTION_TYPE
+ * 
+ *  ASSUMPTIONS:
+ *  1) The user action is always in the first index in the entire String
+ */
+
 package parser;
 
 public class ActionParser {
