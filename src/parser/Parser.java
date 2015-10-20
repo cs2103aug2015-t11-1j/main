@@ -6,8 +6,12 @@ import logic.AddTask;
 import logic.Command;
 import logic.DeleteTask;
 import logic.DoneTask;
+import logic.ExitTask;
+import logic.HelpTask;
+import logic.InvalidTask;
 import logic.SearchTask;
 import logic.ShowTask;
+import logic.UndoTask;
 import logic.UpdateTask;
 import parser.ActionParser.ACTION_TYPE;
 
@@ -67,19 +71,15 @@ public class Parser {
 			delete.setIndex(IndexParser.getIndex(str));
 			return delete;
 		case UNDO:
-			// TODO Create the class
 			UndoTask undo = new UndoTask();
 			return undo;
 		case EXIT:
-			// TODO Create the class
 			ExitTask exit = new ExitTask();
 			return exit;
 		case HELP:
-			// TODO Create the class
 			HelpTask help = new HelpTask();
 			return help;
 		case INVALID:
-			// TODO Create the class
 			InvalidTask invalid = new InvalidTask();
 			return invalid;
 		default:
