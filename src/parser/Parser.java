@@ -64,6 +64,7 @@ public class Parser {
 			// relevant event/tasks. Additional argument before updated
 			// EventTask String
 			DeleteTask delete = new DeleteTask();
+			delete.setIndex(IndexParser.getIndex(str));
 			return delete;
 		case UNDO:
 			// TODO Create the class
