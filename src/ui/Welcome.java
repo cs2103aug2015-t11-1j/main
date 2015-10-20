@@ -19,7 +19,6 @@ public class Welcome {
 	private static Scanner sc;
 
 	public static void main(String[] args) throws IOException {
-		welcomeMessage();
 		initiateProg();
 
 	}
@@ -35,17 +34,20 @@ public class Welcome {
 		System.exit(0);
 	}
 
-	public static void welcomeMessage() {
+	public static String welcomeMessage() {
+		String message = "";
+		
 		if (getMornNight() >= 4 && getMornNight() < 12) {
-			printMsg(Constants.MESSAGE_MORNING);
+			message = Constants.MESSAGE_MORNING;
 		} else if (getMornNight() >= 12 && getMornNight() < 18) {
-			printMsg(Constants.MESSAGE_AFTERNOON);
+			message = Constants.MESSAGE_AFTERNOON;
 		} else {
-			printMsg(Constants.MESSAGE_EVENING);
+			message = Constants.MESSAGE_EVENING;
 		}
 		getDate();
 		printToday();
 		printMsg(Constants.MESSAGE_PROMPT);
+		return message;
 	}
 
 	private static void printMsg(String message) {
@@ -57,8 +59,9 @@ public class Welcome {
 		System.out.println();
 	}
 
-	private static void getDate() {
-		System.out.println(df.format(cal.getTime()));
+	public static String getDate() {
+		String message = df.format(cal.getTime());
+		return message;
 	}
 
 	private static int getMornNight() {
