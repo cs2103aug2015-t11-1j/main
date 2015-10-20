@@ -79,7 +79,7 @@ public class ParserConstants {
 
 	// Indexes
 	public static final int INDEX_FIRST = 0;
-	public static final int INDEX_NEGATIVE_ONE = -1;
+	public static final int INDEX_SECOND = 1;
 
 	// Integers
 	public static final int INT_ONE = 1;
