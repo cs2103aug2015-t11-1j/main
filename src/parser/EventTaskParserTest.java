@@ -67,5 +67,4 @@ public class EventTaskParserTest {
 		String expected = "meeting @ NUS";
 		assertEquals(expected, result);
 	}
-
 }
