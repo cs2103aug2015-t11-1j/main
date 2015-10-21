@@ -115,15 +115,17 @@ public class Parser {
 	 * String, or -1 if it does not contain the element.
 	 */
 	protected static int indexOf(String[] arr, ArrayList<String> str) {
-		// ArrayList<String> strArr = toArrayList(str.trim().toLowerCase(),
-		// ParserConstants.CHAR_SINGLE_WHITESPACE);
+		ArrayList<String> temp = new ArrayList<String>();
 		int index = str.size();
+		for (int i=0; i<index; i++) {
+			temp.add(str.get(i).toLowerCase());
+		}
 		for (String s : arr) {
-			if (str.indexOf(s) < index && str.indexOf(s) != -1) {
-				index = str.indexOf(s);
+			if (temp.indexOf(s) < index && temp.indexOf(s) != -1) {
+				index = temp.indexOf(s);
 			}
 		}
-		if (index == str.size()) {
+		if (index == temp.size()) {
 			return -1;
 		} else {
 			return index;
