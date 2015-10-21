@@ -128,11 +128,8 @@ public class Parser {
 	 * String, or -1 if it does not contain the element.
 	 */
 	protected static int indexOf(String[] arr, ArrayList<String> str) {
-		ArrayList<String> temp = new ArrayList<String>();
+		ArrayList<String> temp = cloneToLowerCase(str);
 		int index = str.size();
-		for (int i = 0; i < index; i++) {
-			temp.add(str.get(i).toLowerCase());
-		}
 		for (String s : arr) {
 			if (temp.indexOf(s) < index && temp.indexOf(s) != -1) {
 				index = temp.indexOf(s);
@@ -150,10 +147,7 @@ public class Parser {
 	 * String, or -1 if it does not contain the element.
 	 */
 	protected static int lastIndexOf(String[] arr, ArrayList<String> str) {
-		ArrayList<String> temp = new ArrayList<String>();
-		for (int i = 0; i < str.size(); i++) {
-			temp.add(str.get(i).toLowerCase());
-		}
+		ArrayList<String> temp = cloneToLowerCase(str);
 		int index = -1;
 		for (String s : arr) {
 			if (temp.lastIndexOf(s) > index && temp.lastIndexOf(s) != -1) {
@@ -189,5 +183,13 @@ public class Parser {
 	 */
 	protected static boolean indexPresent(ArrayList<String> arr) throws IndexOutOfBoundsException {
 		return arr.get(ParserConstants.INDEX_SECOND).matches(".*\\d+/*");
+	}
+
+	private static ArrayList<String> cloneToLowerCase(ArrayList<String> str) {
+		ArrayList<String> temp = new ArrayList<String>();
+		for (int i = 0; i < str.size(); i++) {
+			temp.add(str.get(i).toLowerCase());
+		}
+		return temp;
 	}
 }
