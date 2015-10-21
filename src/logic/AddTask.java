@@ -9,25 +9,28 @@ public class AddTask implements Command {
 	private String eventTask;
 	private ArrayList<String> date = new ArrayList<String>();
 	private ArrayList<String> time = new ArrayList<String>();
-	private State currState = new State(new ArrayList<Task>());	
-	
-	
-	/***********CONSTRUCTOR**********/
+	private State currState = new State(new ArrayList<Task>());
+
+	/*********** CONSTRUCTOR **********/
 	public AddTask() {
-	
+
 	}
-	
+
 	@Override
 	public Output execute() {
 		Task task = createTask();
 		this.currState.add(task);
-		Output addOutput = new Output(true, task.toString());
-		return addOutput;
+		return new Output(true, task.toString());
 	}
 
 	private Task createTask() {
-	//	formatDate(date);
-	//	formatTime(time);
+		// formatDate(date);
+		// formatTime(time);
+		/*
+		 * try { Task newTask = new Task(this.date.get(0), this.time.get(0),
+		 * this.eventTask); } catch (NullPointerException e) {
+		 * System.err.println(e.getMessage()); }
+		 */
 		return new Task(this.date.get(0), this.time.get(0), this.eventTask);
 	}
 
@@ -37,11 +40,11 @@ public class AddTask implements Command {
 
 	}
 
-	/**********  GETTER   **********/
+	/********** GETTER **********/
 	public String getEventTask() {
 		return eventTask;
 	}
-	
+
 	public ArrayList<String> getDate() {
 		return date;
 	}
@@ -53,8 +56,8 @@ public class AddTask implements Command {
 	public State getCurrState() {
 		return currState;
 	}
-	
-	/**********  SETTER   **********/
+
+	/********** SETTER **********/
 	public void setEventTask(String eventTask) {
 		this.eventTask = eventTask;
 	}
@@ -72,11 +75,9 @@ public class AddTask implements Command {
 		currState = state;
 	}
 
-	
 	@Override
 	public boolean isMutator(Command task) {
-		
-		if (task instanceof AddTask){
+		if (task instanceof AddTask) {
 			return true;
 		} else {
 			return false;
