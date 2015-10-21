@@ -9,6 +9,7 @@ public class AddTask implements Command {
 	private String eventTask;
 	private ArrayList<String> date = new ArrayList<String>();
 	private ArrayList<String> time = new ArrayList<String>();
+	private State currState;
 	
 	
 	/***********CONSTRUCTOR**********/
@@ -42,6 +43,9 @@ public class AddTask implements Command {
 		return time;
 	}
 
+	public State getCurrState() {
+		return currState;
+	}
 	
 	/**********  SETTER   **********/
 	public void setEventTask(String eventTask) {
@@ -55,4 +59,21 @@ public class AddTask implements Command {
 	public void setTime(ArrayList<String> time) {
 		this.time = time;
 	}
+
+	@Override
+	public void setCurrState() {
+		currState = Session.undoStack.peek();
+	}
+
+	
+	@Override
+	public boolean isMutator(Command task) {
+		
+		if (task instanceof AddTask){
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

@@ -32,5 +32,17 @@ public class ShowTask implements Command {
 	public void setDate(String str) {
 		this.date = str;
 	}
+
+	@Override
+	public void setCurrState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isMutator(Command task) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

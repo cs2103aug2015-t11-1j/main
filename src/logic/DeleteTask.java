@@ -33,4 +33,16 @@ public class DeleteTask implements Command {
 	public void setIndex(int index) {
 		this.index = index;
 	}
+
+	@Override
+	public void setCurrState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isMutator(Command task) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

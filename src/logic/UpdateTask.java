@@ -59,4 +59,16 @@ public class UpdateTask implements Command {
 	public void setTime(ArrayList<String> time) {
 		this.time = time;
 	}
+
+	@Override
+	public void setCurrState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isMutator(Command task) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
