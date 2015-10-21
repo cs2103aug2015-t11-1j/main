@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import logic.AddTask;
-import logic.Command;
 
 public class ParserTest {
 
@@ -24,6 +23,54 @@ public class ParserTest {
 		expectedDate.add("22/10/15");
 		expectedTime.add(null);
 		expectedTime.add(null);
+
+		assertEquals(expected, add.getEventTask());
+		assertEquals(expectedDate, add.getDate());
+		assertEquals(expectedTime, add.getTime());
+	}
+	
+	@Test
+	public void testSetCommand2() {
+		String test = "add event from 211015 111115 to 221015";
+		AddTask add = (AddTask) Parser.setCommand(test);
+
+		String expected = "event";
+		expectedDate.add("21/10/15");
+		expectedDate.add("22/10/15");
+		expectedTime.add(null);
+		expectedTime.add(null);
+
+		assertEquals(expected, add.getEventTask());
+		assertEquals(expectedDate, add.getDate());
+		assertEquals(expectedTime, add.getTime());
+	}
+	
+	@Test
+	public void testSetCommand3() {
+		String test = "add event today";
+		AddTask add = (AddTask) Parser.setCommand(test);
+
+		String expected = "event";
+		expectedDate.add("21/10/15");
+		expectedDate.add(null);
+		expectedTime.add(null);
+		expectedTime.add(null);
+
+		assertEquals(expected, add.getEventTask());
+		assertEquals(expectedDate, add.getDate());
+		assertEquals(expectedTime, add.getTime());
+	}
+	
+	@Test
+	public void testSetCommand4() {
+		String test = "add event today 10:00 to 11:00";
+		AddTask add = (AddTask) Parser.setCommand(test);
+
+		String expected = "event";
+		expectedDate.add("21/10/15");
+		expectedDate.add(null);
+		expectedTime.add("1000");
+		expectedTime.add("1100");
 
 		assertEquals(expected, add.getEventTask());
 		assertEquals(expectedDate, add.getDate());
