@@ -32,15 +32,15 @@ public class Parser {
 			AddTask add = new AddTask();
 			try {
 				add.setEventTask(EventTaskParser.getEventTask(str));
-				add.setDate(DateParser.extractDateArray(str)); //test
-				//date.add(DateParser.getStartDate(str));
-				//date.add(DateParser.getEndDate(str));
+				// add.setDate(DateParser.extractDateArray(str)); //test
+				date.add(DateParser.getStartDate(str));
+				date.add(DateParser.getEndDate(str));
 				time.add(TimeParser.getStartTime(str));
 				time.add(TimeParser.getEndTime(str));
 			} catch (IndexOutOfBoundsException | InvalidInputException e) {
 				System.err.println(e.getMessage());
 			}
-			// add.setDate(date);
+			add.setDate(date);
 			add.setTime(time);
 			return add;
 		case SHOW:

@@ -29,9 +29,11 @@ public class DateParser {
 	}
 
 	/*
-	 * Returns the ArrayList<String> with the dates parsed from the String
+	 * Returns the ArrayList<String> with the dates parsed from the String.
+	 * 
+	 * Test method
 	 */
-	public static ArrayList<String> extractDateArray(String str) {
+	protected static ArrayList<String> extractDateArray(String str) {
 		ArrayList<String> date = new ArrayList<String>();
 		ArrayList<String> arr = Parser.toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
 		int startIndex = Parser.indexOf(ParserConstants.KW_START, arr);
