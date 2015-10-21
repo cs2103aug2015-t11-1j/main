@@ -1,44 +1,51 @@
 package storage;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import logic.Task;
 import logic.State;
 
 public class Storage {
+	private static File _filepath = new File("filepath.txt"); //file that store path location
+	
 	private File _file;
 	private String _filename;
-	private int _numEntry;
-	private File _filepath; //file that store path location
 		
 	public Storage(){
-		this._filepath = new File("path.txt");
-		checkFileExist(_filepath);
-		this._filename = StorageManager.getFilePath(_filepath);
-		checkFileExist(_file);
-		this._file = new File(_filename);
+		StorageManager.checkFileExist(_filepath);
+		this._filename = new String(getFilePath());
+		if(this._filename == null){
+			this._filename = "planner.txt";
+		}
+		setFilePath(this._filename);
 	}
 	
 	/*****METHOD*****/
 	//get current tasklist from file
 	public State extractState(){
 		ArrayList<Task> list = new ArrayList<Task>();
-		//TODO
+		list = StorageManager.extractFile(_file);
 		return new State(list);
 	}
 	
-	/***** PRIVATE METHODS *****/
-	// catch IOException create file
-	private void checkFileExist(File file) {
-		try {
-			if (!file.exists()) {
-				file.createNewFile();
-			}
-		} catch (IOException e) {
-			// TODO
-			e.printStackTrace();
-		}
+	// change content of storage with current state
+	public void update(State state){
+		StorageManager.clearFile(_file);
+		StorageManager.writeToFile(state.getTaskList(), _file);
 	}
+	
+	public String getFilePath(){
+		String str = new String(StorageManager.extractLine(_filepath));
+		return str;
+	}
+	
+	public void setFilePath(String str){
+		this._file = new File(this._filename);
+		StorageManager.checkFileExist(_file);
+		StorageManager.clearFile(_filepath);
+		StorageManager.writeToFile(_file.getAbsolutePath(), _filepath);
+	}
+	
+	
 }
