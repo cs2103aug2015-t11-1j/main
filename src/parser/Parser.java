@@ -137,12 +137,14 @@ public class Parser {
 	 * String, or -1 if it does not contain the element.
 	 */
 	protected static int lastIndexOf(String[] arr, ArrayList<String> str) {
-		// ArrayList<String> strArr = toArrayList(str.trim().toLowerCase(),
-		// ParserConstants.CHAR_SINGLE_WHITESPACE);
+		ArrayList<String> temp = new ArrayList<String>();
+		for (int i = 0; i < str.size(); i++) {
+			temp.add(str.get(i).toLowerCase());
+		}
 		int index = -1;
 		for (String s : arr) {
-			if (str.lastIndexOf(s) > index && str.lastIndexOf(s) != -1) {
-				index = str.lastIndexOf(s);
+			if (temp.lastIndexOf(s) > index && temp.lastIndexOf(s) != -1) {
+				index = temp.lastIndexOf(s);
 			}
 		}
 		if (index == -1) {
