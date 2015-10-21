@@ -19,4 +19,16 @@ public class ExitTask implements Command {
 	public ExitTask() {
 		
 	}
+
+	@Override
+	public void setCurrState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isMutator(Command task) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

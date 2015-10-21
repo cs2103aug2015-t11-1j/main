@@ -33,4 +33,16 @@ public class SearchTask implements Command {
 	public void setEventTask(String eventTask) {
 		this.eventTask = eventTask;
 	}
+
+	@Override
+	public void setCurrState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isMutator(Command task) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
