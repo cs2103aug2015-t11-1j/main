@@ -1,9 +1,9 @@
 package logic;
 
 public class Task {
-	private String _date;
-	private String _time;
-	private String _details;
+	String _date;
+	String _time;
+	String _details;
 	
 	/*****CONSTRUCTOR*****/
 	public Task(){
@@ -11,6 +11,8 @@ public class Task {
 	}
 	
 	public Task(String details){
+		this._time = "";
+		this._date = "";
 		this._details = details;
 	}
 	
@@ -29,4 +31,11 @@ public class Task {
 		return _date + _time + _details;
 	}
 	
+	public String rotateDF(){
+		if(_date.length() > 0){
+			String str = new String(this._date.substring(6, 8) + this._date.substring(2, 6) + this._date.substring(0, 2) + " ");
+			return str;
+		}
+		return _date;
+	}
 }
