@@ -14,8 +14,6 @@ import org.joda.time.format.DateTimeFormat;
 
 public class DateParser {
 
-	private static ArrayList<String> date = new ArrayList<String>(2);
-
 	enum TYPES {
 		TODAY, TOMORROW, OTHERS;
 	}
@@ -34,10 +32,12 @@ public class DateParser {
 	 * Returns the ArrayList<String> with the dates parsed from the String
 	 */
 	public static ArrayList<String> extractDateArray(String str) {
-		date.addAll(null);
+		ArrayList<String> date = new ArrayList<String>();
 		ArrayList<String> arr = Parser.toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
 		int startIndex = Parser.indexOf(ParserConstants.KW_START, arr);
+		System.out.println(startIndex);
 		int endIndex = Parser.lastIndexOf(ParserConstants.KW_END, arr);
+		System.out.println(endIndex);
 
 		if (startIndex == -1 && endIndex == -1) {
 			return date;
@@ -60,6 +60,8 @@ public class DateParser {
 							startDate = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
 							date.set(0, startDate.toString(ParserConstants.FORMAT_DATE_STORAGE));
 						} catch (IllegalArgumentException e) {
+
+						} catch (NullPointerException e) {
 
 						}
 					}
@@ -87,6 +89,8 @@ public class DateParser {
 							date.set(1, endDate.toString(ParserConstants.FORMAT_DATE_STORAGE));
 						} catch (IllegalArgumentException e) {
 
+						} catch (NullPointerException e) {
+
 						}
 					}
 				}
@@ -102,35 +106,54 @@ public class DateParser {
 			// case TOMORROW:
 			// date.set(0, getDate(1));
 			// case OTHERS:
-			ArrayList<String> temp = new ArrayList<String>();
-			temp.addAll(arr);
+			ArrayList<String> tempStart = new ArrayList<String>();
+			ArrayList<String> tempEnd = new ArrayList<String>();
+			tempStart.addAll(arr);
+			tempEnd.addAll(arr);
+
+			// Extract for start date
 			for (int i = 0; i < startIndex + 1; i++) {
-				temp.remove(0);
+				tempStart.remove(0);
 			}
-			for (int i = endIndex; i < arr.size(); i++) {
-				temp.remove(endIndex);
+			int tempIndex = Parser.lastIndexOf(ParserConstants.KW_END, tempStart);
+			for (int i = tempIndex; i < tempStart.size() + 1; i++) {
+				tempStart.remove(tempIndex);
 			}
-			for (String s1 : temp) {
+			// System.out.println(tempStart.toString());
+
+			// Extract for end date
+			for (int i = 0; i < endIndex + 1; i++) {
+				tempEnd.remove(0);
+			}
+			// System.out.println(tempEnd.toString());
+
+			// Parsing for start date
+			for (String s1 : tempStart) {
 				LocalDateTime startDate = null;
 				for (String s2 : ParserConstants.FORMAT_DATE) {
 					try {
 						startDate = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
 						date.set(0, startDate.toString(ParserConstants.FORMAT_DATE_STORAGE));
+						break;
 					} catch (IllegalArgumentException e) {
+
+					} catch (NullPointerException e) {
 
 					}
 				}
 			}
-			for (int i = 0; i < endIndex + 1; i++) {
-				arr.remove(0);
-			}
-			for (String s1 : arr) {
+
+			// Parsing for end date
+			for (String s1 : tempEnd) {
 				LocalDateTime endDate = null;
 				for (String s2 : ParserConstants.FORMAT_DATE) {
 					try {
 						endDate = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
 						date.set(1, endDate.toString(ParserConstants.FORMAT_DATE_STORAGE));
+						break;
 					} catch (IllegalArgumentException e) {
+
+					} catch (NullPointerException e) {
 
 					}
 				}
