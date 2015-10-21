@@ -19,4 +19,16 @@ public class InvalidTask implements Command {
 	public InvalidTask() {
 		
 	}
+
+	@Override
+	public void setCurrState() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isMutator(Command task) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
