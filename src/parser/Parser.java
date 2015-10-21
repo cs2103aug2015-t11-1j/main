@@ -117,7 +117,7 @@ public class Parser {
 	protected static int indexOf(String[] arr, ArrayList<String> str) {
 		ArrayList<String> temp = new ArrayList<String>();
 		int index = str.size();
-		for (int i=0; i<index; i++) {
+		for (int i = 0; i < index; i++) {
 			temp.add(str.get(i).toLowerCase());
 		}
 		for (String s : arr) {
