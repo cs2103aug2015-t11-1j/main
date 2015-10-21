@@ -2,6 +2,7 @@ package logic;
 
 import java.util.Stack;
 
+import storage.Output;
 import storage.Storage;
 
 public class Session {
@@ -16,5 +17,10 @@ public class Session {
 	public static State initialSetup() {
 		undoStack.push(Storage.extractState());
 	}
+	
+	public static Output executeCommand(String userInput) {
+		return null; 
+	}
+	
 	
 }
