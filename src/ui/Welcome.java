@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import logic.Logic;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -23,16 +22,15 @@ public class Welcome {
 
 	}
 
-	public static void initiateProg() throws IOException {
+	public static String initiateProg() throws IOException {
 		String userInput = requestInput();
 		
 		while (!userInput.equals(Constants.COMMAND_EXIT)) {
-			Logic.executeCommand(userInput);
 			printMsg(Constants.MESSAGE_PROMPT);
 			userInput = requestInput();
 		}
 		System.exit(0);
-		 
+		return userInput; 
 	}
 
 	public static String welcomeMessage() {
@@ -46,6 +44,7 @@ public class Welcome {
 			message = Constants.MESSAGE_EVENING;
 		}
 		printMsg(Constants.MESSAGE_PROMPT);
+		
 		return message;
 	}
 
@@ -76,15 +75,20 @@ public class Welcome {
 
 	}
 
-	public static void printAddedEvent(String addedTask) {
-		printMsg(Constants.MESSAGE_SUCCESS + addedTask + Constants.MESSAGE_ADDED);
+	public static String printAddedEvent(String addedTask) {
+		String message = Constants.MESSAGE_SUCCESS + addedTask + Constants.MESSAGE_ADDED;
+		return message;
 
 	}
 
-	public static void printShowEvent(ArrayList<String> eventToShow) {
+	public static ArrayList<String> printShowEvent(ArrayList<String> eventToShow) {
+		ArrayList<String> message = new ArrayList<String>();
+		
 		for (int i = 0; i < eventToShow.size(); i++) {
-			printMsg(eventToShow.get(i));
+			message.add(eventToShow.get(i));
 		}
+		
+		return message;
 	}
 
 	public static void printSearchEvent(ArrayList<String> searchedEvent) {
