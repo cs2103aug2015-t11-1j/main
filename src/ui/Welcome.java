@@ -23,15 +23,16 @@ public class Welcome {
 
 	}
 
-	private static void initiateProg() throws IOException {
+	public static void initiateProg() throws IOException {
 		String userInput = requestInput();
-
+		
 		while (!userInput.equals(Constants.COMMAND_EXIT)) {
 			Logic.executeCommand(userInput);
 			printMsg(Constants.MESSAGE_PROMPT);
 			userInput = requestInput();
 		}
 		System.exit(0);
+		 
 	}
 
 	public static String welcomeMessage() {
@@ -44,8 +45,6 @@ public class Welcome {
 		} else {
 			message = Constants.MESSAGE_EVENING;
 		}
-		getDate();
-		printToday();
 		printMsg(Constants.MESSAGE_PROMPT);
 		return message;
 	}
@@ -54,13 +53,8 @@ public class Welcome {
 		System.out.println(message);
 	}
 
-	private static void printToday() {
-		System.out.println(Constants.MESSAGE_TODAY);
-		System.out.println();
-	}
-
-	public static String getDate() {
-		String message = df.format(cal.getTime());
+	public static String printToday() {
+		String message = Constants.MESSAGE_TODAY;
 		return message;
 	}
 
