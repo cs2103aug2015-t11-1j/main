@@ -77,7 +77,6 @@ public class AddTask implements Command {
 
 	@Override
 	public boolean isMutator(Command task) {
-
 		if (task instanceof AddTask) {
 			return true;
 		} else {
