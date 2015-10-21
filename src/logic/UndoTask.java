@@ -21,15 +21,21 @@ public class UndoTask implements Command {
 	}
 
 	@Override
-	public void setCurrState() {
+	public boolean isMutator(Command task) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setCurrState(State state) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public boolean isMutator(Command task) {
+	public State getCurrState() {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 }
