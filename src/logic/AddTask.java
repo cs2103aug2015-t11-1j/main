@@ -9,7 +9,7 @@ public class AddTask implements Command {
 	private String eventTask;
 	private ArrayList<String> date = new ArrayList<String>();
 	private ArrayList<String> time = new ArrayList<String>();
-	private State currState;
+	private State currState = new State(new ArrayList<Task>());	
 	
 	
 	/***********CONSTRUCTOR**********/
@@ -19,13 +19,15 @@ public class AddTask implements Command {
 	
 	@Override
 	public Output execute() {
-		Task addTask = createTask();
-		this.currState.add(addTask);
-		Output addOutput = new Output(true, this.eventTask);
+		Task task = createTask();
+		this.currState.add(task);
+		Output addOutput = new Output(true, task.toString());
 		return addOutput;
 	}
 
 	private Task createTask() {
+	//	formatDate(date);
+	//	formatTime(time);
 		return new Task(this.date.get(0), this.time.get(0), this.eventTask);
 	}
 
@@ -66,8 +68,8 @@ public class AddTask implements Command {
 	}
 
 	@Override
-	public void setCurrState() {
-		currState = Session.undoStack.peek();
+	public void setCurrState(State state) {
+		currState = state;
 	}
 
 	
