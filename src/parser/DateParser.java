@@ -28,6 +28,143 @@ public class DateParser {
 		}
 	}
 
+	/*
+	 * Returns the ArrayList<String> with the dates parsed from the String.
+	 * 
+	 * Test method
+	 */
+	protected static ArrayList<String> extractDateArray(String str) {
+		ArrayList<String> date = new ArrayList<String>();
+		ArrayList<String> arr = Parser.toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
+		int startIndex = Parser.indexOf(ParserConstants.KW_START, arr);
+		System.out.println(startIndex);
+		int endIndex = Parser.lastIndexOf(ParserConstants.KW_END, arr);
+		System.out.println(endIndex);
+
+		if (startIndex == -1 && endIndex == -1) {
+			return date;
+		} else if (startIndex != -1 && endIndex == -1) {
+			// TODO only startDate, no endDate
+			TYPES type = getType(arr.get(startIndex));
+			switch (type) {
+			case TODAY:
+				date.set(0, getDate(0));
+			case TOMORROW:
+				date.set(0, getDate(1));
+			case OTHERS:
+				for (int i = 0; i < startIndex + 1; i++) {
+					arr.remove(0);
+				}
+				for (String s1 : arr) {
+					LocalDateTime startDate = null;
+					for (String s2 : ParserConstants.FORMAT_DATE) {
+						try {
+							startDate = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+							date.set(0, startDate.toString(ParserConstants.FORMAT_DATE_STORAGE));
+						} catch (IllegalArgumentException e) {
+
+						} catch (NullPointerException e) {
+
+						}
+					}
+				}
+			}
+			return date;
+		} else if (startIndex == -1 && endIndex != -1) {
+			// TODO only endDate, no startDate. Is a deadline. Parse the end
+			// segment
+			TYPES type = getType(arr.get(endIndex + 1));
+			switch (type) {
+			case TODAY:
+				date.set(1, getDate(0));
+			case TOMORROW:
+				date.set(1, getDate(1));
+			case OTHERS:
+				for (int i = 0; i < endIndex + 1; i++) {
+					arr.remove(0);
+				}
+				for (String s1 : arr) {
+					LocalDateTime endDate = null;
+					for (String s2 : ParserConstants.FORMAT_DATE) {
+						try {
+							endDate = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+							date.set(1, endDate.toString(ParserConstants.FORMAT_DATE_STORAGE));
+						} catch (IllegalArgumentException e) {
+
+						} catch (NullPointerException e) {
+
+						}
+					}
+				}
+			}
+			return date;
+		} else {
+			// TODO event with start and end date. Have to parse 2 separate
+			// segments
+			// TYPES type = getType(arr.get(startIndex));
+			// switch (type) {
+			// case TODAY:
+			// date.set(0, getDate(0));
+			// case TOMORROW:
+			// date.set(0, getDate(1));
+			// case OTHERS:
+			ArrayList<String> tempStart = new ArrayList<String>();
+			ArrayList<String> tempEnd = new ArrayList<String>();
+			tempStart.addAll(arr);
+			tempEnd.addAll(arr);
+
+			// Extract for start date
+			for (int i = 0; i < startIndex + 1; i++) {
+				tempStart.remove(0);
+			}
+			int tempIndex = Parser.lastIndexOf(ParserConstants.KW_END, tempStart);
+			for (int i = tempIndex; i < tempStart.size() + 1; i++) {
+				tempStart.remove(tempIndex);
+			}
+			// System.out.println(tempStart.toString());
+
+			// Extract for end date
+			for (int i = 0; i < endIndex + 1; i++) {
+				tempEnd.remove(0);
+			}
+			// System.out.println(tempEnd.toString());
+
+			// Parsing for start date
+			for (String s1 : tempStart) {
+				LocalDateTime startDate = null;
+				for (String s2 : ParserConstants.FORMAT_DATE) {
+					try {
+						startDate = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+						date.set(0, startDate.toString(ParserConstants.FORMAT_DATE_STORAGE));
+						break;
+					} catch (IllegalArgumentException e) {
+
+					} catch (NullPointerException e) {
+
+					}
+				}
+			}
+
+			// Parsing for end date
+			for (String s1 : tempEnd) {
+				LocalDateTime endDate = null;
+				for (String s2 : ParserConstants.FORMAT_DATE) {
+					try {
+						endDate = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+						date.set(1, endDate.toString(ParserConstants.FORMAT_DATE_STORAGE));
+						break;
+					} catch (IllegalArgumentException e) {
+
+					} catch (NullPointerException e) {
+
+					}
+				}
+			}
+			return date;
+		}
+
+	}
+
 	protected static String getStartDate(String str) {
 		ArrayList<String> arr = Parser.toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
 		int index = Parser.indexOf(ParserConstants.KW_START, arr);
