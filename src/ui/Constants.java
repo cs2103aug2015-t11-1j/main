@@ -4,7 +4,7 @@ public class Constants {
 	static final String MESSAGE_MORNING = "Good morning, Jim!";
 	static final String MESSAGE_AFTERNOON = "Good afternoon, Jim!";
 	static final String MESSAGE_EVENING = "Good evening, Jim!";
-	static final String MESSAGE_TODAY = "Your tasks for today are as follows: ";
+	static final String MESSAGE_TODAY = "Today's tasks: ";
 	static final String MESSAGE_PROMPT = "What would you like to do today?";
 	static final String MESSAGE_SUCCESS = "Success! ";
 	static final String MESSAGE_ADDED = " is added to your schedule:)";
