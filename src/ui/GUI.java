@@ -25,7 +25,6 @@ import javafx.util.Duration;
 
 public class GUI extends Application {
 
-	Welcome welcome = new Welcome();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -41,19 +40,19 @@ public class GUI extends Application {
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(10, 10, 10, 10));
 		grid.setVgap(8);
-		grid.setHgap(10);
+		grid.setHgap(5);
 
 		// Command input Text Field
 		TextField commandInput = new TextField();
 		commandInput.setPromptText("ENTER COMMAND: ");
 		commandInput.autosize();
-		GridPane.setConstraints(commandInput, 11, 50);
+		GridPane.setConstraints(commandInput, 30, 50);
 
 		// Commands Label
 		Label lb_commands = new Label("add/delete/update/search/undo/done/help/exit");
 		lb_commands.setFont(Font.font(java.awt.Font.SANS_SERIF));
 		lb_commands.setTextFill(javafx.scene.paint.Color.RED);
-		GridPane.setConstraints(lb_commands, 11, 51);
+		GridPane.setConstraints(lb_commands, 30, 51);
 
 		// Time Label
 		Label lb_time = new Label();
@@ -68,15 +67,21 @@ public class GUI extends Application {
 		}));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
-		GridPane.setConstraints(lb_time, 11, 10);
+		GridPane.setConstraints(lb_time, 30, 12);
 
 		// Listview of items
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
 		listView.getItems().addAll(Welcome.welcomeMessage());
-		GridPane.setConstraints(listView, 11, 11, 37, 36);
+		GridPane.setConstraints(listView, 30, 13, 70, 37);
 		// ObservableList<String> input;
 		// input = listView.getSelectionModel().getSelectedItems();
+		
+		//Listview of today's to-do
+		ListView<String> listToday = new ListView<>();
+		listToday.setPrefHeight(433);
+		listToday.getItems().addAll(Welcome.printToday());
+		GridPane.setConstraints(listToday, 0, 13, 30, 30);
 
 		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -98,9 +103,9 @@ public class GUI extends Application {
 				System.out.println(message);
 			}
 		});
-
+		
 		// Size of scene and what to display
-		grid.getChildren().addAll(commandInput, lb_commands, listView, lb_time);
+		grid.getChildren().addAll(commandInput, lb_commands, listView, lb_time, listToday);
 		Scene scene = new Scene(grid, 1000, 600);
 		stage.setScene(scene);
 
