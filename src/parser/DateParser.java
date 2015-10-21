@@ -43,13 +43,14 @@ public class DateParser {
 				for (int i = 0; i < index + 1; i++) {
 					arr.remove(0);
 				}
-				ArrayList<String> dateArr = new ArrayList<String>(2);
+				// ArrayList<String> dateArr = new ArrayList<String>(2);
 				for (String s1 : arr) {
 					LocalDateTime date = null;
 					for (String s2 : ParserConstants.FORMAT_DATE) {
 						try {
 							date = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
-							dateArr.add(date.toString(ParserConstants.FORMAT_DATE_STORAGE));
+							return date.toString(ParserConstants.FORMAT_DATE_STORAGE);
+							// dateArr.add(date.toString(ParserConstants.FORMAT_DATE_STORAGE));
 						} catch (NullPointerException e) {
 
 						} catch (IllegalArgumentException e) {
@@ -57,7 +58,7 @@ public class DateParser {
 						}
 					}
 				}
-				return dateArr.get(0);
+				// return dateArr.get(0);
 			default:
 				return null;
 			}
@@ -70,37 +71,37 @@ public class DateParser {
 		ArrayList<String> arr = Parser.toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
 		int index = Parser.lastIndexOf(ParserConstants.KW_END, arr);
 		if (index != -1) {
-			TYPES type = getType(arr.get(index));
-			switch (type) {
-			case TODAY:
-				return getDate(0);
-			case TOMORROW:
-				return getDate(1);
-			case OTHERS:
-				for (int i = 0; i < index + 1; i++) {
-					arr.remove(0);
-				}
-				ArrayList<String> dateArr = new ArrayList<String>(2);
-				for (String s1 : arr) {
-					LocalDateTime date = null;
-					for (String s2 : ParserConstants.FORMAT_DATE) {
-						try {
-							date = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
-							dateArr.add(date.toString(ParserConstants.FORMAT_DATE_STORAGE));
-						} catch (NullPointerException e) {
+			// TYPES type = getType(arr.get(index));
+			// switch (type) {
+			// case TODAY:
+			// return getDate(0);
+			// case TOMORROW:
+			// return getDate(1);
+			// case OTHERS:
+			for (int i = 0; i < index + 1; i++) {
+				arr.remove(0);
+			}
+			// ArrayList<String> dateArr = new ArrayList<String>(2);
+			for (String s1 : arr) {
+				LocalDateTime date = null;
+				for (String s2 : ParserConstants.FORMAT_DATE) {
+					try {
+						date = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+						return date.toString(ParserConstants.FORMAT_DATE_STORAGE);
+						// dateArr.add(date.toString(ParserConstants.FORMAT_DATE_STORAGE));
+					} catch (NullPointerException e) {
 
-						} catch (IllegalArgumentException e) {
+					} catch (IllegalArgumentException e) {
 
-						}
 					}
 				}
-				return dateArr.get(0);
-			default:
-				return null;
 			}
-		} else {
-			return null;
+			// return dateArr.get(0);
+			// default:
+			// return null;
+			//
 		}
+		return null;
 	}
 
 	/*
