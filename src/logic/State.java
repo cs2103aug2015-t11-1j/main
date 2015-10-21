@@ -14,4 +14,8 @@ public class State {
 	public ArrayList<Task> getTaskList(){
 		return _tasklist;
 	}
+
+	public void add(Task task) {
+		_tasklist.add(task);
+	}
 }
