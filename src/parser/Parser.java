@@ -30,11 +30,15 @@ public class Parser {
 		switch (action) {
 		case ADD:
 			AddTask add = new AddTask();
-			add.setEventTask(EventTaskParser.getEventTask(str));
-			date.add(DateParser.getStartDate(str));
-			date.add(DateParser.getEndDate(str));
-			time.add(TimeParser.getStartTime(str));
-			time.add(TimeParser.getEndTime(str));
+			try {
+				add.setEventTask(EventTaskParser.getEventTask(str));
+				date.add(DateParser.getStartDate(str));
+				date.add(DateParser.getEndDate(str));
+				time.add(TimeParser.getStartTime(str));
+				time.add(TimeParser.getEndTime(str));
+			} catch (IndexOutOfBoundsException | InvalidInputException e) {
+				System.err.println(e.getMessage());
+			}
 			add.setDate(date);
 			add.setTime(time);
 			return add;
@@ -44,16 +48,24 @@ public class Parser {
 			return show;
 		case SEARCH:
 			SearchTask search = new SearchTask();
-			search.setEventTask(EventTaskParser.getEventTask(str));
+			try {
+				search.setEventTask(EventTaskParser.getEventTask(str));
+			} catch (IndexOutOfBoundsException | InvalidInputException e) {
+				System.err.println(e.getMessage());
+			}
 			return search;
 		case UPDATE:
 			UpdateTask update = new UpdateTask();
-			update.setIndex(IndexParser.getIndex(str));
-			update.setEventTask(EventTaskParser.getEventTask(str));
-			date.add(DateParser.getStartDate(str));
-			date.add(DateParser.getEndDate(str));
-			time.add(TimeParser.getStartTime(str));
-			time.add(TimeParser.getEndTime(str));
+			try {
+				update.setIndex(IndexParser.getIndex(str));
+				update.setEventTask(EventTaskParser.getEventTask(str));
+				date.add(DateParser.getStartDate(str));
+				date.add(DateParser.getEndDate(str));
+				time.add(TimeParser.getStartTime(str));
+				time.add(TimeParser.getEndTime(str));
+			} catch (IndexOutOfBoundsException | InvalidInputException e) {
+				System.err.println(e.getMessage());
+			}
 			update.setDate(date);
 			update.setTime(time);
 			return update;
@@ -84,6 +96,7 @@ public class Parser {
 		default:
 			return null;
 		}
+
 	}
 
 	/*
@@ -137,12 +150,14 @@ public class Parser {
 	 * String, or -1 if it does not contain the element.
 	 */
 	protected static int lastIndexOf(String[] arr, ArrayList<String> str) {
-		// ArrayList<String> strArr = toArrayList(str.trim().toLowerCase(),
-		// ParserConstants.CHAR_SINGLE_WHITESPACE);
+		ArrayList<String> temp = new ArrayList<String>();
+		for (int i = 0; i < str.size(); i++) {
+			temp.add(str.get(i).toLowerCase());
+		}
 		int index = -1;
 		for (String s : arr) {
-			if (str.lastIndexOf(s) > index && str.lastIndexOf(s) != -1) {
-				index = str.lastIndexOf(s);
+			if (temp.lastIndexOf(s) > index && temp.lastIndexOf(s) != -1) {
+				index = temp.lastIndexOf(s);
 			}
 		}
 		if (index == -1) {
@@ -169,17 +184,10 @@ public class Parser {
 	/*
 	 * Checks if there's an index argument in the String
 	 * 
-	 * Removes it if it's present and returns the new ArrayList returns the
-	 * original ArrayList if it's absent
-	 * 
 	 * ASSUMPTIONS: 1) The index argument always comes before the event/task
 	 * argument and after the action argument
 	 */
-	protected static boolean indexPresent(ArrayList<String> arr) {
-		if (arr.get(ParserConstants.INDEX_SECOND).matches(".*\\d+/*")) {
-			return true;
-		} else {
-			return false;
-		}
+	protected static boolean indexPresent(ArrayList<String> arr) throws IndexOutOfBoundsException {
+		return arr.get(ParserConstants.INDEX_SECOND).matches(".*\\d+/*");
 	}
 }
