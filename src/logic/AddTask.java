@@ -19,9 +19,14 @@ public class AddTask implements Command {
 	
 	@Override
 	public Output execute() {
-		// TODO
-//		Output outputObject = Storage.storeNewEvent(StorageFormatter.formatAdd());
-		return null;
+		Task addTask = createTask();
+		this.currState.add(addTask);
+		Output addOutput = new Output(true, this.eventTask);
+		return addOutput;
+	}
+
+	private Task createTask() {
+		return new Task(this.date.get(0), this.time.get(0), this.eventTask);
 	}
 
 	@Override

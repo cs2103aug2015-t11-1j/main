@@ -28,6 +28,8 @@ public class Session {
 			undoStack.push(userCommand.getCurrState());
 		}
 		
+		Storage.update(userCommand.getCurrState());
+		
 		return op; 
 	}
 	
