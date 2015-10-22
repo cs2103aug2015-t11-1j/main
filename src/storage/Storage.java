@@ -12,7 +12,7 @@ public class Storage {
 	
 	private File _file;
 	private String _filename;
-		
+	
 	public Storage(){
 		if(!_filepath.exists()){
 			initialSetup();
