@@ -20,11 +20,32 @@ public class ParserTest {
 		AddTask add = (AddTask) Parser.setCommand(test);
 		
 		String expected = "event";
-		// Check for date as well
+		expectedDate.add(DateParser.getDate(0));
+		expectedDate.add("");
 		expectedTime.add("1100");
 		expectedTime.add("1200");
 		
+		assertTrue(Parser.setCommand(test) instanceof AddTask);
 		assertEquals(expected, add.getEventTask());
+		assertEquals(expectedDate, add.getDate());
+		assertEquals(expectedTime, add.getTime());
+	}
+	
+	// need fixing. suspected in TimeParser
+	@Test
+	public void testSetCommandWithDateOnly() {
+		String test = "add event from 21/10/15 to 22/10/15";
+		AddTask add = (AddTask) Parser.setCommand(test);
+		
+		String expected = "event";
+		expectedDate.add("21/10/15");
+		expectedDate.add("22/10/15");
+		expectedTime.add("");
+		expectedTime.add("");
+		
+		assertTrue(Parser.setCommand(test) instanceof AddTask);
+		assertEquals(expected, add.getEventTask());
+		assertEquals(expectedDate, add.getDate());
 		assertEquals(expectedTime, add.getTime());
 	}
 	
