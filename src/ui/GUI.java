@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.text.DateFormat;
 import java.util.Calendar;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -56,24 +60,24 @@ public class GUI extends Application {
 
 		// Time Label
 		Label lb_time = new Label();
-		DateFormat format = DateFormat.getInstance();
+		DateTimeFormatter format = DateTimeFormat.forPattern("EEEE, dd MMMM yyyy HH:mm:ss");
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent e) {
-				Calendar cal = Calendar.getInstance();
-				lb_time.setText(format.format(cal.getTime()));
+				DateTime dt = new DateTime();
+				lb_time.setText(format.print(dt));
 			}
 		}));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
-		GridPane.setConstraints(lb_time, 30, 12);
+		GridPane.setConstraints(lb_time, 30, 5);
 
 		// Listview of items
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
 		listView.getItems().addAll(Welcome.welcomeMessage());
-		GridPane.setConstraints(listView, 30, 13, 70, 37);
+		GridPane.setConstraints(listView, 30, 6, 70, 43);
 		// ObservableList<String> input;
 		// input = listView.getSelectionModel().getSelectedItems();
 		
@@ -81,7 +85,7 @@ public class GUI extends Application {
 		ListView<String> listToday = new ListView<>();
 		listToday.setPrefHeight(433);
 		listToday.getItems().addAll(Welcome.printToday());
-		GridPane.setConstraints(listToday, 0, 13, 30, 30);
+		GridPane.setConstraints(listToday, 0, 6, 30, 30);
 
 		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
