@@ -5,23 +5,17 @@ import java.util.ArrayList;
 public class Output {
 	private boolean _status;
 	private String _entry;
-	private ArrayList<Task> _results;
+	private ArrayList<String> _results;
 
 	/*********** CONSTRUCTOR **********/
 	public Output(boolean status, String entry) {
 		this._status = status;
 		this._entry = entry;
-		this._results = new ArrayList<Task>();
 	}
 
-	public Output(boolean status, ArrayList<Task> results) {
+	public Output(boolean status, ArrayList<String> results) {
 		this._status = status;
 		this._results = results;
-		this._entry = new String();
-	}
-	
-	public Output(Output op){
-		
 	}
 
 	/********** GETTER **********/
@@ -46,7 +40,7 @@ public class Output {
 		this._entry = entry;
 	}
 
-	public void setResults(ArrayList<Task> results) {
+	public void setResults(ArrayList<String> results) {
 		this._results = results;
 	}
 
