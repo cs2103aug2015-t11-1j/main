@@ -24,7 +24,7 @@ public class AddTaskTest {
 		at.setDate(date);
 		at.setTime(time);
 		
-		Output expectedOP = new Output(true, "21/10/15 1200 meeting");
+		Output expectedOP = new Output(true, "21/10/15 1200 meeting", "add");
 		Output resultOP = at.execute();
 		
 	//	assertTrue(expectedOP.equals(resultOP));
@@ -48,7 +48,7 @@ public class AddTaskTest {
 		at.setDate(date);
 		at.setTime(time);
 		
-		Output expectedOP = new Output(true, "21/10/15 0900 meeting");
+		Output expectedOP = new Output(true, "21/10/15 0900 meeting", "add");
 		Output resultOP = at.execute();
 		
 		assertEquals(expectedOP, resultOP);
@@ -68,7 +68,7 @@ public class AddTaskTest {
 		at.setDate(date);
 		at.setTime(time);
 		
-		Output expectedOP = new Output(true, "23/10/15 holiday");
+		Output expectedOP = new Output(true, "23/10/15 holiday", "add");
 		Output resultOP = at.execute();
 		
 		assertEquals(expectedOP, resultOP);
