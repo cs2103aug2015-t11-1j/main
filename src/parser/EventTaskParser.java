@@ -40,6 +40,12 @@ public class EventTaskParser {
 				arr.remove(i);
 			}
 		}
+		int endIndex = Parser.indexOf(ParserConstants.KW_END, arr);
+		if (endIndex != -1) {
+			for (int i = endIndex; i < arr.size();) {
+				arr.remove(i);
+			}
+		}
 
 		// Removes the first index which contains the action argument
 		arr.remove(ParserConstants.INDEX_FIRST);
