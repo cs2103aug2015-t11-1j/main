@@ -197,10 +197,10 @@ public class DateParser {
 				}
 				// return dateArr.get(0);
 			default:
-				return null;
+				return "";
 			}
 		} else {
-			return null;
+			return "";
 		}
 	}
 
@@ -238,7 +238,7 @@ public class DateParser {
 			// return null;
 			//
 		}
-		return null;
+		return "";
 	}
 
 	/*
