@@ -32,7 +32,6 @@ public class Task {
 		return _date + _time + _details;
 	}
 	
-	@Override
 	public boolean equals(Task task){
 		return (this._time.equals(task._time)
 				&& this._date.equals(task._date)
