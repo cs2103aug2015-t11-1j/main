@@ -6,48 +6,75 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import logic.AddTask;
+
 public class ParserTest {
 
-	// Dummy tests
-	
-	@Test
-	public void test() {
-		String[] arr = { "today" };
-		String str = "TODAY";
-		System.out.println(Parser.isPresent(arr, str));
-	}
+	ArrayList<String> expectedDate = new ArrayList<String>();
+	ArrayList<String> expectedTime = new ArrayList<String>();
 
 	@Test
-	public void test1() {
-		String test = "add event from 210493 to 210493";
-		// ArrayList<String> temp = new ArrayList<String>();
-		ArrayList<String> arr = Parser.toArrayList(test, ParserConstants.CHAR_SINGLE_WHITESPACE);
-		for (int i = 0; i < 3; i++) {
-			arr.remove(0);
-		}
-		for (int i = 1; i < arr.size();) {
-			arr.remove(i);
-		}
-		System.out.println(arr.toString());
+	public void testSetCommand1() {
+		String test = "add event from 211015 to 221015";
+		AddTask add = (AddTask) Parser.setCommand(test);
+
+		String expected = "event";
+		expectedDate.add("21/10/15");
+		expectedDate.add("22/10/15");
+		expectedTime.add(null);
+		expectedTime.add(null);
+
+		assertEquals(expected, add.getEventTask());
+		assertEquals(expectedDate, add.getDate());
+		assertEquals(expectedTime, add.getTime());
 	}
 	
 	@Test
-	public void test2() {
-		String test = "ADD SUBMIT ASSIGNMENT BY 210493";
-		String result1 = DateParser.getStartDate(test);
-		String result2 = DateParser.getEndDate(test);
-		
-		System.out.println(result1);
-		System.out.println(result2);
+	public void testSetCommand2() {
+		String test = "add event from 211015 111115 to 221015";
+		AddTask add = (AddTask) Parser.setCommand(test);
+
+		String expected = "event";
+		expectedDate.add("21/10/15");
+		expectedDate.add("22/10/15");
+		expectedTime.add(null);
+		expectedTime.add(null);
+
+		assertEquals(expected, add.getEventTask());
+		assertEquals(expectedDate, add.getDate());
+		assertEquals(expectedTime, add.getTime());
 	}
 	
 	@Test
-	public void test3() {
-		String test = "add this > 210493 02:00 to 220493 03:00";
-		
-		System.out.println(DateParser.getStartDate(test));
-		System.out.println(DateParser.getEndDate(test));
-		System.out.println(TimeParser.getStartTime(test));
-		System.out.println(TimeParser.getEndTime(test));
+	public void testSetCommand3() {
+		String test = "add event today";
+		AddTask add = (AddTask) Parser.setCommand(test);
+
+		String expected = "event";
+		expectedDate.add("21/10/15");
+		expectedDate.add(null);
+		expectedTime.add(null);
+		expectedTime.add(null);
+
+		assertEquals(expected, add.getEventTask());
+		assertEquals(expectedDate, add.getDate());
+		assertEquals(expectedTime, add.getTime());
 	}
+	
+	@Test
+	public void testSetCommand4() {
+		String test = "add event today 10:00 to 11:00";
+		AddTask add = (AddTask) Parser.setCommand(test);
+
+		String expected = "event";
+		expectedDate.add("21/10/15");
+		expectedDate.add(null);
+		expectedTime.add("1000");
+		expectedTime.add("1100");
+
+		assertEquals(expected, add.getEventTask());
+		assertEquals(expectedDate, add.getDate());
+		assertEquals(expectedTime, add.getTime());
+	}
+
 }

@@ -1,6 +1,9 @@
 package logic;
 
+import java.util.ArrayList;
+
 import storage.Output;
+import storage.Storage;
 
 public class ShowTask implements Command {
 	
@@ -14,7 +17,8 @@ public class ShowTask implements Command {
 	@Override
 	public Output execute() {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> dateTasks = Storage.showToday(this.getDate());
+		return new Output(true, dateTasks);
 	}
 
 	@Override
@@ -34,15 +38,22 @@ public class ShowTask implements Command {
 	}
 
 	@Override
-	public void setCurrState() {
-		// TODO Auto-generated method stub
-		
+	public boolean isMutator(Command task) {
+		if (task instanceof ShowTask) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public boolean isMutator(Command task) {
-		// TODO Auto-generated method stub
-		return false;
+	public void setCurrState(State state) {
+	//	currState = state;
+	}
+
+	@Override
+	public State getCurrState() {
+		return null;
 	}
 	
 }
