@@ -20,7 +20,7 @@ public class AddTask implements Command {
 	public Output execute() {
 		Task task = createTask();
 		this.currState.add(task);
-		return new Output(true, task.toString());
+		return new Output(true, task.toString(), "add");
 	}
 
 	private Task createTask() {
