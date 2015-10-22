@@ -36,9 +36,9 @@ public class TimeParser {
 		try {
 			return timeArr.get(0);
 		} catch (NullPointerException e) {
-			return null;
+			return "";
 		} catch (IndexOutOfBoundsException e) {
-			return null;
+			return "";
 		}
 	}
 	
@@ -48,9 +48,9 @@ public class TimeParser {
 		try {
 			return timeArr.get(1);
 		} catch (NullPointerException e) {
-			return null;
+			return "";
 		} catch (IndexOutOfBoundsException e) {
-			return null;
+			return "";
 		}
 	}
 }

@@ -21,8 +21,8 @@ public class ParserTest {
 		String expected = "event";
 		expectedDate.add("21/10/15");
 		expectedDate.add("22/10/15");
-		expectedTime.add(null);
-		expectedTime.add(null);
+		expectedTime.add("");
+		expectedTime.add("");
 
 		assertEquals(expected, add.getEventTask());
 		assertEquals(expectedDate, add.getDate());
@@ -37,8 +37,8 @@ public class ParserTest {
 		String expected = "event";
 		expectedDate.add("21/10/15");
 		expectedDate.add("22/10/15");
-		expectedTime.add(null);
-		expectedTime.add(null);
+		expectedTime.add("");
+		expectedTime.add("");
 
 		assertEquals(expected, add.getEventTask());
 		assertEquals(expectedDate, add.getDate());
@@ -53,8 +53,8 @@ public class ParserTest {
 		String expected = "event";
 		expectedDate.add("21/10/15");
 		expectedDate.add(null);
-		expectedTime.add(null);
-		expectedTime.add(null);
+		expectedTime.add("");
+		expectedTime.add("");
 
 		assertEquals(expected, add.getEventTask());
 		assertEquals(expectedDate, add.getDate());
