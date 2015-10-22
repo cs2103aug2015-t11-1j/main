@@ -37,4 +37,23 @@ public class State {
 		});
 	}
 	
+	/*****toString()*****/
+	//return tasklist in form of arraylist of String
+	public ArrayList<String> toStringList(){
+		ArrayList<String> list = new ArrayList<String>();
+		for(Task t : _tasklist){
+			list.add(t.toString());
+		}
+		return list;
+	}
+	
+	//convert State into String form
+	public String toString(){
+		String str = new String();
+		for(String s : this.toStringList()){
+			str.concat(s + "\n");
+		}
+		return str;
+	}
+	
 }

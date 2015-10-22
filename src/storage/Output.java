@@ -80,5 +80,19 @@ public class Output {
 				);
 	}
 	
+	public ArrayList<String> toStringList(){
+		ArrayList<String> list = new ArrayList<String>();
+		for(Task t : _results){
+			list.add(t.toString());
+		}
+		return list;
+	}
+	public String toStringResults(){
+		String str = new String();
+		for(String s : this.toStringList()){
+			str.concat(s + "\n");
+		}
+		return str;
+	}
 	
 }
