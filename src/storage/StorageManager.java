@@ -124,13 +124,14 @@ public class StorageManager {
 	// convert string to Task objects
 	private static Task strToTask(String string){
 		Task task;
-		String[] str = string.split(" ", 3);
-		if(str[1].length() == 4 && Integer.valueOf(str[1].substring(0, 4)) <= 2400){
-			task = new Task(str[0], str[1], str[2]);
-		} else if(str[0].length() == 8 && Integer.valueOf(str[0].substring(0, 2)) <= 31){
-			task = new Task(str[0], str[1]+" "+str[2]);
+		String[] str = string.split(" ", 4);
+		if(str[2].length() == 4 && Integer.valueOf(str[2].substring(0, 4)) <= 2400){
+			task = new Task(Task.modifySign(str[0]), str[1], str[2], str[3]);
+		} else if(str[1].length() == 8 && Integer.valueOf(str[1].substring(0, 2)) <= 31){
+			task = new Task(Task.modifySign(str[0]), str[1], str[2]+" "+str[3]);
 		} else {
 			task = new Task(string);
+			//TODO in case of change of signs
 		}
 		return task;
 	}
