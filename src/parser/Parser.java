@@ -6,6 +6,9 @@ package parser;
 
 import java.util.ArrayList;
 
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+
 import logic.AddTask;
 import logic.Command;
 import logic.DeleteTask;
@@ -32,10 +35,12 @@ public class Parser {
 			try {
 				add.setEventTask(EventTaskParser.getEventTask(str));
 				// add.setDate(DateParser.extractDateArray(str)); //test
-				date.add(DateParser.getStartDate(str));
-				date.add(DateParser.getEndDate(str));
-				add.setTime(TimeParser.getTimeArg(str));
-				add.setDate(date);
+				// date.add(DateParser.getStartDate(str));
+				// date.add(DateParser.getEndDate(str));
+				add.setDate(DateParser.addDateArg(str));
+				System.out.println("date");
+				add.setTime(TimeParser.addTimeArg(str));
+				System.out.println("time");
 				return add;
 			} catch (IndexOutOfBoundsException e) {
 				System.err.println(e.getMessage());
@@ -66,7 +71,7 @@ public class Parser {
 				date.add(DateParser.getStartDate(str));
 				date.add(DateParser.getEndDate(str));
 				update.setDate(date);
-				update.setTime(TimeParser.getTimeArg(str));
+				update.setTime(TimeParser.addTimeArg(str));
 				return update;
 			} catch (IndexOutOfBoundsException e) {
 				System.err.println(e.getMessage());
@@ -189,6 +194,28 @@ public class Parser {
 	 */
 	protected static boolean indexPresent(ArrayList<String> arr) throws IndexOutOfBoundsException {
 		return arr.get(ParserConstants.INDEX_SECOND).matches(".*\\d+/*");
+	}
+	
+	/* 
+	 * Extracts the relevant arguments from the specified partition. Returns
+	 * true if an argument exists. False if otherwise.
+	 * 
+	 * Used in DateParser and TimeParser
+	 */
+	protected static boolean extractArguments(ArrayList<String> dateArg, boolean argExist, ArrayList<String> partition, String[] format, String formatStorage) {
+		for (String s1 : partition) {
+			LocalDateTime startDate = null;
+			for (String s2 : format) {
+				try {
+					startDate = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+					dateArg.add(startDate.toString(formatStorage));
+					argExist = true;
+				} catch (NullPointerException | IllegalArgumentException e) {
+
+				}
+			}
+		}
+		return argExist;
 	}
 
 	private static ArrayList<String> cloneToLowerCase(ArrayList<String> str) {

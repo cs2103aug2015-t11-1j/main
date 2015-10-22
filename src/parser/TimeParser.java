@@ -6,12 +6,12 @@ package parser;
 
 import java.util.ArrayList;
 
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
-
 public class TimeParser {
 
-	protected static ArrayList<String> getTimeArg(String str) throws InvalidInputException, NullPointerException {
+	/*
+	 * Method for parsing time arguments for an ADD command
+	 */
+	protected static ArrayList<String> addTimeArg(String str) throws InvalidInputException, NullPointerException {
 		ArrayList<String> arr = Parser.toArrayList(str, ParserConstants.CHAR_SINGLE_WHITESPACE);
 		ArrayList<String> timeArg = new ArrayList<String>();
 		boolean startExist = false;
@@ -41,8 +41,8 @@ public class TimeParser {
 			}
 		}
 
-		startExist = extractArguments(timeArg, startExist, startArr);
-		endExist = extractArguments(timeArg, endExist, endArr);
+		startExist = Parser.extractArguments(timeArg, startExist, startArr, ParserConstants.FORMAT_TIME, ParserConstants.FORMAT_TIME_STORAGE);
+		endExist = Parser.extractArguments(timeArg, endExist, endArr, ParserConstants.FORMAT_TIME, ParserConstants.FORMAT_TIME_STORAGE);
 
 		if (timeArg.size() > 2 || (startExist == false && startIndex != -1) || (endExist == false && endIndex != -1)) {
 			throw new InvalidInputException("Invalid input. Please try again");
@@ -62,27 +62,5 @@ public class TimeParser {
 				return timeArg;
 			}
 		}
-	}
-
-	/*
-	 * Refactored method
-	 * 
-	 * Extracts the relevant arguments from the specified partition. Returns
-	 * true if an argument exists. False if otherwise.
-	 */
-	private static boolean extractArguments(ArrayList<String> timeArg, boolean argExist, ArrayList<String> partition) {
-		for (String s1 : partition) {
-			LocalDateTime startTime = null;
-			for (String s2 : ParserConstants.FORMAT_TIME) {
-				try {
-					startTime = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
-					timeArg.add(startTime.toString(ParserConstants.FORMAT_TIME_STORAGE));
-					argExist = true;
-				} catch (NullPointerException | IllegalArgumentException e) {
-
-				}
-			}
-		}
-		return argExist;
 	}
 }
