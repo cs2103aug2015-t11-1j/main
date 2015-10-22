@@ -25,7 +25,6 @@ public class Parser {
 		ACTION_TYPE action = ActionParser.setUserAction(str);
 
 		ArrayList<String> date = new ArrayList<String>();
-		ArrayList<String> time = new ArrayList<String>();
 
 		switch (action) {
 		case ADD:
@@ -35,14 +34,15 @@ public class Parser {
 				// add.setDate(DateParser.extractDateArray(str)); //test
 				date.add(DateParser.getStartDate(str));
 				date.add(DateParser.getEndDate(str));
-				time.add(TimeParser.getStartTime(str));
-				time.add(TimeParser.getEndTime(str));
-			} catch (IndexOutOfBoundsException | InvalidInputException e) {
+				add.setTime(TimeParser.getTimeArg(str));
+				add.setDate(date);
+				return add;
+			} catch (IndexOutOfBoundsException e) {
 				System.err.println(e.getMessage());
+			} catch (InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
 			}
-			add.setDate(date);
-			add.setTime(time);
-			return add;
 		case SHOW:
 			ShowTask show = new ShowTask();
 			show.setDate(DateParser.getStartDate(str));
@@ -51,10 +51,13 @@ public class Parser {
 			SearchTask search = new SearchTask();
 			try {
 				search.setEventTask(EventTaskParser.getEventTask(str));
-			} catch (IndexOutOfBoundsException | InvalidInputException e) {
+				return search;
+			} catch (IndexOutOfBoundsException e) {
 				System.err.println(e.getMessage());
+			} catch (InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
 			}
-			return search;
 		case UPDATE:
 			UpdateTask update = new UpdateTask();
 			try {
@@ -62,14 +65,15 @@ public class Parser {
 				update.setEventTask(EventTaskParser.getEventTask(str));
 				date.add(DateParser.getStartDate(str));
 				date.add(DateParser.getEndDate(str));
-				time.add(TimeParser.getStartTime(str));
-				time.add(TimeParser.getEndTime(str));
-			} catch (IndexOutOfBoundsException | InvalidInputException e) {
+				update.setDate(date);
+				update.setTime(TimeParser.getTimeArg(str));
+				return update;
+			} catch (IndexOutOfBoundsException e) {
 				System.err.println(e.getMessage());
+			} catch (InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
 			}
-			update.setDate(date);
-			update.setTime(time);
-			return update;
 		case DONE:
 			DoneTask done = new DoneTask();
 			done.setIndex(IndexParser.getIndex(str));
@@ -90,12 +94,13 @@ public class Parser {
 			// TODO
 			HelpTask help = new HelpTask();
 			return help;
-		case INVALID:
-			// TODO
+		/*
+		 * case INVALID: // TODO InvalidTask invalid = new InvalidTask(); return
+		 * invalid;
+		 */
+		default:
 			InvalidTask invalid = new InvalidTask();
 			return invalid;
-		default:
-			return null;
 		}
 
 	}
