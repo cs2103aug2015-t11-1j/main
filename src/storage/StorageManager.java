@@ -121,10 +121,11 @@ public class StorageManager {
 		return count;
 	}
 
+	// convert string to Task objects
 	private static Task strToTask(String string){
 		Task task;
 		String[] str = string.split(" ", 3);
-		if(str[1].length() == 4 && Integer.valueOf(str[1]) <= 2400){
+		if(str[1].length() == 4 && Integer.valueOf(str[1].substring(0, 4)) <= 2400){
 			task = new Task(str[0], str[1], str[2]);
 		} else if(str[0].length() == 8 && Integer.valueOf(str[0].substring(0, 2)) <= 31){
 			task = new Task(str[0], str[1]+" "+str[2]);
