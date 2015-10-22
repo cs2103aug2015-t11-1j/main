@@ -26,12 +26,16 @@ public class AddTask implements Command {
 	private Task createTask() {
 		// formatDate(date);
 		// formatTime(time);
-		/*
-		 * try { Task newTask = new Task(this.date.get(0), this.time.get(0),
-		 * this.eventTask); } catch (NullPointerException e) {
-		 * System.err.println(e.getMessage()); }
-		 */
-		return new Task(this.date.get(0), this.time.get(0), this.eventTask);
+		
+		try { 
+			Task newTask = new Task(this.date.get(0), this.time.get(0), this.eventTask); 
+			return newTask;
+		} catch (NullPointerException e) {
+			System.err.println(e.getMessage()); 
+			return new Task(this.date.get(0), "", this.eventTask);
+		}
+		
+	//	return new Task(this.date.get(0), this.time.get(0), this.eventTask);
 	}
 
 	@Override
