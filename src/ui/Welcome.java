@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import logic.Logic;
+import logic.Session;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -23,16 +23,17 @@ public class Welcome {
 
 	}
 
-	public static void initiateProg() throws IOException {
+	public static String initiateProg() throws IOException {
 		String userInput = requestInput();
+		Session session = new Session();
 		
 		while (!userInput.equals(Constants.COMMAND_EXIT)) {
-			Logic.executeCommand(userInput);
+			session.executeCommand(userInput);
 			printMsg(Constants.MESSAGE_PROMPT);
 			userInput = requestInput();
 		}
 		System.exit(0);
-		 
+		return userInput; 
 	}
 
 	public static String welcomeMessage() {
@@ -46,6 +47,7 @@ public class Welcome {
 			message = Constants.MESSAGE_EVENING;
 		}
 		printMsg(Constants.MESSAGE_PROMPT);
+		
 		return message;
 	}
 
@@ -78,13 +80,18 @@ public class Welcome {
 
 	public static void printAddedEvent(String addedTask) {
 		printMsg(Constants.MESSAGE_SUCCESS + addedTask + Constants.MESSAGE_ADDED);
+		
 
 	}
 
 	public static void printShowEvent(ArrayList<String> eventToShow) {
+		
+		
 		for (int i = 0; i < eventToShow.size(); i++) {
 			printMsg(eventToShow.get(i));
 		}
+		
+	
 	}
 
 	public static void printSearchEvent(ArrayList<String> searchedEvent) {
