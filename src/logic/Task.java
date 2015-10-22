@@ -27,8 +27,15 @@ public class Task {
 	}
 	
 	/*****METHOD*****/
+	@Override
 	public String toString(){
 		return _date + _time + _details;
+	}
+	
+	public boolean equals(Task task){
+		return (this._time.equals(task._time)
+				&& this._date.equals(task._date)
+				&& this._details.equals(task._details));
 	}
 	
 	public String rotateDF(){
