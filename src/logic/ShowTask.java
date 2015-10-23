@@ -17,8 +17,8 @@ public class ShowTask implements Command {
 	@Override
 	public Output execute() {
 		// TODO Auto-generated method stub
-		ArrayList<String> dateTasks = Storage.showToday(this.getDate());
-		return new Output(true, dateTasks);
+		ArrayList<Task> dateTasks = Storage.showToday(this.getDate());
+		return new Output(true, dateTasks, "show");
 	}
 
 	@Override
