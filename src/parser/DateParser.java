@@ -29,6 +29,88 @@ public class DateParser {
 	}
 
 	/*
+	 * Method for parsing date arguments for an ADD command
+	 */
+	protected static ArrayList<String> addDateArg(String str) throws InvalidInputException, NullPointerException {
+		ArrayList<String> arr = Parser.toArrayList(str, ParserConstants.CHAR_SINGLE_WHITESPACE);
+		ArrayList<String> dateArg = new ArrayList<String>();
+		boolean startExist = false;
+		boolean endExist = false;
+
+		int startIndex = Parser.indexOf(ParserConstants.KW_START, arr);
+		int endIndex = Parser.indexOf(ParserConstants.KW_END, arr);
+
+		ArrayList<String> startArr = new ArrayList<String>();
+		ArrayList<String> endArr = new ArrayList<String>();
+
+		if (startIndex != -1 && endIndex != -1) {
+			for (int i = startIndex; i < endIndex; i++) {
+				startArr.add(arr.get(i));
+			}
+			for (int i = endIndex + 1; i < arr.size(); i++) {
+				endArr.add(arr.get(i));
+			}
+		} else if (startIndex != -1 && endIndex == -1) {
+			for (int i = startIndex; i < arr.size(); i++) {
+				startArr.add(arr.get(i));
+			}
+		} else if (startIndex == -1 && endIndex != -1) {
+			for (int i = endIndex + 1; i < arr.size(); i++) {
+				endArr.add(arr.get(i));
+			}
+		}
+
+		try {
+			TYPES type = getType(startArr.get(0));
+			switch (type) {
+			case TODAY:
+				dateArg.add(getDate(0));
+				startExist = true;
+				break;
+			case TOMORROW:
+				dateArg.add(getDate(1));
+				startExist = true;
+				break;
+			case OTHERS:
+				startExist = Parser.extractArguments(dateArg, startExist, startArr, ParserConstants.FORMAT_DATE, ParserConstants.FORMAT_DATE_STORAGE);
+				break;
+			}
+		} catch (IndexOutOfBoundsException e) {
+
+		}
+
+		endExist = Parser.extractArguments(dateArg, endExist, endArr, ParserConstants.FORMAT_DATE, ParserConstants.FORMAT_DATE_STORAGE);
+
+		ArrayList<String> tempArr = new ArrayList<String>();
+		boolean timeExist = false;
+		timeExist = Parser.extractArguments(tempArr, timeExist, arr, ParserConstants.FORMAT_TIME, ParserConstants.FORMAT_TIME_STORAGE);
+		
+		if (dateArg.size() > 2 || (startExist == false && startIndex != -1 && !timeExist)
+				|| (endExist == false && endIndex != -1 && !timeExist)) {
+			throw new InvalidInputException("Invalid input. Please try again");
+		} else {
+			if (startExist == false && endExist == false && timeExist) {
+				dateArg.add(getDate(0));
+				dateArg.add("");
+				return dateArg;
+			} else if (startExist == false && endExist == false && !timeExist) {
+				dateArg.add("");
+				dateArg.add("");
+				return dateArg;
+			} else if (startExist == false && endExist == true) {
+				dateArg.add(dateArg.get(0));
+				dateArg.set(0, "");
+				return dateArg;
+			} else if (startExist == true && endExist == false) {
+				dateArg.add("");
+				return dateArg;
+			} else {
+				return dateArg;
+			}
+		}
+	}
+
+	/*
 	 * Returns the ArrayList<String> with the dates parsed from the String.
 	 * 
 	 * Test method
@@ -245,7 +327,7 @@ public class DateParser {
 	 * Adds today's date to the number of days specified and return the sum as a
 	 * String in the format "dd/MM/yy"
 	 */
-	private static String getDate(int plus) {
+	protected static String getDate(int plus) {
 		LocalDateTime date = LocalDateTime.now();
 		date = date.plusDays(plus);
 		return date.toString(ParserConstants.FORMAT_DATE_STORAGE);

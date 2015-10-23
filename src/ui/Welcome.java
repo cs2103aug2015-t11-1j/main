@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Scanner;
 
 import logic.Session;
+import logic.Task;
+import storage.Output;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -12,28 +14,36 @@ import java.text.SimpleDateFormat;
 
 public class Welcome {
 	
-	// test comment
-
-		private static DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	private static DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private static Calendar cal = Calendar.getInstance();
 	private static Scanner sc;
 
 	public static void main(String[] args) throws IOException {
 		initiateProg();
-
 	}
 
-	public static String initiateProg() throws IOException {
-		String userInput = requestInput();
+	public static void initiateProg() throws IOException {
 		Session session = new Session();
+		Output op = new Output(session.executeCommand("show today"));
+		//command to print today's work: op
 		
-		while (!userInput.equals(Constants.COMMAND_EXIT)) {
-			session.executeCommand(userInput);
+		while(true){
 			printMsg(Constants.MESSAGE_PROMPT);
-			userInput = requestInput();
+			String userInput = requestInput();
+			if(userInput.equals(Constants.COMMAND_EXIT)){
+				//command logic to update storage before exiting
+				//session.updateStorage(); maybe?
+				System.exit(0);
+			}
+			session.executeCommand(userInput);
 		}
-		System.exit(0);
-		return userInput; 
+		
+//		while (!userInput.equals(Constants.COMMAND_EXIT)) {
+//			session.executeCommand(userInput);
+//			printMsg(Constants.MESSAGE_PROMPT);
+//			userInput = requestInput();
+//		}
+//		System.exit(0); 
 	}
 
 	public static String welcomeMessage() {
