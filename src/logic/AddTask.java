@@ -44,6 +44,12 @@ public class AddTask implements Command {
 
 	}
 
+	public void redo() {
+		// TODO Auto-generated method stub
+
+	}
+	
+	
 	/********** GETTER **********/
 	public String getEventTask() {
 		return eventTask;

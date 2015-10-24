@@ -3,7 +3,7 @@ package logic;
 import storage.Output;
 
 public class DoneTask implements Command {
-	
+	private State currState;
 	private int index;
 	
 	/***********CONSTRUCTOR**********/
@@ -23,10 +23,20 @@ public class DoneTask implements Command {
 		// TODO Auto-generated method stub
 
 	}
+
+	public void redo() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	/**********  GETTER   **********/
 	public int getIndex() {
 		return index;
+	}
+	
+	@Override
+	public State getCurrState() {
+		return currState;
 	}
 	
 	/**********  SETTER   **********/
@@ -35,20 +45,18 @@ public class DoneTask implements Command {
 	}
 
 	@Override
+	public void setCurrState(State state) {
+		currState = state;
+		
+	}
+	
+	@Override
 	public boolean isMutator(Command task) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
-	public void setCurrState(State state) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public State getCurrState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+
 }

@@ -4,6 +4,10 @@ import storage.Output;
 
 public class UndoTask implements Command {
 
+	public UndoTask() {
+		
+	}
+	
 	@Override
 	public Output execute() {
 		// TODO Auto-generated method stub
@@ -16,10 +20,11 @@ public class UndoTask implements Command {
 
 	}
 	
-	public UndoTask() {
+	public void redo() {
+		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public boolean isMutator(Command task) {
 		// TODO Auto-generated method stub
