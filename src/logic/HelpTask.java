@@ -4,6 +4,10 @@ import storage.Output;
 
 public class HelpTask implements Command {
 
+	public HelpTask() {
+		
+	}
+	
 	@Override
 	public Output execute() {
 		// TODO Auto-generated method stub
@@ -16,9 +20,11 @@ public class HelpTask implements Command {
 
 	}
 
-	public HelpTask() {
+	public void redo() {
+		// TODO Auto-generated method stub
 		
 	}
+	
 
 	@Override
 	public boolean isMutator(Command task) {
@@ -37,4 +43,6 @@ public class HelpTask implements Command {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 }

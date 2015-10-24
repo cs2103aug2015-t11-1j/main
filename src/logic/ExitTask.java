@@ -15,11 +15,16 @@ public class ExitTask implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	
+	@Override
+	public void redo() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	public ExitTask() {
 		
 	}
-
 
 	@Override
 	public boolean isMutator(Command task) {
@@ -29,13 +34,14 @@ public class ExitTask implements Command {
 
 	@Override
 	public void setCurrState(State state) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public State getCurrState() {
-		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
 }
