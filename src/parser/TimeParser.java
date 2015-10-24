@@ -6,51 +6,77 @@ package parser;
 
 import java.util.ArrayList;
 
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
-
 public class TimeParser {
 
-	private static ArrayList<String> getTimeArray(String str) {
+	/*
+	 * Method for parsing time arguments for an ADD command
+	 */
+	protected static ArrayList<String> addTimeArg(String str) throws InvalidInputException, NullPointerException {
 		ArrayList<String> arr = Parser.toArrayList(str, ParserConstants.CHAR_SINGLE_WHITESPACE);
-		ArrayList<String> timeArr = new ArrayList<String>(2);
-		for (String str1 : arr) {
-			LocalDateTime time = null;
-			for (String str2 : ParserConstants.FORMAT_TIME) {
-				try {
-					time = DateTimeFormat.forPattern(str2).parseLocalDateTime(str1);
-					timeArr.add(time.toString(ParserConstants.FORMAT_TIME_STORAGE));
-				} catch (NullPointerException e) {
+		ArrayList<String> timeArg = new ArrayList<String>();
+		boolean startExist = false;
+		boolean endExist = false;
 
-				} catch (IllegalArgumentException e) {
+		int startIndex = Parser.indexOf(ParserConstants.KW_START, arr);
+		int endIndex = Parser.indexOf(ParserConstants.KW_END, arr);
 
-				}
+		// Partitions
+		ArrayList<String> startArr = new ArrayList<String>();
+		ArrayList<String> endArr = new ArrayList<String>();
+
+		if (startIndex != -1 && endIndex != -1) {
+			for (int i = startIndex + 1; i < endIndex; i++) {
+				startArr.add(arr.get(i));
+			}
+			for (int i = endIndex + 1; i < arr.size(); i++) {
+				endArr.add(arr.get(i));
+			}
+		} else if (startIndex != -1 && endIndex == -1) {
+			for (int i = startIndex + 1; i < arr.size(); i++) {
+				startArr.add(arr.get(i));
+			}
+		} else if (startIndex == -1 && endIndex != -1) {
+			for (int i = endIndex + 1; i < arr.size(); i++) {
+				endArr.add(arr.get(i));
 			}
 		}
-		return timeArr;
-	}
-	
-	protected static String getStartTime(String str) {
-		ArrayList<String> timeArr = new ArrayList<String>(2);
-		timeArr = getTimeArray(str);
-		try {
-			return timeArr.get(0);
-		} catch (NullPointerException e) {
-			return "";
-		} catch (IndexOutOfBoundsException e) {
-			return "";
-		}
-	}
-	
-	protected static String getEndTime(String str) {
-		ArrayList<String> timeArr = new ArrayList<String>(2);
-		timeArr = getTimeArray(str);
-		try {
-			return timeArr.get(1);
-		} catch (NullPointerException e) {
-			return "";
-		} catch (IndexOutOfBoundsException e) {
-			return "";
+
+		// Presence of time arguments
+		startExist = Parser.extractArguments(timeArg, startExist, startArr, ParserConstants.FORMAT_TIME,
+				ParserConstants.FORMAT_TIME_STORAGE);
+		endExist = Parser.extractArguments(timeArg, endExist, endArr, ParserConstants.FORMAT_TIME,
+				ParserConstants.FORMAT_TIME_STORAGE);
+
+		// Presence of date arguments
+		boolean startDateExist = false;
+		boolean endDateExist = false;
+		startDateExist = Parser.isPresent(startArr, ParserConstants.FORMAT_DATE);
+		endDateExist = Parser.isPresent(endArr, ParserConstants.FORMAT_DATE);
+
+		boolean dateArgExist = (startDateExist || endDateExist);
+
+		if (timeArg.size() > 2 || (startExist == false && startIndex != -1 && !startDateExist)
+				|| (endExist == false && endIndex != -1 && !endDateExist)) {
+			throw new InvalidInputException();
+		} else {
+			if (startExist == false && endExist == false) {
+				timeArg.add("");
+				timeArg.add("");
+				return timeArg;
+			} else if (startExist == false && endExist == true) {
+				if (startDateExist && !endDateExist) {
+					throw new InvalidInputException();
+				} else {
+					timeArg.add(timeArg.get(0));
+					timeArg.set(0, "");
+					return timeArg;
+				}
+			} else if (startExist == true && endExist == false) {
+				timeArg.add("");
+				return timeArg;
+			} else {
+				return timeArg;
+			}
 		}
 	}
 }

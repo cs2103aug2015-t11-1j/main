@@ -6,6 +6,9 @@ package parser;
 
 import java.util.ArrayList;
 
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+
 import logic.AddTask;
 import logic.Command;
 import logic.DeleteTask;
@@ -25,7 +28,6 @@ public class Parser {
 		ACTION_TYPE action = ActionParser.setUserAction(str);
 
 		ArrayList<String> date = new ArrayList<String>();
-		ArrayList<String> time = new ArrayList<String>();
 
 		switch (action) {
 		case ADD:
@@ -33,17 +35,20 @@ public class Parser {
 			try {
 				add.setEventTask(EventTaskParser.getEventTask(str));
 				// add.setDate(DateParser.extractDateArray(str)); //test
-				date.add(DateParser.getStartDate(str));
-				date.add(DateParser.getEndDate(str));
-				time.add(TimeParser.getStartTime(str));
-				time.add(TimeParser.getEndTime(str));
-			} catch (IndexOutOfBoundsException | InvalidInputException e) {
+				// date.add(DateParser.getStartDate(str));
+				// date.add(DateParser.getEndDate(str));
+				add.setDate(DateParser.addDateArg(str));
+				System.out.println("date");
+				add.setTime(TimeParser.addTimeArg(str));
+				System.out.println("time");
+				return add;
+			} catch (IndexOutOfBoundsException e) {
 				System.err.println(e.getMessage());
+			} catch (InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
 			}
-			add.setDate(date);
-			add.setTime(time);
-			return add;
-		case SHOW:
+		case SHOW: // require new DateParser method
 			ShowTask show = new ShowTask();
 			show.setDate(DateParser.getStartDate(str));
 			return show;
@@ -51,10 +56,13 @@ public class Parser {
 			SearchTask search = new SearchTask();
 			try {
 				search.setEventTask(EventTaskParser.getEventTask(str));
-			} catch (IndexOutOfBoundsException | InvalidInputException e) {
+				return search;
+			} catch (IndexOutOfBoundsException e) {
 				System.err.println(e.getMessage());
+			} catch (InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
 			}
-			return search;
 		case UPDATE:
 			UpdateTask update = new UpdateTask();
 			try {
@@ -62,14 +70,15 @@ public class Parser {
 				update.setEventTask(EventTaskParser.getEventTask(str));
 				date.add(DateParser.getStartDate(str));
 				date.add(DateParser.getEndDate(str));
-				time.add(TimeParser.getStartTime(str));
-				time.add(TimeParser.getEndTime(str));
-			} catch (IndexOutOfBoundsException | InvalidInputException e) {
+				update.setDate(date);
+				update.setTime(TimeParser.addTimeArg(str));
+				return update;
+			} catch (IndexOutOfBoundsException e) {
 				System.err.println(e.getMessage());
+			} catch (InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
 			}
-			update.setDate(date);
-			update.setTime(time);
-			return update;
 		case DONE:
 			DoneTask done = new DoneTask();
 			done.setIndex(IndexParser.getIndex(str));
@@ -90,12 +99,13 @@ public class Parser {
 			// TODO
 			HelpTask help = new HelpTask();
 			return help;
-		case INVALID:
-			// TODO
+		/*
+		 * case INVALID: // TODO InvalidTask invalid = new InvalidTask(); return
+		 * invalid;
+		 */
+		default:
 			InvalidTask invalid = new InvalidTask();
 			return invalid;
-		default:
-			return null;
 		}
 
 	}
@@ -184,6 +194,48 @@ public class Parser {
 	 */
 	protected static boolean indexPresent(ArrayList<String> arr) throws IndexOutOfBoundsException {
 		return arr.get(ParserConstants.INDEX_SECOND).matches(".*\\d+/*");
+	}
+
+	/*
+	 * Extracts the relevant arguments from the specified partition and stores
+	 * it in the given ArrayList<String>. Returns true if an argument has been
+	 * stored False if otherwise.
+	 * 
+	 * Unique to DateParser and TimeParser
+	 */
+	protected static boolean extractArguments(ArrayList<String> arg, boolean argExist, ArrayList<String> partition,
+			String[] format, String formatStorage) {
+		for (String s1 : partition) {
+			LocalDateTime dateTimeArg = null;
+			for (String s2 : format) {
+				try {
+					dateTimeArg = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+					arg.add(dateTimeArg.toString(formatStorage));
+					argExist = true;
+				} catch (NullPointerException | IllegalArgumentException e) {
+
+				}
+			}
+		}
+		return argExist;
+	}
+
+	/*
+	 * Checks for the relevant arguments in a specified partition. Returns true
+	 * if it exists. False if otherwise
+	 */
+	protected static boolean isPresent(ArrayList<String> partition, String[] format) {
+		for (String s1 : partition) {
+			for (String s2 : format) {
+				try {
+					DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+					return true;
+				} catch (NullPointerException | IllegalArgumentException e) {
+
+				}
+			}
+		}
+		return false;
 	}
 
 	private static ArrayList<String> cloneToLowerCase(ArrayList<String> str) {
