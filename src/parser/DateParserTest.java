@@ -67,35 +67,4 @@ public class DateParserTest {
 		
 		assertEquals(expected, result);
 	}
-	
-	@Test(expected = InvalidInputException.class) 
-	public void testTooManyStartDateInput() throws NullPointerException, InvalidInputException {
-		String test = "add event from 23/10/15 22/10/15 to 24/10/15";
-		DateParser.addDateArg(test);
-	}
-	
-	@Test(expected = InvalidInputException.class) 
-	public void testTooManyEndDateInput() throws NullPointerException, InvalidInputException {
-		String test = "add event from 23/10/15 to 24/10/15 22/10/15";
-		DateParser.addDateArg(test);
-	}
-	
-	@Test(expected = InvalidInputException.class) 
-	public void testInvalidEndDateInput() throws NullPointerException, InvalidInputException {
-		String test = "add event from 23/10/15 to ";
-		DateParser.addDateArg(test);
-	}
-	
-	@Test(expected = InvalidInputException.class) 
-	public void testInvalidStartDateInput() throws NullPointerException, InvalidInputException {
-		String test = "add event from to 24/10/15 ";
-		DateParser.addDateArg(test);
-	}
-	
-	@Test(expected = InvalidInputException.class) 
-	public void testInvalidDateInput() throws NullPointerException, InvalidInputException {
-		String test = "add event from to ";
-		DateParser.addDateArg(test);
-	}
-
 }
