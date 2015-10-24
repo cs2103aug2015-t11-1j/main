@@ -72,35 +72,71 @@ public class DateParser {
 				startExist = true;
 				break;
 			case OTHERS:
-				startExist = Parser.extractArguments(dateArg, startExist, startArr, ParserConstants.FORMAT_DATE, ParserConstants.FORMAT_DATE_STORAGE);
+				startExist = Parser.extractArguments(dateArg, startExist, startArr, ParserConstants.FORMAT_DATE,
+						ParserConstants.FORMAT_DATE_STORAGE);
 				break;
 			}
 		} catch (IndexOutOfBoundsException e) {
 
 		}
 
-		endExist = Parser.extractArguments(dateArg, endExist, endArr, ParserConstants.FORMAT_DATE, ParserConstants.FORMAT_DATE_STORAGE);
+		try {
+			TYPES type = getType(endArr.get(0));
+			switch (type) {
+			case TODAY:
+				dateArg.add(getDate(0));
+				endExist = true;
+				break;
+			case TOMORROW:
+				dateArg.add(getDate(1));
+				endExist = true;
+				break;
+			case OTHERS:
+				endExist = Parser.extractArguments(dateArg, endExist, endArr, ParserConstants.FORMAT_DATE,
+						ParserConstants.FORMAT_DATE_STORAGE);
+				break;
+			}
+		} catch (IndexOutOfBoundsException e) {
 
-		ArrayList<String> tempArr = new ArrayList<String>();
-		boolean timeExist = false;
-		timeExist = Parser.extractArguments(tempArr, timeExist, arr, ParserConstants.FORMAT_TIME, ParserConstants.FORMAT_TIME_STORAGE);
-		
-		if (dateArg.size() > 2 || (startExist == false && startIndex != -1 && !timeExist)
-				|| (endExist == false && endIndex != -1 && !timeExist)) {
-			throw new InvalidInputException("Invalid input. Please try again");
+		}
+
+		boolean startTimeExist = false;
+		boolean endTimeExist = false;
+		startTimeExist = Parser.isPresent(startArr, ParserConstants.FORMAT_TIME);
+		endTimeExist = Parser.isPresent(endArr, ParserConstants.FORMAT_TIME);
+
+		// boolean timeArgExist = (startTimeExist || endTimeExist);
+
+		if (dateArg.size() > 2 || (startExist == false && startIndex != -1 && !startTimeExist)
+				|| (endExist == false && endIndex != -1 && !endTimeExist)) {
+			throw new InvalidInputException();
 		} else {
-			if (startExist == false && endExist == false && timeExist) {
+			if (startExist == false && endExist == false && startTimeExist == true && endTimeExist == false) {
 				dateArg.add(getDate(0));
 				dateArg.add("");
 				return dateArg;
-			} else if (startExist == false && endExist == false && !timeExist) {
+			} else if (startExist == false && endExist == false && startTimeExist == false && endTimeExist == true) {
+				dateArg.add("");
+				dateArg.add(getDate(0));
+				return dateArg;
+			} else if (startExist == false && endExist == false && startTimeExist == true && endTimeExist == true) {
+				dateArg.add(getDate(0));
+				dateArg.add(getDate(0));
+				return dateArg;
+			} else if (startExist == false && endExist == false && startTimeExist == false && endTimeExist == false) {
 				dateArg.add("");
 				dateArg.add("");
 				return dateArg;
-			} else if (startExist == false && endExist == true) {
+			} else if (startExist == false && endExist == true && startTimeExist == true) {
+				dateArg.add(dateArg.get(0));
+				dateArg.set(0, getDate(0));
+				return dateArg;
+			} else if (startExist == false && endExist == true && startTimeExist == false) {
 				dateArg.add(dateArg.get(0));
 				dateArg.set(0, "");
 				return dateArg;
+			} else if (startExist == true && endExist == false && startTimeExist == false && endTimeExist == true) {
+				throw new InvalidInputException();
 			} else if (startExist == true && endExist == false) {
 				dateArg.add("");
 				return dateArg;
