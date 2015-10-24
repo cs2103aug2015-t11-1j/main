@@ -25,6 +25,17 @@ public class UpdateTask implements Command {
 
 	}
 
+	public void redo() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public boolean isMutator(Command task) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 	/**********  GETTER   **********/
 	public int getIndex() {
 		return index;
@@ -42,7 +53,12 @@ public class UpdateTask implements Command {
 		return time;
 	}
 
-	
+	@Override
+	public State getCurrState() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**********  SETTER   **********/
 	public void setIndex(int index) {
 		this.index = index;
@@ -59,22 +75,11 @@ public class UpdateTask implements Command {
 	public void setTime(ArrayList<String> time) {
 		this.time = time;
 	}
-
-	@Override
-	public boolean isMutator(Command task) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 	@Override
 	public void setCurrState(State state) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public State getCurrState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

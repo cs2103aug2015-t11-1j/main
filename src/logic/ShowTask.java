@@ -6,8 +6,8 @@ import storage.Output;
 import storage.Storage;
 
 public class ShowTask implements Command {
-	
 	private String date;
+	private State currState;
 	
 	/***********CONSTRUCTOR**********/
 	public ShowTask() {
@@ -17,7 +17,13 @@ public class ShowTask implements Command {
 	@Override
 	public Output execute() {
 		// TODO Auto-generated method stub
-		ArrayList<Task> dateTasks = Storage.showToday(this.getDate());
+		ArrayList<Task> list = currState.getTaskList();
+		ArrayList<Task> dateTasks = new ArrayList<Task>();
+		for(Task t : list){
+			if(t.getDate().equals(this.date)){
+				dateTasks.add(t);
+			}
+		}	
 		return new Output(true, dateTasks, "show");
 	}
 
@@ -26,17 +32,12 @@ public class ShowTask implements Command {
 		// TODO Auto-generated method stub
 
 	}
-	
-	/**********  GETTER   **********/
-	public String getDate() {
-		return date;
-	}
-	
-	/**********  SETTER   **********/
-	public void setDate(String str) {
-		this.date = str;
-	}
 
+	public void redo() {
+		// TODO Auto-generated method stub
+
+	}
+	
 	@Override
 	public boolean isMutator(Command task) {
 		if (task instanceof ShowTask) {
@@ -45,15 +46,25 @@ public class ShowTask implements Command {
 			return false;
 		}
 	}
-
-	@Override
-	public void setCurrState(State state) {
-	//	currState = state;
+	
+	/**********  GETTER   **********/
+	public String getDate() {
+		return date;
 	}
 
 	@Override
 	public State getCurrState() {
-		return null;
+		return currState;
+	}
+
+	/**********  SETTER   **********/
+	public void setDate(String str) {
+		this.date = str;
+	}
+	
+	@Override
+	public void setCurrState(State state) {
+		currState = state;
 	}
 	
 }
