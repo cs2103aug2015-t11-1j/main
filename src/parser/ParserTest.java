@@ -11,6 +11,7 @@ import logic.DeleteTask;
 import logic.DoneTask;
 import logic.InvalidTask;
 import logic.SearchTask;
+import logic.ShowTask;
 import logic.UpdateTask;
 
 public class ParserTest {
@@ -143,67 +144,25 @@ public class ParserTest {
 		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
 	}
 	
-	/*@Test
-	public void testSetCommand1() {
-		String test = "add event from 211015 to 221015";
-		AddTask add = (AddTask) Parser.setCommand(test);
-
-		String expected = "event";
-		expectedDate.add("21/10/15");
-		expectedDate.add("22/10/15");
-		//expectedTime.add("");
-		//expectedTime.add("");
-
-		assertEquals(expected, add.getEventTask());
-		assertEquals(expectedDate, add.getDate());
-		assertEquals(expectedTime, add.getTime());
+	@Test
+	public void testShowAction() {
+		String test = "show 11-10-15";
+		assertTrue(Parser.setCommand(test) instanceof ShowTask);
+		ShowTask show = (ShowTask) Parser.setCommand(test);
+		
+		String expected = "11/10/15";
+		assertEquals(expected, show.getDate());
 	}
 	
 	@Test
-	public void testSetCommand2() {
-		String test = "add event from 211015 111115 to 221015";
-		AddTask add = (AddTask) Parser.setCommand(test);
-
-		String expected = "event";
-		expectedDate.add("21/10/15");
-		expectedDate.add("22/10/15");
-		//expectedTime.add("");
-		//expectedTime.add("");
-
-		assertEquals(expected, add.getEventTask());
-		assertEquals(expectedDate, add.getDate());
-		assertEquals(expectedTime, add.getTime());
+	public void testFailedShowAction() {
+		String test = "show ";
+		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
 	}
 	
 	@Test
-	public void testSetCommand3() {
-		String test = "add event today";
-		AddTask add = (AddTask) Parser.setCommand(test);
-
-		String expected = "event";
-		expectedDate.add("22/10/15");
-		expectedDate.add("");
-		//expectedTime.add("");
-		//expectedTime.add("");
-
-		assertEquals(expected, add.getEventTask());
-		assertEquals(expectedDate, add.getDate());
-		assertEquals(expectedTime, add.getTime());
+	public void testFailedShowActionTooManyInputs() {
+		String test = "show 10/11/15 11/11/15";
+		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
 	}
-	
-	@Test
-	public void testSetCommand4() {
-		String test = "add event today 10:00 to 11:00";
-		AddTask add = (AddTask) Parser.setCommand(test);
-
-		String expected = "event";
-		expectedDate.add("22/10/15");
-		expectedDate.add("");
-		expectedTime.add("1000");
-		expectedTime.add("1100");
-
-		assertEquals(expected, add.getEventTask());
-		assertEquals(expectedDate, add.getDate());
-		assertEquals(expectedTime, add.getTime());
-	}*/
 }
