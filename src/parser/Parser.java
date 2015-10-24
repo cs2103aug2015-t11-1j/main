@@ -34,31 +34,22 @@ public class Parser {
 			AddTask add = new AddTask();
 			try {
 				add.setEventTask(EventTaskParser.getEventTask(str));
-				// add.setDate(DateParser.extractDateArray(str)); //test
-				// date.add(DateParser.getStartDate(str));
-				// date.add(DateParser.getEndDate(str));
 				add.setDate(DateParser.addDateArg(str));
-				System.out.println("date");
 				add.setTime(TimeParser.addTimeArg(str));
-				System.out.println("time");
 				return add;
-			} catch (IndexOutOfBoundsException e) {
-				System.err.println(e.getMessage());
-			} catch (InvalidInputException e) {
+			} catch (InvalidInputException | IndexOutOfBoundsException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
 		case SHOW: // require new DateParser method
 			ShowTask show = new ShowTask();
-			show.setDate(DateParser.getStartDate(str));
+			// show.setDate(DateParser.getStartDate(str));
 			return show;
 		case SEARCH:
 			SearchTask search = new SearchTask();
 			try {
 				search.setEventTask(EventTaskParser.getEventTask(str));
 				return search;
-			} catch (IndexOutOfBoundsException e) {
-				System.err.println(e.getMessage());
 			} catch (InvalidInputException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
@@ -73,19 +64,27 @@ public class Parser {
 				update.setDate(date);
 				update.setTime(TimeParser.addTimeArg(str));
 				return update;
-			} catch (IndexOutOfBoundsException e) {
-				System.err.println(e.getMessage());
-			} catch (InvalidInputException e) {
+			} catch (InvalidInputException | IndexOutOfBoundsException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
 		case DONE:
 			DoneTask done = new DoneTask();
-			done.setIndex(IndexParser.getIndex(str));
+			try {
+				done.setIndex(IndexParser.getIndex(str));
+			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
+			}
 			return done;
 		case DELETE:
 			DeleteTask delete = new DeleteTask();
-			delete.setIndex(IndexParser.getIndex(str));
+			try {
+				delete.setIndex(IndexParser.getIndex(str));
+			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
+			}
 			return delete;
 		case UNDO:
 			// TODO
