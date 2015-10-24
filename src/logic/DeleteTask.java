@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+
 import storage.Output;
 
 public class DeleteTask implements Command {
@@ -13,9 +15,13 @@ public class DeleteTask implements Command {
 	
 	@Override
 	public Output execute() {
-		return null;
-		// TODO Auto-generated method stub
-
+		try {
+			Task task = this.currState.getTaskList().remove(this.index-1);
+			return new Output(true, task.toString(), "delete");
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Index unavailable");
+			return new Output(false, "Index Out Of Bounds", "delete");
+		}
 	}
 
 	@Override

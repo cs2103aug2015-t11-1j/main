@@ -10,7 +10,7 @@ import logic.State;
 public class Storage {
 	private static File _filepath = new File("FilePath.txt"); //file that store path location
 	
-	private File _file;
+	public File _file;
 	private String _filename;
 	
 	public Storage(){

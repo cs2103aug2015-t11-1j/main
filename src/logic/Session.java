@@ -17,7 +17,9 @@ public class Session {
 	}
 	
 	public void initialSetup() {
-		undoStack.push(sto.extractState());
+		State s = sto.extractState();
+		s.sort();
+		undoStack.push(s);
 	}
 	
 	public Output executeCommand(String userInput) {

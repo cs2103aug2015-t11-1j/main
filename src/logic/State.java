@@ -16,7 +16,7 @@ public class State {
 	public ArrayList<Task> getTaskList(){
 		return _tasklist;
 	}
-
+	
 	public void add(Task task) {
 		_tasklist.add(task);
 	}
@@ -35,6 +35,9 @@ public class State {
 				return t1._details.compareTo(t2._details);
 			}
 		});
+		for(Task t : _tasklist){
+			t.setIndex(_tasklist.indexOf(t) + 1);
+		}
 	}
 	
 	/*****toString()*****/
