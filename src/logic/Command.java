@@ -7,7 +7,8 @@ public interface Command {
 	State currState = null;
 	Output execute();
 	void undo();
+	void redo();
 	void setCurrState(State state);
-	boolean isMutator(Command task);
 	State getCurrState();
+	boolean isMutator(Command task);
 }

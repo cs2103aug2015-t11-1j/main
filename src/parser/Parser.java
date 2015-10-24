@@ -48,7 +48,7 @@ public class Parser {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
-		case SHOW:
+		case SHOW: // require new DateParser method
 			ShowTask show = new ShowTask();
 			show.setDate(DateParser.getStartDate(str));
 			return show;
@@ -195,20 +195,22 @@ public class Parser {
 	protected static boolean indexPresent(ArrayList<String> arr) throws IndexOutOfBoundsException {
 		return arr.get(ParserConstants.INDEX_SECOND).matches(".*\\d+/*");
 	}
-	
-	/* 
-	 * Extracts the relevant arguments from the specified partition. Returns
-	 * true if an argument exists. False if otherwise.
+
+	/*
+	 * Extracts the relevant arguments from the specified partition and stores
+	 * it in the given ArrayList<String>. Returns true if an argument has been
+	 * stored False if otherwise.
 	 * 
-	 * Used in DateParser and TimeParser
+	 * Unique to DateParser and TimeParser
 	 */
-	protected static boolean extractArguments(ArrayList<String> dateArg, boolean argExist, ArrayList<String> partition, String[] format, String formatStorage) {
+	protected static boolean extractArguments(ArrayList<String> arg, boolean argExist, ArrayList<String> partition,
+			String[] format, String formatStorage) {
 		for (String s1 : partition) {
-			LocalDateTime startDate = null;
+			LocalDateTime dateTimeArg = null;
 			for (String s2 : format) {
 				try {
-					startDate = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
-					dateArg.add(startDate.toString(formatStorage));
+					dateTimeArg = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+					arg.add(dateTimeArg.toString(formatStorage));
 					argExist = true;
 				} catch (NullPointerException | IllegalArgumentException e) {
 
@@ -216,6 +218,24 @@ public class Parser {
 			}
 		}
 		return argExist;
+	}
+
+	/*
+	 * Checks for the relevant arguments in a specified partition. Returns true
+	 * if it exists. False if otherwise
+	 */
+	protected static boolean isPresent(ArrayList<String> partition, String[] format) {
+		for (String s1 : partition) {
+			for (String s2 : format) {
+				try {
+					DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+					return true;
+				} catch (NullPointerException | IllegalArgumentException e) {
+
+				}
+			}
+		}
+		return false;
 	}
 
 	private static ArrayList<String> cloneToLowerCase(ArrayList<String> str) {

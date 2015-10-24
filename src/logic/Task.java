@@ -12,7 +12,7 @@ public class Task {
 	}
 	
 	public Task(String details){
-		this._stats = "\u2610 ";
+		this._stats = "? ";
 		this._time = "";
 		this._date = "";
 		this._details = details.trim();
@@ -29,14 +29,25 @@ public class Task {
 	}
 	
 	public Task (String stat, String date, String time, String details){
-		this(date, details);
+		if(date.equals("")){
+			this._date = date;
+			this._time = time;
+			this._details = details.trim();
+		} else if (time.equals("")){
+			this._date = date.trim() + " ";
+			this._time = time;
+			this._details = details.trim();
+		} else {
+			this._date = date.trim() + " ";
+			this._time = time.trim() + " ";
+			this._details = details.trim();
+		}
 		this._stats = stat.trim() + " ";
-		this._time = time.trim() + " ";
 	}
 	
 	/*****METHOD*****/
 	public Task markDone(){
-		this._stats = "\u00B1 ";
+		this._stats = "@ ";
 		return this;
 	}
 	
@@ -60,13 +71,31 @@ public class Task {
 		return _date;
 	}
 	
-	public static String modifySign(String str){
-		if(str.equals("\u0023 ")){
-			return "\u2610 ";
-		}
-		if(str.equals("\u00B1 ")){
-			return"\u2611 ";
-		}
-		return str;
+//	public static String modifySign(String str){
+//		if(str.equals("\u0023 ")){
+//			return "\u2610 ";
+//		}
+//		if(str.equals("\u00B1 ")){
+//			return"\u2611 ";
+//		}
+//		return str;
+//	}
+	
+	/*****GETTER*****/
+	public String getStatus(){
+		return _stats;
 	}
+	
+	public String getDate(){
+		return _date;
+	}
+	
+	public String getTime(){
+		return _time;
+	}
+	
+	public String getDetail(){
+		return _details;
+	}
+	
 }

@@ -20,7 +20,7 @@ public class TimeParser {
 		int startIndex = Parser.indexOf(ParserConstants.KW_START, arr);
 		int endIndex = Parser.indexOf(ParserConstants.KW_END, arr);
 
-		// Split arr into 2 separate ArrayList<String>
+		// Partitions
 		ArrayList<String> startArr = new ArrayList<String>();
 		ArrayList<String> endArr = new ArrayList<String>();
 
@@ -41,20 +41,36 @@ public class TimeParser {
 			}
 		}
 
-		startExist = Parser.extractArguments(timeArg, startExist, startArr, ParserConstants.FORMAT_TIME, ParserConstants.FORMAT_TIME_STORAGE);
-		endExist = Parser.extractArguments(timeArg, endExist, endArr, ParserConstants.FORMAT_TIME, ParserConstants.FORMAT_TIME_STORAGE);
+		// Presence of time arguments
+		startExist = Parser.extractArguments(timeArg, startExist, startArr, ParserConstants.FORMAT_TIME,
+				ParserConstants.FORMAT_TIME_STORAGE);
+		endExist = Parser.extractArguments(timeArg, endExist, endArr, ParserConstants.FORMAT_TIME,
+				ParserConstants.FORMAT_TIME_STORAGE);
 
-		if (timeArg.size() > 2 || (startExist == false && startIndex != -1) || (endExist == false && endIndex != -1)) {
-			throw new InvalidInputException("Invalid input. Please try again");
+		// Presence of date arguments
+		boolean startDateExist = false;
+		boolean endDateExist = false;
+		startDateExist = Parser.isPresent(startArr, ParserConstants.FORMAT_DATE);
+		endDateExist = Parser.isPresent(endArr, ParserConstants.FORMAT_DATE);
+
+		boolean dateArgExist = (startDateExist || endDateExist);
+
+		if (timeArg.size() > 2 || (startExist == false && startIndex != -1 && !startDateExist)
+				|| (endExist == false && endIndex != -1 && !endDateExist)) {
+			throw new InvalidInputException();
 		} else {
 			if (startExist == false && endExist == false) {
 				timeArg.add("");
 				timeArg.add("");
 				return timeArg;
 			} else if (startExist == false && endExist == true) {
-				timeArg.add(timeArg.get(0));
-				timeArg.set(0, "");
-				return timeArg;
+				if (startDateExist && !endDateExist) {
+					throw new InvalidInputException();
+				} else {
+					timeArg.add(timeArg.get(0));
+					timeArg.set(0, "");
+					return timeArg;
+				}
 			} else if (startExist == true && endExist == false) {
 				timeArg.add("");
 				return timeArg;

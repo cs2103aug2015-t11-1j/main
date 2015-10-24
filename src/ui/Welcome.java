@@ -13,7 +13,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class Welcome {
-	
+
 	private static DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private static Calendar cal = Calendar.getInstance();
 	private static Scanner sc;
@@ -25,30 +25,30 @@ public class Welcome {
 	public static void initiateProg() throws IOException {
 		Session session = new Session();
 		Output op = new Output(session.executeCommand("show today"));
-		//command to print today's work: op
-		
-		while(true){
+		// command to print today's work: op
+
+		while (true) {
 			printMsg(Constants.MESSAGE_PROMPT);
 			String userInput = requestInput();
-			if(userInput.equals(Constants.COMMAND_EXIT)){
-				//command logic to update storage before exiting
-				//session.updateStorage(); maybe?
+			if (userInput.equals(Constants.COMMAND_EXIT)) {
+				// command logic to update storage before exiting
+				// session.updateStorage(); maybe?
 				System.exit(0);
 			}
 			session.executeCommand(userInput);
 		}
-		
-//		while (!userInput.equals(Constants.COMMAND_EXIT)) {
-//			session.executeCommand(userInput);
-//			printMsg(Constants.MESSAGE_PROMPT);
-//			userInput = requestInput();
-//		}
-//		System.exit(0); 
+
+		// while (!userInput.equals(Constants.COMMAND_EXIT)) {
+		// session.executeCommand(userInput);
+		// printMsg(Constants.MESSAGE_PROMPT);
+		// userInput = requestInput();
+		// }
+		// System.exit(0);
 	}
 
 	public static String welcomeMessage() {
 		String message = "";
-		
+
 		if (getMornNight() >= 4 && getMornNight() < 12) {
 			message = Constants.MESSAGE_MORNING;
 		} else if (getMornNight() >= 12 && getMornNight() < 18) {
@@ -57,7 +57,7 @@ public class Welcome {
 			message = Constants.MESSAGE_EVENING;
 		}
 		printMsg(Constants.MESSAGE_PROMPT);
-		
+
 		return message;
 	}
 
@@ -90,18 +90,15 @@ public class Welcome {
 
 	public static void printAddedEvent(String addedTask) {
 		printMsg(Constants.MESSAGE_SUCCESS + addedTask + Constants.MESSAGE_ADDED);
-		
 
 	}
 
 	public static void printShowEvent(ArrayList<String> eventToShow) {
-		
-		
+
 		for (int i = 0; i < eventToShow.size(); i++) {
 			printMsg(eventToShow.get(i));
 		}
-		
-	
+
 	}
 
 	public static void printSearchEvent(ArrayList<String> searchedEvent) {
@@ -118,7 +115,7 @@ public class Welcome {
 	}
 
 	public static void printDeletedTask(ArrayList<String> deletedTask) {
-		if (deletedTask.isEmpty()){
+		if (deletedTask.isEmpty()) {
 			printMsg(Constants.MESSAGE_DELETE_FAIL);
 		} else {
 			printMsg(Constants.MESSAGE_SUCCESS);
