@@ -34,104 +34,101 @@ public class StorageManager {
 			pw.write(System.lineSeparator());
 			pw.close();
 		} catch (IOException e) {
-			//TODO
+			// TODO
 			e.printStackTrace();
 		}
 	}
-	
+
 	static void writeToFile(ArrayList<Task> list, File file) {
 		try {
 			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
-			for(Task task : list){
+			for (Task task : list) {
 				pw.write(task.toString());
 				pw.write(System.lineSeparator());
 			}
 			pw.close();
-		}
-		catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	// extract one line of string from file
-	static String extractLine(File file){
+	static String extractLine(File file) {
 		String str = new String();
-		try{
+		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			str = br.readLine();
 			br.close();
 		} catch (FileNotFoundException e) {
-			//TODO
+			// TODO
 			e.printStackTrace();
 		} catch (IOException e) {
-			//TODO
+			// TODO
 			e.printStackTrace();
 		}
 		return str;
 	}
 
 	// extract whole file into ArrayList of Task
-	static ArrayList<Task> extractFile(File file){
+	static ArrayList<Task> extractFile(File file) {
 		ArrayList<Task> tasklist = new ArrayList<Task>();
 		Task task;
-		try{
+		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
-			for(int i = 0; i < countEntry(file); i++){
+			for (int i = 0; i < countEntry(file); i++) {
 				task = strToTask(br.readLine());
 				tasklist.add(task);
 			}
 			br.close();
 		} catch (FileNotFoundException e) {
-			//TODO
+			// TODO
 			e.printStackTrace();
 		} catch (IOException e) {
-			//TODO
+			// TODO
 			e.printStackTrace();
 		}
 		return tasklist;
 	}
 
-	//clear file content
-	protected static void clearFile(File file){
-		try{
+	// clear file content
+	protected static void clearFile(File file) {
+		try {
 			FileWriter fw = new FileWriter(file, false);
 			fw.write("");
 			fw.close();
-		}
-		catch(IOException e){
-			//TODO
+		} catch (IOException e) {
+			// TODO
 			e.printStackTrace();
 		}
 	}
-		
+
 	// count lines in file
 	private static int countEntry(File file) {
 		int count = 0;
-		try{
+		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			while (br.readLine() != null) {
 				count++;
 			}
 			br.close();
-		}
-		catch(IOException e){
-			//TODO
+		} catch (IOException e) {
+			// TODO
 			e.printStackTrace();
 		}
 		return count;
 	}
 
 	// convert string to Task objects
-	private static Task strToTask(String string){
+	private static Task strToTask(String string) {
 		Task task;
-		String[] str = string.split(" ", 4);
-		if(str[2].length() == 4 && Integer.valueOf(str[2].substring(0, 4)) <= 2400){
-			task = new Task(Task.modifySign(str[0]), str[1], str[2], str[3]);
-		} else if(str[1].length() == 8 && Integer.valueOf(str[1].substring(0, 2)) <= 31){
-			task = new Task(Task.modifySign(str[0]), str[1], str[2]+" "+str[3]);
+		String[] str = string.split(" ", 5);
+		if (str[2].length() == 4 && Integer.valueOf(str[2].substring(0, 4)) <= 2400) {
+			task = new Task(Integer.valueOf(str[0]), str[1], str[2], str[3], str[4]);
+		} else if (str[1].length() == 8 && Integer.valueOf(str[1].substring(0, 2)) <= 31) {
+			task = new Task(Integer.valueOf(str[0]), str[1], str[2], "", str[3] + " " + str[4]);
 		} else {
-			task = new Task(string);
-			//TODO in case of change of signs
+			task = new Task(Integer.valueOf(str[0]), str[1], "", "", str[2] + " " + str[3] + " " + str[4]);
+			// TODO in case of change of signs
 		}
 		return task;
 	}

@@ -4,6 +4,10 @@ import storage.Output;
 
 public class InvalidTask implements Command {
 
+	public InvalidTask() {
+		
+	}
+	
 	@Override
 	public Output execute() {
 		// TODO Auto-generated method stub
@@ -15,9 +19,9 @@ public class InvalidTask implements Command {
 		// TODO Auto-generated method stub
 
 	}
-
-	public InvalidTask() {
-		
+	
+	public void redo() {
+		//TODO
 	}
 
 	@Override

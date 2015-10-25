@@ -1,9 +1,11 @@
 package logic;
 
+import java.util.ArrayList;
+
 import storage.Output;
 
 public class DeleteTask implements Command {
-	
+	private State currState;
 	private int index;
 	
 	/***********CONSTRUCTOR**********/
@@ -13,9 +15,13 @@ public class DeleteTask implements Command {
 	
 	@Override
 	public Output execute() {
-		return null;
-		// TODO Auto-generated method stub
-
+		try {
+			Task task = this.currState.getTaskList().remove(this.index-1);
+			return new Output(true, task.toString(), "delete");
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Index unavailable");
+			return new Output(false, "Index Out Of Bounds", "delete");
+		}
 	}
 
 	@Override
@@ -23,10 +29,20 @@ public class DeleteTask implements Command {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public void redo() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	/**********  GETTER   **********/
 	public int getIndex() {
 		return index;
+	}
+	
+	@Override
+	public State getCurrState() {
+		return currState;
 	}
 
 	/**********  SETTER   **********/
@@ -35,20 +51,15 @@ public class DeleteTask implements Command {
 	}
 
 	@Override
+	public void setCurrState(State state) {
+		currState = state;
+		
+	}
+	
+	@Override
 	public boolean isMutator(Command task) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
-	public void setCurrState(State state) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public State getCurrState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

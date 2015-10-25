@@ -7,7 +7,7 @@ import org.junit.Test;
 public class IndexParserTest {
 
 	@Test
-	public void testGetIndex1() {
+	public void testGetIndex1() throws InvalidInputException {
 		String test = "delete 1";
 		int result = IndexParser.getIndex(test);
 		int expected = 1;
@@ -15,13 +15,13 @@ public class IndexParserTest {
 	}
 
 	@Test(expected = IndexOutOfBoundsException.class)
-	public void testGetIndex2() {
+	public void testGetIndex2() throws InvalidInputException {
 		String test = "delete ";
 		IndexParser.getIndex(test);
 	}
 	
 	@Test
-	public void testGetIndex3() {
+	public void testGetIndex3() throws InvalidInputException {
 		String test = "update 2 this event";
 		int result = IndexParser.getIndex(test);
 		int expected = 2;

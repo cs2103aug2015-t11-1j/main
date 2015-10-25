@@ -20,7 +20,7 @@ public class TimeParser {
 		int startIndex = Parser.indexOf(ParserConstants.KW_START, arr);
 		int endIndex = Parser.indexOf(ParserConstants.KW_END, arr);
 
-		// Split arr into 2 separate ArrayList<String>
+		// Partitions
 		ArrayList<String> startArr = new ArrayList<String>();
 		ArrayList<String> endArr = new ArrayList<String>();
 
@@ -41,11 +41,24 @@ public class TimeParser {
 			}
 		}
 
-		startExist = Parser.extractArguments(timeArg, startExist, startArr, ParserConstants.FORMAT_TIME, ParserConstants.FORMAT_TIME_STORAGE);
-		endExist = Parser.extractArguments(timeArg, endExist, endArr, ParserConstants.FORMAT_TIME, ParserConstants.FORMAT_TIME_STORAGE);
+		// Presence of time arguments
+		startExist = Parser.extractArguments(timeArg, startExist, startArr, ParserConstants.FORMAT_TIME,
+				ParserConstants.FORMAT_TIME_STORAGE);
+		endExist = Parser.extractArguments(timeArg, endExist, endArr, ParserConstants.FORMAT_TIME,
+				ParserConstants.FORMAT_TIME_STORAGE);
 
-		if (timeArg.size() > 2 || (startExist == false && startIndex != -1) || (endExist == false && endIndex != -1)) {
-			throw new InvalidInputException("Invalid input. Please try again");
+		// Presence of date arguments
+		boolean startDateExist = false;
+		boolean endDateExist = false;
+		startDateExist = Parser.isPresent(startArr, ParserConstants.FORMAT_DATE)
+				|| Parser.isPresent(startArr, ParserConstants.KW_TOMORROW);
+		endDateExist = Parser.isPresent(endArr, ParserConstants.FORMAT_DATE)
+				|| Parser.isPresent(endArr, ParserConstants.KW_TODAY);
+		// boolean dateArgExist = (startDateExist || endDateExist);
+
+		if (timeArg.size() > 2 || (startExist == false && startIndex != -1 && startDateExist == false)
+				|| (endExist == false && endIndex != -1 && endDateExist == false)) {
+			throw new InvalidInputException();
 		} else {
 			if (startExist == false && endExist == false) {
 				timeArg.add("");

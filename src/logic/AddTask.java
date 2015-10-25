@@ -20,6 +20,7 @@ public class AddTask implements Command {
 	public Output execute() {
 		Task task = createTask();
 		this.currState.add(task);
+		this.currState.sort();
 		return new Output(true, task.toString(), "add");
 	}
 
@@ -44,6 +45,12 @@ public class AddTask implements Command {
 
 	}
 
+	public void redo() {
+		// TODO Auto-generated method stub
+
+	}
+	
+	
 	/********** GETTER **********/
 	public String getEventTask() {
 		return eventTask;
