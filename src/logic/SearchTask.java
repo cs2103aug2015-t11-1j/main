@@ -1,40 +1,50 @@
 package logic;
 
+import java.util.ArrayList;
+
 import storage.Output;
 
 public class SearchTask implements Command {
 	private State currState;
 	private String eventTask;
-	
-	/***********CONSTRUCTOR**********/
+
+	/*********** CONSTRUCTOR **********/
 	public SearchTask() {
-		
+
 	}
-	
+
 	@Override
 	public Output execute() {
-		return null;
-		// TODO Auto-generated method stub
+		ArrayList<Task> list = currState.getTaskList();
+		ArrayList<Task> eventTasks = new ArrayList<Task>();
+		for (Task t : list) {
+			if (t.getDetail().toLowerCase().contains(this.eventTask.toLowerCase())) {
+				eventTasks.add(t);
+			}
+		}
+		return new Output(true, eventTasks, "search");
 	}
 
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
 
 	}
 
 	public void redo() {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public boolean isMutator(Command task) {
-		// TODO Auto-generated method stub
-		return false;
+
 	}
 
-	/**********  GETTER   **********/
+	@Override
+	public boolean isMutator(Command task) {
+		if (task instanceof SearchTask) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/********** GETTER **********/
 	public String getEventTask() {
 		return eventTask;
 	}
@@ -44,16 +54,15 @@ public class SearchTask implements Command {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	/**********  SETTER   **********/
+
+	/********** SETTER **********/
 	public void setEventTask(String eventTask) {
 		this.eventTask = eventTask;
 	}
 
 	@Override
 	public void setCurrState(State state) {
-		// TODO Auto-generated method stub
-		
+		currState = state;
 	}
 
 }
