@@ -27,65 +27,65 @@ public class Parser {
 	public static Command setCommand(String str) {
 		ACTION_TYPE action = ActionParser.setUserAction(str);
 
-		ArrayList<String> date = new ArrayList<String>();
-
 		switch (action) {
 		case ADD:
 			AddTask add = new AddTask();
 			try {
 				add.setEventTask(EventTaskParser.getEventTask(str));
-				// add.setDate(DateParser.extractDateArray(str)); //test
-				// date.add(DateParser.getStartDate(str));
-				// date.add(DateParser.getEndDate(str));
 				add.setDate(DateParser.addDateArg(str));
-				System.out.println("date");
 				add.setTime(TimeParser.addTimeArg(str));
-				System.out.println("time");
-				return add;
-			} catch (IndexOutOfBoundsException e) {
-				System.err.println(e.getMessage());
-			} catch (InvalidInputException e) {
+			} catch (InvalidInputException | IndexOutOfBoundsException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
-		case SHOW: // require new DateParser method
+			return add;
+		case SHOW:
 			ShowTask show = new ShowTask();
-			show.setDate(DateParser.getStartDate(str));
+			try {
+				show.setDate(DateParser.getShowDate(str));
+			} catch (NullPointerException | InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
+			}
 			return show;
 		case SEARCH:
 			SearchTask search = new SearchTask();
 			try {
 				search.setEventTask(EventTaskParser.getEventTask(str));
-				return search;
-			} catch (IndexOutOfBoundsException e) {
-				System.err.println(e.getMessage());
 			} catch (InvalidInputException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
+			return search;
 		case UPDATE:
 			UpdateTask update = new UpdateTask();
 			try {
 				update.setIndex(IndexParser.getIndex(str));
 				update.setEventTask(EventTaskParser.getEventTask(str));
-				date.add(DateParser.getStartDate(str));
-				date.add(DateParser.getEndDate(str));
-				update.setDate(date);
+				update.setDate(DateParser.addDateArg(str));
 				update.setTime(TimeParser.addTimeArg(str));
-				return update;
-			} catch (IndexOutOfBoundsException e) {
-				System.err.println(e.getMessage());
-			} catch (InvalidInputException e) {
+			} catch (InvalidInputException | IndexOutOfBoundsException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
+			return update;
 		case DONE:
 			DoneTask done = new DoneTask();
-			done.setIndex(IndexParser.getIndex(str));
+			try {
+				done.setIndex(IndexParser.getIndex(str));
+			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
+			}
 			return done;
 		case DELETE:
 			DeleteTask delete = new DeleteTask();
-			delete.setIndex(IndexParser.getIndex(str));
+			try {
+				delete.setIndex(IndexParser.getIndex(str));
+			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
+			}
 			return delete;
 		case UNDO:
 			// TODO

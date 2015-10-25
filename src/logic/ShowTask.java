@@ -20,7 +20,7 @@ public class ShowTask implements Command {
 		ArrayList<Task> list = currState.getTaskList();
 		ArrayList<Task> dateTasks = new ArrayList<Task>();
 		for(Task t : list){
-			if(t.getDate().equals(this.date)){
+			if(t.getDate().contains(this.date)){
 				dateTasks.add(t);
 			}
 		}	
@@ -41,9 +41,9 @@ public class ShowTask implements Command {
 	@Override
 	public boolean isMutator(Command task) {
 		if (task instanceof ShowTask) {
-			return true;
-		} else {
 			return false;
+		} else {
+			return true;
 		}
 	}
 	

@@ -50,13 +50,14 @@ public class TimeParser {
 		// Presence of date arguments
 		boolean startDateExist = false;
 		boolean endDateExist = false;
-		startDateExist = Parser.isPresent(startArr, ParserConstants.FORMAT_DATE);
-		endDateExist = Parser.isPresent(endArr, ParserConstants.FORMAT_DATE);
+		startDateExist = Parser.isPresent(startArr, ParserConstants.FORMAT_DATE)
+				|| Parser.isPresent(startArr, ParserConstants.KW_TOMORROW);
+		endDateExist = Parser.isPresent(endArr, ParserConstants.FORMAT_DATE)
+				|| Parser.isPresent(endArr, ParserConstants.KW_TODAY);
+		// boolean dateArgExist = (startDateExist || endDateExist);
 
-		boolean dateArgExist = (startDateExist || endDateExist);
-
-		if (timeArg.size() > 2 || (startExist == false && startIndex != -1 && !startDateExist)
-				|| (endExist == false && endIndex != -1 && !endDateExist)) {
+		if (timeArg.size() > 2 || (startExist == false && startIndex != -1 && startDateExist == false)
+				|| (endExist == false && endIndex != -1 && endDateExist == false)) {
 			throw new InvalidInputException();
 		} else {
 			if (startExist == false && endExist == false) {
@@ -64,13 +65,9 @@ public class TimeParser {
 				timeArg.add("");
 				return timeArg;
 			} else if (startExist == false && endExist == true) {
-				if (startDateExist && !endDateExist) {
-					throw new InvalidInputException();
-				} else {
-					timeArg.add(timeArg.get(0));
-					timeArg.set(0, "");
-					return timeArg;
-				}
+				timeArg.add(timeArg.get(0));
+				timeArg.set(0, "");
+				return timeArg;
 			} else if (startExist == true && endExist == false) {
 				timeArg.add("");
 				return timeArg;
