@@ -102,9 +102,14 @@ public class Parser {
 			ShowFileTask filePath = new ShowFileTask();
 			return filePath;
 		case CFP:
-			SetFilePathTask setFilePath = new SetFilePathTask();
-			setFilePath.setFilePath(FileParser.getFilePath(str));
-			return setFilePath;
+			SetFilePathTask newFilePath = new SetFilePathTask();
+			try {
+				newFilePath.setFilePath(FileParser.getFilePath(str));
+			} catch (InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
+			}
+			return newFilePath;
 		default:
 			InvalidTask invalid = new InvalidTask();
 			return invalid;
