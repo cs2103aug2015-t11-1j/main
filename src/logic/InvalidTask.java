@@ -10,7 +10,7 @@ public class InvalidTask implements Command {
 	
 	@Override
 	public Output execute() {
-		return new Output(false, "", "invalid");
+		return new Output(false, "Invalid Task", "invalid");
 	}
 
 	@Override
@@ -30,15 +30,6 @@ public class InvalidTask implements Command {
 	@Override
 	public State getCurrState() {
 		return null;
-	}
-	
-	@Override
-	public void undo() {
-	
-	}
-	
-	public void redo() {
-
 	}
 
 }

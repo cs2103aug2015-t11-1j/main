@@ -10,19 +10,7 @@ public class ExitTask implements Command {
 	
 	@Override
 	public Output execute() {
-		return new Output(false, "", "exit");
-	}
-
-	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-
-	}
-	
-	@Override
-	public void redo() {
-		// TODO Auto-generated method stub
-		
+		return new Output(false, "Exit Program", "exit");
 	}
 
 	@Override
