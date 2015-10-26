@@ -10,39 +10,34 @@ public class HelpTask implements Command {
 	
 	@Override
 	public Output execute() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Output(false, "", "help"); 
 	}
-
-	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void redo() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 
 	@Override
 	public boolean isMutator(Command task) {
-		// TODO Auto-generated method stub
-		return false;
+		if (task instanceof HelpTask) {
+			return false;
+		} else {
+			return true;	
+		}
 	}
 
 	@Override
 	public void setCurrState(State state) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public State getCurrState() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public void undo() {
+		
+	}
 
+	public void redo() {
+		
+	}
 }

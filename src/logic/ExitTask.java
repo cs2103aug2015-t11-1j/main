@@ -4,10 +4,13 @@ import storage.Output;
 
 public class ExitTask implements Command {
 
+	public ExitTask() {
+		
+	}
+	
 	@Override
 	public Output execute() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Output(false, "", "exit");
 	}
 
 	@Override
@@ -22,13 +25,8 @@ public class ExitTask implements Command {
 		
 	}
 
-	public ExitTask() {
-		
-	}
-
 	@Override
 	public boolean isMutator(Command task) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -17,18 +17,7 @@ public class DoneTask implements Command {
 		// TODO Auto-generated method stub
 
 	}
-	
-	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
 
-	}
-
-	public void redo() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	/**********  GETTER   **********/
 	public int getIndex() {
 		return index;
