@@ -3,25 +3,31 @@ package parser;
 public class ParserConstants {
 
 	// Day Keywords (KW)
-	public static final String[] KW_MONDAY = { "mon", "monday" };
-	public static final String[] KW_TUESDAY = { "tue", "tues", "tuesday" };
-	public static final String[] KW_WEDNESDAY = { "wed", "wednesday" };
-	public static final String[] KW_THURSDAY = { "thur", "thurs", "thursday" };
-	public static final String[] KW_FRIDAY = { "fri", "friday" };
-	public static final String[] KW_SATURDAY = { "sat", "saturday" };
-	public static final String[] KW_SUNDAY = { "sun", "sunday" };
+	/*
+	 * public static final String[] KW_MONDAY = { "mon", "monday" }; public
+	 * static final String[] KW_TUESDAY = { "tue", "tues", "tuesday" }; public
+	 * static final String[] KW_WEDNESDAY = { "wed", "wednesday" }; public
+	 * static final String[] KW_THURSDAY = { "thur", "thurs", "thursday" };
+	 * public static final String[] KW_FRIDAY = { "fri", "friday" }; public
+	 * static final String[] KW_SATURDAY = { "sat", "saturday" }; public static
+	 * final String[] KW_SUNDAY = { "sun", "sunday" };
+	 */
 	public static final String[] KW_TOMORROW = { "tomorrow", "tmr" };
 	public static final String[] KW_TODAY = { "today", "tdy" };
 
 	// Month Keywords (KW)
-	public static final String[] KW_MONTHS_SHORT = { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep",
-			"oct", "nov", "dec" };
-	public static final String[] KW_MONTHS_LONG = { "january", "february", "march", "april", "may", "june", "july",
-			"august", "september", "october", "november", "december" };
-	public static final String[] KW_MONTHS_1ST_UPPER_SHORT = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug",
-			"Sep", "Oct", "Nov", "Dec" };
-	public static final String[] KW_MONTHS_1ST_UPPER_LONG = { "January", "February", "March", "April", "May", "June",
-			"July", "August", "September", "October", "November", "December" };
+	/*
+	 * public static final String[] KW_MONTHS_SHORT = { "jan", "feb", "mar",
+	 * "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" }; public
+	 * static final String[] KW_MONTHS_LONG = { "january", "february", "march",
+	 * "april", "may", "june", "july", "august", "september", "october",
+	 * "november", "december" }; public static final String[]
+	 * KW_MONTHS_1ST_UPPER_SHORT = { "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+	 * "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }; public static final String[]
+	 * KW_MONTHS_1ST_UPPER_LONG = { "January", "February", "March", "April",
+	 * "May", "June", "July", "August", "September", "October", "November",
+	 * "December" };
+	 */
 
 	// DateTimeFormat formats
 	/*
@@ -36,6 +42,7 @@ public class ParserConstants {
 	 * "dd.MMM.yyyy", "dd-MMM", "dd/MMM", "dd.MMM", "dd MMM yyyy", "dd MMM yy",
 	 * "dd MMMM yyyy", "dd MMMM yy", "ddMMyy", "dd MMMM" };
 	 */
+	public static final String[] FORMAT_DATE_LONG = { "dd MMMM yyyy" };
 	public static final String[] FORMAT_DATE = { "dd/MM/yyyy", "dd-MM-yyyy", "dd.MM.yyyy" };
 	public static final String[] FORMAT_TIME = { "HHmm", "HH:mm", "HH.mm", };
 	public static final String FORMAT_DATE_STORAGE = "dd/MM/yy";
