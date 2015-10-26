@@ -13,6 +13,7 @@ public class Task {
 	}
 
 	public Task(String details) {
+		this._index = 99;
 		this._stats = "? ";
 		this._time = "";
 		this._date = "";
