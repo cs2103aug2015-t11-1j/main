@@ -81,5 +81,18 @@ public class AddTask implements Command {
 			return false;
 		}
 	}
+	
+	public boolean equals(Object obj) {
+		if (obj instanceof AddTask) {
+			AddTask addTask = (AddTask) obj;
+			if (this.eventTask.equals(addTask.eventTask) && this.date.equals(addTask.date) && this.time.equals(addTask.time)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 
 }
