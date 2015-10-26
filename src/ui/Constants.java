@@ -8,6 +8,7 @@ public class Constants {
 	static final String MESSAGE_PROMPT = "What would you like to do today?";
 	static final String MESSAGE_SUCCESS = "Success! ";
 	static final String MESSAGE_ADDED = " is added to your schedule:)";
+	static final String MESSAGE_ADD_FAIL = "Sorry but we are unable to add this event please check the input and try again!";
 	static final String MESSAGE_DELETED = " is deleted from your schedule! ";
 	static final String MESSAGE_DELETE_FAIL = "Sadly there is no such event to delete";
 	static final String MESSAGE_SEARCHED = "is found in your schedule! ";
@@ -16,7 +17,10 @@ public class Constants {
 	static final String MESSAGE_SEARCH_FAIL = "Sadly your event is not found:(";
 	static final String MESSAGE_UPDATE_FAIL = "Update failed!";
 	static final String MESSAGE_HELP = "The commands that can be used are: ";
-
+	static final String MESSAGE_SHOW = "These are the events on the date you requestd for.";
+	static final String MESSAGE_SHOW_NOTHING = "There are no events to show on this date.";
+	static final String MESSAGE_SHOW_FAIL = "There was an error in showing your events, please try again!";
+			
 	static final String COMMAND_EXIT = "exit";
 	static final String COMMAND_ADD = "add";
 	static final String COMMAND_DELETE = "delete";
