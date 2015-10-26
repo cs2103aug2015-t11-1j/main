@@ -10,7 +10,7 @@ public class HelpTask implements Command {
 	
 	@Override
 	public Output execute() {
-		return new Output(false, "", "help"); 
+		return new Output(false, "Help", "help"); 
 	}
 
 	@Override
@@ -32,12 +32,4 @@ public class HelpTask implements Command {
 		return null;
 	}
 
-	@Override
-	public void undo() {
-		
-	}
-
-	public void redo() {
-		
-	}
 }
