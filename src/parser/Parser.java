@@ -88,21 +88,14 @@ public class Parser {
 			}
 			return delete;
 		case UNDO:
-			// TODO
 			UndoTask undo = new UndoTask();
 			return undo;
 		case EXIT:
-			// TODO
 			ExitTask exit = new ExitTask();
 			return exit;
 		case HELP:
-			// TODO
 			HelpTask help = new HelpTask();
 			return help;
-		/*
-		 * case INVALID: // TODO InvalidTask invalid = new InvalidTask(); return
-		 * invalid;
-		 */
 		default:
 			InvalidTask invalid = new InvalidTask();
 			return invalid;

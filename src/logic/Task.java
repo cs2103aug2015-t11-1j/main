@@ -21,12 +21,16 @@ public class Task {
 
 	public Task(String date, String details) {
 		this(details);
-		this._date = date.trim() + " ";
+		if (!date.equals("")){
+			this._date = date.trim() + " ";
+		}
 	}
 
 	public Task(String date, String time, String details) {
 		this(date, details);
-		this._time = time.trim() + " ";
+		if(!time.equals("")){
+			this._time = time.trim() + " ";
+		}
 	}
 
 	public Task(int index, String stat, String date, String time, String details) {
@@ -64,9 +68,8 @@ public class Task {
 	}
 
 	public String rotateDF() {
-		if (_date.length() > 0) {
-			String str = new String(
-					this._date.substring(6, 8) + this._date.substring(2, 6) + this._date.substring(0, 2) + " ");
+		if (_date.length() > 1) {
+			String str = new String(this._date.substring(6, 8) + this._date.substring(2, 6) + this._date.substring(0, 2) + " ");
 			return str;
 		}
 		return _date;
