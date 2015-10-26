@@ -45,7 +45,7 @@ public class Output {
 		return _results;
 	}
 
-	private String getCmdType() {
+	public String getCmdType() {
 		return _cmdType;
 	}
 	
