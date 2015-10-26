@@ -3,6 +3,12 @@ package logic;
 import storage.Output;
 
 public class SetFilePathTask implements Command {
+	
+	private String newFilePath;
+	
+	public SetFilePathTask() {
+		
+	}
 
 	@Override
 	public Output execute() {
@@ -38,6 +44,14 @@ public class SetFilePathTask implements Command {
 	public boolean isMutator(Command task) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public void setFilePath(String filePath) {
+		this.newFilePath = filePath;
+	}
+	
+	public String getFilePath() {
+		return this.newFilePath;
 	}
 
 }
