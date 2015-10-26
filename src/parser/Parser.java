@@ -17,6 +17,8 @@ import logic.ExitTask;
 import logic.HelpTask;
 import logic.InvalidTask;
 import logic.SearchTask;
+import logic.SetFilePathTask;
+import logic.ShowFileTask;
 import logic.ShowTask;
 import logic.UndoTask;
 import logic.UpdateTask;
@@ -96,6 +98,18 @@ public class Parser {
 		case HELP:
 			HelpTask help = new HelpTask();
 			return help;
+		case FP:
+			ShowFileTask filePath = new ShowFileTask();
+			return filePath;
+		case CFP:
+			SetFilePathTask newFilePath = new SetFilePathTask();
+			try {
+				newFilePath.setFilePath(FileParser.getFilePath(str));
+			} catch (InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
+			}
+			return newFilePath;
 		default:
 			InvalidTask invalid = new InvalidTask();
 			return invalid;
