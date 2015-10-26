@@ -20,48 +20,38 @@ public class Welcome {
 	private static Scanner sc;
 
 	public static void main(String[] args) throws IOException {
-			
-			welcomeMessage();
-			while(true) {
-				printMessage(initiateProg());
-				}
-		
+
+		welcomeMessage();
+		initiateProg();
+
 	}
 
 	public static void printMessage(Output op) {
 		// TODO Auto-generated method stub
 		if (op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
-			 printMsg(Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_ADDED);
-		}
-		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")){
+			printMsg(Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_ADDED);
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
 			printMsg(Constants.MESSAGE_ADD_FAIL);
-		}
-		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")){
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
 			printMsg(Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_DELETED);
-		}
-		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")){
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
 			printMsg(Constants.MESSAGE_DELETE_FAIL);
-		}
-		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH")){
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH")) {
 			printMsg(Constants.MESSAGE_SUCCESS);
-			for(int i=0; i<op.getResults().size(); i++){
+			for (int i = 0; i < op.getResults().size(); i++) {
 				printMsg(op.getResults().get(i).toString());
 			}
 			printMsg(Constants.MESSAGE_SEARCHED);
-		}
-		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")){
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
 			printMsg(Constants.MESSAGE_SEARCH_FAIL);
-		}
-		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")){
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
 			printMsg(Constants.MESSAGE_SHOW);
-			for(int i=0; i<op.getResults().size(); i++){
+			for (int i = 0; i < op.getResults().size(); i++) {
 				printMsg(op.getResults().get(i).toString());
 			}
-		}
-		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && op.getResults().isEmpty()){
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && op.getResults().isEmpty()) {
 			printMsg(Constants.MESSAGE_SHOW_NOTHING);
-		}
-		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")){
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
 			printMsg(Constants.MESSAGE_SHOW_FAIL);
 		}
 	}
@@ -71,10 +61,11 @@ public class Welcome {
 		String userInput = requestInput();
 		Output op = null;
 
+		while (true) {
 			session.executeCommand(userInput);
+			printMessage(op);
 			printMsg(Constants.MESSAGE_PROMPT);
-		
-		return op;
+		}
 	}
 
 	public static void welcomeMessage() {
