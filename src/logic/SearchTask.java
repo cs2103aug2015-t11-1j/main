@@ -26,16 +26,6 @@ public class SearchTask implements Command {
 	}
 
 	@Override
-	public void undo() {
-
-	}
-
-	public void redo() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public boolean isMutator(Command task) {
 		if (task instanceof SearchTask) {
 			return false;
