@@ -35,21 +35,8 @@ public class AddTask implements Command {
 			System.err.println(e.getMessage()); 
 			return new Task(this.date.get(0), "", this.eventTask);
 		}
-		
-	//	return new Task(this.date.get(0), this.time.get(0), this.eventTask);
 	}
 
-	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void redo() {
-		// TODO Auto-generated method stub
-
-	}
-	
 	
 	/********** GETTER **********/
 	public String getEventTask() {

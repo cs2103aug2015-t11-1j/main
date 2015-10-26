@@ -16,7 +16,6 @@ public class ShowTask implements Command {
 	
 	@Override
 	public Output execute() {
-		// TODO Auto-generated method stub
 		ArrayList<Task> list = currState.getTaskList();
 		ArrayList<Task> dateTasks = new ArrayList<Task>();
 		for(Task t : list){
@@ -27,17 +26,6 @@ public class ShowTask implements Command {
 		return new Output(true, dateTasks, "show");
 	}
 
-	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void redo() {
-		// TODO Auto-generated method stub
-
-	}
-	
 	@Override
 	public boolean isMutator(Command task) {
 		if (task instanceof ShowTask) {
