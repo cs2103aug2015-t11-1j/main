@@ -48,7 +48,6 @@ public class ParserTest {
 		expectedTime.add("");
 		expectedTime.add("");
 		
-		assertTrue(Parser.setCommand(test) instanceof AddTask);
 		assertEquals(expected, add.getEventTask());
 		assertEquals(expectedDate, add.getDate());
 		assertEquals(expectedTime, add.getTime());
@@ -66,7 +65,6 @@ public class ParserTest {
 		expectedTime.add("1100");
 		expectedTime.add("1200");
 		
-		assertTrue(Parser.setCommand(test) instanceof AddTask);
 		assertEquals(expected, add.getEventTask());
 		assertEquals(expectedDate, add.getDate());
 		assertEquals(expectedTime, add.getTime());
