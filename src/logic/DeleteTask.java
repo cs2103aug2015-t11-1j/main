@@ -23,18 +23,7 @@ public class DeleteTask implements Command {
 			return new Output(false, "Index Out Of Bounds", "delete");
 		}
 	}
-
-	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-
-	}
 	
-	public void redo() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	/**********  GETTER   **********/
 	public int getIndex() {
 		return index;
