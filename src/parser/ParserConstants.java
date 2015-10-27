@@ -42,9 +42,10 @@ public class ParserConstants {
 	 * "dd.MMM.yyyy", "dd-MMM", "dd/MMM", "dd.MMM", "dd MMM yyyy", "dd MMM yy",
 	 * "dd MMMM yyyy", "dd MMMM yy", "ddMMyy", "dd MMMM" };
 	 */
-	public static final String[] FORMAT_DATE_LONG = { "dd MMMM yyyy" };
-	public static final String[] FORMAT_DATE = { "dd/MM/yyyy", "dd-MM-yyyy", "dd.MM.yyyy" };
-	public static final String[] FORMAT_TIME = { "HHmm", "HH:mm", "HH.mm", };
+	public static final String[] FORMAT_DATE_WITH_YEAR = { "dd/MM/yyyy", "dd-MM-yyyy", "dd.MM.yyyy", "ddMMyyyy",
+			"dd.MMMM.yyyy" };
+	public static final String[] FORMAT_DATE_WITHOUT_YEAR = { "dd/MM", "dd-MM", "dd.MM", "ddMM", "dd.MMMM" };
+	public static final String[] FORMAT_TIME = { "HHmm", "HH:mm", "HH.mm", "hha", "hh:mma", "hh.mma" };
 	public static final String FORMAT_DATE_STORAGE = "dd/MM/yy";
 	public static final String FORMAT_TIME_STORAGE = "HHmm";
 
@@ -61,7 +62,7 @@ public class ParserConstants {
 	// User string input Keywords (KW)
 	public static final String[] KW_START = { "from", "on", "at", ">", "tomorrow", "tmr", "today", "tdy" };
 	public static final String[] KW_END = { "by", "until", "till", "to" };
-	public static final String KW_NEXT = "next";
+	// public static final String KW_NEXT = "next";
 
 	// Indexes
 	public static final int INDEX_FIRST = 0;

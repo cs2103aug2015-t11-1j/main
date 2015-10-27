@@ -50,9 +50,9 @@ public class TimeParser {
 		// Presence of date arguments
 		boolean startDateExist = false;
 		boolean endDateExist = false;
-		startDateExist = Parser.isPresent(startArr, ParserConstants.FORMAT_DATE)
+		startDateExist = Parser.isPresent(startArr, ParserConstants.FORMAT_DATE_WITH_YEAR)
 				|| Parser.isPresent(startArr, ParserConstants.KW_TOMORROW);
-		endDateExist = Parser.isPresent(endArr, ParserConstants.FORMAT_DATE)
+		endDateExist = Parser.isPresent(endArr, ParserConstants.FORMAT_DATE_WITH_YEAR)
 				|| Parser.isPresent(endArr, ParserConstants.KW_TODAY);
 		// boolean dateArgExist = (startDateExist || endDateExist);
 
