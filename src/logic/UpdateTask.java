@@ -10,6 +10,7 @@ public class UpdateTask implements Command {
 	private String eventTask;
 	private ArrayList<String> date = new ArrayList<String>();
 	private ArrayList<String> time = new ArrayList<String>();
+	private State currState;
 	
 	/***********CONSTRUCTOR**********/
 	@Override
@@ -20,20 +21,12 @@ public class UpdateTask implements Command {
 	}
 
 	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void redo() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
 	public boolean isMutator(Command task) {
-		// TODO Auto-generated method stub
-		return false;
+		if (task instanceof UpdateTask) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**********  GETTER   **********/
@@ -55,8 +48,7 @@ public class UpdateTask implements Command {
 
 	@Override
 	public State getCurrState() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.currState;
 	}
 
 	/**********  SETTER   **********/
@@ -78,8 +70,7 @@ public class UpdateTask implements Command {
 	
 	@Override
 	public void setCurrState(State state) {
-		// TODO Auto-generated method stub
-		
+		currState = state;
 	}
 
 }

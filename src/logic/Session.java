@@ -8,9 +8,9 @@ import storage.Storage;
 
 public class Session {
 	
-	public static Stack<State> undoStack = new Stack<State>();
-	public static Stack<State> redoStack = new Stack<State>();
-	public static Storage sto = new Storage();
+	private static Stack<State> undoStack = new Stack<State>();
+	private static Stack<State> redoStack = new Stack<State>();
+	private static Storage sto = new Storage();
 	
 	public Session() {
 		this.initialSetup();
@@ -35,4 +35,11 @@ public class Session {
 		return op; 
 	}
 	
+	public static Stack<State> getUndoStack() {
+		return undoStack;
+	}
+	
+	public static Stack<State> getRedoStack() {
+		return redoStack;
+	}
 }
