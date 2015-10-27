@@ -79,7 +79,7 @@ public class Welcome {
 
 		while (true) {
 			userInput = requestInput();
-			session.executeCommand(userInput);
+			op = session.executeCommand(userInput);
 			printMessage(op);
 			printMsg(Constants.MESSAGE_PROMPT);
 		}
