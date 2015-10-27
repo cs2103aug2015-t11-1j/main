@@ -17,18 +17,6 @@ public class SetFilePathTask implements Command {
 	}
 
 	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void redo() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void setCurrState(State state) {
 		// TODO Auto-generated method stub
 

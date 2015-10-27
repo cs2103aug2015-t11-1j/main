@@ -35,21 +35,8 @@ public class AddTask implements Command {
 			System.err.println(e.getMessage()); 
 			return new Task(this.date.get(0), "", this.eventTask);
 		}
-		
-	//	return new Task(this.date.get(0), this.time.get(0), this.eventTask);
 	}
 
-	@Override
-	public void undo() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void redo() {
-		// TODO Auto-generated method stub
-
-	}
-	
 	
 	/********** GETTER **********/
 	public String getEventTask() {
@@ -90,6 +77,19 @@ public class AddTask implements Command {
 	public boolean isMutator(Command task) {
 		if (task instanceof AddTask) {
 			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean equals(Object obj) {
+		if (obj instanceof AddTask) {
+			AddTask addTask = (AddTask) obj;
+			if (this.eventTask.equals(addTask.eventTask) && this.date.equals(addTask.date) && this.time.equals(addTask.time)) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
