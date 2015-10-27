@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
 
@@ -94,8 +95,14 @@ public class GUI extends Application {
 			public void handle(KeyEvent ke) {
 				String message = "";
 				ObservableList<String> input;
+				
 				if (ke.getCode().equals(KeyCode.ENTER)) {
-					listView.getItems().addAll(commandInput.getText());
+					try {
+						listView.getItems().addAll(Welcome.initiateProg(commandInput.getText()));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					input = listView.getSelectionModel().getSelectedItems();
 
 					for (String i : input) {
