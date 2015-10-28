@@ -164,10 +164,12 @@ public class DateParser {
 				}
 			}
 		}
-		if (returnArr.size() != 1) {
+		if (returnArr.size() > 1) {
 			throw new InvalidInputException();
-		} else {
+		} else if (returnArr.size() == 1) {
 			return returnArr.get(0);
+		} else {
+			return ParserConstants.CHAR_SINGLE_BLANK;
 		}
 	}
 
