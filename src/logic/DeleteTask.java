@@ -17,6 +17,7 @@ public class DeleteTask implements Command {
 	public Output execute() {
 		try {
 			Task task = this.currState.getTaskList().remove(this.index-1);
+			this.currState.sort();
 			return new Output(true, task.toString(), "delete");
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println("Index unavailable");
@@ -47,8 +48,7 @@ public class DeleteTask implements Command {
 	
 	@Override
 	public boolean isMutator(Command task) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }
