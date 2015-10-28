@@ -50,15 +50,20 @@ public class Storage {
 		return str;
 	}
 	
-	public void setFilePath(String str){
-		// change directory of main planner file
-		this._filename = str;
-		this._file = new File(this._filename);
-		StorageManager.checkFileExist(_file);
-		
-		//change stored directory in FilePath.txt
-		StorageManager.clearFile(_filepath);
-		StorageManager.writeToFile(_file.getPath(), _filepath);
+	public String setFilePath(String str){
+		int i = str.trim().length();
+		if(str.substring(i-4).equals(".txt")){
+			// change directory of main planner file
+			this._filename = str;
+			this._file = new File(this._filename);
+			StorageManager.checkFileExist(_file);
+			
+			//change stored directory in FilePath.txt
+			StorageManager.clearFile(_filepath);
+			StorageManager.writeToFile(_file.getPath(), _filepath);
+			return _file.getPath();
+		}
+		return _file.getPath();
 	}
 	
 	/*****PRIVATE METHOD*****/

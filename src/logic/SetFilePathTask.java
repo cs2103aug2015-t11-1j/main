@@ -14,8 +14,9 @@ public class SetFilePathTask implements Command {
 
 	@Override
 	public Output execute() {
-		Session.sto.setFilePath(this.newFilePath);
-		return new Output(true, newFilePath, "cfp");
+		String str = Session.sto.setFilePath(this.newFilePath);
+		boolean stats = str.equals(this.newFilePath);
+		return new Output(stats, str, "cfp");
 	}
 
 	/********** GETTER **********/
