@@ -27,12 +27,17 @@ public class AddTask implements Command {
 	private Task createTask() {
 		try { 
 			if (this.date.size() > 1) {
-				return new Task(this.date.get(0) + this.date.get(1), this.time.get(0), this.eventTask); 
+				if (this.time.size() > 1) {
+					return new Task((this.date.get(0) + "-" + this.date.get(1)), (this.time.get(0) + "-" + this.time.get(1)), this.eventTask);
+				} else {
+					return new Task(this.date.get(0) + "-" + this.date.get(1), this.time.get(0), this.eventTask);
+				}			
 			} else if (this.time.size() > 1) {
-				return new Task(this.date.get(0), this.time.get(0) + this.time.get(1), this.eventTask);
+				return new Task(this.date.get(0), this.time.get(0) + "-" + this.time.get(1), this.eventTask);
 			} else {
 				return new Task(this.date.get(0), this.time.get(0), this.eventTask);
 			}
+			
 		} catch (NullPointerException e) {
 			System.err.println(e.getMessage()); 
 			return new Task(this.date.get(0), "", this.eventTask);
@@ -84,17 +89,4 @@ public class AddTask implements Command {
 		}
 	}
 	
-	public boolean equals(Object obj) {
-		if (obj instanceof AddTask) {
-			AddTask addTask = (AddTask) obj;
-			if (this.eventTask.equals(addTask.eventTask) && this.date.equals(addTask.date) && this.time.equals(addTask.time)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-	}
-
 }
