@@ -1,9 +1,11 @@
 package logic;
 
+import java.util.ArrayList;
+
 import storage.Output;
 
 public class SetFilePathTask implements Command {
-	
+	private State currState = new State(new ArrayList<Task>());
 	private String newFilePath;
 	
 	public SetFilePathTask() {
@@ -12,34 +14,33 @@ public class SetFilePathTask implements Command {
 
 	@Override
 	public Output execute() {
-		// TODO Auto-generated method stub
-		return null;
+		Session.sto.setFilePath(this.newFilePath);
+		return new Output(true, newFilePath, "cfp");
+	}
+
+	/********** GETTER **********/
+	public String getFilePath() {
+		return this.newFilePath;
+	}
+	
+	@Override
+	public State getCurrState() {
+		return currState;
+	}
+	
+	/********** SETTER **********/
+	public void setFilePath(String filePath) {
+		this.newFilePath = filePath;
 	}
 
 	@Override
 	public void setCurrState(State state) {
-		// TODO Auto-generated method stub
-
+		this.currState = state;
 	}
-
-	@Override
-	public State getCurrState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+		
 	@Override
 	public boolean isMutator(Command task) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public void setFilePath(String filePath) {
-		this.newFilePath = filePath;
-	}
-	
-	public String getFilePath() {
-		return this.newFilePath;
+		return true;
 	}
 
 }

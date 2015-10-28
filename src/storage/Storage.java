@@ -42,19 +42,23 @@ public class Storage {
 		try{
 			str = new String(StorageManager.extractLine(_filepath));
 			if(str.equals("")){
-				str = new String("planner.txt");
+				str = new String("Planner.txt");
 			}
 		} catch (NullPointerException e){
-			str = new String("planner.txt");
+			str = new String("Planner.txt");
 		}
 		return str;
 	}
 	
 	public void setFilePath(String str){
+		// change directory of main planner file
+		this._filename = str;
 		this._file = new File(this._filename);
 		StorageManager.checkFileExist(_file);
+		
+		//change stored directory in FilePath.txt
 		StorageManager.clearFile(_filepath);
-		StorageManager.writeToFile(_file.getName(), _filepath);
+		StorageManager.writeToFile(_file.getPath(), _filepath);
 	}
 	
 	/*****PRIVATE METHOD*****/
