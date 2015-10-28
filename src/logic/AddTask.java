@@ -25,12 +25,14 @@ public class AddTask implements Command {
 	}
 
 	private Task createTask() {
-		// formatDate(date);
-		// formatTime(time);
-		
 		try { 
-			Task newTask = new Task(this.date.get(0), this.time.get(0), this.eventTask); 
-			return newTask;
+			if (this.date.size() > 1) {
+				return new Task(this.date.get(0) + this.date.get(1), this.time.get(0), this.eventTask); 
+			} else if (this.time.size() > 1) {
+				return new Task(this.date.get(0), this.time.get(0) + this.time.get(1), this.eventTask);
+			} else {
+				return new Task(this.date.get(0), this.time.get(0), this.eventTask);
+			}
 		} catch (NullPointerException e) {
 			System.err.println(e.getMessage()); 
 			return new Task(this.date.get(0), "", this.eventTask);
