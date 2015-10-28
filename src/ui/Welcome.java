@@ -20,31 +20,52 @@ public class Welcome {
 	private static Scanner sc;
 
 	public static void main(String[] args) throws IOException {
-
+		String userInput = "";
+		
 		welcomeMessage();
-		initiateProg();
+		while(true) {
+			userInput = requestInput();
+			initiateProg(userInput);
+		}
+
 
 	}
 
-	public static void printMessage(Output op) {
+	public static String printMessage(Output op) {
 		// TODO Auto-generated method stub
+		/**
+		 *  
+		 * <String>();
+		 **/
+		String message = "";
+		ArrayList<String> msgList = new ArrayList<String>();
+				
 		if (op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
-			printMsg(Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_ADDED);
-		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
-			printMsg(Constants.MESSAGE_ADD_FAIL);
-		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
-			printMsg(Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_DELETED);
-		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
-			printMsg(Constants.MESSAGE_DELETE_FAIL);
-		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH")) {
-			printMsg(Constants.MESSAGE_SUCCESS);
+			message = (Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_ADDED);
+		} 
+		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
+			message = (Constants.MESSAGE_ADD_FAIL);
+		}
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
+			message = (Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_DELETED);
+		} 
+		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
+			message = (Constants.MESSAGE_DELETE_FAIL);
+		} 
+		
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH")) {
+			//printMsg(Constants.MESSAGE_SUCCESS);
 			for (int i = 0; i < op.getResults().size(); i++) {
-				printMsg(op.getResults().get(i).toString());
+				msgList.add(op.getResults().get(i).toString());
 			}
-			printMsg(Constants.MESSAGE_SEARCHED);
-		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
-			printMsg(Constants.MESSAGE_SEARCH_FAIL);
-		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
+			//printMsg(Constants.MESSAGE_SEARCHED);
+			message = (Constants.MESSAGE_SUCCESS + msgList + Constants.MESSAGE_SEARCHED);
+		}
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH") && op.getResults().isEmpty()) {
+			message = (Constants.MESSAGE_SEARCH_FAIL);
+		} 
+		/**
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
 			printMsg(Constants.MESSAGE_SHOW);
 			for (int i = 0; i < op.getResults().size(); i++) {
 				printMsg(op.getResults().get(i).toString());
@@ -54,32 +75,35 @@ public class Welcome {
 		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
 			printMsg(Constants.MESSAGE_SHOW_FAIL);
 		}
+		**/
+		 return message;
 	}
 
-	public static Output initiateProg() throws IOException {
+	public static String initiateProg(String userInput) throws IOException {
 		Session session = new Session();
-		String userInput = requestInput();
 		Output op = null;
-
-		while (true) {
-			session.executeCommand(userInput);
-			printMessage(op);
-			printMsg(Constants.MESSAGE_PROMPT);
-		}
+		String message = "";
+		
+			op = session.executeCommand(userInput);
+			message = printMessage(op) + "\n" + Constants.MESSAGE_PROMPT;
+			//printMsg(Constants.MESSAGE_PROMPT);
+			
+			return message;
+		
 	}
 
-	public static void welcomeMessage() {
+	public static String welcomeMessage() {
 		String message = "";
 		if (getMornNight() >= 4 && getMornNight() < 12) {
-			message = Constants.MESSAGE_MORNING;
+			message = Constants.MESSAGE_MORNING +"\n"+ Constants.MESSAGE_PROMPT;
 		} else if (getMornNight() >= 12 && getMornNight() < 18) {
-			message = Constants.MESSAGE_AFTERNOON;
+			message = Constants.MESSAGE_AFTERNOON +"\n"+ Constants.MESSAGE_PROMPT;
 		} else {
-			message = Constants.MESSAGE_EVENING;
+			message = Constants.MESSAGE_EVENING +"\n"+ Constants.MESSAGE_PROMPT;
 		}
-		printMsg(message);
-		printMsg(Constants.MESSAGE_PROMPT);
-
+		return message;
+		//printMsg(message);
+		//printMsg(Constants.MESSAGE_PROMPT);
 	}
 
 	private static void printMsg(String message) {
@@ -104,10 +128,11 @@ public class Welcome {
 
 	}
 
+	public static String printToday() {
+		String message = Constants.MESSAGE_TODAY;
+		return message;
+	}
 	/**
-	 * public static String printToday() { String message =
-	 * Constants.MESSAGE_TODAY; return message; }
-	 * 
 	 * private static int getMornNight() { int i =
 	 * cal.get(Calendar.HOUR_OF_DAY); return i;
 	 * 

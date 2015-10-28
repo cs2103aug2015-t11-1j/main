@@ -72,7 +72,7 @@ public class DateParser {
 				startExist = true;
 				break;
 			case OTHERS:
-				startExist = Parser.extractArguments(dateArg, startExist, startArr, ParserConstants.FORMAT_DATE,
+				startExist = Parser.extractArguments(dateArg, startExist, startArr, ParserConstants.FORMAT_DATE_WITH_YEAR,
 						ParserConstants.FORMAT_DATE_STORAGE);
 				break;
 			}
@@ -92,7 +92,7 @@ public class DateParser {
 				endExist = true;
 				break;
 			case OTHERS:
-				endExist = Parser.extractArguments(dateArg, endExist, endArr, ParserConstants.FORMAT_DATE,
+				endExist = Parser.extractArguments(dateArg, endExist, endArr, ParserConstants.FORMAT_DATE_WITH_YEAR,
 						ParserConstants.FORMAT_DATE_STORAGE);
 				break;
 			}
@@ -155,7 +155,7 @@ public class DateParser {
 		arr = Parser.toArrayList(str, ParserConstants.CHAR_SINGLE_WHITESPACE);
 		for (String s1 : arr) {
 			LocalDateTime date = null;
-			for (String s2 : ParserConstants.FORMAT_DATE) {
+			for (String s2 : ParserConstants.FORMAT_DATE_WITH_YEAR) {
 				try {
 					date = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
 					returnArr.add(date.toString(ParserConstants.FORMAT_DATE_STORAGE));
