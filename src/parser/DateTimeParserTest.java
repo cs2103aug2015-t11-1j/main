@@ -28,12 +28,12 @@ public class DateTimeParserTest {
 
 	@Test
 	public void testForOneStartDateAndTime() throws InvalidInputException {
-		String test = "add event at 10/10/15 11.00";
+		String test = "add event > 121215 11.00";
 		resultTime = TimeParser.addTimeArg(test);
 		resultDate = DateParser.addDateArg(test);
 		expectedTime.add("1100");
 		expectedTime.add("");
-		expectedDate.add("10/10/15");
+		expectedDate.add("12/12/15");
 		expectedDate.add("");
 		assertEquals(expectedTime, resultTime);
 		assertEquals(expectedDate, resultDate);
