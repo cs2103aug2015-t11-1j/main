@@ -51,7 +51,12 @@ public class GUI extends Application {
 		TextField commandInput = new TextField();
 		commandInput.setPromptText("ENTER COMMAND: ");
 		commandInput.autosize();
-		GridPane.setConstraints(commandInput, 30, 50);
+		GridPane.setConstraints(commandInput, 30, 50, 70, 1);
+		
+		//Results Text Field
+		TextField resultsInput = new TextField();
+		resultsInput.autosize();
+		GridPane.setConstraints(resultsInput, 30, 45, 70, 1);
 
 		// Commands Label
 		Label lb_commands = new Label("add/delete/update/search/undo/done/help/exit");
@@ -78,7 +83,8 @@ public class GUI extends Application {
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
 		listView.getItems().addAll(Welcome.welcomeMessage());
-		GridPane.setConstraints(listView, 30, 6, 70, 43);
+		GridPane.setConstraints(listView, 30, 6, 70, 37);
+		//30,6,70,43
 		// ObservableList<String> input;
 		// input = listView.getSelectionModel().getSelectedItems();
 		
@@ -87,7 +93,13 @@ public class GUI extends Application {
 		listToday.setPrefHeight(433);
 		listToday.getItems().addAll(Welcome.printToday());
 		GridPane.setConstraints(listToday, 0, 6, 30, 30);
-
+		
+		//Listview of results
+		//ListView<String> listResult = new ListView<>();
+		//listResult.setPrefHeight(1);
+		//GridPane.setConstraints(listResult, 30, 45, 70, 1);
+		
+		
 		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
@@ -116,7 +128,7 @@ public class GUI extends Application {
 		});
 		
 		// Size of scene and what to display
-		grid.getChildren().addAll(commandInput, lb_commands, listView, lb_time, listToday);
+		grid.getChildren().addAll(commandInput, resultsInput, lb_commands, listView, lb_time, listToday);
 		Scene scene = new Scene(grid, 1000, 600);
 		stage.setScene(scene);
 
