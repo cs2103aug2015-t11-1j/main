@@ -65,7 +65,7 @@ public class EventTaskParser {
 				try {
 					tempDateTime = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
 					arr.remove(arr.indexOf(s1));
-				} catch (IllegalArgumentException | NullPointerException e) {
+				} catch (IllegalArgumentException | NullPointerException | IndexOutOfBoundsException e) {
 
 				}
 			}
@@ -73,7 +73,7 @@ public class EventTaskParser {
 				try {
 					tempDateTime = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
 					arr.remove(arr.indexOf(s1));
-				} catch (IllegalArgumentException | NullPointerException e) {
+				} catch (IllegalArgumentException | NullPointerException | IndexOutOfBoundsException e) {
 
 				}
 			}
@@ -81,7 +81,7 @@ public class EventTaskParser {
 				try {
 					tempDateTime = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
 					arr.remove(arr.indexOf(s1));
-				} catch (IllegalArgumentException | NullPointerException e) {
+				} catch (IllegalArgumentException | NullPointerException | IndexOutOfBoundsException e) {
 
 				}
 			}

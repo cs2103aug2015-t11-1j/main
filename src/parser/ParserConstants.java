@@ -42,8 +42,8 @@ public class ParserConstants {
 	 * "dd.MMM.yyyy", "dd-MMM", "dd/MMM", "dd.MMM", "dd MMM yyyy", "dd MMM yy",
 	 * "dd MMMM yyyy", "dd MMMM yy", "ddMMyy", "dd MMMM" };
 	 */
-	public static final String[] FORMAT_DATE_WITH_YEAR = { "dd/MM/yyyy", "dd-MM-yyyy", "dd.MM.yyyy", "ddMMyyyy",
-			"dd.MMMM.yyyy" };
+	public static final String[] FORMAT_DATE_WITH_YEAR = { "dd/MM/yy", "dd-MM-yy", "dd.MM.yy", "ddMMyy",
+			"dd.MMMM.yy" };
 	public static final String[] FORMAT_DATE_WITHOUT_YEAR = { "dd/MM", "dd-MM", "dd.MM", "ddMM", "dd.MMMM" };
 	public static final String[] FORMAT_TIME = { "HHmm", "HH:mm", "HH.mm", "hha", "hh:mma", "hh.mma" };
 	public static final String FORMAT_DATE_STORAGE = "dd/MM/yy";
