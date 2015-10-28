@@ -11,7 +11,7 @@ import storage.Output;
 public class AddTaskTest {
 	
 	@Test
-	public void testAddTask1() {
+	public void singleDateTest() {
 		AddTask at = new AddTask();
 		
 		ArrayList<String> date = new ArrayList<String>();
@@ -37,7 +37,7 @@ public class AddTaskTest {
 	}
 
 	@Test
-	public void testAddTask2() {
+	public void doubleDateTimeTest() {
 		AddTask at = new AddTask();
 		
 		ArrayList<String> date = new ArrayList<String>();
@@ -62,7 +62,7 @@ public class AddTaskTest {
 	}
 	
 	@Test (expected = IndexOutOfBoundsException.class)
-	public void testAddTask3() {
+	public void absentTimeTest() {
 		AddTask at = new AddTask();
 		
 		ArrayList<String> date = new ArrayList<String>();
