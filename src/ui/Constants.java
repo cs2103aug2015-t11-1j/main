@@ -12,15 +12,17 @@ public class Constants {
 	static final String MESSAGE_DELETED = " is deleted from your schedule!";
 	static final String MESSAGE_DELETE_FAIL = "Sadly there is no such event to delete";
 	static final String MESSAGE_SEARCHED = " is found in your schedule!";
+	static final String MESSAGE_SEARCH_FAIL = "Sadly no such event is not found:(";
 	static final String MESSAGE_UPDATED = "Your event has been successfully updated!";
 	static final String MESSAGE_COMPLETED = " is complete :)";
-	static final String MESSAGE_SEARCH_FAIL = "Sadly no such event is not found:(";
 	static final String MESSAGE_UPDATE_FAIL = "Update failed!";
 	static final String MESSAGE_HELP = "The commands that can be used are: ";
 	static final String MESSAGE_SHOW = "These are the events on the date you requestd for.";
 	static final String MESSAGE_SHOW_NOTHING = "There are no events to show on this date.";
 	static final String MESSAGE_SHOW_FAIL = "There was an error in showing your events, please try again!";
-			
+	static final String MESSAGE_DONE = "Well done you completed this task!";
+	static final String MESSAGE_EXIT = "Goodbye!:)";
+	
 	static final String COMMAND_EXIT = "exit";
 	static final String COMMAND_ADD = "add";
 	static final String COMMAND_DELETE = "delete";

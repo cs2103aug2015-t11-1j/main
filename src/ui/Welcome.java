@@ -30,7 +30,22 @@ public class Welcome {
 
 
 	}
-
+	
+	/**
+	public static String printResults(Output op) {
+		String message = "";
+		
+		if (op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
+			message = Constants.MESSAGE_SUCCESS;
+		}
+		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
+			message = Constants.MESSAGE_ADD_FAIL;
+		}
+		
+		return message;
+	}
+	**/
+	
 	public static String printMessage(Output op) {
 		// TODO Auto-generated method stub
 		/**
@@ -48,7 +63,7 @@ public class Welcome {
 		}
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
 			message = (Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_DELETED);
-		} 
+		} //Not wokring if i type "delete name of event"
 		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
 			message = (Constants.MESSAGE_DELETE_FAIL);
 		} 
@@ -61,21 +76,44 @@ public class Welcome {
 			//printMsg(Constants.MESSAGE_SEARCHED);
 			message = (Constants.MESSAGE_SUCCESS + msgList + Constants.MESSAGE_SEARCHED);
 		}
+		//Not working yet.
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH") && op.getResults().isEmpty()) {
 			message = (Constants.MESSAGE_SEARCH_FAIL);
 		} 
-		/**
+		//Show is not working yet. 
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
 			printMsg(Constants.MESSAGE_SHOW);
 			for (int i = 0; i < op.getResults().size(); i++) {
 				printMsg(op.getResults().get(i).toString());
 			}
-		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && op.getResults().isEmpty()) {
-			printMsg(Constants.MESSAGE_SHOW_NOTHING);
-		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
-			printMsg(Constants.MESSAGE_SHOW_FAIL);
+		} 
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && op.getResults().isEmpty()) {
+			message = (Constants.MESSAGE_SHOW_NOTHING);
+		} 
+		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
+			message = (Constants.MESSAGE_SHOW_FAIL);
 		}
-		**/
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
+			message = (Constants.MESSAGE_DONE);
+		}
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
+			message = (Constants.MESSAGE_HELP + Constants.COMMAND_DELETE + Constants.COMMAND_ADD +
+					Constants.COMMAND_DONE + Constants.COMMAND_EXIT + Constants.COMMAND_SEARCH + 
+					Constants.COMMAND_SHOW + Constants.COMMAND_UNDO + Constants.COMMAND_UPDATE + Constants.COMMAND_EXIT
+					+ Constants.COMMAND_HELP);
+		}
+		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("UNDO")) {
+			message = (Constants.MESSAGE_SUCCESS + op.getEntry());
+		}
+		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
+			message = (Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_UPDATED);
+		}
+		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
+			message = Constants.MESSAGE_UPDATE_FAIL;
+		}
+		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("EXIT")) {
+			message = Constants.MESSAGE_EXIT;
+		}
 		 return message;
 	}
 
@@ -85,6 +123,7 @@ public class Welcome {
 		String message = "";
 		
 			op = session.executeCommand(userInput);
+			//printResults(op);
 			message = printMessage(op) + "\n" + Constants.MESSAGE_PROMPT;
 			//printMsg(Constants.MESSAGE_PROMPT);
 			
