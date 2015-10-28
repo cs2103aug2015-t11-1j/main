@@ -53,38 +53,38 @@ public class EventTaskParser {
 
 		// Removes the first index which contains the action argument
 		arr.remove(ParserConstants.INDEX_FIRST);
-		
+
 		// Removes any date/time arguments which came before any keywords
-		try {
-			for (String s1 : arr) {
-				LocalDateTime temp = null;
-				for (String s2 : ParserConstants.FORMAT_DATE_WITH_YEAR) {
-					try {
-						temp = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
-						arr.remove(arr.indexOf(s1));
-					} catch (IllegalArgumentException | NullPointerException e) {
+		ArrayList<String> temp = new ArrayList<String>();
+		for (String transfer : arr) {
+			temp.add(transfer);
+		}
+		for (String s1 : temp) {
+			LocalDateTime tempDateTime = null;
+			for (String s2 : ParserConstants.FORMAT_DATE_WITH_YEAR) {
+				try {
+					tempDateTime = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+					arr.remove(arr.indexOf(s1));
+				} catch (IllegalArgumentException | NullPointerException e) {
 
-					}
-				}
-				for (String s2 : ParserConstants.FORMAT_DATE_WITHOUT_YEAR) {
-					try {
-						temp = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
-						arr.remove(arr.indexOf(s1));
-					} catch (IllegalArgumentException | NullPointerException e) {
-
-					}
-				}
-				for (String s2 : ParserConstants.FORMAT_TIME) {
-					try {
-						temp = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
-						arr.remove(arr.indexOf(s1));
-					} catch (IllegalArgumentException | NullPointerException e) {
-
-					}
 				}
 			}
-		} catch (ConcurrentModificationException e) {
+			for (String s2 : ParserConstants.FORMAT_DATE_WITHOUT_YEAR) {
+				try {
+					tempDateTime = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+					arr.remove(arr.indexOf(s1));
+				} catch (IllegalArgumentException | NullPointerException e) {
 
+				}
+			}
+			for (String s2 : ParserConstants.FORMAT_TIME) {
+				try {
+					tempDateTime = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+					arr.remove(arr.indexOf(s1));
+				} catch (IllegalArgumentException | NullPointerException e) {
+
+				}
+			}
 		}
 
 		// Checks for an empty string. Throws an exception if it's empty.
