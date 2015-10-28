@@ -13,6 +13,10 @@ public class DoneTask implements Command {
 	
 	@Override
 	public Output execute() {
+		Task task = this.currState.getTaskList().remove(this.index-1);
+		task.markDone();
+		this.currState.add(task);
+		this.currState.sort();
 		return null;
 		// TODO Auto-generated method stub
 
@@ -41,8 +45,7 @@ public class DoneTask implements Command {
 	
 	@Override
 	public boolean isMutator(Command task) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 
