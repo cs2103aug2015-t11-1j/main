@@ -57,6 +57,11 @@ public class Task {
 		this._stats = "@ ";
 		return this;
 	}
+	
+	public Task markUndone(){
+		this._stats = "? ";
+		return this;
+	}
 
 	@Override
 	public String toString() {
@@ -70,7 +75,7 @@ public class Task {
 			}
 			return _index + " " + _stats + _date + "- " + _details;
 		}
-		return this.toString();
+		return _index + " " + _stats + _date + _time + _details;
 	}
 	
 	public boolean equals(Task task) {

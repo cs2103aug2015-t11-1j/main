@@ -9,6 +9,7 @@ public class Output {
 	private String _entry;
 	private ArrayList<Task> _results;
 	private String _cmdType;
+	//cmdType: add, delete, show, search, cfp
 
 	/*********** CONSTRUCTOR **********/
 	public Output(boolean status, String entry, String cmdType) {

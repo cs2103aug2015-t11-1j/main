@@ -17,30 +17,11 @@ public class Strge {
 	private int _entryCount;
 
 	/*****CONSTRUCTOR*****/
-	//two type of constructor: with or without filename
-	public Storage() {
-		this("planner.txt");
-	}
-	
-	public Storage(String fileName){
-		setFileName(fileName);
-		_file = new File(_fileName);
-		this.checkFileExist(_file);
-		_entryCount = countEntry(_file);
+	public Strge(){
 	}
 	
 
 	/***** MAIN FEATURES METHOD *****/
-	// ACTION_TYPE: ADD
-	// write line into file
-	// str: DDMMYY TIME(if exist) details
-	public Output storeNewEvent(String str) throws IOException {
-		String line = new String(displayFormat(str));
-		writeToFile(line, _file);
-		_entryCount++;
-		return new Output(true, line);
-	}
-	
 	public ArrayList<String> searchCommandKey(String key) {
 		ArrayList<String> result = new ArrayList<String>();
 		ArrayList<String> list = extract(_file);
@@ -203,15 +184,6 @@ public class Strge {
 			line = displayFormat(line);
 		}
 		return list;
-	}
-	
-	/***** GETTERS & SETTERS *****/
-	public String getFileName() {
-		return _fileName;
-	}
-
-	public void setFileName(String fileName) {
-		this._fileName = fileName;
 	}
 
 	//change file name
