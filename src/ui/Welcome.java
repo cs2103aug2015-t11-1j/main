@@ -103,6 +103,7 @@ public class Welcome {
 		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
 			message = (Constants.MESSAGE_SHOW_FAIL);
 		}
+		//Not yet
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
 			message = (Constants.MESSAGE_DONE);
 		}
@@ -124,8 +125,13 @@ public class Welcome {
 		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
 			message = Constants.MESSAGE_UPDATE_FAIL;
 		}
+		//Not yet
 		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("EXIT")) {
 			message = Constants.MESSAGE_EXIT;
+		}
+		else {
+			message = Constants.MESSAGE_ERROR;
+			
 		}
 		 return message;
 	}

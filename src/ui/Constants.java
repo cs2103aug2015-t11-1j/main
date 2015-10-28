@@ -22,6 +22,7 @@ public class Constants {
 	static final String MESSAGE_SHOW_FAIL = "There was an error in showing your events, please try again!";
 	static final String MESSAGE_DONE = "Well done you completed this task!";
 	static final String MESSAGE_EXIT = "Goodbye!:)";
+	static final String MESSAGE_ERROR = "ERROR! WRONG INPUT! Type \"help\" for the list of commands.";
 	
 	static final String COMMAND_EXIT = "exit";
 	static final String COMMAND_ADD = "add";
