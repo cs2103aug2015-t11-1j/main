@@ -112,7 +112,6 @@ public class GUI extends Application {
 					try {
 						listView.getItems().addAll(Welcome.initiateProg(commandInput.getText()));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					input = listView.getSelectionModel().getSelectedItems();
@@ -123,7 +122,7 @@ public class GUI extends Application {
 
 					commandInput.clear();
 				}
-				System.out.println(message);
+					System.out.println(message);
 			}
 		});
 		
