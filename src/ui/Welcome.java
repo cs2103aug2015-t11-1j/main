@@ -73,8 +73,12 @@ public class Welcome {
 			for (int i = 0; i < op.getResults().size(); i++) {
 				msgList.add(op.getResults().get(i).toString());
 			}
-			//printMsg(Constants.MESSAGE_SEARCHED);
-			message = (Constants.MESSAGE_SUCCESS + msgList + Constants.MESSAGE_SEARCHED);
+			message = Constants.MESSAGE_SUCCESS + "\n";
+			for(String s : msgList) {
+				message += s + "\n";
+			}
+			
+			message += Constants.MESSAGE_SEARCHED;
 		}
 		//Not working yet.
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH") && op.getResults().isEmpty()) {
@@ -86,7 +90,12 @@ public class Welcome {
 			for (int i = 0; i < op.getResults().size(); i++) {
 				msgList.add(op.getResults().get(i).toString());
 			}
-			message = (Constants.MESSAGE_SHOW + "\n" + msgList);
+			message = Constants.MESSAGE_SHOW + "\n";
+			
+			for(String s : msgList) {
+				message += s + "\n";
+			}
+			
 		} 
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && op.getResults().isEmpty()) {
 			message = (Constants.MESSAGE_SHOW_NOTHING);
@@ -97,15 +106,18 @@ public class Welcome {
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
 			message = (Constants.MESSAGE_DONE);
 		}
+		//Not yet
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
 			message = (Constants.MESSAGE_HELP + Constants.COMMAND_DELETE + Constants.COMMAND_ADD +
 					Constants.COMMAND_DONE + Constants.COMMAND_EXIT + Constants.COMMAND_SEARCH + 
 					Constants.COMMAND_SHOW + Constants.COMMAND_UNDO + Constants.COMMAND_UPDATE + Constants.COMMAND_EXIT
 					+ Constants.COMMAND_HELP);
 		}
+		//Not yet
 		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("UNDO")) {
 			message = (Constants.MESSAGE_SUCCESS + op.getEntry());
 		}
+		//Not yet
 		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
 			message = (Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_UPDATED);
 		}
