@@ -54,9 +54,9 @@ public class GUI extends Application {
 		GridPane.setConstraints(commandInput, 30, 50, 70, 1);
 		
 		//Results Text Field
-		TextField resultsInput = new TextField();
-		resultsInput.autosize();
-		GridPane.setConstraints(resultsInput, 30, 45, 70, 1);
+		//TextField resultsInput = new TextField();
+		//resultsInput.autosize();
+		//GridPane.setConstraints(resultsInput, 30, 45, 70, 1);
 
 		// Commands Label
 		Label lb_commands = new Label("add/delete/update/search/undo/done/help/exit");
@@ -83,7 +83,7 @@ public class GUI extends Application {
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
 		listView.getItems().addAll(Welcome.welcomeMessage());
-		GridPane.setConstraints(listView, 30, 6, 70, 37);
+		GridPane.setConstraints(listView, 30, 6, 70, 43);
 		//30,6,70,43
 		// ObservableList<String> input;
 		// input = listView.getSelectionModel().getSelectedItems();
@@ -112,7 +112,6 @@ public class GUI extends Application {
 					try {
 						listView.getItems().addAll(Welcome.initiateProg(commandInput.getText()));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					input = listView.getSelectionModel().getSelectedItems();
@@ -124,11 +123,12 @@ public class GUI extends Application {
 					commandInput.clear();
 				}
 				System.out.println(message);
+
 			}
 		});
 		
 		// Size of scene and what to display
-		grid.getChildren().addAll(commandInput, resultsInput, lb_commands, listView, lb_time, listToday);
+		grid.getChildren().addAll(commandInput, lb_commands, listView, lb_time, listToday);
 		Scene scene = new Scene(grid, 1000, 600);
 		stage.setScene(scene);
 
