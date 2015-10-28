@@ -20,7 +20,6 @@ public class Strge {
 	public Strge(){
 	}
 	
-
 	/***** MAIN FEATURES METHOD *****/
 	public ArrayList<String> searchCommandKey(String key) {
 		ArrayList<String> result = new ArrayList<String>();
