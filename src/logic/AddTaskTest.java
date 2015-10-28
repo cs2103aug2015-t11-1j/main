@@ -27,7 +27,7 @@ public class AddTaskTest {
 		Output expectedOP = new Output(true, "21/10/15 1200 meeting", "add");
 		Output resultOP = at.execute();
 		
-	//	assertTrue(expectedOP.equals(resultOP));
+//		assertTrue(expectedOP.equals(resultOP));
 		
 		assertEquals(expectedOP, resultOP);
 		

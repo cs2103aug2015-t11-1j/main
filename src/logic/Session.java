@@ -10,7 +10,7 @@ public class Session {
 	
 	private static Stack<State> undoStack = new Stack<State>();
 	private static Stack<State> redoStack = new Stack<State>();
-	private static Storage sto = new Storage();
+	static Storage sto = new Storage();
 	
 	public Session() {
 		this.initialSetup();
