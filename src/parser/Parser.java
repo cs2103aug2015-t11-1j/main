@@ -200,7 +200,7 @@ public class Parser {
 	 * argument and after the action argument
 	 */
 	protected static boolean indexPresent(ArrayList<String> arr) throws IndexOutOfBoundsException {
-		return arr.get(ParserConstants.INDEX_SECOND).matches(".*\\d+/*");
+		return arr.get(ParserConstants.INDEX_SECOND).matches("^[0-9]*$");
 	}
 
 	/*

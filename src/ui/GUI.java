@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
 
@@ -50,7 +51,12 @@ public class GUI extends Application {
 		TextField commandInput = new TextField();
 		commandInput.setPromptText("ENTER COMMAND: ");
 		commandInput.autosize();
-		GridPane.setConstraints(commandInput, 30, 50);
+		GridPane.setConstraints(commandInput, 30, 50, 70, 1);
+		
+		//Results Text Field
+		//TextField resultsInput = new TextField();
+		//resultsInput.autosize();
+		//GridPane.setConstraints(resultsInput, 30, 45, 70, 1);
 
 		// Commands Label
 		Label lb_commands = new Label("add/delete/update/search/undo/done/help/exit");
@@ -78,6 +84,7 @@ public class GUI extends Application {
 		listView.autosize();
 		listView.getItems().addAll(Welcome.welcomeMessage());
 		GridPane.setConstraints(listView, 30, 6, 70, 43);
+		//30,6,70,43
 		// ObservableList<String> input;
 		// input = listView.getSelectionModel().getSelectedItems();
 		
@@ -86,7 +93,13 @@ public class GUI extends Application {
 		listToday.setPrefHeight(433);
 		listToday.getItems().addAll(Welcome.printToday());
 		GridPane.setConstraints(listToday, 0, 6, 30, 30);
-
+		
+		//Listview of results
+		//ListView<String> listResult = new ListView<>();
+		//listResult.setPrefHeight(1);
+		//GridPane.setConstraints(listResult, 30, 45, 70, 1);
+		
+		
 		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
@@ -94,8 +107,13 @@ public class GUI extends Application {
 			public void handle(KeyEvent ke) {
 				String message = "";
 				ObservableList<String> input;
+				
 				if (ke.getCode().equals(KeyCode.ENTER)) {
-					listView.getItems().addAll(commandInput.getText());
+					try {
+						listView.getItems().addAll(Welcome.initiateProg(commandInput.getText()));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					input = listView.getSelectionModel().getSelectedItems();
 
 					for (String i : input) {
@@ -105,6 +123,7 @@ public class GUI extends Application {
 					commandInput.clear();
 				}
 				System.out.println(message);
+
 			}
 		});
 		

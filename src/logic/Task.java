@@ -13,6 +13,7 @@ public class Task {
 	}
 
 	public Task(String details) {
+		this._index = 0;
 		this._stats = "? ";
 		this._time = "";
 		this._date = "";
@@ -56,12 +57,27 @@ public class Task {
 		this._stats = "@ ";
 		return this;
 	}
+	
+	public Task markUndone(){
+		this._stats = "? ";
+		return this;
+	}
 
 	@Override
 	public String toString() {
+		return _index + " " + _date + _time + _details;
+	}
+	
+	public String toStorage() {
+		if(_time.equals("")){
+			if(_date.equals("")){
+				return _index + " " + _stats + "- - " + _details;
+			}
+			return _index + " " + _stats + _date + "- " + _details;
+		}
 		return _index + " " + _stats + _date + _time + _details;
 	}
-
+	
 	public boolean equals(Task task) {
 		return (this._stats.equals(task._stats) && this._time.equals(task._time) && this._date.equals(task._date)
 				&& this._details.equals(task._details));
@@ -74,14 +90,6 @@ public class Task {
 		}
 		return _date;
 	}
-
-	// public static String modifySign(String str){
-	// if(str.equals("\u0023 ")){
-	// return "\u2610 ";// }
-						// if(str.equals("\u00B1 ")){
-	// return"\u2611 ";// }
-						// return str;
-						// }
 
 	/***** GETTER *****/
 	public int getIndex() {

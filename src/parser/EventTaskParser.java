@@ -12,6 +12,10 @@
 package parser;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
 
 public class EventTaskParser {
 
@@ -50,12 +54,49 @@ public class EventTaskParser {
 		// Removes the first index which contains the action argument
 		arr.remove(ParserConstants.INDEX_FIRST);
 
+		// Removes any date/time arguments which came before any keywords
+		ArrayList<String> temp = new ArrayList<String>();
+		for (String transfer : arr) {
+			temp.add(transfer);
+		}
+		for (String s1 : temp) {
+			LocalDateTime tempDateTime = null;
+			for (String s2 : ParserConstants.FORMAT_DATE_WITH_YEAR) {
+				try {
+					tempDateTime = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+					arr.remove(arr.indexOf(s1));
+				} catch (IllegalArgumentException | NullPointerException | IndexOutOfBoundsException e) {
+
+				}
+			}
+			for (String s2 : ParserConstants.FORMAT_DATE_WITHOUT_YEAR) {
+				try {
+					tempDateTime = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+					arr.remove(arr.indexOf(s1));
+				} catch (IllegalArgumentException | NullPointerException | IndexOutOfBoundsException e) {
+
+				}
+			}
+			for (String s2 : ParserConstants.FORMAT_TIME) {
+				try {
+					tempDateTime = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
+					arr.remove(arr.indexOf(s1));
+				} catch (IllegalArgumentException | NullPointerException | IndexOutOfBoundsException e) {
+
+				}
+			}
+		}
+
 		// Checks for an empty string. Throws an exception if it's empty.
 		// Returns the String if it is not
 		String toReturn = Parser.toString(arr).trim();
-		if (toReturn.equals(ParserConstants.CHAR_SINGLE_BLANK)) {
+		if (toReturn.equals(ParserConstants.CHAR_SINGLE_BLANK))
+
+		{
 			throw new InvalidInputException("Invalid event/task argument");
-		} else {
+		} else
+
+		{
 			return toReturn;
 		}
 	}

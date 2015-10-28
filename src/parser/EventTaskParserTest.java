@@ -47,16 +47,24 @@ public class EventTaskParserTest {
 	}
 
 	@Test(expected = InvalidInputException.class)
-	public void testEventTaskParser7() throws InvalidInputException {
+	public void testInvalidInput() throws InvalidInputException {
 		String test = "add";
 		EventTaskParser.getEventTask(test);
 	}
 
 	@Test
-	public void testProperInput() throws InvalidInputException {
+	public void testProperInputWithKeywords() throws InvalidInputException {
 		String test = "add meeting @ NUS tomorrow";
 		String result = EventTaskParser.getEventTask(test);
 		String expected = "meeting @ NUS";
+		assertEquals(expected, result);
+	}
+	
+	@Test
+	public void testProperInputWithoutKeywords() throws InvalidInputException {
+		String test = "add meeting 10/10/15 10am";
+		String result = EventTaskParser.getEventTask(test);
+		String expected = "meeting";
 		assertEquals(expected, result);
 	}
 }

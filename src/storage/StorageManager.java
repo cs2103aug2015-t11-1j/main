@@ -43,7 +43,7 @@ public class StorageManager {
 		try {
 			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
 			for (Task task : list) {
-				pw.write(task.toString());
+				pw.write(task.toStorage());
 				pw.write(System.lineSeparator());
 			}
 			pw.close();
@@ -122,15 +122,16 @@ public class StorageManager {
 	private static Task strToTask(String string) {
 		Task task;
 		String[] str = string.split(" ", 5);
-		if (str[2].length() == 4 && Integer.valueOf(str[2].substring(0, 4)) <= 2400) {
-			task = new Task(Integer.valueOf(str[0]), str[1], str[2], str[3], str[4]);
-		} else if (str[1].length() == 8 && Integer.valueOf(str[1].substring(0, 2)) <= 31) {
-			task = new Task(Integer.valueOf(str[0]), str[1], str[2], "", str[3] + " " + str[4]);
+		if (str[3].equals("-")){
+			if(str[2].equals("-")){
+				task = new Task(Integer.valueOf(str[0]), str[1], "", "", str[4]);
+			} else {
+				task = new Task(Integer.valueOf(str[0]), str[1], str[2], "", str[4]);
+			}
 		} else {
-			task = new Task(Integer.valueOf(str[0]), str[1], "", "", str[2] + " " + str[3] + " " + str[4]);
-			// TODO in case of change of signs
+			task = new Task(Integer.valueOf(str[0]), str[1], str[2], str[3], str[4]);
 		}
 		return task;
 	}
-
+	
 }
