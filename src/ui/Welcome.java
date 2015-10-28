@@ -82,10 +82,11 @@ public class Welcome {
 		} 
 		//Show is not working yet. 
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
-			printMsg(Constants.MESSAGE_SHOW);
+			//printMsg(Constants.MESSAGE_SHOW);
 			for (int i = 0; i < op.getResults().size(); i++) {
-				printMsg(op.getResults().get(i).toString());
+				msgList.add(op.getResults().get(i).toString());
 			}
+			message = (Constants.MESSAGE_SHOW + "\n" + msgList);
 		} 
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && op.getResults().isEmpty()) {
 			message = (Constants.MESSAGE_SHOW_NOTHING);
@@ -124,7 +125,7 @@ public class Welcome {
 		
 			op = session.executeCommand(userInput);
 			//printResults(op);
-			message = printMessage(op) + "\n" + Constants.MESSAGE_PROMPT;
+			message = printMessage(op);
 			//printMsg(Constants.MESSAGE_PROMPT);
 			
 			return message;
