@@ -1,3 +1,7 @@
+/*
+ * @author: Jeston Teo
+ */
+
 package parser;
 
 public class ParserConstants {
@@ -7,8 +11,9 @@ public class ParserConstants {
 
 	// DateTimeFormat formats
 	protected static final String[] FORMAT_DATE_WITH_YEAR = { "dd/MM/yy", "dd-MM-yy", "dd.MM.yy", "ddMMyy",
-			"dd.MMMM.yy" };
-	protected static final String[] FORMAT_DATE_WITHOUT_YEAR = { "dd/MM", "dd-MM", "dd.MM", "ddMM", "dd.MMMM" };
+			"dd.MMMM.yy", "ddMMMMyy" };
+	protected static final String[] FORMAT_DATE_WITHOUT_YEAR = { "dd/MM", "dd-MM", "dd.MM", "ddMM", "dd.MMMM",
+			"ddMMMM" };
 	protected static final String[] FORMAT_TIME = { "HHmm", "HH:mm", "HH.mm", "hha", "hh:mma", "hh.mma" };
 	protected static final String FORMAT_DATE_STORAGE = "dd/MM/yy";
 	protected static final String FORMAT_TIME_STORAGE = "HHmm";
@@ -25,15 +30,19 @@ public class ParserConstants {
 	protected static final String[] KW_COMMAND_EXIT = { "exit", "quit" };
 
 	// User string input Keywords (KW)
-	protected static final String[] KW_START = { "from", "on", "at", "tomorrow", "tmr", "today", "tdy" };
-	protected static final String[] KW_END = { "by", "until", "till", "to" };
+	protected static final String[] KW_START = { "from", "on", "at" };
+	protected static final String[] KW_END = { "by", "until", "till", "to", "-" };
+	protected static final String[] KW_TIME = { "today", "tdy", "tomorrow", "tmr" };
 
 	// Indexes
 	protected static final int INDEX_FIRST = 0;
 	protected static final int INDEX_SECOND = 1;
 
 	// Integers
+	protected static final int INT_ZERO = 0;
 	protected static final int INT_ONE = 1;
+	protected static final int INT_NEG_ONE = -1;
+	protected static final int INT_TWO = 2;
 
 	// REGEX
 	protected static final String REGEX_WHITESPACES = "[\\s,]+";
