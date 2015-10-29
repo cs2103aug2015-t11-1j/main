@@ -46,7 +46,13 @@ public class Parser {
 		case SHOW:
 			ShowTask show = new ShowTask();
 			try {
-				show.setDate(DateParser.getShowDate(str));
+				DateTimeParser.getDateTimeArgs(str);
+				ArrayList<String> tempDateArr = DateTimeParser.getDateArgs();
+				if (tempDateArr.size() == 1) {
+					show.setDate(tempDateArr.get(ParserConstants.INT_ZERO));
+				} else {
+					throw new InvalidInputException();
+				}
 			} catch (NullPointerException | InvalidInputException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
@@ -190,20 +196,6 @@ public class Parser {
 		} else {
 			return index;
 		}
-	}
-
-	/*
-	 * Checks if the elements in an Array exist within the String input Returns
-	 * true if it is, false if otherwise
-	 */
-	protected static boolean isPresent(String[] arr, String str) {
-		ArrayList<String> strArr = toArrayList(str.trim().toLowerCase(), ParserConstants.CHAR_SINGLE_WHITESPACE);
-		for (String s : arr) {
-			if (strArr.contains(s)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/*

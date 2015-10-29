@@ -1,3 +1,7 @@
+/*
+ * @author: Jeston Teo
+ */
+
 package parser;
 
 import static org.junit.Assert.*;
@@ -26,10 +30,8 @@ public class ParserTest {
 		AddTask add = (AddTask) Parser.setCommand(test);
 		
 		String expected = "event";
-		expectedDate.add(DateParser.getDate(0));
-		expectedDate.add(DateParser.getDate(0));
-		expectedTime.add("1100");
-		expectedTime.add("1200");
+		expectedDate = add(DateTimeParser.getDate(0), DateTimeParser.getDate(0));
+		expectedTime = add("1100", "1200");
 		
 		assertEquals(expected, add.getEventTask());
 		assertEquals(expectedDate, add.getDate());
@@ -162,5 +164,12 @@ public class ParserTest {
 	public void testFailedShowActionTooManyInputs() {
 		String test = "show 10/11/15 11/11/15";
 		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
+	}
+	
+	private static ArrayList<String> add(String start, String end) {
+		ArrayList<String> returnArr = new ArrayList<String>();
+		returnArr.add(start);
+		returnArr.add(end);
+		return returnArr;
 	}
 }
