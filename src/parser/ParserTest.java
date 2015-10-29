@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import logic.AddTask;
 import logic.DeleteTask;
-import logic.DoneTask;
+import logic.MarkDoneTask;
 import logic.InvalidTask;
 import logic.SearchTask;
 import logic.ShowTask;
@@ -113,8 +113,8 @@ public class ParserTest {
 	@Test
 	public void testDoneAction() {
 		String test = "done 2";
-		assertTrue(Parser.setCommand(test) instanceof DoneTask);
-		DoneTask done = (DoneTask) Parser.setCommand(test);
+		assertTrue(Parser.setCommand(test) instanceof MarkDoneTask);
+		MarkDoneTask done = (MarkDoneTask) Parser.setCommand(test);
 		
 		int expected = 2;
 		assertEquals(expected, done.getIndex());
@@ -152,7 +152,7 @@ public class ParserTest {
 		assertEquals(expected, show.getDate());
 	}
 	
-	@Test
+	@Test //show " " now shows all event/tasks
 	public void testFailedShowAction() {
 		String test = "show ";
 		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
