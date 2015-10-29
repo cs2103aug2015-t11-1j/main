@@ -1,3 +1,7 @@
+/*
+ * @author: Jeston Teo
+ */
+
 package parser;
 
 public class ParserConstants {
@@ -27,7 +31,7 @@ public class ParserConstants {
 
 	// User string input Keywords (KW)
 	protected static final String[] KW_START = { "from", "on", "at" };
-	protected static final String[] KW_END = { "by", "until", "till", "to" };
+	protected static final String[] KW_END = { "by", "until", "till", "to", "-" };
 	protected static final String[] KW_TIME = { "today", "tdy", "tomorrow", "tmr" };
 
 	// Indexes
@@ -35,8 +39,10 @@ public class ParserConstants {
 	protected static final int INDEX_SECOND = 1;
 
 	// Integers
+	protected static final int INT_ZERO = 0;
 	protected static final int INT_ONE = 1;
 	protected static final int INT_NEG_ONE = -1;
+	protected static final int INT_TWO = 2;
 
 	// REGEX
 	protected static final String REGEX_WHITESPACES = "[\\s,]+";

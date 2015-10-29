@@ -8,9 +8,7 @@
 package parser;
 
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 
-import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 
 public class EventTaskParser {
