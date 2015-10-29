@@ -65,7 +65,7 @@ public class Task {
 
 	@Override
 	public String toString() {
-		return _index + " " + _date + _time + _details;
+		return _index + ") " + _date + _time + _details;
 	}
 	
 	public String toStorage() {
