@@ -12,13 +12,13 @@ import org.joda.time.format.DateTimeFormat;
 import logic.AddTask;
 import logic.Command;
 import logic.DeleteTask;
-import logic.DoneTask;
+import logic.MarkDoneTask;
 import logic.ExitTask;
 import logic.HelpTask;
 import logic.InvalidTask;
 import logic.SearchTask;
-import logic.SetFilePathTask;
-import logic.ShowFileTask;
+import logic.SetFilePath;
+import logic.ShowFilePath;
 import logic.ShowTask;
 import logic.UndoTask;
 import logic.UpdateTask;
@@ -72,7 +72,7 @@ public class Parser {
 			}
 			return update;
 		case DONE:
-			DoneTask done = new DoneTask();
+			MarkDoneTask done = new MarkDoneTask();
 			try {
 				done.setIndex(IndexParser.getIndex(str));
 			} catch (InvalidInputException | IndexOutOfBoundsException e) {
@@ -99,10 +99,10 @@ public class Parser {
 			HelpTask help = new HelpTask();
 			return help;
 		case FP:
-			ShowFileTask filePath = new ShowFileTask();
+			ShowFilePath filePath = new ShowFilePath();
 			return filePath;
 		case CFP:
-			SetFilePathTask newFilePath = new SetFilePathTask();
+			SetFilePath newFilePath = new SetFilePath();
 			try {
 				newFilePath.setFilePath(FileParser.getFilePath(str));
 			} catch (InvalidInputException e) {
