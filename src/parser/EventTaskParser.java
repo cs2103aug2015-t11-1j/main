@@ -1,12 +1,8 @@
 /*
+ * @author: Jeston Teo
+ * 
  * This class extracts the string representing the user's event/task
- * ASSUMPTIONS
- * 1) Event/task arguments always comes after the action and index argument
- * 2) Event/task arguments always comes before any arguments related to time
  * 
- * If a String representing event/task could not be found, throws an exception
- * 
- * <action> <index> <event/task> *KEYWORD* <DATE/TIME>
  */
 
 package parser;
@@ -19,22 +15,39 @@ import org.joda.time.format.DateTimeFormat;
 
 public class EventTaskParser {
 
+	/*
+	 * This method returns a String representing the event/task argument. An
+	 * InvalidInputException is thrown when the resulting String extracted is
+	 * empty.
+	 * 
+	 * Assumptions: 1) The String comes between the action argument and any
+	 * date/time arguments. 2) The String may contain words related to
+	 * date/time, but a strict format ">" must be used to separate event/task
+	 * and date/time arguments.
+	 */
 	protected static String getEventTask(String str) throws InvalidInputException {
 
-		// Converts the string into an ArrayList for simpler manipulation. Split
-		// using *spaces*
 		ArrayList<String> arr = Parser.toArrayList(str.trim(), ParserConstants.CHAR_SINGLE_WHITESPACE);
 
 		// Checks for the presence of an index argument. Removes it from the
 		// second index if it exists
 		try {
-			if (Parser.indexPresent(arr)) {
+			if (IndexParser.getIndex(str) > 0) {
 				arr.remove(ParserConstants.INDEX_SECOND);
 			}
-		} catch (IndexOutOfBoundsException e) {
+		} catch (InvalidInputException e) {
 
 		}
+		
+		// Removes the action argument
+		arr.remove(ParserConstants.INDEX_FIRST);
 
+		/** Partitioning **/
+		ArrayList<String> arrToScan;
+		int strictIndex = Parser.indexOf(ParserConstants.CHAR_RIGHT_ANGLE_BRACKET, arr);
+		if (strictIndex == -1) {
+			
+		}
 		// Checks for the presence of any date/time arguments which only comes
 		// after keywords contained in KW_START. Removes all the indexes after
 		// the first occurrence of the keyword

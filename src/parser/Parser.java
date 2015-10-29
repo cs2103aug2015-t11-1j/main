@@ -35,8 +35,9 @@ public class Parser {
 			AddTask add = new AddTask();
 			try {
 				add.setEventTask(EventTaskParser.getEventTask(str));
-				add.setDate(DateParser.addDateArg(str));
-				add.setTime(TimeParser.addTimeArg(str));
+				DateTimeParser.getDateTimeArgs(str);
+				add.setDate(DateTimeParser.getDateArgs());
+				add.setTime(DateTimeParser.getTimeArgs());
 			} catch (InvalidInputException | IndexOutOfBoundsException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
@@ -65,8 +66,9 @@ public class Parser {
 			try {
 				update.setIndex(IndexParser.getIndex(str));
 				update.setEventTask(EventTaskParser.getEventTask(str));
-				update.setDate(DateParser.addDateArg(str));
-				update.setTime(TimeParser.addTimeArg(str));
+				DateTimeParser.getDateTimeArgs(str);
+				update.setDate(DateTimeParser.getDateArgs());
+				update.setTime(DateTimeParser.getTimeArgs());
 			} catch (InvalidInputException | IndexOutOfBoundsException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
@@ -143,8 +145,9 @@ public class Parser {
 	}
 
 	/*
-	 * Returns the index of the first occurrence of the specified element in the
-	 * String, or -1 if it does not contain the element.
+	 * Returns the index of the first occurrence of the given elements in arr
+	 * contained in the String. Returns -1 if the String does not contain any of
+	 * the elements in arr.
 	 */
 	protected static int indexOf(String[] arr, ArrayList<String> str) {
 		ArrayList<String> temp = cloneToLowerCase(str);
@@ -159,6 +162,15 @@ public class Parser {
 		} else {
 			return index;
 		}
+	}
+
+	/*
+	 * Returns the index of the first occurrence of the key in the String, or -1
+	 * if it does not contain the element.
+	 */
+	protected static int indexOf(String key, ArrayList<String> str) {
+		ArrayList<String> temp = cloneToLowerCase(str);
+		return temp.indexOf(key);
 	}
 
 	/*
@@ -192,16 +204,6 @@ public class Parser {
 			}
 		}
 		return false;
-	}
-
-	/*
-	 * Checks if there's an index argument in the String
-	 * 
-	 * ASSUMPTIONS: 1) The index argument always comes before the event/task
-	 * argument and after the action argument
-	 */
-	protected static boolean indexPresent(ArrayList<String> arr) throws IndexOutOfBoundsException {
-		return arr.get(ParserConstants.INDEX_SECOND).matches("^[0-9]*$");
 	}
 
 	/*
