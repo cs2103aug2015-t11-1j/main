@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import storage.Output;
 
-public class SetFilePathTask implements Command {
+public class SetFilePath implements Command {
 	private State currState = new State(new ArrayList<Task>());
 	private String newFilePath;
 	
-	public SetFilePathTask() {
+	public SetFilePath() {
 		
 	}
 
