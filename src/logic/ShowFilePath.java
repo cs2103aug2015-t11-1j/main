@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import storage.Output;
 
-public class ShowFileTask implements Command {
+public class ShowFilePath implements Command {
 	private State currState = new State(new ArrayList<Task>());
 
-	public ShowFileTask() {
+	public ShowFilePath() {
 
 	}
 

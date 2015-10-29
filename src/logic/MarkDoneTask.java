@@ -2,12 +2,12 @@ package logic;
 
 import storage.Output;
 
-public class DoneTask implements Command {
+public class MarkDoneTask implements Command {
 	private State currState;
 	private int index;
 	
 	/***********CONSTRUCTOR**********/
-	public DoneTask() {
+	public MarkDoneTask() {
 
 	}
 	
@@ -17,7 +17,9 @@ public class DoneTask implements Command {
 		task.markDone();
 		this.currState.add(task);
 		this.currState.sort();
-		return new Output(true, task.toString(), "done");
+		return null;
+		// TODO Auto-generated method stub
+
 	}
 
 	/**********  GETTER   **********/
