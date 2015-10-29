@@ -76,9 +76,8 @@ public class Output {
 	/*****METHODS*****/
 	public boolean equals(Output op) {
 		return (this.getStatus() == op.getStatus()
-				&& this.getEntry().equals(op.getEntry())
-//				&& this.getResults().equals(op.getResults())
-				);
+				&& this.getEntry().equals(op.getEntry()) && this.getCmdType().equals(op.getCmdType()) 
+				&& this.getResults().equals(op.getResults()));
 	}
 	
 	public ArrayList<String> toStringList(){
