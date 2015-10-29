@@ -107,12 +107,23 @@ public class Welcome {
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
 			message = (Constants.MESSAGE_DONE);
 		}
-		//Not yet
-		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
-			message = (Constants.MESSAGE_HELP + Constants.COMMAND_DELETE + Constants.COMMAND_ADD +
-					Constants.COMMAND_DONE + Constants.COMMAND_EXIT + Constants.COMMAND_SEARCH + 
-					Constants.COMMAND_SHOW + Constants.COMMAND_UNDO + Constants.COMMAND_UPDATE + Constants.COMMAND_EXIT
-					+ Constants.COMMAND_HELP);
+		
+		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
+			message = Constants.MESSAGE_HELP + "\n"; 
+			msgList.add(Constants.COMMAND_DELETE);
+			msgList.add(Constants.COMMAND_ADD);
+			msgList.add(Constants.COMMAND_DONE);  
+			msgList.add(Constants.COMMAND_EXIT);  
+			msgList.add(Constants.COMMAND_SEARCH);  
+			msgList.add(Constants.COMMAND_SHOW);  
+			msgList.add(Constants.COMMAND_UNDO);  
+			msgList.add(Constants.COMMAND_UPDATE); 
+			msgList.add(Constants.COMMAND_EXIT);
+			msgList.add(Constants.COMMAND_HELP);
+			
+			for(String s : msgList) {
+				message += s + "\n";
+			}
 		}
 		//Not yet
 		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("UNDO")) {
@@ -125,9 +136,9 @@ public class Welcome {
 		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
 			message = Constants.MESSAGE_UPDATE_FAIL;
 		}
-		//Not yet
-		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("EXIT")) {
-			message = Constants.MESSAGE_EXIT;
+		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("EXIT")) {
+			//message = Constants.MESSAGE_EXIT;
+			System.exit(0);
 		}
 		else {
 			message = Constants.MESSAGE_ERROR;
