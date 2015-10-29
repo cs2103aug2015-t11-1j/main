@@ -23,7 +23,7 @@ public class IndexParser {
 		if (indexPresent(arr)) {
 			return Integer.parseInt(arr.get(ParserConstants.INDEX_SECOND));
 		} else {
-			throw new InvalidInputException("Invalid input: Please enter an index");
+			throw new InvalidInputException("Invalid input: Please enter a valid index");
 		}
 	}
 
@@ -38,7 +38,7 @@ public class IndexParser {
 		try {
 			return arr.get(ParserConstants.INDEX_SECOND).matches("^[0-9]*$");
 		} catch (IndexOutOfBoundsException e) {
-			throw new InvalidInputException("Invalid input: Please enter an index");
+			throw new InvalidInputException("Invalid input: Please enter a valid index");
 		}
 	}
 }
