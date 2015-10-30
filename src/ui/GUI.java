@@ -93,6 +93,7 @@ public class GUI extends Application {
 		ListView<String> listToday = new ListView<>();
 		listToday.setPrefHeight(433);
 		listToday.getItems().addAll(Welcome.printToday());
+		listToday.getItems().addAll(Welcome.showToday("show today"));
 		GridPane.setConstraints(listToday, 0, 6, 30, 30);
 
 		// What happens when "ENTER" is hit
