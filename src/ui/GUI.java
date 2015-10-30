@@ -63,9 +63,9 @@ public class GUI extends Application {
 		tf_results.setText("blah");
 		tf_results.setStyle("-fx-text-box-border: transparent");
 		tf_results.setStyle("-fx-background-color: white");
-		
+
 		GridPane.setConstraints(tf_results, 30, 49);
-		
+
 		// Commands Label
 		Label lb_commands = new Label("add/delete/update/search/undo/done/help/exit");
 		lb_commands.setFont(Font.font(java.awt.Font.SANS_SERIF));
@@ -117,12 +117,12 @@ public class GUI extends Application {
 				if (ke.getCode().equals(KeyCode.ENTER)) {
 					try {
 						listView.getItems().addAll(Welcome.initiateProg(commandInput.getText()));
-						//tf_results.setText(Welcome.getResults(commandInput.getText()));
-						//if(tf_results.getText().equals("Success! ")) {
-							//tf_results.setStyle("-fx-text-fill: green");
-						//}else {
-							//tf_results.setStyle("-fx-text-fill: red");
-						//}
+						// tf_results.setText(Welcome.getResults(commandInput.getText()));
+						// if(tf_results.getText().equals("Success! ")) {
+						// tf_results.setStyle("-fx-text-fill: green");
+						// }else {
+						// tf_results.setStyle("-fx-text-fill: red");
+						// }
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -141,11 +141,15 @@ public class GUI extends Application {
 					 * Auto-generated catch block e.printStackTrace(); }
 					 * listToday.getItems().addAll(todayTasks); }
 					 **/
+				//What happens when 'UP' key is pressed
+				}else if(ke.getCode().equals(KeyCode.ESCAPE)) {
+					commandInput.clear();
 				}
 				System.out.println(message);
 
 			}
 		});
+
 
 		// Size of scene and what to display
 		grid.getChildren().addAll(commandInput, lb_commands, tf_results, listView, lb_time, listToday);
