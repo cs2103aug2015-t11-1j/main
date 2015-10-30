@@ -59,6 +59,7 @@ public class Welcome {
 		return message;
 		
 	}
+	
 	public static String printMessage(Output op) {
 		String message = "";
 		ArrayList<String> msgList = new ArrayList<String>();
