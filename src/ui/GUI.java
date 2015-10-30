@@ -141,7 +141,7 @@ public class GUI extends Application {
 					 * Auto-generated catch block e.printStackTrace(); }
 					 * listToday.getItems().addAll(todayTasks); }
 					 **/
-				//What happens when 'UP' key is pressed
+				//What happens when 'ESC' key is pressed
 				}else if(ke.getCode().equals(KeyCode.ESCAPE)) {
 					commandInput.clear();
 				}
