@@ -38,7 +38,11 @@ public class Parser {
 				DateTimeParser.getDateTimeArgs(str);
 				add.setDate(DateTimeParser.getDateArgs());
 				add.setTime(DateTimeParser.getTimeArgs());
-			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+			} catch (InvalidInputException e) {
+				// AddTask addFail = new AddTask();
+				// addFail.setInvalid(EventTaskParser.getEventTask(str));
+				// addFail.setInvalidMsg(e.getMessage());
+				// return addFail;
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
@@ -48,12 +52,12 @@ public class Parser {
 			try {
 				DateTimeParser.getDateTimeArgs(str);
 				ArrayList<String> tempDateArr = DateTimeParser.getDateArgs();
-				if (tempDateArr.size() == 1) {
-					show.setDate(tempDateArr.get(ParserConstants.INT_ZERO));
+				if (tempDateArr.get(ParserConstants.INDEX_SECOND).isEmpty()) {
+					show.setDate(tempDateArr.get(ParserConstants.INDEX_FIRST));
 				} else {
 					throw new InvalidInputException();
 				}
-			} catch (NullPointerException | InvalidInputException e) {
+			} catch (InvalidInputException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
@@ -75,7 +79,7 @@ public class Parser {
 				DateTimeParser.getDateTimeArgs(str);
 				update.setDate(DateTimeParser.getDateArgs());
 				update.setTime(DateTimeParser.getTimeArgs());
-			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+			} catch (InvalidInputException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
@@ -84,7 +88,7 @@ public class Parser {
 			MarkDoneTask done = new MarkDoneTask();
 			try {
 				done.setIndex(IndexParser.getIndex(str));
-			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+			} catch (InvalidInputException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
@@ -93,7 +97,7 @@ public class Parser {
 			DeleteTask delete = new DeleteTask();
 			try {
 				delete.setIndex(IndexParser.getIndex(str));
-			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+			} catch (InvalidInputException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
@@ -120,6 +124,7 @@ public class Parser {
 			}
 			return newFilePath;
 		default:
+			// Returned only if the action argument is invalid
 			InvalidTask invalid = new InvalidTask();
 			return invalid;
 		}
