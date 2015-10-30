@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import logic.Session;
 import storage.Output;
+import logic.State;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -21,208 +22,216 @@ public class Welcome {
 
 	public static void main(String[] args) throws IOException {
 		String userInput = "";
-		
+
 		welcomeMessage();
-		while(true) {
+		while (true) {
 			userInput = requestInput();
 			initiateProg(userInput);
 		}
 
-
 	}
-	
-	
+
 	public static String printResults(Output op) {
 		String message = "";
-		
+
 		if (op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
 			message = Constants.MESSAGE_SUCCESS;
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
+			message = Constants.MESSAGE_FAIL;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
+			message = Constants.MESSAGE_SUCCESS;
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
+			message = Constants.MESSAGE_FAIL;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
+			message = Constants.MESSAGE_SUCCESS;
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
+			message = Constants.MESSAGE_FAIL;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH")) {
+			message = Constants.MESSAGE_SUCCESS;
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH")) {
+			message = Constants.MESSAGE_FAIL;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
+			message = Constants.MESSAGE_SUCCESS;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
+			message = Constants.MESSAGE_FAIL;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
+			message = Constants.MESSAGE_SUCCESS;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
+			message = Constants.MESSAGE_FAIL;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")) {
+			message = Constants.MESSAGE_SUCCESS;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")) {
+			message = Constants.MESSAGE_FAIL;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("FP")) {
+			message = Constants.MESSAGE_SUCCESS;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("FP")) {
+			message = Constants.MESSAGE_FAIL;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("UNDO")) {
+			message = Constants.MESSAGE_SUCCESS;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("UNDO")) {
+			message = Constants.MESSAGE_FAIL;
 		}
-		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
-			message = Constants.MESSAGE_ADD_FAIL;
-		}
-		
+
 		return message;
 	}
-	
+
 	public static String printToday(Output op) {
 		String message = "";
 		ArrayList<String> msgList = new ArrayList<String>();
-		
+
 		for (int i = 0; i < op.getResults().size(); i++) {
 			msgList.add(op.getResults().get(i).toString());
 		}
-		
-		for(String s : msgList) {
+
+		for (String s : msgList) {
 			message += s + "\n";
 		}
 		return message;
-		
+
 	}
-	
+
 	public static String printMessage(Output op) {
 		String message = "";
 		ArrayList<String> msgList = new ArrayList<String>();
-				
+
 		if (op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
 			message = (Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_ADDED);
-		} 
-		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
 			message = (Constants.MESSAGE_ADD_FAIL);
-		}
-		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
 			message = (Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_DELETED);
-		} //Not wokring if i type "delete name of event"
+		} // Not wokring if i type "delete name of event"
 		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
 			message = (Constants.MESSAGE_DELETE_FAIL);
-		} 
-		
-		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH")) {
-			//printMsg(Constants.MESSAGE_SUCCESS);
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH")) {
+			// printMsg(Constants.MESSAGE_SUCCESS);
 			for (int i = 0; i < op.getResults().size(); i++) {
 				msgList.add(op.getResults().get(i).toString());
 			}
 			message = Constants.MESSAGE_SUCCESS + "\n";
-			for(String s : msgList) {
+			for (String s : msgList) {
 				message += s + "\n";
 			}
-			
+
 			message += Constants.MESSAGE_SEARCHED;
 		}
-		//Not working yet.
+		// Not working yet.
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH") && op.getResults().isEmpty()) {
 			message = (Constants.MESSAGE_SEARCH_FAIL);
-		} 
-		//Show is not working yet. 
+		}
+		// Show is not working yet.
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
-			//printMsg(Constants.MESSAGE_SHOW);
+			// printMsg(Constants.MESSAGE_SHOW);
 			for (int i = 0; i < op.getResults().size(); i++) {
 				msgList.add(op.getResults().get(i).toString());
 			}
 			message = Constants.MESSAGE_SHOW + "\n";
-			
-			for(String s : msgList) {
+
+			for (String s : msgList) {
 				message += s + "\n";
 			}
-			
-		} 
-		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && op.getResults().isEmpty()) {
+
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && op.getResults().isEmpty()) {
 			message = (Constants.MESSAGE_SHOW_NOTHING);
-		} 
-		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
 			message = (Constants.MESSAGE_SHOW_FAIL);
 		}
-		//Not yet
+		// Not yet
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
 			message = (Constants.MESSAGE_DONE);
-		}
-		
-		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
-			message = Constants.MESSAGE_HELP + "\n"; 
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
+			message = Constants.MESSAGE_HELP + "\n";
 			msgList.add(Constants.COMMAND_DELETE);
 			msgList.add(Constants.COMMAND_ADD);
-			msgList.add(Constants.COMMAND_DONE);  
-			msgList.add(Constants.COMMAND_EXIT);  
-			msgList.add(Constants.COMMAND_SEARCH);  
-			msgList.add(Constants.COMMAND_SHOW);  
-			msgList.add(Constants.COMMAND_UNDO);  
-			msgList.add(Constants.COMMAND_UPDATE); 
+			msgList.add(Constants.COMMAND_DONE);
+			msgList.add(Constants.COMMAND_EXIT);
+			msgList.add(Constants.COMMAND_SEARCH);
+			msgList.add(Constants.COMMAND_SHOW);
+			msgList.add(Constants.COMMAND_UNDO);
+			msgList.add(Constants.COMMAND_UPDATE);
 			msgList.add(Constants.COMMAND_EXIT);
 			msgList.add(Constants.COMMAND_HELP);
-			
-			for(String s : msgList) {
+
+			for (String s : msgList) {
 				message += s + "\n";
 			}
 		}
-		//Not yet
-		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("UNDO")) {
+		// Not yet
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("UNDO")) {
 			message = (Constants.MESSAGE_SUCCESS + Constants.MESSAGE_UNDO);
 		}
-		//Not yet
-		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
+		// Not yet
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
 			message = (Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_UPDATED);
-		}
-		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
 			message = Constants.MESSAGE_UPDATE_FAIL;
-		}
-		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("EXIT")) {
-			//message = Constants.MESSAGE_EXIT;
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("EXIT")) {
+			// message = Constants.MESSAGE_EXIT;
 			System.exit(0);
-		}
-		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")){
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")) {
 			message = Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_CFP;
-		}
-		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")){
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")) {
 			message = Constants.MESSAGE_CFP_FAIL;
-		}
-		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("FP")) { 
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("FP")) {
 			message = op.getEntry() + Constants.MESSAGE_SHOW_FP;
-		}
-		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("FP")) {
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("FP")) {
 			message = Constants.MESSAGE_SHOW_FP_FAIL;
-		}
-		else {
+		} else {
 			message = Constants.MESSAGE_ERROR;
-			
 		}
-		 return message;
+		return message;
 	}
 
 	public static String initiateProg(String userInput) throws IOException {
 		Session session = new Session();
 		Output op = null;
 		String message = "";
-		
-			op = session.executeCommand(userInput);
-			message = printMessage(op);
-			//printMsg(Constants.MESSAGE_PROMPT);
-			
-			return message;
-		
+
+		op = session.executeCommand(userInput);
+		message = printMessage(op);
+		// printMsg(Constants.MESSAGE_PROMPT);
+
+		return message;
+
 	}
-	
+
 	public static String getResults(String userInput) throws IOException {
 		Session session = new Session();
 		Output op = null;
 		String message = "";
-		
-			op = session.executeCommand(userInput);
-			message = printResults(op);
-			//printMsg(Constants.MESSAGE_PROMPT);
-			
-			return message;
-		
+
+		op = session.executeCommand(userInput);
+		message = printResults(op);
+		// printMsg(Constants.MESSAGE_PROMPT);
+
+		return message;
+
 	}
-	
+
 	public static String showToday(String userInput) throws IOException {
 		Session session = new Session();
 		Output op = null;
 		String message = "";
-		
-			op = session.executeCommand(userInput);
-			message = printToday(op);
-			//printMsg(Constants.MESSAGE_PROMPT);
-			
-			return message;
+
+		op = session.executeCommand(userInput);
+		message = printToday(op);
+		// printMsg(Constants.MESSAGE_PROMPT);
+
+		return message;
 	}
 
-	
 	public static String welcomeMessage() {
 		String message = "";
 		if (getMornNight() >= 4 && getMornNight() < 12) {
-			message = Constants.MESSAGE_MORNING +"\n"+ Constants.MESSAGE_PROMPT;
+			message = Constants.MESSAGE_MORNING + "\n" + Constants.MESSAGE_PROMPT;
 		} else if (getMornNight() >= 12 && getMornNight() < 18) {
-			message = Constants.MESSAGE_AFTERNOON +"\n"+ Constants.MESSAGE_PROMPT;
+			message = Constants.MESSAGE_AFTERNOON + "\n" + Constants.MESSAGE_PROMPT;
 		} else {
-			message = Constants.MESSAGE_EVENING +"\n"+ Constants.MESSAGE_PROMPT;
+			message = Constants.MESSAGE_EVENING + "\n" + Constants.MESSAGE_PROMPT;
 		}
 		return message;
-		//printMsg(message);
-		//printMsg(Constants.MESSAGE_PROMPT);
-	}
-
-	private static void printMsg(String message) {
-		System.out.println(message);
+		// printMsg(message);
+		// printMsg(Constants.MESSAGE_PROMPT);
 	}
 
 	public static String requestInput() {
@@ -253,7 +262,8 @@ public class Welcome {
 	 * 
 	 * }
 	 * 
-	 * 
+	 * private static void printMsg(String message) {
+	 * System.out.println(message); }
 	 * 
 	 * public static void printAddedEvent(String addedTask) {
 	 * printMsg(Constants.MESSAGE_SUCCESS + addedTask +
