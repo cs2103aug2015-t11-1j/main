@@ -14,6 +14,7 @@ import logic.AddTask;
 import logic.Command;
 import logic.DeleteTask;
 import logic.MarkDoneTask;
+import logic.MarkUndoneTask;
 import logic.ExitTask;
 import logic.HelpTask;
 import logic.InvalidTask;
@@ -38,7 +39,11 @@ public class Parser {
 				DateTimeParser.getDateTimeArgs(str);
 				add.setDate(DateTimeParser.getDateArgs());
 				add.setTime(DateTimeParser.getTimeArgs());
-			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+			} catch (InvalidInputException e) {
+				// AddTask addFail = new AddTask();
+				// addFail.setInvalid(EventTaskParser.getEventTask(str));
+				// addFail.setInvalidMsg(e.getMessage());
+				// return addFail;
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
@@ -46,14 +51,19 @@ public class Parser {
 		case SHOW:
 			ShowTask show = new ShowTask();
 			try {
+				for (String key : ParserConstants.KW_COMMAND_DONE) {
+					if (str.contains(key)) {
+						show.setShowDone();
+					}
+				}
 				DateTimeParser.getDateTimeArgs(str);
 				ArrayList<String> tempDateArr = DateTimeParser.getDateArgs();
-				if (tempDateArr.size() == 1) {
-					show.setDate(tempDateArr.get(ParserConstants.INT_ZERO));
+				if (tempDateArr.get(ParserConstants.INDEX_SECOND).isEmpty()) {
+					show.setDate(tempDateArr.get(ParserConstants.INDEX_FIRST));
 				} else {
 					throw new InvalidInputException();
 				}
-			} catch (NullPointerException | InvalidInputException e) {
+			} catch (InvalidInputException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
@@ -75,7 +85,7 @@ public class Parser {
 				DateTimeParser.getDateTimeArgs(str);
 				update.setDate(DateTimeParser.getDateArgs());
 				update.setTime(DateTimeParser.getTimeArgs());
-			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+			} catch (InvalidInputException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
@@ -84,16 +94,25 @@ public class Parser {
 			MarkDoneTask done = new MarkDoneTask();
 			try {
 				done.setIndex(IndexParser.getIndex(str));
-			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+			} catch (InvalidInputException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
 			return done;
+		case UNDONE:
+			MarkUndoneTask undone = new MarkUndoneTask();
+			try {
+				undone.setIndex(IndexParser.getIndex(str));
+			} catch (InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
+			}
+			return undone;
 		case DELETE:
 			DeleteTask delete = new DeleteTask();
 			try {
 				delete.setIndex(IndexParser.getIndex(str));
-			} catch (InvalidInputException | IndexOutOfBoundsException e) {
+			} catch (InvalidInputException e) {
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}
@@ -120,6 +139,7 @@ public class Parser {
 			}
 			return newFilePath;
 		default:
+			// Returned only if the action argument is invalid
 			InvalidTask invalid = new InvalidTask();
 			return invalid;
 		}
@@ -196,30 +216,6 @@ public class Parser {
 		} else {
 			return index;
 		}
-	}
-
-	/*
-	 * Extracts the relevant arguments from the specified partition and stores
-	 * it in the given ArrayList<String>. Returns true if an argument has been
-	 * stored False if otherwise.
-	 * 
-	 * Unique to DateParser and TimeParser
-	 */
-	protected static boolean extractArguments(ArrayList<String> arg, boolean argExist, ArrayList<String> partition,
-			String[] format, String formatStorage) {
-		for (String s1 : partition) {
-			LocalDateTime dateTimeArg = null;
-			for (String s2 : format) {
-				try {
-					dateTimeArg = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
-					arg.add(dateTimeArg.toString(formatStorage));
-					argExist = true;
-				} catch (NullPointerException | IllegalArgumentException e) {
-
-				}
-			}
-		}
-		return argExist;
 	}
 
 	/*

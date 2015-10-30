@@ -19,7 +19,7 @@ public class DateTimeParserTest {
 
 	@Test
 	public void testForTwoDateAndTimeArgs() throws InvalidInputException {
-		String test = "add event from 12-12-15 11:00 to 13/12/15 1200";
+		String test = "add camping trip at somewhere from 12-12-15 11:00 to 13/12/15 1200";
 		DateTimeParser.getDateTimeArgs(test);
 		resultTime = DateTimeParser.getTimeArgs();
 		resultDate = DateTimeParser.getDateArgs();
@@ -117,7 +117,7 @@ public class DateTimeParserTest {
 
 	@Test
 	public void testForOneEndDateAndTwoTimeArgs() throws InvalidInputException {
-		String test = "add event from 10:00 to 12dec 10:00";
+		String test = "add event from 10:00 to 12.dec 10:00";
 		DateTimeParser.getDateTimeArgs(test);
 		resultDate = DateTimeParser.getDateArgs();
 		resultTime = DateTimeParser.getTimeArgs();
@@ -140,14 +140,8 @@ public class DateTimeParserTest {
 	}
 
 	@Test(expected = InvalidInputException.class)
-	public void testTooManyStartDateInput() throws InvalidInputException {
-		String test = "add event from 23/10/15 22/10/15 to 24/10/15";
-		DateTimeParser.getDateTimeArgs(test);
-	}
-
-	@Test(expected = InvalidInputException.class)
 	public void testTooManyEndDateInput() throws InvalidInputException {
-		String test = "add event from 23/10/15 to 24/10/15 22/10/15";
+		String test = "add event from 12/12/20 to 13/12/20 14/12/20";
 		DateTimeParser.getDateTimeArgs(test);
 	}
 
@@ -156,13 +150,8 @@ public class DateTimeParserTest {
 		String test = "add event from 23/10/15 to ";
 		DateTimeParser.getDateTimeArgs(test);
 	}
-
-	@Test(expected = InvalidInputException.class)
-	public void testInvalidStartDateInput() throws InvalidInputException {
-		String test = "add event from to 24/10/15 ";
-		DateTimeParser.getDateTimeArgs(test);
-	}
 	
+	// For easier adding to ArrayLists
 	private static ArrayList<String> add(String start, String end) {
 		ArrayList<String> returnArr = new ArrayList<String>();
 		returnArr.add(start);

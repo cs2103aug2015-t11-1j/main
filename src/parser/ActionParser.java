@@ -10,7 +10,7 @@ package parser;
 public class ActionParser {
 
 	enum ACTION_TYPE {
-		ADD, SHOW, SEARCH, UPDATE, DONE, DELETE, UNDO, INVALID, EXIT, HELP, FP, CFP;
+		ADD, SHOW, SEARCH, UPDATE, DONE, UNDONE, DELETE, UNDO, INVALID, EXIT, HELP, FP, CFP;
 	}
 
 	protected static ACTION_TYPE setUserAction(String str) {
@@ -27,6 +27,8 @@ public class ActionParser {
 			return ACTION_TYPE.UPDATE;
 		} else if (compareDoneKeywords(userAction)) {
 			return ACTION_TYPE.DONE;
+		} else if (compareUndoneKeywords(userAction)) {
+			return ACTION_TYPE.UNDONE;
 		} else if (compareDeleteKeywords(userAction)) {
 			return ACTION_TYPE.DELETE;
 		} else if (compareUndoKeywords(userAction)) {
@@ -93,6 +95,16 @@ public class ActionParser {
 	private static boolean compareDoneKeywords(String str) {
 		boolean containKeywords = false;
 		for (String keyWords : ParserConstants.KW_COMMAND_DONE) {
+			if (keyWords.equalsIgnoreCase(str)) {
+				containKeywords = true;
+			}
+		}
+		return containKeywords;
+	}
+
+	private static boolean compareUndoneKeywords(String str) {
+		boolean containKeywords = false;
+		for (String keyWords : ParserConstants.KW_COMMAND_UNDONE) {
 			if (keyWords.equalsIgnoreCase(str)) {
 				containKeywords = true;
 			}
