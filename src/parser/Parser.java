@@ -14,6 +14,7 @@ import logic.AddTask;
 import logic.Command;
 import logic.DeleteTask;
 import logic.MarkDoneTask;
+import logic.MarkUndoneTask;
 import logic.ExitTask;
 import logic.HelpTask;
 import logic.InvalidTask;
@@ -93,6 +94,15 @@ public class Parser {
 				return invalid;
 			}
 			return done;
+		case UNDONE:
+			MarkUndoneTask undone = new MarkUndoneTask();
+			try {
+				undone.setIndex(IndexParser.getIndex(str));
+			} catch (InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
+			}
+			return undone;
 		case DELETE:
 			DeleteTask delete = new DeleteTask();
 			try {

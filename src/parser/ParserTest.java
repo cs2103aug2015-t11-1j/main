@@ -13,6 +13,7 @@ import org.junit.Test;
 import logic.AddTask;
 import logic.DeleteTask;
 import logic.MarkDoneTask;
+import logic.MarkUndoneTask;
 import logic.InvalidTask;
 import logic.SearchTask;
 import logic.ShowTask;
@@ -121,6 +122,22 @@ public class ParserTest {
 	@Test
 	public void testFailedDoneAction() {
 		String test = "done";
+		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
+	}
+	
+	@Test
+	public void testUndoneAction() {
+		String test = "undone 2";
+		assertTrue(Parser.setCommand(test) instanceof MarkUndoneTask);
+		MarkUndoneTask undone = (MarkUndoneTask) Parser.setCommand(test);
+
+		int expected = 2;
+		assertEquals(expected, undone.getIndex());
+	}
+	
+	@Test
+	public void testFailedUndoneAction() {
+		String test = "unmark";
 		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
 	}
 
