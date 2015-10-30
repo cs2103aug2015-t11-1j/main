@@ -8,7 +8,9 @@ package parser;
 
 import java.util.ArrayList;
 
+import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 
 public class DateTimeParser {
@@ -27,7 +29,7 @@ public class DateTimeParser {
 	 * no following date/time arguments will not throw an exception
 	 */
 	protected static void getDateTimeArgs(String str) throws InvalidInputException {
-		LocalDateTime now = new LocalDateTime();
+		LocalDate now = new LocalDate();
 		dateArgs = new ArrayList<String>();
 		timeArgs = new ArrayList<String>();
 
@@ -108,11 +110,11 @@ public class DateTimeParser {
 	 * 
 	 * Throws an InvalidInputException if the date entered has passed
 	 */
-	private static void parseForDateTime(LocalDateTime now, String target) throws InvalidInputException {
-		LocalDateTime date;
+	private static void parseForDateTime(LocalDate now, String target) throws InvalidInputException {
+		LocalDate date;
 		for (String keyword : ParserConstants.FORMAT_DATE_WITHOUT_YEAR) {
 			try {
-				date = DateTimeFormat.forPattern(keyword).parseLocalDateTime(target).withYear(now.getYear());
+				date = DateTimeFormat.forPattern(keyword).parseLocalDate(target).withYear(now.getYear());
 				if (date.compareTo(now) == ParserConstants.INT_NEG_ONE) {
 					throw new InvalidInputException("Invalid input: Please enter valid dates");
 				}
@@ -123,7 +125,7 @@ public class DateTimeParser {
 		}
 		for (String keyword : ParserConstants.FORMAT_DATE_WITH_YEAR) {
 			try {
-				date = DateTimeFormat.forPattern(keyword).parseLocalDateTime(target);
+				date = DateTimeFormat.forPattern(keyword).parseLocalDate(target);
 				if (date.compareTo(now) == ParserConstants.INT_NEG_ONE) {
 					throw new InvalidInputException("Invalid input: Please enter valid dates");
 				}
@@ -132,10 +134,10 @@ public class DateTimeParser {
 
 			}
 		}
-		LocalDateTime time = null;
+		LocalTime time = null;
 		for (String keyword : ParserConstants.FORMAT_TIME) {
 			try {
-				time = DateTimeFormat.forPattern(keyword).parseLocalDateTime(target);
+				time = DateTimeFormat.forPattern(keyword).parseLocalTime(target);
 				timeArgs.add(time.toString(ParserConstants.FORMAT_TIME_STORAGE));
 			} catch (IllegalArgumentException | NullPointerException e) {
 
