@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import javafx.beans.value.ObservableValue;
 import logic.Session;
 import storage.Output;
 
@@ -48,11 +47,6 @@ public class Welcome {
 	
 	
 	public static String printMessage(Output op) {
-		// TODO Auto-generated method stub
-		/**
-		 *  
-		 * <String>();
-		 **/
 		String message = "";
 		ArrayList<String> msgList = new ArrayList<String>();
 				
@@ -140,6 +134,18 @@ public class Welcome {
 		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("EXIT")) {
 			//message = Constants.MESSAGE_EXIT;
 			System.exit(0);
+		}
+		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")){
+			message = Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_CFP;
+		}
+		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")){
+			message = Constants.MESSAGE_CFP_FAIL;
+		}
+		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("FP")) { 
+			message = op.getEntry() + Constants.MESSAGE_SHOW_FP;
+		}
+		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("FP")) {
+			message = Constants.MESSAGE_SHOW_FP_FAIL;
 		}
 		else {
 			message = Constants.MESSAGE_ERROR;
