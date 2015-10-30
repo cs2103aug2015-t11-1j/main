@@ -117,7 +117,7 @@ public class DateTimeParserTest {
 
 	@Test
 	public void testForOneEndDateAndTwoTimeArgs() throws InvalidInputException {
-		String test = "add event from 10:00 to 12dec 10:00";
+		String test = "add event from 10:00 to 12.dec 10:00";
 		DateTimeParser.getDateTimeArgs(test);
 		resultDate = DateTimeParser.getDateArgs();
 		resultTime = DateTimeParser.getTimeArgs();
@@ -148,6 +148,18 @@ public class DateTimeParserTest {
 	@Test(expected = InvalidInputException.class)
 	public void testInvalidEndDateInput() throws InvalidInputException {
 		String test = "add event from 23/10/15 to ";
+		DateTimeParser.getDateTimeArgs(test);
+	}
+	
+	@Test(expected = InvalidInputException.class)
+	public void testEndDateBeforeStartDate() throws InvalidInputException {
+		String test = "add training tomorrow to today";
+		DateTimeParser.getDateTimeArgs(test);
+	}
+	
+	@Test(expected = InvalidInputException.class)
+	public void testEndTimeBeforeStartTime() throws InvalidInputException {
+		String test = "add training 11am to 10am";
 		DateTimeParser.getDateTimeArgs(test);
 	}
 	

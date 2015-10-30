@@ -14,6 +14,7 @@ import logic.AddTask;
 import logic.Command;
 import logic.DeleteTask;
 import logic.MarkDoneTask;
+import logic.MarkUndoneTask;
 import logic.ExitTask;
 import logic.HelpTask;
 import logic.InvalidTask;
@@ -50,6 +51,11 @@ public class Parser {
 		case SHOW:
 			ShowTask show = new ShowTask();
 			try {
+				for (String key : ParserConstants.KW_COMMAND_DONE) {
+					if (str.contains(key)) {
+						show.setShowDone();
+					}
+				}
 				DateTimeParser.getDateTimeArgs(str);
 				ArrayList<String> tempDateArr = DateTimeParser.getDateArgs();
 				if (tempDateArr.get(ParserConstants.INDEX_SECOND).isEmpty()) {
@@ -93,6 +99,15 @@ public class Parser {
 				return invalid;
 			}
 			return done;
+		case UNDONE:
+			MarkUndoneTask undone = new MarkUndoneTask();
+			try {
+				undone.setIndex(IndexParser.getIndex(str));
+			} catch (InvalidInputException e) {
+				InvalidTask invalid = new InvalidTask();
+				return invalid;
+			}
+			return undone;
 		case DELETE:
 			DeleteTask delete = new DeleteTask();
 			try {
@@ -201,30 +216,6 @@ public class Parser {
 		} else {
 			return index;
 		}
-	}
-
-	/*
-	 * Extracts the relevant arguments from the specified partition and stores
-	 * it in the given ArrayList<String>. Returns true if an argument has been
-	 * stored False if otherwise.
-	 * 
-	 * Unique to DateParser and TimeParser
-	 */
-	protected static boolean extractArguments(ArrayList<String> arg, boolean argExist, ArrayList<String> partition,
-			String[] format, String formatStorage) {
-		for (String s1 : partition) {
-			LocalDateTime dateTimeArg = null;
-			for (String s2 : format) {
-				try {
-					dateTimeArg = DateTimeFormat.forPattern(s2).parseLocalDateTime(s1);
-					arg.add(dateTimeArg.toString(formatStorage));
-					argExist = true;
-				} catch (NullPointerException | IllegalArgumentException e) {
-
-				}
-			}
-		}
-		return argExist;
 	}
 
 	/*
