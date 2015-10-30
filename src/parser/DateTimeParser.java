@@ -33,6 +33,11 @@ public class DateTimeParser {
 		dateArgs = new ArrayList<String>();
 		timeArgs = new ArrayList<String>();
 
+		LocalDate startDate = null;
+		LocalDate endDate = null;
+		LocalTime startTime = null;
+		LocalTime endTime = null;
+
 		ArrayList<String> arr = Parser.toArrayList(str, ParserConstants.CHAR_SINGLE_WHITESPACE);
 		ArrayList<String> startArr = new ArrayList<String>();
 		ArrayList<String> endArr = new ArrayList<String>();
@@ -45,7 +50,8 @@ public class DateTimeParser {
 			for (String string : startArr) {
 				convertTodayToDateTime(string);
 				convertTmrToDateTime(string);
-				parseForDateTime(now, string);
+				parseForDate(now, string);
+				parseForTime(string);
 			}
 		} catch (IndexOutOfBoundsException e) {
 
@@ -62,12 +68,22 @@ public class DateTimeParser {
 			timeArgs.add("");
 		}
 
+		try {
+			startDate = DateTimeFormat.forPattern(ParserConstants.FORMAT_DATE_STORAGE)
+					.parseLocalDate(dateArgs.get(ParserConstants.INDEX_FIRST));
+			startTime = DateTimeFormat.forPattern(ParserConstants.FORMAT_TIME_STORAGE)
+					.parseLocalTime(timeArgs.get(ParserConstants.INDEX_FIRST));
+		} catch (IllegalArgumentException e) {
+
+		}
+
 		/** End Date/Time Arguments **/
 		try {
 			for (String string : endArr) {
 				convertTodayToDateTime(string);
 				convertTmrToDateTime(string);
-				parseForDateTime(now, string);
+				parseForDate(now, string);
+				parseForTime(string);
 			}
 		} catch (IndexOutOfBoundsException e) {
 
@@ -82,6 +98,28 @@ public class DateTimeParser {
 		} else if (dateArgs.size() == ParserConstants.INT_ONE && timeArgs.size() == ParserConstants.INT_ONE) {
 			dateArgs.add("");
 			timeArgs.add("");
+		}
+
+		try {
+			endDate = DateTimeFormat.forPattern(ParserConstants.FORMAT_DATE_STORAGE)
+					.parseLocalDate(dateArgs.get(ParserConstants.INDEX_SECOND));
+			endTime = DateTimeFormat.forPattern(ParserConstants.FORMAT_TIME_STORAGE)
+					.parseLocalTime(timeArgs.get(ParserConstants.INDEX_SECOND));
+		} catch (IllegalArgumentException e) {
+
+		}
+
+		if (startDate != null && endDate != null) {
+			if (startDate.compareTo(endDate) == ParserConstants.INT_ONE) {
+				throw new InvalidInputException("Invalid input: Start date cannot come after the end date");
+			} else if (startDate.compareTo(endDate) == ParserConstants.INT_ZERO) {
+				if (startTime.compareTo(endTime) == ParserConstants.INT_ONE) {
+					throw new InvalidInputException("Invalid input: Start time cannot come after the end time");
+				} else if (startTime.compareTo(endTime) == ParserConstants.INT_ZERO) {
+					throw new InvalidInputException(
+							"Invalid input: Start time cannot be the same as the end time within the same day");
+				}
+			}
 		}
 	}
 
@@ -105,12 +143,12 @@ public class DateTimeParser {
 	}
 
 	/*
-	 * Parses the target String and adds it to the corresponding ArrayList
-	 * should it match the format
+	 * Parses the target String for acceptable date formats and adds it to
+	 * dateArgs
 	 * 
 	 * Throws an InvalidInputException if the date entered has passed
 	 */
-	private static void parseForDateTime(LocalDate now, String target) throws InvalidInputException {
+	private static void parseForDate(LocalDate now, String target) throws InvalidInputException {
 		LocalDate date = null;
 		for (String keyword : ParserConstants.FORMAT_DATE_WITHOUT_YEAR) {
 			try {
@@ -134,6 +172,13 @@ public class DateTimeParser {
 
 			}
 		}
+	}
+
+	/*
+	 * Parses the target String for acceptable time formats and adds it to
+	 * timeArgs
+	 */
+	private static void parseForTime(String target) throws InvalidInputException {
 		LocalTime time = null;
 		for (String keyword : ParserConstants.FORMAT_TIME) {
 			try {

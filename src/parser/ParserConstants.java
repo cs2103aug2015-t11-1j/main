@@ -13,7 +13,7 @@ public class ParserConstants {
 	protected static final String[] FORMAT_DATE_WITH_YEAR = { "dd/MM/yy", "dd-MM-yy", "dd.MM.yy", "ddMMyy",
 			"dd.MMMM.yy" };
 	protected static final String[] FORMAT_DATE_WITHOUT_YEAR = { "dd/MM", "dd-MM", "dd.MM", "ddMM", "dd.MMMM" };
-	protected static final String[] FORMAT_TIME = { "HHmm", "HH:mm", "HH.mm", "hha", "hh:mma", "hh.mma" };
+	protected static final String[] FORMAT_TIME = { "HHmm", "HH:mm", "HH.mm", "hha", "hh:mma", "hh.mma", "hhmma" };
 	protected static final String FORMAT_DATE_STORAGE = "dd/MM/yy";
 	protected static final String FORMAT_TIME_STORAGE = "HHmm";
 
