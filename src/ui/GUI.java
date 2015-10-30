@@ -30,6 +30,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import logic.Task;
 import np.com.ngopal.control.AutoFillTextBox;
 
 public class GUI extends Application {
@@ -49,17 +50,22 @@ public class GUI extends Application {
 		grid.setPadding(new Insets(10, 10, 10, 10));
 		grid.setVgap(8);
 		grid.setHgap(5);
+		grid.setStyle("-fx-background-color: white");
 
-		// Command input Text Field
+		// User input Text Field
 		TextField commandInput = new TextField();
 		commandInput.setPromptText("ENTER COMMAND: ");
 		commandInput.autosize();
 		GridPane.setConstraints(commandInput, 30, 50, 70, 1);
 
-		// Results Label
-		Label lb_results = new Label("success");
-		GridPane.setConstraints(lb_results, 30, 49);
-
+		// Results Text Field
+		TextField tf_results = new TextField();
+		tf_results.setText("blah");
+		tf_results.setStyle("-fx-text-box-border: transparent");
+		tf_results.setStyle("-fx-background-color: white");
+		
+		GridPane.setConstraints(tf_results, 30, 49);
+		
 		// Commands Label
 		Label lb_commands = new Label("add/delete/update/search/undo/done/help/exit");
 		lb_commands.setFont(Font.font(java.awt.Font.SANS_SERIF));
@@ -97,7 +103,7 @@ public class GUI extends Application {
 		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.showToday("show today"));
 		listToday.getItems().addAll(todayTasks);
 		GridPane.setConstraints(listToday, 0, 6, 30, 30);
-		
+
 		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
@@ -105,10 +111,18 @@ public class GUI extends Application {
 			public void handle(KeyEvent ke) {
 				String message = "";
 				ObservableList<String> input;
+				// Task task = new Task();
+				// DateTime dt = new DateTime();
 
 				if (ke.getCode().equals(KeyCode.ENTER)) {
 					try {
 						listView.getItems().addAll(Welcome.initiateProg(commandInput.getText()));
+						//tf_results.setText(Welcome.getResults(commandInput.getText()));
+						//if(tf_results.getText().equals("Success! ")) {
+							//tf_results.setStyle("-fx-text-fill: green");
+						//}else {
+							//tf_results.setStyle("-fx-text-fill: red");
+						//}
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -119,17 +133,24 @@ public class GUI extends Application {
 					}
 
 					commandInput.clear();
+					/**
+					 * if(task.getDate().equals(dt.toString())) { ObservableList
+					 * <String> todayTasks = null; try { todayTasks =
+					 * FXCollections.observableArrayList(Welcome.showToday(
+					 * "show today")); } catch (IOException e) { // TODO
+					 * Auto-generated catch block e.printStackTrace(); }
+					 * listToday.getItems().addAll(todayTasks); }
+					 **/
 				}
 				System.out.println(message);
 
 			}
 		});
-	
-		
+
 		// Size of scene and what to display
-		grid.getChildren().addAll(commandInput, lb_commands, lb_results, listView, lb_time, listToday);
+		grid.getChildren().addAll(commandInput, lb_commands, tf_results, listView, lb_time, listToday);
 		Scene scene = new Scene(grid, 1000, 600);
-		//scene.getStylesheets().add("control.css");
+		// scene.getStylesheets().add("control.css");
 		stage.setScene(scene);
 
 		stage.show();
