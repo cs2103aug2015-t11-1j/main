@@ -98,9 +98,17 @@ public class AddTask implements Command {
 		
 		for(String date : dates){
 			if(date.equals(date1)){
-				tasks.add(new Task(date, this.time.get(0)+"-2359", this.eventTask));
+				if(time.get(0).equals("")){
+					tasks.add(new Task(date, this.eventTask));
+				} else {
+					tasks.add(new Task(date, this.time.get(0)+"-2359", this.eventTask));
+				}
 			} else if (date.equals(date2)){
-				tasks.add(new Task(date, "0000-"+this.time.get(1), this.eventTask));
+				if(time.get(1).equals("")){
+					tasks.add(new Task(date, this.eventTask));
+				} else {
+					tasks.add(new Task(date, "0000-"+this.time.get(1), this.eventTask));
+				}
 			} else {
 				tasks.add(new Task(date, this.eventTask));
 				System.out.println(new Task(date, this.eventTask).toString());
