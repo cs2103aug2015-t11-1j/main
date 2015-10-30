@@ -111,7 +111,7 @@ public class DateTimeParser {
 	 * Throws an InvalidInputException if the date entered has passed
 	 */
 	private static void parseForDateTime(LocalDate now, String target) throws InvalidInputException {
-		LocalDate date;
+		LocalDate date = null;
 		for (String keyword : ParserConstants.FORMAT_DATE_WITHOUT_YEAR) {
 			try {
 				date = DateTimeFormat.forPattern(keyword).parseLocalDate(target).withYear(now.getYear());

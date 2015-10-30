@@ -117,7 +117,7 @@ public class DateTimeParserTest {
 
 	@Test
 	public void testForOneEndDateAndTwoTimeArgs() throws InvalidInputException {
-		String test = "add event from 10:00 to 12dec 10:00";
+		String test = "add event from 10:00 to 12.dec 10:00";
 		DateTimeParser.getDateTimeArgs(test);
 		resultDate = DateTimeParser.getDateArgs();
 		resultTime = DateTimeParser.getTimeArgs();

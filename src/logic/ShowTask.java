@@ -7,6 +7,7 @@ import storage.Storage;
 
 public class ShowTask implements Command {
 	private String date;
+	private boolean showDone = false;
 	private State currState;
 	
 	/***********CONSTRUCTOR**********/
@@ -53,6 +54,14 @@ public class ShowTask implements Command {
 	@Override
 	public void setCurrState(State state) {
 		currState = state;
+	}
+
+	public boolean getShowDone() {
+		return showDone;
+	}
+
+	public void setShowDone() {
+		showDone = true;
 	}
 	
 }
