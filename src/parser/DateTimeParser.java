@@ -72,7 +72,7 @@ public class DateTimeParser {
 		}
 
 		if (dateArgs.size() > ParserConstants.INT_TWO || timeArgs.size() > ParserConstants.INT_TWO) {
-			throw new InvalidInputException();
+			throw new InvalidInputException("Invalid input: Too many inputs");
 		} else if (dateArgs.size() == ParserConstants.INT_ONE && timeArgs.size() == ParserConstants.INT_TWO) {
 			dateArgs.add(getDate(ParserConstants.INT_ZERO));
 		} else if (dateArgs.size() == ParserConstants.INT_TWO && timeArgs.size() == ParserConstants.INT_ONE) {
@@ -105,6 +105,8 @@ public class DateTimeParser {
 	/*
 	 * Parses the target String and adds it to the corresponding ArrayList
 	 * should it match the format
+	 * 
+	 * Throws an InvalidInputException if the date entered has passed
 	 */
 	private static void parseForDateTime(LocalDateTime now, String target) throws InvalidInputException {
 		LocalDateTime date;
