@@ -25,6 +25,7 @@ public class EventTaskParser {
 	 */
 	protected static String getEventTask(String str) throws InvalidInputException {
 		ArrayList<String> arr = Parser.toArrayList(str.trim(), ParserConstants.CHAR_SINGLE_WHITESPACE);
+		assert(arr.size() >= 2);
 		// Checks for the presence of any integer which represents an index
 		// argument. Removes it from the
 		// second index if it exists
@@ -42,7 +43,8 @@ public class EventTaskParser {
 		if (strictIndex == ParserConstants.INT_NEG_ONE) {
 			/*
 			 * Order of removal 1) Remove any date/time arguments 2) Remove all
-			 * elements after the last instance of a 'start' keyword 3) Remove
+			 * elements after the last instance of a 'end' keyword 3) Remove all
+			 * elements after the last instance of a 'start' keyword 4) Remove
 			 * all elements after the last instance of any 'time' keyword
 			 */
 			ArrayList<String> temp = new ArrayList<String>();
@@ -54,6 +56,8 @@ public class EventTaskParser {
 				removeElements(targetString, arr, ParserConstants.FORMAT_DATE_WITHOUT_YEAR);
 				removeElements(targetString, arr, ParserConstants.FORMAT_TIME);
 			}
+			int endIndex = Parser.lastIndexOf(ParserConstants.KW_END, arr);
+			removeElementsStartingFromIndex(endIndex, arr);
 			int startIndex = Parser.lastIndexOf(ParserConstants.KW_START, arr);
 			removeElementsStartingFromIndex(startIndex, arr);
 			int timeIndex = Parser.lastIndexOf(ParserConstants.KW_TIME, arr);
@@ -66,7 +70,7 @@ public class EventTaskParser {
 			return returnString(arr);
 		}
 	}
-	
+
 	/*
 	 * Converts the resulting ArrayList into a String and checks for the
 	 * validity of the event/task argument.
