@@ -74,10 +74,18 @@ public class Output {
 	}
 
 	/*****METHODS*****/
-	public boolean equals(Output op) {
-		return (this.getStatus() == op.getStatus()
-				&& this.getEntry().equals(op.getEntry()) && this.getCmdType().equals(op.getCmdType()) 
-				&& this.getResults().equals(op.getResults()));
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Output) {
+			Output op = (Output) obj;
+			if (this.getStatus() == op.getStatus() && this.getEntry().equals(op.getEntry()) && this.getCmdType().equals(op.getCmdType()) && this.getResults().equals(op.getResults())) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}		
 	}
 	
 	public ArrayList<String> toStringList(){
