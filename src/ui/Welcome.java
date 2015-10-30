@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import javafx.beans.value.ObservableValue;
 import logic.Session;
 import storage.Output;
 
@@ -46,13 +45,22 @@ public class Welcome {
 		return message;
 	}
 	
+	public static String printToday(Output op) {
+		String message = "";
+		ArrayList<String> msgList = new ArrayList<String>();
+		
+		for (int i = 0; i < op.getResults().size(); i++) {
+			msgList.add(op.getResults().get(i).toString());
+		}
+		
+		for(String s : msgList) {
+			message += s + "\n";
+		}
+		return message;
+		
+	}
 	
 	public static String printMessage(Output op) {
-		// TODO Auto-generated method stub
-		/**
-		 *  
-		 * <String>();
-		 **/
 		String message = "";
 		ArrayList<String> msgList = new ArrayList<String>();
 				
@@ -128,7 +136,7 @@ public class Welcome {
 		}
 		//Not yet
 		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("UNDO")) {
-			message = (Constants.MESSAGE_SUCCESS + op.getEntry());
+			message = (Constants.MESSAGE_SUCCESS + Constants.MESSAGE_UNDO);
 		}
 		//Not yet
 		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
@@ -140,6 +148,18 @@ public class Welcome {
 		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("EXIT")) {
 			//message = Constants.MESSAGE_EXIT;
 			System.exit(0);
+		}
+		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")){
+			message = Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_CFP;
+		}
+		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")){
+			message = Constants.MESSAGE_CFP_FAIL;
+		}
+		else if(op.getStatus() && op.getCmdType().toUpperCase().equals("FP")) { 
+			message = op.getEntry() + Constants.MESSAGE_SHOW_FP;
+		}
+		else if(!op.getStatus() && op.getCmdType().toUpperCase().equals("FP")) {
+			message = Constants.MESSAGE_SHOW_FP_FAIL;
 		}
 		else {
 			message = Constants.MESSAGE_ERROR;
@@ -160,6 +180,7 @@ public class Welcome {
 			return message;
 		
 	}
+	
 	public static String getResults(String userInput) throws IOException {
 		Session session = new Session();
 		Output op = null;
@@ -172,7 +193,20 @@ public class Welcome {
 			return message;
 		
 	}
+	
+	public static String showToday(String userInput) throws IOException {
+		Session session = new Session();
+		Output op = null;
+		String message = "";
+		
+			op = session.executeCommand(userInput);
+			message = printToday(op);
+			//printMsg(Constants.MESSAGE_PROMPT);
+			
+			return message;
+	}
 
+	
 	public static String welcomeMessage() {
 		String message = "";
 		if (getMornNight() >= 4 && getMornNight() < 12) {

@@ -14,6 +14,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -93,8 +94,10 @@ public class GUI extends Application {
 		ListView<String> listToday = new ListView<>();
 		listToday.setPrefHeight(433);
 		listToday.getItems().addAll(Welcome.printToday());
+		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.showToday("show today"));
+		listToday.getItems().addAll(todayTasks);
 		GridPane.setConstraints(listToday, 0, 6, 30, 30);
-
+		
 		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
