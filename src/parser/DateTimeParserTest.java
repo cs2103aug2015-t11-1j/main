@@ -151,6 +151,18 @@ public class DateTimeParserTest {
 		DateTimeParser.getDateTimeArgs(test);
 	}
 	
+	@Test(expected = InvalidInputException.class)
+	public void testEndDateBeforeStartDate() throws InvalidInputException {
+		String test = "add training tomorrow to today";
+		DateTimeParser.getDateTimeArgs(test);
+	}
+	
+	@Test(expected = InvalidInputException.class)
+	public void testEndTimeBeforeStartTime() throws InvalidInputException {
+		String test = "add training 11am to 10am";
+		DateTimeParser.getDateTimeArgs(test);
+	}
+	
 	// For easier adding to ArrayLists
 	private static ArrayList<String> add(String start, String end) {
 		ArrayList<String> returnArr = new ArrayList<String>();

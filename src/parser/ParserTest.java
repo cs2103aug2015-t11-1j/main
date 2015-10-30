@@ -58,15 +58,6 @@ public class ParserTest {
 	public void testSetCommandWithInvalidDateOnly() {
 		String test = "add reservist 9/5/15 to 30/5/15";
 		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
-		// AddTask add = (AddTask) Parser.setCommand(test);
-		//
-		// String expected = "reservist";
-		// expectedDate = add("09/05/15", "30/05/15");
-		// expectedTime = add("", "");
-		//
-		// assertEquals(expected, add.getEventTask());
-		// assertEquals(expectedDate, add.getDate());
-		// assertEquals(expectedTime, add.getTime());
 	}
 
 	@Test
