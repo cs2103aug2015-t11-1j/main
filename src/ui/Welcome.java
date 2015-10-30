@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
+import javafx.beans.value.ObservableValue;
 import logic.Session;
 import storage.Output;
 
@@ -31,7 +32,7 @@ public class Welcome {
 
 	}
 	
-	/**
+	
 	public static String printResults(Output op) {
 		String message = "";
 		
@@ -44,7 +45,7 @@ public class Welcome {
 		
 		return message;
 	}
-	**/
+	
 	
 	public static String printMessage(Output op) {
 		// TODO Auto-generated method stub
@@ -153,8 +154,19 @@ public class Welcome {
 		String message = "";
 		
 			op = session.executeCommand(userInput);
-			//printResults(op);
 			message = printMessage(op);
+			//printMsg(Constants.MESSAGE_PROMPT);
+			
+			return message;
+		
+	}
+	public static String getResults(String userInput) throws IOException {
+		Session session = new Session();
+		Output op = null;
+		String message = "";
+		
+			op = session.executeCommand(userInput);
+			message = printResults(op);
 			//printMsg(Constants.MESSAGE_PROMPT);
 			
 			return message;
