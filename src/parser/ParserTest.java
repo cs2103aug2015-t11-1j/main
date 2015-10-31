@@ -13,6 +13,7 @@ import org.junit.Test;
 import logic.AddTask;
 import logic.DeleteTask;
 import logic.MarkDoneTask;
+import logic.MarkUndoneTask;
 import logic.InvalidTask;
 import logic.SearchTask;
 import logic.ShowTask;
@@ -57,15 +58,6 @@ public class ParserTest {
 	public void testSetCommandWithInvalidDateOnly() {
 		String test = "add reservist 9/5/15 to 30/5/15";
 		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
-		// AddTask add = (AddTask) Parser.setCommand(test);
-		//
-		// String expected = "reservist";
-		// expectedDate = add("09/05/15", "30/05/15");
-		// expectedTime = add("", "");
-		//
-		// assertEquals(expected, add.getEventTask());
-		// assertEquals(expectedDate, add.getDate());
-		// assertEquals(expectedTime, add.getTime());
 	}
 
 	@Test
@@ -92,17 +84,15 @@ public class ParserTest {
 
 	@Test
 	public void testUpdateAction() {
-		String test = "update 1 new event name from 10/10/15 1100 to 11/10/15 12.00";
+		String test = "update 1 new event name from 12/12/16 1100 to 13/12/16 12.00";
 		assertTrue(Parser.setCommand(test) instanceof UpdateTask);
 		UpdateTask update = (UpdateTask) Parser.setCommand(test);
 
 		String expectedEvent = "new event name";
 		int expectedIndex = 1;
 		assertEquals(expectedEvent, update.getEventTask());
-		expectedDate.add("10/10/15");
-		expectedDate.add("11/10/15");
-		expectedTime.add("1100");
-		expectedTime.add("1200");
+		expectedDate = add("12/12/16", "13/12/16");
+		expectedTime = add("1100", "1200");
 		assertEquals(expectedDate, update.getDate());
 		assertEquals(expectedTime, update.getTime());
 		assertEquals(expectedIndex, update.getIndex());
@@ -121,6 +111,22 @@ public class ParserTest {
 	@Test
 	public void testFailedDoneAction() {
 		String test = "done";
+		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
+	}
+	
+	@Test
+	public void testUndoneAction() {
+		String test = "undone 2";
+		assertTrue(Parser.setCommand(test) instanceof MarkUndoneTask);
+		MarkUndoneTask undone = (MarkUndoneTask) Parser.setCommand(test);
+
+		int expected = 2;
+		assertEquals(expected, undone.getIndex());
+	}
+	
+	@Test
+	public void testFailedUndoneAction() {
+		String test = "unmark";
 		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
 	}
 
@@ -148,6 +154,17 @@ public class ParserTest {
 
 		String expected = DateTimeParser.getDate(0);
 		assertEquals(expected, show.getDate());
+	}
+	
+	@Test
+	public void testShowDoneForTodayAction() {
+		String test = "display done today";
+		assertTrue(Parser.setCommand(test) instanceof ShowTask);
+		ShowTask show = (ShowTask) Parser.setCommand(test);
+
+		String expected = DateTimeParser.getDate(0);
+		assertEquals(expected, show.getDate());
+		assertTrue(show.getShowDone());
 	}
 
 	@Test

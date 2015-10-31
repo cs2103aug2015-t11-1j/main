@@ -3,7 +3,14 @@ package logic;
 import storage.Output;
 
 public class MarkUndoneTask implements Command {
+	private State currState;
+	private int index;
 
+	/***********CONSTRUCTOR**********/
+	public MarkUndoneTask() {
+		
+	}
+	
 	@Override
 	public Output execute() {
 		// TODO Auto-generated method stub
@@ -12,20 +19,26 @@ public class MarkUndoneTask implements Command {
 
 	@Override
 	public void setCurrState(State state) {
-		// TODO Auto-generated method stub
+		this.currState = state;
 
 	}
 
 	@Override
 	public State getCurrState() {
-		// TODO Auto-generated method stub
-		return null;
+		return currState;
 	}
 
 	@Override
 	public boolean isMutator(Command task) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+	
+	public int getIndex() {
+		return this.index;
 	}
 
 }
