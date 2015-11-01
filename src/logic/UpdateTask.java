@@ -15,9 +15,15 @@ public class UpdateTask implements Command {
 	/***********CONSTRUCTOR**********/
 	@Override
 	public Output execute() {
-		return null;
-		// TODO Auto-generated method stub
-
+		try {
+			Task updatedTask = new Task(this.index, this.currState.getTaskList().get(index).getStatus(), formatDate(), formatTime(), this.eventTask);
+			this.currState.getTaskList().add(index-1, updatedTask);
+			this.currState.sort();
+			return new Output(true, updatedTask.toString(), "update");
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Index unavailable");
+			return new Output(false, "Index Out Of Bounds", "update");
+		}
 	}
 
 	@Override
@@ -72,5 +78,24 @@ public class UpdateTask implements Command {
 	public void setCurrState(State state) {
 		currState = state;
 	}
-
+	
+	public String formatDate() {
+		if (date.size() != 1) {
+			return date.get(0);
+		} else if (date.size() == 2) {
+			return date.get(0) + "-" + date.get(1);
+		} else {
+			return null;
+		}
+	}
+	
+	public String formatTime() {
+		if (time.size() == 1) {
+			return time.get(0);
+		} else if (time.size() == 2) {
+			return time.get(0) + "-" + time.get(1);
+		} else {
+			return null;
+		}
+	}
 }
