@@ -95,11 +95,11 @@ public class Welcome {
 		ArrayList<String> msgList = new ArrayList<String>();
 
 		if (op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
-			message = (Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_ADDED);
+			message = (op.getEntry() + Constants.MESSAGE_ADDED);
 		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
 			message = (Constants.MESSAGE_ADD_FAIL);
 		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
-			message = (Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_DELETED);
+			message = (op.getEntry() + Constants.MESSAGE_DELETED);
 		} // Not wokring if i type "delete name of event"
 		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
 			message = (Constants.MESSAGE_DELETE_FAIL);
@@ -108,7 +108,6 @@ public class Welcome {
 			for (int i = 0; i < op.getResults().size(); i++) {
 				msgList.add(op.getResults().get(i).toString());
 			}
-			message = Constants.MESSAGE_SUCCESS + "\n";
 			for (String s : msgList) {
 				message += s + "\n";
 			}
@@ -131,7 +130,7 @@ public class Welcome {
 				message += s + "\n";
 			}
 
-		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && op.getResults().isEmpty()) {
+		} else if (op.getStatus() && op.getResults().isEmpty() && op.getCmdType().toUpperCase().equals("SHOW") ) {
 			message = (Constants.MESSAGE_SHOW_NOTHING);
 		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
 			message = (Constants.MESSAGE_SHOW_FAIL);
@@ -158,18 +157,18 @@ public class Welcome {
 		}
 		// Not yet
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("UNDO")) {
-			message = (Constants.MESSAGE_SUCCESS + Constants.MESSAGE_UNDO);
+			message = (Constants.MESSAGE_UNDO);
 		}
 		// Not yet
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
-			message = (Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_UPDATED);
+			message = (op.getEntry() + Constants.MESSAGE_UPDATED);
 		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("UPDATE")) {
 			message = Constants.MESSAGE_UPDATE_FAIL;
 		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("EXIT")) {
 			// message = Constants.MESSAGE_EXIT;
 			System.exit(0);
 		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")) {
-			message = Constants.MESSAGE_SUCCESS + op.getEntry() + Constants.MESSAGE_CFP;
+			message = op.getEntry() + Constants.MESSAGE_CFP;
 		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("CFP")) {
 			message = Constants.MESSAGE_CFP_FAIL;
 		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("FP")) {
@@ -182,16 +181,17 @@ public class Welcome {
 		return message;
 	}
 
-	public static String initiateProg(String userInput) throws IOException {
+	public static Output initiateProg(String userInput) throws IOException {
+			    //String
 		Session session = new Session();
 		Output op = null;
 		String message = "";
 
 		op = session.executeCommand(userInput);
 		message = printMessage(op);
-		// printMsg(Constants.MESSAGE_PROMPT);
-
-		return message;
+		
+		//return message;
+		return op;
 
 	}
 
