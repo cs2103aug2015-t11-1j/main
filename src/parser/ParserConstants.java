@@ -32,6 +32,7 @@ public class ParserConstants {
 	protected static final String[] KW_START = { "from", "on", "at" };
 	protected static final String[] KW_END = { "by", "until", "till", "to", "-" };
 	protected static final String[] KW_TIME = { "today", "tdy", "tomorrow", "tmr" };
+	protected static final String KW_FLOAT = "float";
 
 	// Indexes
 	protected static final int INDEX_FIRST = 0;
