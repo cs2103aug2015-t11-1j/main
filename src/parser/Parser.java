@@ -56,6 +56,9 @@ public class Parser {
 						show.setShowDone();
 					}
 				}
+				if (str.contains(ParserConstants.KW_FLOAT)) {
+					show.setShowFloat();
+				}
 				DateTimeParser.getDateTimeArgs(str);
 				ArrayList<String> tempDateArr = DateTimeParser.getDateArgs();
 				if (tempDateArr.get(ParserConstants.INDEX_SECOND).isEmpty()) {
