@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.Task;
 import np.com.ngopal.control.AutoFillTextBox;
+import storage.Output;
 
 public class GUI extends Application {
 
@@ -60,10 +61,8 @@ public class GUI extends Application {
 
 		// Results Text Field
 		TextField tf_results = new TextField();
-		tf_results.setText("blah");
 		tf_results.setStyle("-fx-text-box-border: transparent");
 		tf_results.setStyle("-fx-background-color: white");
-
 		GridPane.setConstraints(tf_results, 30, 49);
 
 		// Commands Label
@@ -116,13 +115,15 @@ public class GUI extends Application {
 
 				if (ke.getCode().equals(KeyCode.ENTER)) {
 					try {
-						listView.getItems().addAll(Welcome.initiateProg(commandInput.getText()));
-						// tf_results.setText(Welcome.getResults(commandInput.getText()));
-						// if(tf_results.getText().equals("Success! ")) {
-						// tf_results.setStyle("-fx-text-fill: green");
-						// }else {
-						// tf_results.setStyle("-fx-text-fill: red");
-						// }
+						// listView.getItems().addAll(Welcome.initiateProg(commandInput.getText()));
+						Output op = Welcome.initiateProg(commandInput.getText());
+						if (op.getStatus()) {
+							tf_results.setText("Success!");
+						} else {
+							tf_results.setText("Failure!");
+						}
+						listView.getItems().add(Welcome.printMessage(op));
+						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -141,15 +142,14 @@ public class GUI extends Application {
 					 * Auto-generated catch block e.printStackTrace(); }
 					 * listToday.getItems().addAll(todayTasks); }
 					 **/
-				//What happens when 'ESC' key is pressed
-				}else if(ke.getCode().equals(KeyCode.ESCAPE)) {
+					// What happens when 'ESC' key is pressed
+				} else if (ke.getCode().equals(KeyCode.ESCAPE)) {
 					commandInput.clear();
 				}
 				System.out.println(message);
 
 			}
 		});
-
 
 		// Size of scene and what to display
 		grid.getChildren().addAll(commandInput, lb_commands, tf_results, listView, lb_time, listToday);
