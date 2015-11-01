@@ -54,7 +54,7 @@ public class Parser {
 				for (String key : ParserConstants.KW_COMMAND_DONE) {
 					if (str.contains(key)) {
 						show.setShowDone();
-					}
+					} 
 				}
 				if (str.contains(ParserConstants.KW_FLOAT)) {
 					show.setShowFloat();
