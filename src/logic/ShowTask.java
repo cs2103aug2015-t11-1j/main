@@ -8,6 +8,7 @@ import storage.Storage;
 public class ShowTask implements Command {
 	private String date;
 	private boolean showDone = false;
+	private boolean showFloat = false;
 	private State currState;
 	
 	/***********CONSTRUCTOR**********/
@@ -59,9 +60,17 @@ public class ShowTask implements Command {
 	public boolean getShowDone() {
 		return showDone;
 	}
+	
+	public boolean getShowFloat() {
+		return showFloat;
+	}
 
 	public void setShowDone() {
 		showDone = true;
+	}
+
+	public void setShowFloat() {
+		showFloat = true;
 	}
 	
 }
