@@ -13,8 +13,11 @@ public class MarkUndoneTask implements Command {
 	
 	@Override
 	public Output execute() {
-		// TODO Auto-generated method stub
-		return null;
+		Task task = this.currState.getTaskList().remove(this.index-1);
+		task.markUndone();
+		this.currState.add(task);
+		this.currState.sort();
+		return new Output(true, task.toString(), "done");
 	}
 
 	@Override
