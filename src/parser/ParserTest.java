@@ -113,7 +113,7 @@ public class ParserTest {
 		String test = "done";
 		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
 	}
-	
+
 	@Test
 	public void testUndoneAction() {
 		String test = "undone 2";
@@ -123,7 +123,7 @@ public class ParserTest {
 		int expected = 2;
 		assertEquals(expected, undone.getIndex());
 	}
-	
+
 	@Test
 	public void testFailedUndoneAction() {
 		String test = "unmark";
@@ -155,7 +155,7 @@ public class ParserTest {
 		String expected = DateTimeParser.getDate(0);
 		assertEquals(expected, show.getDate());
 	}
-	
+
 	@Test
 	public void testShowDoneForTodayAction() {
 		String test = "display done today";
@@ -171,17 +171,39 @@ public class ParserTest {
 	public void testEmptyShowAction() {
 		String test = "show";
 		assertTrue(Parser.setCommand(test) instanceof ShowTask);
-		
+
 		ShowTask show = (ShowTask) Parser.setCommand(test);
-		
+
 		String expected = "";
 		assertEquals(expected, show.getDate());
+		assertFalse(show.getShowFloat());
+		assertFalse(show.getShowDone());
 	}
 
 	@Test
 	public void testFailedShowActionTooManyInputs() {
 		String test = "show 10/11/15 11/11/15";
 		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
+	}
+
+	@Test
+	public void testShowActionFloat() {
+		String test = "display float";
+		assertTrue(Parser.setCommand(test) instanceof ShowTask);
+
+		ShowTask show = (ShowTask) Parser.setCommand(test);
+		assertTrue(show.getShowFloat());
+		assertFalse(show.getShowDone());
+	}
+
+	@Test
+	public void testShowActionFloatAndDone() {
+		String test = "show done float";
+		assertTrue(Parser.setCommand(test) instanceof ShowTask);
+
+		ShowTask show = (ShowTask) Parser.setCommand(test);
+		assertTrue(show.getShowFloat());
+		assertTrue(show.getShowDone());
 	}
 
 	// For easier adding to ArrayLists
