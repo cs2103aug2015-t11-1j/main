@@ -31,7 +31,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.Task;
-import np.com.ngopal.control.AutoFillTextBox;
 import storage.Output;
 
 public class GUI extends Application {
