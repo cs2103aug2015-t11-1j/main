@@ -20,11 +20,7 @@ public class UndoTask implements Command {
 
 	@Override
 	public boolean isMutator(Command task) {
-		if (task instanceof UndoTask) {
-			return true;
-		} else {
-			return false;
-		}
+		return true;
 	}
 
 	@Override
