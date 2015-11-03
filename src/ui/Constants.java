@@ -22,7 +22,7 @@ public class Constants {
 	static final String MESSAGE_DELETE_FAIL = "Sadly there is no such event to delete";
 	static final String MESSAGE_SEARCHED = " is found in your schedule!";
 	static final String MESSAGE_SEARCH_FAIL = "Sadly no such event is not found:(";
-	static final String MESSAGE_UPDATED = "Your event has been successfully updated!";
+	static final String MESSAGE_UPDATED = " Your event has been successfully updated!";
 	static final String MESSAGE_COMPLETED = " is complete :)";
 	static final String MESSAGE_UPDATE_FAIL = "Update failed!";
 	static final String MESSAGE_HELP = "The commands that can be used are: ";
