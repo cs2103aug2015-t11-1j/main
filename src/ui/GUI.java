@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -15,6 +16,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -55,21 +57,21 @@ public class GUI extends Application {
 
 		// User input Text Field
 		TextField commandInput = new TextField();
-		commandInput.setPromptText("ENTER COMMAND: ");
+		commandInput.setPromptText("Enter Command: ");
 		commandInput.autosize();
-		GridPane.setConstraints(commandInput, 30, 50, 70, 1);
+		GridPane.setConstraints(commandInput, 40, 50, 100, 1);
 
 		// Results Text Field
 		TextField tf_results = new TextField();
 		tf_results.setStyle("-fx-text-box-border: transparent");
 		tf_results.setStyle("-fx-background-color: white");
-		GridPane.setConstraints(tf_results, 30, 49);
+		GridPane.setConstraints(tf_results, 40, 49, 100, 1);
 
 		// Commands Label
 		Label lb_commands = new Label("add/delete/update/search/undo/done/help/exit");
 		lb_commands.setFont(Font.font(java.awt.Font.SANS_SERIF));
-		lb_commands.setTextFill(javafx.scene.paint.Color.RED);
-		GridPane.setConstraints(lb_commands, 30, 51);
+		lb_commands.setTextFill(javafx.scene.paint.Color.BLUE);
+		GridPane.setConstraints(lb_commands, 40, 51, 100, 1);
 
 		// Time Label
 		Label lb_time = new Label();
@@ -84,13 +86,13 @@ public class GUI extends Application {
 		}));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
-		GridPane.setConstraints(lb_time, 30, 5);
+		GridPane.setConstraints(lb_time, 40, 5, 100, 1);
 
 		// Listview of items
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
 		listView.getItems().addAll(welcome.welcomeMessage());
-		GridPane.setConstraints(listView, 30, 6, 70, 42);
+		GridPane.setConstraints(listView, 40, 6, 100, 42);
 		// 30,6,70,43
 		// ObservableList<String> input;
 		// input = listView.getSelectionModel().getSelectedItems();
@@ -101,7 +103,7 @@ public class GUI extends Application {
 		listToday.getItems().addAll(welcome.printToday());
 		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.printMessage(welcome.session.getToday()));
 		listToday.getItems().addAll(todayTasks);
-		GridPane.setConstraints(listToday, 0, 6, 30, 30);
+		GridPane.setConstraints(listToday, 0, 6, 40, 42);
 
 		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -119,11 +121,16 @@ public class GUI extends Application {
 						Output op = welcome.initiateProg(commandInput.getText());
 						if (op.getStatus()) {
 							tf_results.setText("Success!");
+
 						} else {
 							tf_results.setText("Failure!");
 						}
-						listView.getItems().add(welcome.printMessage(op));
-						
+						listView.getItems().add(Welcome.printMessage(op));
+						// listToday.getSelectionModel().selectedItemProperty().addListener((observable,
+						// oldValue, newValue) -> {
+						// listToday.setItems(todayTasks);
+						// });
+
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -153,7 +160,8 @@ public class GUI extends Application {
 
 		// Size of scene and what to display
 		grid.getChildren().addAll(commandInput, lb_commands, tf_results, listView, lb_time, listToday);
-		Scene scene = new Scene(grid, 1000, 600);
+
+		Scene scene = new Scene(grid, 770, 600);
 		// scene.getStylesheets().add("control.css");
 		stage.setScene(scene);
 
