@@ -20,11 +20,19 @@ public class ShowTask implements Command {
 	public Output execute() {
 		ArrayList<Task> list = currState.getTaskList();
 		ArrayList<Task> dateTasks = new ArrayList<Task>();
-		for(Task t : list){
-			if(t.getDate().contains(this.date)){
-				dateTasks.add(t);
-			}
-		}	
+		if(showFloat){
+			
+		}
+		if(showDone){
+			
+		}
+		else {
+			for(Task t : list){
+				if(t.getDate().contains(this.date)){
+					dateTasks.add(t);
+				}
+			}	
+		}
 		return new Output(true, dateTasks, "show");
 	}
 
@@ -54,7 +62,7 @@ public class ShowTask implements Command {
 	
 	@Override
 	public void setCurrState(State state) {
-		currState = state;
+		currState = new State(state);
 	}
 
 	public boolean getShowDone() {
