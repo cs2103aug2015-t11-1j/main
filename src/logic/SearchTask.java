@@ -52,7 +52,7 @@ public class SearchTask implements Command {
 
 	@Override
 	public void setCurrState(State state) {
-		currState = state;
+		currState = new State(state);
 	}
 
 }

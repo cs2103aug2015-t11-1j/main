@@ -10,7 +10,7 @@ public class HelpTask implements Command {
 	
 	@Override
 	public Output execute() {
-		return new Output(false, "Help", "help"); 
+		return new Output(true, "Help", "help"); 
 	}
 
 	@Override
