@@ -11,6 +11,7 @@ public class Session {
 	private static Stack<State> undoStack = new Stack<State>();
 	private static Stack<State> redoStack = new Stack<State>();
 	static Storage sto = new Storage();
+	private static Output todayTask;
 	
 	public Session() {
 		this.initialSetup();
@@ -20,6 +21,7 @@ public class Session {
 		State s = sto.extractState();
 		s.sort();
 		undoStack.push(s);
+		this.updateToday();
 	}
 	
 	public Output executeCommand(String userInput) {
@@ -30,6 +32,7 @@ public class Session {
 		if(userCommand.isMutator(userCommand)) {
 			undoStack.push(userCommand.getCurrState());
 			sto.update(userCommand.getCurrState());
+			this.updateToday();
 		}
 		
 		return op; 
@@ -42,4 +45,13 @@ public class Session {
 	public static Stack<State> getRedoStack() {
 		return redoStack;
 	}
+
+	public static Output getToday(){
+		return todayTask;
+	}
+	
+	private void updateToday(){
+		todayTask = executeCommand("show today");
+	}
+
 }
