@@ -153,9 +153,6 @@ public class DateTimeParser {
 		for (String keyword : ParserConstants.FORMAT_DATE_WITHOUT_YEAR) {
 			try {
 				date = DateTimeFormat.forPattern(keyword).parseLocalDate(target).withYear(now.getYear());
-				if (date.compareTo(now) == ParserConstants.INT_NEG_ONE) {
-					throw new InvalidInputException("Invalid input: Please enter valid dates");
-				}
 				dateArgs.add(date.toString(ParserConstants.FORMAT_DATE_STORAGE));
 			} catch (IllegalArgumentException | NullPointerException e) {
 
@@ -164,9 +161,6 @@ public class DateTimeParser {
 		for (String keyword : ParserConstants.FORMAT_DATE_WITH_YEAR) {
 			try {
 				date = DateTimeFormat.forPattern(keyword).parseLocalDate(target);
-				if (date.compareTo(now) == ParserConstants.INT_NEG_ONE) {
-					throw new InvalidInputException("Invalid input: Please enter valid dates");
-				}
 				dateArgs.add(date.toString(ParserConstants.FORMAT_DATE_STORAGE));
 			} catch (IllegalArgumentException | NullPointerException e) {
 

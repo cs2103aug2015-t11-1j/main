@@ -14,24 +14,16 @@ import java.text.SimpleDateFormat;
 
 public class Welcome {
 
-	// test comment
 
 	private static DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private static Calendar cal = Calendar.getInstance();
 	private static Scanner sc;
+	Session session;
 
-	public static void main(String[] args) throws IOException {
-		String userInput = "";
-
-		welcomeMessage();
-		while (true) {
-			userInput = requestInput();
-			initiateProg(userInput);
-		}
-
+	public Welcome() {
+		this.session = new Session();
 	}
-
-	public static String printResults(Output op) {
+	public String printResults(Output op) {
 		String message = "";
 
 		if (op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
@@ -75,7 +67,7 @@ public class Welcome {
 		return message;
 	}
 
-	public static String printToday(Output op) {
+	public String printToday(Output op) {
 		String message = "";
 		ArrayList<String> msgList = new ArrayList<String>();
 
@@ -181,21 +173,17 @@ public class Welcome {
 		return message;
 	}
 
-	public static Output initiateProg(String userInput) throws IOException {
-			    //String
-		Session session = new Session();
+	public Output initiateProg(String userInput) throws IOException {
 		Output op = null;
-		String message = "";
 
 		op = session.executeCommand(userInput);
-		message = printMessage(op);
 		
 		//return message;
 		return op;
 
 	}
 
-	public static String getResults(String userInput) throws IOException {
+	public String getResults(String userInput) throws IOException {
 		Session session = new Session();
 		Output op = null;
 		String message = "";
@@ -208,8 +196,7 @@ public class Welcome {
 
 	}
 
-	public static String showToday(String userInput) throws IOException {
-		Session session = new Session();
+	public String showToday(String userInput) throws IOException {
 		Output op = null;
 		String message = "";
 
@@ -220,7 +207,7 @@ public class Welcome {
 		return message;
 	}
 
-	public static String welcomeMessage() {
+	public String welcomeMessage() {
 		String message = "";
 		if (getMornNight() >= 4 && getMornNight() < 12) {
 			message = Constants.MESSAGE_MORNING + "\n" + Constants.MESSAGE_PROMPT;
@@ -234,7 +221,7 @@ public class Welcome {
 		// printMsg(Constants.MESSAGE_PROMPT);
 	}
 
-	public static String requestInput() {
+	public String requestInput() {
 		sc = new Scanner(System.in);
 		String userInput = null;
 		try {
@@ -252,7 +239,7 @@ public class Welcome {
 
 	}
 
-	public static String printToday() {
+	public String printToday() {
 		String message = Constants.MESSAGE_TODAY;
 		return message;
 	}

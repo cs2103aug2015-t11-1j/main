@@ -8,8 +8,8 @@ import storage.Storage;
 
 public class Session {
 	
-	private static Stack<State> undoStack = new Stack<State>();
-	private static Stack<State> redoStack = new Stack<State>();
+	static Stack<State> undoStack = new Stack<State>();
+	static Stack<State> redoStack = new Stack<State>();
 	static Storage sto = new Storage();
 	private static Output todayTask;
 	
@@ -46,7 +46,7 @@ public class Session {
 		return redoStack;
 	}
 
-	public static Output getToday(){
+	public Output getToday(){
 		return todayTask;
 	}
 	
