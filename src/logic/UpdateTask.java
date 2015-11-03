@@ -16,11 +16,23 @@ public class UpdateTask implements Command {
 	@Override
 	public Output execute() {
 		try {
+			Task taskToUpdate = this.currState.getTaskList().get(index-1);
+			if (eventTask.equals(null)) {
+				setEventTask(taskToUpdate.getDetail());
+			} else if (date.size() == 0) {
+				date.add(taskToUpdate.getDate());
+				setDate(date);
+			} else if (time.size() == 0) {
+				time.add(taskToUpdate.getTime());
+				setDate(time);
+			}
+			
 			Task updatedTask = new Task(this.index, this.currState.getTaskList().get(index-1).getStatus(), formatDate(), formatTime(), this.eventTask);
 			this.currState.getTaskList().remove(index-1);
 			this.currState.getTaskList().add(index-1, updatedTask);
 			this.currState.sort();
 			return new Output(true, updatedTask.toString(), "update");
+			
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println("Index unavailable");
 			return new Output(false, "Index Out Of Bounds", "update");
