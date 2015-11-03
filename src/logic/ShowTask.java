@@ -20,15 +20,25 @@ public class ShowTask implements Command {
 	public Output execute() {
 		ArrayList<Task> list = currState.getTaskList();
 		ArrayList<Task> dateTasks = new ArrayList<Task>();
-		if(showFloat){
-			
-		}
-		if(showDone){
-			
+		if(showFloat || showDone){
+			if(showFloat){
+				for(Task t : list){
+					if(t.getDate().equals("")){
+						dateTasks.add(t);
+					}
+				}
+			}
+			if(showDone){
+				for(Task t : list){
+					if(t.getStatus().equals("@ ")){
+						dateTasks.add(t);
+					}
+				}
+			}
 		}
 		else {
 			for(Task t : list){
-				if(t.getDate().contains(this.date)){
+				if(t.getDate().contains(this.date) && !t.getStatus().equals("@ ")){
 					dateTasks.add(t);
 				}
 			}	
