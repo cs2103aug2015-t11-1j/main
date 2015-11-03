@@ -25,7 +25,7 @@ public class UndoTask implements Command {
 
 	@Override
 	public void setCurrState(State state) {
-		this.currState = state;
+		this.currState = new State(state);
 	}
 
 	@Override
