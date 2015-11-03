@@ -144,12 +144,6 @@ public class DateTimeParserTest {
 		String test = "add event from 12/12/20 to 13/12/20 14/12/20";
 		DateTimeParser.getDateTimeArgs(test);
 	}
-
-	@Test(expected = InvalidInputException.class)
-	public void testInvalidEndDateInput() throws InvalidInputException {
-		String test = "add event from 23/10/15 to ";
-		DateTimeParser.getDateTimeArgs(test);
-	}
 	
 	@Test(expected = InvalidInputException.class)
 	public void testEndDateBeforeStartDate() throws InvalidInputException {

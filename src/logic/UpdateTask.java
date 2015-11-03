@@ -16,10 +16,12 @@ public class UpdateTask implements Command {
 	@Override
 	public Output execute() {
 		try {
-			Task updatedTask = new Task(this.index, this.currState.getTaskList().get(index).getStatus(), formatDate(), formatTime(), this.eventTask);
-			this.currState.getTaskList().add(index-1, updatedTask);
+			Task taskToUpdate = this.currState.getTaskList().get(index-1);
+			Task updatedTask = new Task(0, taskToUpdate.getStatus(), formatDate(), formatTime(), this.eventTask);
+			this.currState.getTaskList().set(index-1, updatedTask);
 			this.currState.sort();
 			return new Output(true, updatedTask.toString(), "update");
+			
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println("Index unavailable");
 			return new Output(false, "Index Out Of Bounds", "update");
@@ -76,26 +78,26 @@ public class UpdateTask implements Command {
 	
 	@Override
 	public void setCurrState(State state) {
-		currState = state;
+		currState = new State(state);
 	}
 	
 	public String formatDate() {
-		if (date.size() != 1) {
+		if (date.size() == 2 && date.get(1).equals("")) {
 			return date.get(0);
-		} else if (date.size() == 2) {
+		} else if (date.size() == 2 && date.get(1).equals("")) {
 			return date.get(0) + "-" + date.get(1);
 		} else {
-			return null;
+			return "";
 		}
 	}
 	
 	public String formatTime() {
-		if (time.size() == 1) {
+		if (time.get(1).equals("")) {
 			return time.get(0);
-		} else if (time.size() == 2) {
+		} else if (time.size() == 2 && !time.get(1).equals("")) {
 			return time.get(0) + "-" + time.get(1);
 		} else {
-			return null;
+			return "";
 		}
 	}
 }

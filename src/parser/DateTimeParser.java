@@ -92,7 +92,11 @@ public class DateTimeParser {
 		if (dateArgs.size() > ParserConstants.INT_TWO || timeArgs.size() > ParserConstants.INT_TWO) {
 			throw new InvalidInputException("Invalid input: Too many inputs");
 		} else if (dateArgs.size() == ParserConstants.INT_ONE && timeArgs.size() == ParserConstants.INT_TWO) {
-			dateArgs.add(getDate(ParserConstants.INT_ZERO));
+			if (startDate != null) {
+				dateArgs.add(startDate.toString(ParserConstants.FORMAT_DATE_STORAGE));
+			} else {
+				dateArgs.add(getDate(ParserConstants.INT_ZERO));
+			}
 		} else if (dateArgs.size() == ParserConstants.INT_TWO && timeArgs.size() == ParserConstants.INT_ONE) {
 			timeArgs.add("");
 		} else if (dateArgs.size() == ParserConstants.INT_ONE && timeArgs.size() == ParserConstants.INT_ONE) {
@@ -153,9 +157,6 @@ public class DateTimeParser {
 		for (String keyword : ParserConstants.FORMAT_DATE_WITHOUT_YEAR) {
 			try {
 				date = DateTimeFormat.forPattern(keyword).parseLocalDate(target).withYear(now.getYear());
-				if (date.compareTo(now) == ParserConstants.INT_NEG_ONE) {
-					throw new InvalidInputException("Invalid input: Please enter valid dates");
-				}
 				dateArgs.add(date.toString(ParserConstants.FORMAT_DATE_STORAGE));
 			} catch (IllegalArgumentException | NullPointerException e) {
 
@@ -164,9 +165,6 @@ public class DateTimeParser {
 		for (String keyword : ParserConstants.FORMAT_DATE_WITH_YEAR) {
 			try {
 				date = DateTimeFormat.forPattern(keyword).parseLocalDate(target);
-				if (date.compareTo(now) == ParserConstants.INT_NEG_ONE) {
-					throw new InvalidInputException("Invalid input: Please enter valid dates");
-				}
 				dateArgs.add(date.toString(ParserConstants.FORMAT_DATE_STORAGE));
 			} catch (IllegalArgumentException | NullPointerException e) {
 
