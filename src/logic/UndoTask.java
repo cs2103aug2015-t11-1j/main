@@ -12,15 +12,15 @@ public class UndoTask implements Command {
 	
 	@Override
 	public Output execute() {
-		State s = Session.getUndoStack().pop();
-		Session.getRedoStack().push(s);
-		this.setCurrState(s);
+		State s = Session.undoStack.pop();
+		Session.redoStack.push(s);
+		this.setCurrState(Session.getUndoStack().peek());
 		return new Output(true,"undo done", "undo");
 	}
 
 	@Override
 	public boolean isMutator(Command task) {
-		return true;
+		return false;
 	}
 
 	@Override
