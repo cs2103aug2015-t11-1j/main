@@ -17,9 +17,7 @@ public class MarkDoneTask implements Command {
 		task.markDone();
 		this.currState.add(task);
 		this.currState.sort();
-		return null;
-		// TODO Auto-generated method stub
-
+		return new Output(true, task.toString(), "done");
 	}
 
 	/**********  GETTER   **********/
