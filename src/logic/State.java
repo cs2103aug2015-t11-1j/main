@@ -5,11 +5,17 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class State {
-	private ArrayList<Task> _tasklist;
+	private ArrayList<Task> _tasklist = new ArrayList<Task>();
 	
 	/*****CONSTRUCTOR*****/
 	public State(ArrayList<Task> tasklist){
-		this._tasklist = tasklist;
+		for(Task t : tasklist){
+			this._tasklist.add(t);
+		}
+	}
+	
+	public State(State s){
+		this(s.getTaskList());
 	}
 	
 	/*****GETTER*****/

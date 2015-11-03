@@ -34,6 +34,7 @@ import logic.Task;
 import storage.Output;
 
 public class GUI extends Application {
+	private static Welcome welcome = new Welcome();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -88,7 +89,7 @@ public class GUI extends Application {
 		// Listview of items
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
-		listView.getItems().addAll(Welcome.welcomeMessage());
+		listView.getItems().addAll(welcome.welcomeMessage());
 		GridPane.setConstraints(listView, 30, 6, 70, 42);
 		// 30,6,70,43
 		// ObservableList<String> input;
@@ -97,8 +98,8 @@ public class GUI extends Application {
 		// Listview of today's to-do
 		ListView<String> listToday = new ListView<>();
 		listToday.setPrefHeight(433);
-		listToday.getItems().addAll(Welcome.printToday());
-		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.showToday("show today"));
+		listToday.getItems().addAll(welcome.printToday());
+		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.printMessage(welcome.session.getToday()));
 		listToday.getItems().addAll(todayTasks);
 		GridPane.setConstraints(listToday, 0, 6, 30, 30);
 
@@ -115,13 +116,13 @@ public class GUI extends Application {
 				if (ke.getCode().equals(KeyCode.ENTER)) {
 					try {
 						// listView.getItems().addAll(Welcome.initiateProg(commandInput.getText()));
-						Output op = Welcome.initiateProg(commandInput.getText());
+						Output op = welcome.initiateProg(commandInput.getText());
 						if (op.getStatus()) {
 							tf_results.setText("Success!");
 						} else {
 							tf_results.setText("Failure!");
 						}
-						listView.getItems().add(Welcome.printMessage(op));
+						listView.getItems().add(welcome.printMessage(op));
 						
 					} catch (IOException e) {
 						e.printStackTrace();
