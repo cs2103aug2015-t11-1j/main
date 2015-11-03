@@ -53,7 +53,7 @@ public class GUI extends Application {
 		grid.setPadding(new Insets(10, 10, 10, 10));
 		grid.setVgap(8);
 		grid.setHgap(5);
-		grid.setStyle("-fx-background-color: white");
+		//grid.setStyle("-fx-background-color: white");
 
 		// User input Text Field
 		TextField commandInput = new TextField();
@@ -162,7 +162,7 @@ public class GUI extends Application {
 		grid.getChildren().addAll(commandInput, lb_commands, tf_results, listView, lb_time, listToday);
 
 		Scene scene = new Scene(grid, 770, 600);
-		// scene.getStylesheets().add("control.css");
+		scene.getStylesheets().add(GUI.class.getResource("GUIstyle.css").toExternalForm());
 		stage.setScene(scene);
 
 		stage.show();
