@@ -55,12 +55,6 @@ public class ParserTest {
 	}
 
 	@Test
-	public void testSetCommandWithInvalidDateOnly() {
-		String test = "add reservist 9/5/15 to 30/5/15";
-		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
-	}
-
-	@Test
 	public void testSetCommandWithInvalidTimeInputs() {
 		String test = "new event from 11:00 12:00 to 12:00";
 		assertTrue(Parser.setCommand(test) instanceof InvalidTask);
