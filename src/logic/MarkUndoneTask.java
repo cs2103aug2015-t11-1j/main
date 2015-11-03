@@ -22,8 +22,7 @@ public class MarkUndoneTask implements Command {
 
 	@Override
 	public void setCurrState(State state) {
-		this.currState = state;
-
+		currState = new State(state);
 	}
 
 	@Override
