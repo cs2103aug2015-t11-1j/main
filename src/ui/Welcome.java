@@ -111,7 +111,7 @@ public class Welcome {
 			message = (Constants.MESSAGE_SEARCH_FAIL);
 		}
 		// Show is not working yet.
-		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && !op.getResults().isEmpty()) {
 			// printMsg(Constants.MESSAGE_SHOW);
 			for (int i = 0; i < op.getResults().size(); i++) {
 				msgList.add(op.getResults().get(i).toString());
@@ -122,7 +122,7 @@ public class Welcome {
 				message += s + "\n";
 			}
 
-		} else if (op.getStatus() && op.getResults().isEmpty() && op.getCmdType().toUpperCase().equals("SHOW") ) {
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") ) {
 			message = (Constants.MESSAGE_SHOW_NOTHING);
 		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
 			message = (Constants.MESSAGE_SHOW_FAIL);
@@ -130,7 +130,7 @@ public class Welcome {
 		// Not yet
 		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
 			message = (Constants.MESSAGE_DONE);
-		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
 			message = Constants.MESSAGE_HELP + "\n";
 			msgList.add(Constants.COMMAND_DELETE);
 			msgList.add(Constants.COMMAND_ADD);
