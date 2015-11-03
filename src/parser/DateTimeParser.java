@@ -92,7 +92,11 @@ public class DateTimeParser {
 		if (dateArgs.size() > ParserConstants.INT_TWO || timeArgs.size() > ParserConstants.INT_TWO) {
 			throw new InvalidInputException("Invalid input: Too many inputs");
 		} else if (dateArgs.size() == ParserConstants.INT_ONE && timeArgs.size() == ParserConstants.INT_TWO) {
-			dateArgs.add("");
+			if (startDate != null) {
+				dateArgs.add(startDate.toString(ParserConstants.FORMAT_DATE_STORAGE));
+			} else {
+				dateArgs.add(getDate(ParserConstants.INT_ZERO));
+			}
 		} else if (dateArgs.size() == ParserConstants.INT_TWO && timeArgs.size() == ParserConstants.INT_ONE) {
 			timeArgs.add("");
 		} else if (dateArgs.size() == ParserConstants.INT_ONE && timeArgs.size() == ParserConstants.INT_ONE) {
