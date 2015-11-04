@@ -17,7 +17,7 @@ public class MarkUndoneTask implements Command {
 		task.markUndone();
 		this.currState.add(task);
 		this.currState.sort();
-		return new Output(true, task.toString(), "done");
+		return new Output(true, task.toString(), "undone");
 	}
 
 	@Override
