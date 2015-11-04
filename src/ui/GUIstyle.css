@@ -1,3 +1,41 @@
 .root {
-	-fx-background-color: #ffa500;
+	-fx-font-family: "Helvetica";
+    -fx-font-size: 16px;
+    -fx-base: #D0D0D0;
+    -fx-background: #DB9B3C;
+    -fx-focus-color: #3D97D9;
+    -fx-control-inner-background: #FFFFFF;
+    -fx-text-background-color: #000000;
+    -fx-text-inner-color: #0b054d;
+    -fx-inner-border: linear-gradient(to bottom, derive(-fx-color,78.0%) 0%, derive(-fx-color,35.42857142857143%) 100%);
+    -fx-body-color: linear-gradient( to bottom, derive(-fx-color, 45.0%) 0%, derive(-fx-color, 34.0%) 50%, derive(-fx-color, 5.0%) 50.5%, derive(-fx-color, -10.0%) 100%);
+    -fx-text-box-border: derive(-fx-background,100.0%);
+}
+
+.grid {
+	-fx-background-color: #ffbd2e;
+	-fx-padding: 10;
+	-fx-vgap: 1;
+	-fx-hgap: 5;
+}
+
+#commandInput {
+	-fx-size: auto;
+	-fx-background-radius: 5px;
+}
+
+.label {
+    -fx-text-fill: #0b054d;
+}
+
+#label_commands {
+	-fx-font-size: 16px;
+}
+
+#label_time {
+	-fx-font-size: 18px;
+}
+
+#lb_team {
+	-fx-text-fill: #ffffff;
 }
