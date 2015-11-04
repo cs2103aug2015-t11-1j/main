@@ -32,37 +32,6 @@ public class AddTask implements Command {
 		return new Output(true, this.longString() ,"add");
 	}
 
-//	private ArrayList<Task> createTask() {
-//		ArrayList<Task> tasks = new ArrayList<Task>();
-//		switch (date.size()) {
-//		case 0:
-//			tasks.add(new Task(this.eventTask));
-//			return tasks;
-//		case 1:
-//			tasks.add(this.createTask(this.date.get(0)));
-//			return tasks;
-//		case 2:
-//			return this.createTask(this.date.get(0), this.date.get(1));
-//		default:
-//			tasks.add(new Task(this.date.get(0), this.time.get(0), this.eventTask));
-//			return tasks;
-//		}
-//	}
-//
-//	private Task createTask(String date) {
-//		switch(time.size()){
-//		case 0:
-//			return new Task(date, this.eventTask);
-//		case 1:
-//			return new Task(date, this.time.get(0), this.eventTask);
-//		case 2:
-//			return new Task(date, this.time.get(0)+"-"+this.time.get(1), this.eventTask);
-//		default:
-//			return new Task(date, this.time.get(0), this.eventTask);
-//		}
-//	}
-	
-	/****if cannot by size*****/
 	private ArrayList<Task> createTask() {
 		ArrayList<Task> tasks = new ArrayList<Task>();
 		if(date.get(0).equals("")) {
@@ -111,7 +80,6 @@ public class AddTask implements Command {
 				}
 			} else {
 				tasks.add(new Task(date, this.eventTask));
-				System.out.println(new Task(date, this.eventTask).toString());
 			}
 		}
 		return tasks;
@@ -203,8 +171,21 @@ public class AddTask implements Command {
 	}
 		
 	private String longString(){
-		return date.get(0) + "-" + time.get(0) + " " 
-				+ date.get(1) + "-" + time.get(1) + " "
-				+ this.eventTask;
+		if(time.get(0).equals("") && time.get(1).equals("")){
+			return date.get(0) + " - " + date.get(1) + " "
+					+ this.eventTask;
+		} else if (time.get(0).equals("")){
+			return date.get(0) + " - "
+					+ date.get(1) + " " + time.get(1) + " "
+					+ this.eventTask;
+		} else if (time.get(1).equals("")){
+			return date.get(0) + " " + time.get(0) + " - " 
+					+ date.get(1) + " "
+					+ this.eventTask;
+		} else {
+		return date.get(0) + " " + time.get(0) + " - " 
+			+ date.get(1) + " " + time.get(1) + " "
+			+ this.eventTask;
+		}
 	}
 }
