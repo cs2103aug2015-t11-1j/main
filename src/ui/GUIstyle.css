@@ -1,6 +1,6 @@
 .root {
-	-fx-font-family: "Cooper Black";
-    -fx-font-size: 13.976744186046513px;
+	-fx-font-family: "Helvetica";
+    -fx-font-size: 16px;
     -fx-base: #D0D0D0;
     -fx-background: #DB9B3C;
     -fx-focus-color: #3D97D9;
@@ -29,9 +29,13 @@
 }
 
 #label_commands {
-	-fx-font-size: 12px;
+	-fx-font-size: 16px;
 }
 
 #label_time {
-	-fx-font-size: 21px;
+	-fx-font-size: 18px;
+}
+
+#lb_team {
+	-fx-text-fill: #ffffff;
 }

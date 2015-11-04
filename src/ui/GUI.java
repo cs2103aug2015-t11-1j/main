@@ -56,19 +56,16 @@ public class GUI extends Application {
 		TextField commandInput = new TextField();
 		commandInput.setId("commandInput");
 		commandInput.setPromptText("Enter Command: ");
-		GridPane.setConstraints(commandInput, 0, 50, 140, 1);
+		GridPane.setConstraints(commandInput, 40, 50, 100, 1);
 
 		// Results Text Field
 		Label lb_results = new Label();
-		GridPane.setConstraints(lb_results, 0, 48, 100, 1);
+		GridPane.setConstraints(lb_results, 40, 49, 100, 1);
 
 		// Commands Label
 		Label lb_commands = new Label("add/delete/update/search/undo/done/help/exit");
 		lb_commands.setId("label_commands");
-		lb_commands.getStyleClass().add("lb_commands");
-		lb_commands.setFont(Font.font(java.awt.Font.SANS_SERIF));
-		lb_commands.setTextFill(javafx.scene.paint.Color.BLUE);
-		GridPane.setConstraints(lb_commands, 0, 51, 100, 1);
+		GridPane.setConstraints(lb_commands, 40, 51, 100, 1);
 
 		// Time Label
 		Label lb_time = new Label();
@@ -84,13 +81,13 @@ public class GUI extends Application {
 		}));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
-		GridPane.setConstraints(lb_time, 0, 5, 100, 1);
+		GridPane.setConstraints(lb_time, 72, 1, 70, 10);
 
 		// Listview of items
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
 		listView.getItems().addAll(welcome.welcomeMessage());
-		GridPane.setConstraints(listView, 40, 2, 100, 42);
+		GridPane.setConstraints(listView, 40, 11, 100, 35);
 		// 30,6,70,43
 		// ObservableList<String> input;
 		// input = listView.getSelectionModel().getSelectedItems();
@@ -101,7 +98,7 @@ public class GUI extends Application {
 		listToday.getItems().addAll(welcome.printToday());
 		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.printMessageToday(welcome.session.getToday()));
 		listToday.getItems().addAll(todayTasks);
-		GridPane.setConstraints(listToday, 0, 2, 40, 42);
+		GridPane.setConstraints(listToday, 0, 11, 40, 35);
 
 		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
