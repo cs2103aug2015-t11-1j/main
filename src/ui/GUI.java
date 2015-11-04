@@ -106,7 +106,11 @@ public class GUI extends Application {
 			@Override
 			public void handle(KeyEvent ke) {
 				String message = "";
+				String message1 = "";
+
 				ObservableList<String> input;
+				ObservableList<String> input1;
+
 				// Task task = new Task();
 				// DateTime dt = new DateTime();
 
@@ -121,34 +125,42 @@ public class GUI extends Application {
 							lb_results.setText("Failure!");
 						}
 						listView.getItems().add(Welcome.printMessage(op));
-						// listToday.getSelectionModel().selectedItemProperty().addListener((observable,
-						// oldValue, newValue) -> {
-						// listToday.setItems(todayTasks);
-						// });
+						ObservableList<String> newTodayTasks = FXCollections.observableArrayList(Welcome.printMessageToday(welcome.session.getToday()));
+						if(newTodayTasks.size() > todayTasks.size()) {
+							listToday.getItems().add(null);
+						} else {
+							listToday.getItems().clear();
+							listToday.getItems().addAll(welcome.printToday());
+							listToday.getItems().add(newTodayTasks.get(newTodayTasks.size()-1));
+						}
+						
+						//listToday.getSelectionModel().selectedItemProperty().addListener((observable,
+						//oldValue, newValue) -> {
+						//listToday.setId(newValue);
+						//});
 
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					input = listView.getSelectionModel().getSelectedItems();
-
+					
 					for (String i : input) {
 						message += i + "\n";
 					}
-
+					
 					commandInput.clear();
-					/**
-					 * if(task.getDate().equals(dt.toString())) { ObservableList
-					 * <String> todayTasks = null; try { todayTasks =
-					 * FXCollections.observableArrayList(Welcome.showToday(
-					 * "show today")); } catch (IOException e) { // TODO
-					 * Auto-generated catch block e.printStackTrace(); }
-					 * listToday.getItems().addAll(todayTasks); }
-					 **/
+					
+					input1 = listToday.getSelectionModel().getSelectedItems();
+					for(String i: input1) {
+						message1 += i + "\n";
+					}
+					
 					// What happens when 'ESC' key is pressed
 				} else if (ke.getCode().equals(KeyCode.ESCAPE)) {
 					commandInput.clear();
 				}
 				System.out.println(message);
+				System.out.println(message1);
 
 			}
 		});
