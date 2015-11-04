@@ -1,5 +1,5 @@
 .root {
-	-fx-font-family: "Helvetica";
+	-fx-font-family: "Helvetica Light", "Calibri Light";
     -fx-font-size: 16px;
     -fx-base: #D0D0D0;
     -fx-background: #DB9B3C;
@@ -13,7 +13,7 @@
 }
 
 .grid {
-	-fx-background-color: #ffbd2e;
+	-fx-background-color: #fd954c;
 	-fx-padding: 10;
 	-fx-vgap: 1;
 	-fx-hgap: 5;
