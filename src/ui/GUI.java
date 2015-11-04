@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -15,6 +16,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,6 +36,7 @@ import logic.Task;
 import storage.Output;
 
 public class GUI extends Application {
+	private static Welcome welcome = new Welcome();
 
 	public static void main(String[] args) {
 		launch(args);
@@ -47,31 +50,26 @@ public class GUI extends Application {
 
 		// Creating the GridPane
 		GridPane grid = new GridPane();
-		grid.setPadding(new Insets(10, 10, 10, 10));
-		grid.setVgap(8);
-		grid.setHgap(5);
-		grid.setStyle("-fx-background-color: white");
+		grid.getStyleClass().add("grid");
 
 		// User input Text Field
 		TextField commandInput = new TextField();
-		commandInput.setPromptText("ENTER COMMAND: ");
-		commandInput.autosize();
-		GridPane.setConstraints(commandInput, 30, 50, 70, 1);
+		commandInput.setId("commandInput");
+		commandInput.setPromptText("Enter Command: ");
+		GridPane.setConstraints(commandInput, 40, 50, 100, 1);
 
 		// Results Text Field
-		TextField tf_results = new TextField();
-		tf_results.setStyle("-fx-text-box-border: transparent");
-		tf_results.setStyle("-fx-background-color: white");
-		GridPane.setConstraints(tf_results, 30, 49);
+		Label lb_results = new Label();
+		GridPane.setConstraints(lb_results, 40, 49, 100, 1);
 
 		// Commands Label
 		Label lb_commands = new Label("add/delete/update/search/undo/done/help/exit");
-		lb_commands.setFont(Font.font(java.awt.Font.SANS_SERIF));
-		lb_commands.setTextFill(javafx.scene.paint.Color.RED);
-		GridPane.setConstraints(lb_commands, 30, 51);
+		lb_commands.setId("label_commands");
+		GridPane.setConstraints(lb_commands, 40, 51, 100, 1);
 
 		// Time Label
 		Label lb_time = new Label();
+		lb_time.setId("label_time");
 		DateTimeFormatter format = DateTimeFormat.forPattern("EEEE, dd MMMM yyyy HH:mm:ss");
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
 
@@ -83,13 +81,13 @@ public class GUI extends Application {
 		}));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
-		GridPane.setConstraints(lb_time, 30, 5);
+		GridPane.setConstraints(lb_time, 72, 1, 70, 10);
 
 		// Listview of items
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
-		listView.getItems().addAll(Welcome.welcomeMessage());
-		GridPane.setConstraints(listView, 30, 6, 70, 42);
+		listView.getItems().addAll(welcome.welcomeMessage());
+		GridPane.setConstraints(listView, 40, 11, 100, 35);
 		// 30,6,70,43
 		// ObservableList<String> input;
 		// input = listView.getSelectionModel().getSelectedItems();
@@ -97,10 +95,10 @@ public class GUI extends Application {
 		// Listview of today's to-do
 		ListView<String> listToday = new ListView<>();
 		listToday.setPrefHeight(433);
-		listToday.getItems().addAll(Welcome.printToday());
-		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.showToday("show today"));
+		listToday.getItems().addAll(welcome.printToday());
+		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.printMessageToday(welcome.session.getToday()));
 		listToday.getItems().addAll(todayTasks);
-		GridPane.setConstraints(listToday, 0, 6, 30, 30);
+		GridPane.setConstraints(listToday, 0, 11, 40, 35);
 
 		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -115,14 +113,19 @@ public class GUI extends Application {
 				if (ke.getCode().equals(KeyCode.ENTER)) {
 					try {
 						// listView.getItems().addAll(Welcome.initiateProg(commandInput.getText()));
-						Output op = Welcome.initiateProg(commandInput.getText());
+						Output op = welcome.initiateProg(commandInput.getText());
 						if (op.getStatus()) {
-							tf_results.setText("Success!");
+							lb_results.setText("Success!");
+
 						} else {
-							tf_results.setText("Failure!");
+							lb_results.setText("Failure!");
 						}
 						listView.getItems().add(Welcome.printMessage(op));
-						
+						// listToday.getSelectionModel().selectedItemProperty().addListener((observable,
+						// oldValue, newValue) -> {
+						// listToday.setItems(todayTasks);
+						// });
+
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -151,9 +154,10 @@ public class GUI extends Application {
 		});
 
 		// Size of scene and what to display
-		grid.getChildren().addAll(commandInput, lb_commands, tf_results, listView, lb_time, listToday);
-		Scene scene = new Scene(grid, 1000, 600);
-		// scene.getStylesheets().add("control.css");
+		grid.getChildren().addAll(commandInput, lb_commands, lb_results, listView, lb_time, listToday);
+
+		Scene scene = new Scene(grid, 770, 550);
+		scene.getStylesheets().add(GUI.class.getResource("GUIstyle.css").toExternalForm());
 		stage.setScene(scene);
 
 		stage.show();

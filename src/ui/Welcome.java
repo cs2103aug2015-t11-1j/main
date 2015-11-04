@@ -14,24 +14,16 @@ import java.text.SimpleDateFormat;
 
 public class Welcome {
 
-	// test comment
 
 	private static DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	private static Calendar cal = Calendar.getInstance();
 	private static Scanner sc;
+	Session session;
 
-	public static void main(String[] args) throws IOException {
-		String userInput = "";
-
-		welcomeMessage();
-		while (true) {
-			userInput = requestInput();
-			initiateProg(userInput);
-		}
-
+	public Welcome() {
+		this.session = new Session();
 	}
-
-	public static String printResults(Output op) {
+	public String printResults(Output op) {
 		String message = "";
 
 		if (op.getStatus() && op.getCmdType().toUpperCase().equals("ADD")) {
@@ -75,7 +67,7 @@ public class Welcome {
 		return message;
 	}
 
-	public static String printToday(Output op) {
+	public String printToday(Output op) {
 		String message = "";
 		ArrayList<String> msgList = new ArrayList<String>();
 
@@ -89,7 +81,30 @@ public class Welcome {
 		return message;
 
 	}
+	
+	public static String printMessageToday(Output op) {
+		String message = "";
+		ArrayList<String> msgList = new ArrayList<String>();
 
+		if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && !op.getResults().isEmpty()) {
+			// printMsg(Constants.MESSAGE_SHOW);
+			for (int i = 0; i < op.getResults().size(); i++) {
+				String str = op.getResults().get(i).toString();
+				msgList.add(str.substring(0, 3) + str.substring(12));
+			}
+			//message = Constants.MESSAGE_SHOW + "\n";
+
+			for (String s : msgList) {
+				message += s + "\n";
+			}
+
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") ) {
+			message = (Constants.MESSAGE_SHOW_NOTHING);
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
+			message = (Constants.MESSAGE_SHOW_FAIL);
+		}
+		return message;
+	}
 	public static String printMessage(Output op) {
 		String message = "";
 		ArrayList<String> msgList = new ArrayList<String>();
@@ -119,26 +134,26 @@ public class Welcome {
 			message = (Constants.MESSAGE_SEARCH_FAIL);
 		}
 		// Show is not working yet.
-		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && !op.getResults().isEmpty()) {
 			// printMsg(Constants.MESSAGE_SHOW);
 			for (int i = 0; i < op.getResults().size(); i++) {
 				msgList.add(op.getResults().get(i).toString());
 			}
-			message = Constants.MESSAGE_SHOW + "\n";
+			//message = Constants.MESSAGE_SHOW + "\n";
 
 			for (String s : msgList) {
 				message += s + "\n";
 			}
 
-		} else if (op.getStatus() && op.getResults().isEmpty() && op.getCmdType().toUpperCase().equals("SHOW") ) {
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") ) {
 			message = (Constants.MESSAGE_SHOW_NOTHING);
 		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
 			message = (Constants.MESSAGE_SHOW_FAIL);
-		}
-		// Not yet
-		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
 			message = (Constants.MESSAGE_DONE);
-		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
+		} else if(op.getStatus() && op.getCmdType().toUpperCase().equals("UNDONE")) {
+			message = Constants.MESSAGE_UNDONE;
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
 			message = Constants.MESSAGE_HELP + "\n";
 			msgList.add(Constants.COMMAND_DELETE);
 			msgList.add(Constants.COMMAND_ADD);
@@ -150,7 +165,9 @@ public class Welcome {
 			msgList.add(Constants.COMMAND_UPDATE);
 			msgList.add(Constants.COMMAND_EXIT);
 			msgList.add(Constants.COMMAND_HELP);
-
+			msgList.add(Constants.COMMAND_UNDONE);
+			msgList.add(Constants.COMMAND_FP);
+			msgList.add(Constants.COMMAND_CFP);
 			for (String s : msgList) {
 				message += s + "\n";
 			}
@@ -181,35 +198,17 @@ public class Welcome {
 		return message;
 	}
 
-	public static Output initiateProg(String userInput) throws IOException {
-			    //String
-		Session session = new Session();
+	public Output initiateProg(String userInput) throws IOException {
 		Output op = null;
-		String message = "";
 
 		op = session.executeCommand(userInput);
-		message = printMessage(op);
 		
 		//return message;
 		return op;
 
 	}
 
-	public static String getResults(String userInput) throws IOException {
-		Session session = new Session();
-		Output op = null;
-		String message = "";
-
-		op = session.executeCommand(userInput);
-		message = printResults(op);
-		// printMsg(Constants.MESSAGE_PROMPT);
-
-		return message;
-
-	}
-
-	public static String showToday(String userInput) throws IOException {
-		Session session = new Session();
+	public String showToday(String userInput) throws IOException {
 		Output op = null;
 		String message = "";
 
@@ -220,7 +219,7 @@ public class Welcome {
 		return message;
 	}
 
-	public static String welcomeMessage() {
+	public String welcomeMessage() {
 		String message = "";
 		if (getMornNight() >= 4 && getMornNight() < 12) {
 			message = Constants.MESSAGE_MORNING + "\n" + Constants.MESSAGE_PROMPT;
@@ -234,7 +233,7 @@ public class Welcome {
 		// printMsg(Constants.MESSAGE_PROMPT);
 	}
 
-	public static String requestInput() {
+	public String requestInput() {
 		sc = new Scanner(System.in);
 		String userInput = null;
 		try {
@@ -252,7 +251,7 @@ public class Welcome {
 
 	}
 
-	public static String printToday() {
+	public String printToday() {
 		String message = Constants.MESSAGE_TODAY;
 		return message;
 	}
