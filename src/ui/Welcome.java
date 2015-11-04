@@ -81,7 +81,30 @@ public class Welcome {
 		return message;
 
 	}
+	
+	public static String printMessageToday(Output op) {
+		String message = "";
+		ArrayList<String> msgList = new ArrayList<String>();
 
+		if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") && !op.getResults().isEmpty()) {
+			// printMsg(Constants.MESSAGE_SHOW);
+			for (int i = 0; i < op.getResults().size(); i++) {
+				String str = op.getResults().get(i).toString();
+				msgList.add(str.substring(0, 3) + str.substring(12));
+			}
+			//message = Constants.MESSAGE_SHOW + "\n";
+
+			for (String s : msgList) {
+				message += s + "\n";
+			}
+
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW") ) {
+			message = (Constants.MESSAGE_SHOW_NOTHING);
+		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
+			message = (Constants.MESSAGE_SHOW_FAIL);
+		}
+		return message;
+	}
 	public static String printMessage(Output op) {
 		String message = "";
 		ArrayList<String> msgList = new ArrayList<String>();
@@ -116,7 +139,7 @@ public class Welcome {
 			for (int i = 0; i < op.getResults().size(); i++) {
 				msgList.add(op.getResults().get(i).toString());
 			}
-			message = Constants.MESSAGE_SHOW + "\n";
+			//message = Constants.MESSAGE_SHOW + "\n";
 
 			for (String s : msgList) {
 				message += s + "\n";
@@ -126,10 +149,10 @@ public class Welcome {
 			message = (Constants.MESSAGE_SHOW_NOTHING);
 		} else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("SHOW")) {
 			message = (Constants.MESSAGE_SHOW_FAIL);
-		}
-		// Not yet
-		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DONE")) {
 			message = (Constants.MESSAGE_DONE);
+		} else if(op.getStatus() && op.getCmdType().toUpperCase().equals("UNDONE")) {
+			message = Constants.MESSAGE_UNDONE;
 		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
 			message = Constants.MESSAGE_HELP + "\n";
 			msgList.add(Constants.COMMAND_DELETE);
@@ -142,7 +165,9 @@ public class Welcome {
 			msgList.add(Constants.COMMAND_UPDATE);
 			msgList.add(Constants.COMMAND_EXIT);
 			msgList.add(Constants.COMMAND_HELP);
-
+			msgList.add(Constants.COMMAND_UNDONE);
+			msgList.add(Constants.COMMAND_FP);
+			msgList.add(Constants.COMMAND_CFP);
 			for (String s : msgList) {
 				message += s + "\n";
 			}
@@ -180,19 +205,6 @@ public class Welcome {
 		
 		//return message;
 		return op;
-
-	}
-
-	public String getResults(String userInput) throws IOException {
-		Session session = new Session();
-		Output op = null;
-		String message = "";
-
-		op = session.executeCommand(userInput);
-		message = printResults(op);
-		// printMsg(Constants.MESSAGE_PROMPT);
-
-		return message;
 
 	}
 

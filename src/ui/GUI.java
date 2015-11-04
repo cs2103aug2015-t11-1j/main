@@ -90,7 +90,7 @@ public class GUI extends Application {
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
 		listView.getItems().addAll(welcome.welcomeMessage());
-		GridPane.setConstraints(listView, 40, 6, 100, 42);
+		GridPane.setConstraints(listView, 40, 2, 100, 42);
 		// 30,6,70,43
 		// ObservableList<String> input;
 		// input = listView.getSelectionModel().getSelectedItems();
@@ -99,9 +99,9 @@ public class GUI extends Application {
 		ListView<String> listToday = new ListView<>();
 		listToday.setPrefHeight(433);
 		listToday.getItems().addAll(welcome.printToday());
-		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.printMessage(welcome.session.getToday()));
+		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.printMessageToday(welcome.session.getToday()));
 		listToday.getItems().addAll(todayTasks);
-		GridPane.setConstraints(listToday, 0, 6, 40, 42);
+		GridPane.setConstraints(listToday, 0, 2, 40, 42);
 
 		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {

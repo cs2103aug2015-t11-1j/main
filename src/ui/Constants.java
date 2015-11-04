@@ -26,8 +26,8 @@ public class Constants {
 	static final String MESSAGE_COMPLETED = " is complete :)";
 	static final String MESSAGE_UPDATE_FAIL = "Update failed!";
 	static final String MESSAGE_HELP = "The commands that can be used are: ";
-	static final String MESSAGE_SHOW = "These are the events on the date you requested for: ";
-	static final String MESSAGE_SHOW_NOTHING = "No upcoming events or tasks!";
+	//static final String MESSAGE_SHOW = "Events requested for: ";
+	static final String MESSAGE_SHOW_NOTHING = "No upcoming event/task(s)!";
 	static final String MESSAGE_SHOW_FAIL = "There was an error in showing your events, please try again!";
 	static final String MESSAGE_DONE = "Well done you completed this task!";
 	static final String MESSAGE_EXIT = "Goodbye!:)";
@@ -36,6 +36,7 @@ public class Constants {
 	static final String MESSAGE_SHOW_FP = " is your file path.";
 	static final String MESSAGE_SHOW_FP_FAIL = "Sorry we are unable to find your file path.";
 	static final String MESSAGE_UNDO = " Your last action has been undone!";
+	static final String MESSAGE_UNDONE = "Event/task is now incomplete";
 	
 	static final String COMMAND_EXIT = "exit";
 	static final String COMMAND_ADD = "add";
@@ -46,6 +47,11 @@ public class Constants {
 	static final String COMMAND_UNDO = "undo";
 	static final String COMMAND_HELP = "help";
 	static final String COMMAND_DONE = "done";
+	static final String COMMAND_UNDONE = "undone";
+	static final String COMMAND_FP = "fp";
+	static final String COMMAND_CFP = "cfp";
+	
+	
 	
 
 
