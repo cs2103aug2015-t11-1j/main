@@ -59,19 +59,19 @@ public class GUI extends Application {
 		TextField commandInput = new TextField();
 		commandInput.setPromptText("Enter Command: ");
 		commandInput.autosize();
-		GridPane.setConstraints(commandInput, 40, 50, 100, 1);
+		GridPane.setConstraints(commandInput, 40, 46, 100, 1);
 
 		// Results Text Field
 		TextField tf_results = new TextField();
 		tf_results.setStyle("-fx-text-box-border: transparent");
-		tf_results.setStyle("-fx-background-color: white");
-		GridPane.setConstraints(tf_results, 40, 49, 100, 1);
+		tf_results.setStyle("-fx-background-color: orange");
+		GridPane.setConstraints(tf_results, 40, 45, 100, 1);
 
 		// Commands Label
 		Label lb_commands = new Label("add/delete/update/search/undo/done/help/exit");
 		lb_commands.setFont(Font.font(java.awt.Font.SANS_SERIF));
 		lb_commands.setTextFill(javafx.scene.paint.Color.BLUE);
-		GridPane.setConstraints(lb_commands, 40, 51, 100, 1);
+		GridPane.setConstraints(lb_commands, 40, 47, 100, 1);
 
 		// Time Label
 		Label lb_time = new Label();
@@ -86,13 +86,13 @@ public class GUI extends Application {
 		}));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
-		GridPane.setConstraints(lb_time, 40, 5, 100, 1);
+		GridPane.setConstraints(lb_time, 40, 1, 100, 1);
 
 		// Listview of items
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
 		listView.getItems().addAll(welcome.welcomeMessage());
-		GridPane.setConstraints(listView, 40, 6, 100, 42);
+		GridPane.setConstraints(listView, 40, 2, 100, 42);
 		// 30,6,70,43
 		// ObservableList<String> input;
 		// input = listView.getSelectionModel().getSelectedItems();
@@ -101,9 +101,9 @@ public class GUI extends Application {
 		ListView<String> listToday = new ListView<>();
 		listToday.setPrefHeight(433);
 		listToday.getItems().addAll(welcome.printToday());
-		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.printMessage(welcome.session.getToday()));
+		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.printMessageToday(welcome.session.getToday()));
 		listToday.getItems().addAll(todayTasks);
-		GridPane.setConstraints(listToday, 0, 6, 40, 42);
+		GridPane.setConstraints(listToday, 0, 2, 40, 42);
 
 		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
