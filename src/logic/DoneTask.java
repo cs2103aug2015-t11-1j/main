@@ -1,3 +1,5 @@
+//@@author: idawatibustan A0130383N
+
 package logic;
 
 import storage.Output;
@@ -38,15 +40,11 @@ public class DoneTask implements Command {
 	@Override
 	public void setCurrState(State state) {
 		currState = new State(state);
-		
 	}
 	
 	@Override
 	public boolean isMutator(Command task) {
 		return true;
 	}
-
-
-	
 
 }
