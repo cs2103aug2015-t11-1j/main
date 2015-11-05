@@ -1,3 +1,4 @@
+//@@author: idawatibustan
 package logic;
 
 import java.util.ArrayList;
@@ -32,7 +33,10 @@ public class State {
 		Collections.sort(this._tasklist, new Comparator<Task>(){
 			@Override
 			public int compare(Task t1, Task t2){
-				int i = t1.rotateDF().compareTo(t2.rotateDF());
+				int i = t1._stats.compareTo(t2._stats);
+				if(i != 0) return i;
+				
+				i = t1.rotateDF().compareTo(t2.rotateDF());
 				if(i != 0) return i;
 				
 				i = t1._time.compareTo(t2._time);

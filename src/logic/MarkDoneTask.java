@@ -1,3 +1,5 @@
+//@@author: idawatibustan A0130383N
+
 package logic;
 
 import storage.Output;
@@ -44,8 +46,5 @@ public class MarkDoneTask implements Command {
 	public boolean isMutator(Command task) {
 		return true;
 	}
-
-
-	
 
 }
