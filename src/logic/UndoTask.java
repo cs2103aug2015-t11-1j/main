@@ -14,13 +14,13 @@ public class UndoTask implements Command {
 	public Output execute() {
 		State s = Session.undoStack.pop();
 		Session.redoStack.push(s);
-		this.setCurrState(Session.getUndoStack().peek());
+		this.setCurrState(Session.getUndoStack().pop());
 		return new Output(true,"undo done", "undo");
 	}
 
 	@Override
 	public boolean isMutator(Command task) {
-		return false;
+		return true;
 	}
 
 	@Override
