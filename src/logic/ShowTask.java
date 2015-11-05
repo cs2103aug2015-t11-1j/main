@@ -33,6 +33,7 @@ public class ShowTask implements Command {
 						dateTasks.add(t);
 					}
 				}
+				return new Output(true, dateTasks, "show done");
 			}
 		}
 		else {
@@ -40,7 +41,7 @@ public class ShowTask implements Command {
 				if(t.getDate().contains(this.date) && !t.getStatus().equals("@ ")){
 					dateTasks.add(t);
 				}
-			}	
+			}
 		}
 		return new Output(true, dateTasks, "show");
 	}

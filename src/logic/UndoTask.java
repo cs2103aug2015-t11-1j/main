@@ -12,10 +12,13 @@ public class UndoTask implements Command {
 	
 	@Override
 	public Output execute() {
+		if(Session.undoStack.size() == 1){
+			return new Output(false, "Nothing to undo", "undo");
+		}
 		State s = Session.undoStack.pop();
 		Session.redoStack.push(s);
 		this.setCurrState(Session.getUndoStack().pop());
-		return new Output(true,"undo done", "undo");
+		return new Output(true,"Undo done", "undo");
 	}
 
 	@Override
