@@ -18,6 +18,7 @@ public class UndoTask implements Command {
 		State s = Session.undoStack.pop();
 		Session.redoStack.push(s);
 		this.setCurrState(Session.getUndoStack().pop());
+		this.currState.sort();
 		return new Output(true,"Undo done", "undo");
 	}
 
