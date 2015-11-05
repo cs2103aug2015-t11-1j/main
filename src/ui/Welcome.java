@@ -105,6 +105,7 @@ public class Welcome {
 		}
 		return message;
 	}
+	
 	public static String printMessage(Output op) {
 		String message = "";
 		ArrayList<String> msgList = new ArrayList<String>();
@@ -155,19 +156,18 @@ public class Welcome {
 			message = Constants.MESSAGE_UNDONE;
 		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("HELP")) {
 			message = Constants.MESSAGE_HELP + "\n";
-			msgList.add(Constants.COMMAND_DELETE);
 			msgList.add(Constants.COMMAND_ADD);
+			msgList.add(Constants.COMMAND_CFP);
+			msgList.add(Constants.COMMAND_DELETE);
 			msgList.add(Constants.COMMAND_DONE);
 			msgList.add(Constants.COMMAND_EXIT);
+			msgList.add(Constants.COMMAND_FP);
+			msgList.add(Constants.COMMAND_HELP);
 			msgList.add(Constants.COMMAND_SEARCH);
 			msgList.add(Constants.COMMAND_SHOW);
 			msgList.add(Constants.COMMAND_UNDO);
 			msgList.add(Constants.COMMAND_UPDATE);
-			msgList.add(Constants.COMMAND_EXIT);
-			msgList.add(Constants.COMMAND_HELP);
 			msgList.add(Constants.COMMAND_UNDONE);
-			msgList.add(Constants.COMMAND_FP);
-			msgList.add(Constants.COMMAND_CFP);
 			for (String s : msgList) {
 				message += s + "\n";
 			}
@@ -206,17 +206,6 @@ public class Welcome {
 		//return message;
 		return op;
 
-	}
-
-	public String showToday(String userInput) throws IOException {
-		Output op = null;
-		String message = "";
-
-		op = session.executeCommand(userInput);
-		message = printToday(op);
-		// printMsg(Constants.MESSAGE_PROMPT);
-
-		return message;
 	}
 
 	public String welcomeMessage() {

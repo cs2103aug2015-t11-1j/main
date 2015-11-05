@@ -125,6 +125,8 @@ public class GUI extends Application {
 							lb_results.setText("Failure!");
 						}
 						listView.getItems().add(Welcome.printMessage(op));
+						
+						//Update today's tasks list view
 						ObservableList<String> newTodayTasks = FXCollections.observableArrayList(Welcome.printMessageToday(welcome.session.getToday()));
 						if(newTodayTasks.size() > todayTasks.size()) {
 							listToday.getItems().add(null);
@@ -134,11 +136,6 @@ public class GUI extends Application {
 							listToday.getItems().add(newTodayTasks.get(newTodayTasks.size()-1));
 						}
 						
-						//listToday.getSelectionModel().selectedItemProperty().addListener((observable,
-						//oldValue, newValue) -> {
-						//listToday.setId(newValue);
-						//});
-
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
