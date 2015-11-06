@@ -10,6 +10,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import javafx.scene.image.Image;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -47,7 +49,8 @@ public class GUI extends Application {
 
 		// Title of window
 		stage.setTitle("planIt!");
-
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("logo_v.png")));
+		
 		// Creating the GridPane
 		GridPane grid = new GridPane();
 		grid.getStyleClass().add("grid");
@@ -116,7 +119,6 @@ public class GUI extends Application {
 
 				if (ke.getCode().equals(KeyCode.ENTER)) {
 					try {
-						// listView.getItems().addAll(Welcome.initiateProg(commandInput.getText()));
 						Output op = welcome.initiateProg(commandInput.getText());
 						if (op.getStatus()) {
 							lb_results.setText("Success!");
@@ -125,6 +127,8 @@ public class GUI extends Application {
 							lb_results.setText("Failure!");
 						}
 						listView.getItems().add(Welcome.printMessage(op));
+						
+						//Update today's tasks list view
 						ObservableList<String> newTodayTasks = FXCollections.observableArrayList(Welcome.printMessageToday(welcome.session.getToday()));
 						if(newTodayTasks.size() > todayTasks.size()) {
 							listToday.getItems().add(null);
@@ -134,14 +138,16 @@ public class GUI extends Application {
 							listToday.getItems().add(newTodayTasks.get(newTodayTasks.size()-1));
 						}
 						
-						//listToday.getSelectionModel().selectedItemProperty().addListener((observable,
-						//oldValue, newValue) -> {
-						//listToday.setId(newValue);
-						//});
-
+						//clears list view
+						if(commandInput.getText().equals("clear")){
+							listView.getItems().clear();
+						}
+						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					
+					//Print list view
 					input = listView.getSelectionModel().getSelectedItems();
 					
 					for (String i : input) {
@@ -150,6 +156,7 @@ public class GUI extends Application {
 					
 					commandInput.clear();
 					
+					//Print list today
 					input1 = listToday.getSelectionModel().getSelectedItems();
 					for(String i: input1) {
 						message1 += i + "\n";
@@ -159,6 +166,8 @@ public class GUI extends Application {
 				} else if (ke.getCode().equals(KeyCode.ESCAPE)) {
 					commandInput.clear();
 				}
+				
+				
 				System.out.println(message);
 				System.out.println(message1);
 
@@ -171,7 +180,6 @@ public class GUI extends Application {
 		Scene scene = new Scene(grid, 770, 550);
 		scene.getStylesheets().add(GUI.class.getResource("GUIstyle.css").toExternalForm());
 		stage.setScene(scene);
-
 		stage.show();
 	}
 
