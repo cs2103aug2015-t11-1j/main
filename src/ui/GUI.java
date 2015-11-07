@@ -51,7 +51,7 @@ public class GUI extends Application {
 		commandInput.setPromptText("Enter Command: ");
 		GridPane.setConstraints(commandInput, 40, 50, 100, 1);
 
-		// Results Text Field
+		// Results label
 		Label lb_results = new Label();
 		GridPane.setConstraints(lb_results, 40, 49, 100, 1);
 
@@ -81,9 +81,7 @@ public class GUI extends Application {
 		listView.autosize();
 		listView.getItems().addAll(welcome.welcomeMessage());
 		GridPane.setConstraints(listView, 40, 11, 100, 35);
-		// 30,6,70,43
-		// ObservableList<String> input;
-		// input = listView.getSelectionModel().getSelectedItems();
+		
 
 		// Listview of today's to-do
 		ListView<String> listToday = new ListView<>();
@@ -93,7 +91,6 @@ public class GUI extends Application {
 		listToday.getItems().addAll(todayTasks);
 		GridPane.setConstraints(listToday, 0, 11, 40, 35);
 
-		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -104,17 +101,17 @@ public class GUI extends Application {
 				ObservableList<String> input;
 				ObservableList<String> input1;
 
-				// Task task = new Task();
-				// DateTime dt = new DateTime();
-
+				//What happens when "ENTER" key is hit
 				if (ke.getCode().equals(KeyCode.ENTER)) {
 					try {
 						Output op = welcome.initiateProg(commandInput.getText());
+						//Results output
 						if (op.getStatus()) {
 							lb_results.setText("Success!");
 						} else {
 							lb_results.setText("Failure!");
 						}
+						
 						listView.getItems().add(Welcome.printMessage(op));
 						
 						//Update today's tasks list view
