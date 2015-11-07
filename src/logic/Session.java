@@ -8,11 +8,14 @@ import storage.Storage;
 
 public class Session {
 	
+	private static final String MESSAGE_SHOW_TODAY = "show today";
+	
 	static Stack<State> undoStack = new Stack<State>();
 	static Stack<State> redoStack = new Stack<State>();
 	static Storage sto = new Storage();
 	private static Output todayTask;
 	
+	/*********** CONSTRUCTOR **********/
 	public Session() {
 		this.initialSetup();
 	}
@@ -28,16 +31,23 @@ public class Session {
 		Command userCommand = Parser.setCommand(userInput);
 		userCommand.setCurrState(undoStack.peek());
 		Output op = userCommand.execute();
-		
+		taskIsMutator(userCommand);
+		return op; 
+	}
+
+	private void taskIsMutator(Command userCommand) {
 		if(userCommand.isMutator(userCommand)) {
 			undoStack.push(userCommand.getCurrState());
 			sto.update(userCommand.getCurrState());
 			this.updateToday();
 		}
-		
-		return op; 
 	}
 	
+	private void updateToday(){
+		todayTask = executeCommand(MESSAGE_SHOW_TODAY);
+	}
+
+	/**********  GETTER   **********/
 	public static Stack<State> getUndoStack() {
 		return undoStack;
 	}
@@ -50,8 +60,4 @@ public class Session {
 		return todayTask;
 	}
 	
-	private void updateToday(){
-		todayTask = executeCommand("show today");
-	}
-
 }

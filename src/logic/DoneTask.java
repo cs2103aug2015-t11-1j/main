@@ -5,6 +5,10 @@ package logic;
 import storage.Output;
 
 public class DoneTask implements Command {
+	
+	private static final String MESSAGE_TASK_TYPE = "done";
+	private static final int INDEX_ONE = 1;
+	
 	private State currState;
 	private int index;
 	
@@ -15,11 +19,20 @@ public class DoneTask implements Command {
 	
 	@Override
 	public Output execute() {
-		Task task = this.currState.getTaskList().remove(this.index-1);
+		Task task = this.currState.getTaskList().remove(this.index-INDEX_ONE);
 		task.markDone();
+		updateCurrState(task);
+		return new Output(true, task.toString(), MESSAGE_TASK_TYPE);
+	}
+
+	private void updateCurrState(Task task) {
 		this.currState.add(task);
 		this.currState.sort();
-		return new Output(true, task.toString(), "done");
+	}
+
+	@Override
+	public boolean isMutator(Command task) {
+		return true;
 	}
 
 	/**********  GETTER   **********/
@@ -42,9 +55,4 @@ public class DoneTask implements Command {
 		currState = new State(state);
 	}
 	
-	@Override
-	public boolean isMutator(Command task) {
-		return true;
-	}
-
 }

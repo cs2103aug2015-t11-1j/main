@@ -10,7 +10,19 @@ import org.joda.time.format.DateTimeFormat;
 import storage.Output;
 
 public class AddTask implements Command {
-
+	
+	private static final String MESSAGE_SYMBOL_NOTHING = "";
+	private static final String MESSAGE_SYMBOL_HYPHEN = "-";
+	private static final String MESSAGE_SYMBOL_SPACE = " ";
+	private static final String MESSAGE_HYPHEN_WITH_SPACE = MESSAGE_SYMBOL_SPACE + MESSAGE_SYMBOL_HYPHEN + MESSAGE_SYMBOL_SPACE;
+	private static final String MESSAGE_DATE_FORMAT = "dd/MM/yy";
+	private static final String MESSAGE_TASK_TYPE = "add";
+	private static final String MESSAGE_END_OF_DAY = MESSAGE_SYMBOL_HYPHEN + "2359";
+	private static final String MESSAGE_START_OF_DAY = "0000" + MESSAGE_SYMBOL_HYPHEN;
+	private static final String MESSAGE_DATE_ADDED = "date added";
+	private static final int INDEX_ZERO = 0;
+	private static final int INDEX_ONE = 1;
+		
 	private String eventTask;
 	private ArrayList<String> date = new ArrayList<String>();
 	private ArrayList<String> time = new ArrayList<String>();
@@ -24,36 +36,40 @@ public class AddTask implements Command {
 	@Override
 	public Output execute() {
 		ArrayList<Task> tasklist = createTask();
+		updateCurrState(tasklist);
+		if(tasklist.size() == INDEX_ONE){
+			return new Output(true, tasklist.get(INDEX_ZERO).toString(), MESSAGE_TASK_TYPE);
+		}
+		return new Output(true, this.longString() ,MESSAGE_TASK_TYPE);
+	}
+
+	private void updateCurrState(ArrayList<Task> tasklist) {
 		for(Task task : tasklist){
 			this.currState.add(task);
 		}
 		this.currState.sort();
-		if(tasklist.size() == 1){
-			return new Output(true, tasklist.get(0).toString(), "add");
-		}
-		return new Output(true, this.longString() ,"add");
 	}
-
+	
 	private ArrayList<Task> createTask() {
 		ArrayList<Task> tasks = new ArrayList<Task>();
-		if(date.get(0).equals("")) {
+		if(date.get(INDEX_ZERO).equals(MESSAGE_SYMBOL_NOTHING)) {
 			tasks.add(new Task(this.eventTask));
 			return tasks;
-		} else if(date.get(1).equals("")){
-			tasks.add(this.createTask(this.date.get(0)));
+		} else if(date.get(INDEX_ONE).equals(MESSAGE_SYMBOL_NOTHING)){
+			tasks.add(this.createTask(this.date.get(INDEX_ZERO)));
 			return tasks;
 		} else {
-			return this.createTask(this.date.get(0), this.date.get(1));
+			return this.createTask(this.date.get(INDEX_ZERO), this.date.get(INDEX_ONE));
 		}
 	}
 
 	private Task createTask(String date) {
-		if(time.get(0).equals("")){
+		if(time.get(INDEX_ZERO).equals(MESSAGE_SYMBOL_NOTHING)){
 			return new Task(date, this.eventTask);
-		} else if(time.get(1).equals("")){
-			return new Task(date, this.time.get(0), this.eventTask);
+		} else if(time.get(INDEX_ONE).equals(MESSAGE_SYMBOL_NOTHING)){
+			return new Task(date, this.time.get(INDEX_ZERO), this.eventTask);
 		} else {
-			return new Task(date, this.time.get(0)+"-"+this.time.get(1), this.eventTask);
+			return new Task(date, this.time.get(INDEX_ZERO)+ MESSAGE_SYMBOL_HYPHEN +this.time.get(INDEX_ONE), this.eventTask);
 		}
 	}
 
@@ -69,16 +85,16 @@ public class AddTask implements Command {
 		
 		for(String date : dates){
 			if(date.equals(date1)){
-				if(time.get(0).equals("")){
+				if(time.get(INDEX_ZERO).equals(MESSAGE_SYMBOL_NOTHING)){
 					tasks.add(new Task(date, this.eventTask));
 				} else {
-					tasks.add(new Task(date, this.time.get(0)+"-2359", this.eventTask));
+					tasks.add(new Task(date, this.time.get(INDEX_ZERO)+ MESSAGE_END_OF_DAY, this.eventTask));
 				}
 			} else if (date.equals(date2)){
-				if(time.get(1).equals("")){
+				if(time.get(INDEX_ONE).equals(MESSAGE_SYMBOL_NOTHING)){
 					tasks.add(new Task(date, this.eventTask));
 				} else {
-					tasks.add(new Task(date, "0000-"+this.time.get(1), this.eventTask));
+					tasks.add(new Task(date, MESSAGE_START_OF_DAY +this.time.get(INDEX_ONE), this.eventTask));
 				}
 			} else {
 				tasks.add(new Task(date, this.eventTask));
@@ -86,29 +102,50 @@ public class AddTask implements Command {
 		}
 		return tasks;
 	}
-	
-	/****old one*****/
-//	private Task createTask() {
-//		try {
-//			if (this.date.size() > 1) {
-//				if (this.time.size() > 1) {
-//					return new Task((this.date.get(0) + "-" + this.date.get(1)),
-//							(this.time.get(0) + "-" + this.time.get(1)), this.eventTask);
-//				} else {
-//					return new Task(this.date.get(0) + "-" + this.date.get(1), this.time.get(0), this.eventTask);
-//				}
-//			} else if (this.time.size() > 1) {
-//				return new Task(this.date.get(0), this.time.get(0) + "-" + this.time.get(1), this.eventTask);
-//			} else {
-//				return new Task(this.date.get(0), this.time.get(0), this.eventTask);
-//			}
-//
-//		} catch (NullPointerException e) {
-//			System.err.println(e.getMessage());
-//			return new Task(this.date.get(0), "", this.eventTask);
-//		}
-//	}
 
+	private static ArrayList<String> listDates(String date1, String date2){
+		ArrayList<String> dates = new ArrayList<String>();
+		LocalDateTime d1 = getDate(date1);
+		LocalDateTime d2 = getDate(date2);
+		dates.add(d1.toString(MESSAGE_DATE_FORMAT));
+		System.out.println(MESSAGE_DATE_ADDED);
+		for(LocalDateTime dt = d1.plusDays(INDEX_ONE); dt.compareTo(d2) == -INDEX_ONE; dt = dt.plusDays(INDEX_ONE)){
+			System.out.println(dt.toString(MESSAGE_DATE_FORMAT));
+			dates.add(dt.toString(MESSAGE_DATE_FORMAT));
+		}
+		dates.add(d2.toString(MESSAGE_DATE_FORMAT));		
+		return dates;
+	}
+		
+	private String longString(){
+		if(time.get(INDEX_ZERO).equals(MESSAGE_SYMBOL_NOTHING) && time.get(INDEX_ONE).equals(MESSAGE_SYMBOL_NOTHING)){
+			return date.get(INDEX_ZERO) + MESSAGE_HYPHEN_WITH_SPACE + date.get(INDEX_ONE) + MESSAGE_SYMBOL_SPACE
+					+ this.eventTask;
+		} else if (time.get(INDEX_ZERO).equals(MESSAGE_SYMBOL_NOTHING)){
+			return date.get(INDEX_ZERO) + MESSAGE_HYPHEN_WITH_SPACE
+					+ date.get(INDEX_ONE) + MESSAGE_SYMBOL_SPACE + time.get(INDEX_ONE) + MESSAGE_SYMBOL_SPACE
+					+ this.eventTask;
+		} else if (time.get(INDEX_ONE).equals(MESSAGE_SYMBOL_NOTHING)){
+			return date.get(INDEX_ZERO) + MESSAGE_SYMBOL_SPACE + time.get(INDEX_ZERO) + MESSAGE_HYPHEN_WITH_SPACE 
+					+ date.get(INDEX_ONE) + MESSAGE_SYMBOL_SPACE
+					+ this.eventTask;
+		} else {
+		return date.get(INDEX_ZERO) + MESSAGE_SYMBOL_SPACE + time.get(INDEX_ZERO) + MESSAGE_HYPHEN_WITH_SPACE 
+			+ date.get(INDEX_ONE) + MESSAGE_SYMBOL_SPACE + time.get(INDEX_ONE) + MESSAGE_SYMBOL_SPACE
+			+ this.eventTask;
+		}
+	}
+
+	@Override
+	public boolean isMutator(Command task) {
+		if (task instanceof AddTask) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
 	/********** GETTER **********/
 	public String getEventTask() {
 		return eventTask;
@@ -124,6 +161,11 @@ public class AddTask implements Command {
 
 	public State getCurrState() {
 		return currState;
+	}
+	
+	private static LocalDateTime getDate(String str){
+		LocalDateTime date = DateTimeFormat.forPattern(MESSAGE_DATE_FORMAT).parseLocalDateTime(str);
+		return date;
 	}
 
 	/********** SETTER **********/
@@ -144,50 +186,4 @@ public class AddTask implements Command {
 		currState = new State(state);
 	}
 
-	@Override
-	public boolean isMutator(Command task) {
-		if (task instanceof AddTask) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	private static LocalDateTime getDate(String str){
-		LocalDateTime date = DateTimeFormat.forPattern("dd/MM/yy").parseLocalDateTime(str);
-		return date;
-	}
-	
-	private static ArrayList<String> listDates(String date1, String date2){
-		ArrayList<String> dates = new ArrayList<String>();
-		LocalDateTime d1 = getDate(date1);
-		LocalDateTime d2 = getDate(date2);
-		dates.add(d1.toString("dd/MM/yy"));
-		System.out.println("date added");
-		for(LocalDateTime dt = d1.plusDays(1); dt.compareTo(d2) == -1; dt = dt.plusDays(1)){
-			System.out.println(dt.toString("dd/MM/yy"));
-			dates.add(dt.toString("dd/MM/yy"));
-		}
-		dates.add(d2.toString("dd/MM/yy"));		
-		return dates;
-	}
-		
-	private String longString(){
-		if(time.get(0).equals("") && time.get(1).equals("")){
-			return date.get(0) + " - " + date.get(1) + " "
-					+ this.eventTask;
-		} else if (time.get(0).equals("")){
-			return date.get(0) + " - "
-					+ date.get(1) + " " + time.get(1) + " "
-					+ this.eventTask;
-		} else if (time.get(1).equals("")){
-			return date.get(0) + " " + time.get(0) + " - " 
-					+ date.get(1) + " "
-					+ this.eventTask;
-		} else {
-		return date.get(0) + " " + time.get(0) + " - " 
-			+ date.get(1) + " " + time.get(1) + " "
-			+ this.eventTask;
-		}
-	}
 }

@@ -5,6 +5,13 @@ import java.util.ArrayList;
 import storage.Output;
 
 public class ShowTask implements Command {
+	
+	
+	private static final String MESSAGE_SYMBOL_NOTHING = "";
+	private static final String MESSAGE_SYMBOL_DONE_TASK = "@ ";
+	private static final String MESSAGE_TASK_TYPE_SHOW = "show";
+	private static final String MESSAGE_TASK_TYPE_SHOW_DONE = "show done";
+	
 	private String date;
 	private boolean showDone = false;
 	private boolean showFloat = false;
@@ -21,38 +28,46 @@ public class ShowTask implements Command {
 		ArrayList<Task> dateTasks = new ArrayList<Task>();
 		if(showFloat || showDone){
 			if(showFloat){
-				for(Task t : list){
-					if(t.getDate().equals("")){
-						dateTasks.add(t);
-					}
-				}
+				checkTaskDate(list, dateTasks);
 			}
 			if(showDone){
-				for(Task t : list){
-					if(t.getStatus().equals("@ ")){
-						dateTasks.add(t);
-					}
-				}
-				return new Output(true, dateTasks, "show done");
+				checkTaskStatus(list, dateTasks);
+				return new Output(true, dateTasks, MESSAGE_TASK_TYPE_SHOW_DONE);
 			}
 		}
 		else {
-			for(Task t : list){
-				if(t.getDate().contains(this.date) && !t.getStatus().equals("@ ")){
-					dateTasks.add(t);
-				}
+			checkTaskDateStatus(list, dateTasks);
+		}
+		return new Output(true, dateTasks, MESSAGE_TASK_TYPE_SHOW);
+	}
+
+	private void checkTaskDateStatus(ArrayList<Task> list, ArrayList<Task> dateTasks) {
+		for(Task t : list){
+			if(t.getDate().contains(this.date) && !t.getStatus().equals(MESSAGE_SYMBOL_DONE_TASK)){
+				dateTasks.add(t);
 			}
 		}
-		return new Output(true, dateTasks, "show");
+	}
+
+	private void checkTaskStatus(ArrayList<Task> list, ArrayList<Task> dateTasks) {
+		for(Task t : list){
+			if(t.getStatus().equals(MESSAGE_SYMBOL_DONE_TASK)){
+				dateTasks.add(t);
+			}
+		}
+	}
+
+	private void checkTaskDate(ArrayList<Task> list, ArrayList<Task> dateTasks) {
+		for(Task t : list){
+			if(t.getDate().equals(MESSAGE_SYMBOL_NOTHING)){
+				dateTasks.add(t);
+			}
+		}
 	}
 
 	@Override
 	public boolean isMutator(Command task) {
-		if (task instanceof ShowTask) {
-			return false;
-		} else {
-			return true;
-		}
+		return false;
 	}
 	
 	/**********  GETTER   **********/
@@ -64,6 +79,14 @@ public class ShowTask implements Command {
 	public State getCurrState() {
 		return currState;
 	}
+	
+	public boolean getShowDone() {
+		return showDone;
+	}
+	
+	public boolean getShowFloat() {
+		return showFloat;
+	}
 
 	/**********  SETTER   **********/
 	public void setDate(String str) {
@@ -73,14 +96,6 @@ public class ShowTask implements Command {
 	@Override
 	public void setCurrState(State state) {
 		currState = new State(state);
-	}
-
-	public boolean getShowDone() {
-		return showDone;
-	}
-	
-	public boolean getShowFloat() {
-		return showFloat;
 	}
 
 	public void setShowDone() {

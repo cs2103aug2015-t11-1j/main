@@ -6,9 +6,14 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class State {
+	
+	private static final String MESSAGE_SYMBOL_NEWLINE = "\n";
+	private static final int INT_ONE = 1;
+	private static final int INT_ZERO = 0;
+	
 	private ArrayList<Task> _tasklist = new ArrayList<Task>();
 	
-	/*****CONSTRUCTOR*****/
+	/***********CONSTRUCTOR**********/
 	public State(ArrayList<Task> tasklist){
 		for(Task t : tasklist){
 			this._tasklist.add(t);
@@ -19,7 +24,7 @@ public class State {
 		this(s.getTaskList());
 	}
 	
-	/*****GETTER*****/
+	/**********  GETTER   **********/
 	public ArrayList<Task> getTaskList(){
 		return _tasklist;
 	}
@@ -34,19 +39,19 @@ public class State {
 			@Override
 			public int compare(Task t1, Task t2){
 				int i = t1._stats.compareTo(t2._stats);
-				if(i != 0) return i;
+				if(i != INT_ZERO) return i;
 				
 				i = t1.rotateDF().compareTo(t2.rotateDF());
-				if(i != 0) return i;
+				if(i != INT_ZERO) return i;
 				
 				i = t1._time.compareTo(t2._time);
-				if(i != 0) return i;
+				if(i != INT_ZERO) return i;
 				
 				return t1._details.compareTo(t2._details);
 			}
 		});
 		for(Task t : _tasklist){
-			t.setIndex(_tasklist.indexOf(t) + 1);
+			t.setIndex(_tasklist.indexOf(t) + INT_ONE);
 		}
 	}
 	
@@ -64,7 +69,7 @@ public class State {
 	public String toString(){
 		String str = new String();
 		for(String s : this.toStringList()){
-			str.concat(s + "\n");
+			str.concat(s + MESSAGE_SYMBOL_NEWLINE);
 		}
 		return str;
 	}
