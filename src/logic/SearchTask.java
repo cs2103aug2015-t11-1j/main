@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import storage.Output;
 
 public class SearchTask implements Command {
-	
-	
+
 	private static final String MESSAGE_TASK_TYPE = "search";
-	
+
 	private State currState;
 	private String eventTask;
 

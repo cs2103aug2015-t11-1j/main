@@ -6,72 +6,75 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class State {
-	
+
 	private static final String MESSAGE_SYMBOL_NEWLINE = "\n";
 	private static final int INT_ONE = 1;
 	private static final int INT_ZERO = 0;
-	
+
 	private ArrayList<Task> _tasklist = new ArrayList<Task>();
-	
-	/***********CONSTRUCTOR**********/
-	public State(ArrayList<Task> tasklist){
-		for(Task t : tasklist){
+
+	/*********** CONSTRUCTOR **********/
+	public State(ArrayList<Task> tasklist) {
+		for (Task t : tasklist) {
 			this._tasklist.add(t);
 		}
 	}
-	
-	public State(State s){
+
+	public State(State s) {
 		this(s.getTaskList());
 	}
-	
-	/**********  GETTER   **********/
-	public ArrayList<Task> getTaskList(){
+
+	/********** GETTER **********/
+	public ArrayList<Task> getTaskList() {
 		return _tasklist;
 	}
-	
+
 	public void add(Task task) {
 		_tasklist.add(task);
 	}
-	
-	/*****SORTING*****/
-	public void sort(){
-		Collections.sort(this._tasklist, new Comparator<Task>(){
+
+	/***** SORTING *****/
+	public void sort() {
+		Collections.sort(this._tasklist, new Comparator<Task>() {
 			@Override
-			public int compare(Task t1, Task t2){
+			public int compare(Task t1, Task t2) {
 				int i = t1._stats.compareTo(t2._stats);
-				if(i != INT_ZERO) return i;
-				
+				if (i != INT_ZERO)
+					return i;
+
 				i = t1.rotateDF().compareTo(t2.rotateDF());
-				if(i != INT_ZERO) return i;
-				
+				if (i != INT_ZERO)
+					return i;
+
 				i = t1._time.compareTo(t2._time);
-				if(i != INT_ZERO) return i;
-				
+				if (i != INT_ZERO)
+					return i;
+
 				return t1._details.compareTo(t2._details);
 			}
 		});
-		for(Task t : _tasklist){
+		for (Task t : _tasklist) {
 			t.setIndex(_tasklist.indexOf(t) + INT_ONE);
 		}
 	}
-	
-	/*****toString()*****/
-	//return tasklist in form of arraylist of String
-	public ArrayList<String> toStringList(){
+
+	/***** toString() *****/
+	// return tasklist in form of arraylist of String
+	public ArrayList<String> toStringList() {
 		ArrayList<String> list = new ArrayList<String>();
-		for(Task t : _tasklist){
+		for (Task t : _tasklist) {
 			list.add(t.toString());
 		}
 		return list;
 	}
-	
-	//convert State into String form
-	public String toString(){
+
+	// convert State into String form
+	public String toString() {
 		String str = new String();
-		for(String s : this.toStringList()){
+		for (String s : this.toStringList()) {
 			str.concat(s + MESSAGE_SYMBOL_NEWLINE);
 		}
 		return str;
 	}
-	
+
 }
