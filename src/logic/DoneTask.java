@@ -5,34 +5,47 @@ package logic;
 import storage.Output;
 
 public class DoneTask implements Command {
+
+	private static final String MESSAGE_TASK_TYPE = "done";
+	private static final int INDEX_ONE = 1;
+
 	private State currState;
 	private int index;
-	
-	/***********CONSTRUCTOR**********/
+
+	/*********** CONSTRUCTOR **********/
 	public DoneTask() {
 
 	}
-	
+
 	@Override
 	public Output execute() {
-		Task task = this.currState.getTaskList().remove(this.index-1);
+		Task task = this.currState.getTaskList().remove(this.index - INDEX_ONE);
 		task.markDone();
-		this.currState.add(task);
-		this.currState.sort();
-		return new Output(true, task.toString(), "done");
+		updateCurrState(task);
+		return new Output(true, task.toString(), MESSAGE_TASK_TYPE);
 	}
 
-	/**********  GETTER   **********/
+	private void updateCurrState(Task task) {
+		this.currState.add(task);
+		this.currState.sort();
+	}
+
+	@Override
+	public boolean isMutator(Command task) {
+		return true;
+	}
+
+	/********** GETTER **********/
 	public int getIndex() {
 		return index;
 	}
-	
+
 	@Override
 	public State getCurrState() {
 		return currState;
 	}
-	
-	/**********  SETTER   **********/
+
+	/********** SETTER **********/
 	public void setIndex(int index) {
 		this.index = index;
 	}
@@ -40,11 +53,6 @@ public class DoneTask implements Command {
 	@Override
 	public void setCurrState(State state) {
 		currState = new State(state);
-	}
-	
-	@Override
-	public boolean isMutator(Command task) {
-		return true;
 	}
 
 }

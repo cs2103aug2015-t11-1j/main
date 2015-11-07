@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import storage.Output;
 
 public class SearchTask implements Command {
+
+	private static final String MESSAGE_TASK_TYPE = "search";
+
 	private State currState;
 	private String eventTask;
 
@@ -16,22 +19,23 @@ public class SearchTask implements Command {
 	@Override
 	public Output execute() {
 		ArrayList<Task> list = currState.getTaskList();
+		ArrayList<Task> eventTasks = searchTaskList(list);
+		return new Output(true, eventTasks, MESSAGE_TASK_TYPE);
+	}
+
+	private ArrayList<Task> searchTaskList(ArrayList<Task> list) {
 		ArrayList<Task> eventTasks = new ArrayList<Task>();
 		for (Task t : list) {
 			if (t.getDetail().toLowerCase().contains(this.eventTask.toLowerCase())) {
 				eventTasks.add(t);
 			}
 		}
-		return new Output(true, eventTasks, "search");
+		return eventTasks;
 	}
 
 	@Override
 	public boolean isMutator(Command task) {
-		if (task instanceof SearchTask) {
-			return false;
-		} else {
-			return true;
-		}
+		return false;
 	}
 
 	/********** GETTER **********/
@@ -41,8 +45,7 @@ public class SearchTask implements Command {
 
 	@Override
 	public State getCurrState() {
-		// TODO Auto-generated method stub
-		return null;
+		return currState;
 	}
 
 	/********** SETTER **********/
