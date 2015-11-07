@@ -57,11 +57,10 @@ public class Welcome {
 			message = (Constants.MESSAGE_ADD_FAIL + "\n");
 		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
 			message = (op.getEntry() + Constants.MESSAGE_DELETED + "\n");
-		} // Not wokring if i type "delete name of event"
+		} 
 		else if (!op.getStatus() && op.getCmdType().toUpperCase().equals("DELETE")) {
 			message = (Constants.MESSAGE_DELETE_FAIL + "\n");
-		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH")) {
-			// printMsg(Constants.MESSAGE_SUCCESS);
+		} else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH") && !op.getResults().isEmpty()) {
 			for (int i = 0; i < op.getResults().size(); i++) {
 				msgList.add(op.getResults().get(i).toString());
 			}
@@ -72,7 +71,7 @@ public class Welcome {
 			message += Constants.MESSAGE_SEARCHED + "\n";
 		}
 		// Not working yet.
-		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH") && op.getResults().isEmpty()) {
+		else if (op.getStatus() && op.getCmdType().toUpperCase().equals("SEARCH")) {
 			message = (Constants.MESSAGE_SEARCH_FAIL + "\n");
 		}
 		// Show is not working yet.

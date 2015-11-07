@@ -112,7 +112,6 @@ public class GUI extends Application {
 						Output op = welcome.initiateProg(commandInput.getText());
 						if (op.getStatus()) {
 							lb_results.setText("Success!");
-
 						} else {
 							lb_results.setText("Failure!");
 						}
@@ -130,6 +129,7 @@ public class GUI extends Application {
 						
 						//clears list view
 						if(commandInput.getText().equals("clear")){
+							lb_results.setText("Success!");
 							listView.getItems().clear();
 						}
 						
