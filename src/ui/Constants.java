@@ -26,7 +26,6 @@ public class Constants {
 	static final String MESSAGE_COMPLETED = " is complete :)";
 	static final String MESSAGE_UPDATE_FAIL = "Update failed!";
 	static final String MESSAGE_HELP = "The commands that can be used are: ";
-	//static final String MESSAGE_SHOW = "Events requested for: ";
 	static final String MESSAGE_SHOW_NOTHING = "Nothing to show!";
 	static final String MESSAGE_SHOW_FAIL = "There was an error in showing your events, please try again!";
 	static final String MESSAGE_DONE = "Well done you completed this task!";
