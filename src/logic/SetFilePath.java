@@ -7,9 +7,14 @@ import java.util.ArrayList;
 import storage.Output;
 
 public class SetFilePath implements Command {
+	
+	private static final String MESSAGE_TASK_TYPE = "cfp";
+	
 	private State currState = new State(new ArrayList<Task>());
 	private String newFilePath;
 	
+	
+	/*********** CONSTRUCTOR **********/
 	public SetFilePath() {
 		
 	}
@@ -18,7 +23,12 @@ public class SetFilePath implements Command {
 	public Output execute() {
 		String str = Session.sto.setFilePath(this.newFilePath);
 		boolean stats = str.equals(this.newFilePath);
-		return new Output(stats, str, "cfp");
+		return new Output(stats, str, MESSAGE_TASK_TYPE);
+	}
+	
+	@Override
+	public boolean isMutator(Command task) {
+		return true;
 	}
 
 	/********** GETTER **********/
@@ -39,11 +49,6 @@ public class SetFilePath implements Command {
 	@Override
 	public void setCurrState(State state) {
 		this.currState = state;
-	}
-		
-	@Override
-	public boolean isMutator(Command task) {
-		return true;
 	}
 
 }

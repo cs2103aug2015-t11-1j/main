@@ -6,6 +6,16 @@ import storage.Output;
 
 public class UpdateTask implements Command {
 	
+	
+	private static final String MESSAGE_INDEX_OUT_OF_BOUNDS = "Index Out Of Bounds";
+	private static final String MESSAGE_INDEX_UNAVAILABLE = "Index unavailable";
+	private static final String MESSAGE_TASK_TYPE = "update";
+	private static final String MESSAGE_SYMBOL_HYPHEN = "-";
+	private static final String MESSAGE_SYMBOL_NOTHING = "";
+	private static final int INT_ZERO = 0;
+	private static final int INT_ONE = 1;
+	private static final int INT_TWO = 2;
+
 	private int index;
 	private String eventTask;
 	private ArrayList<String> date = new ArrayList<String>();
@@ -16,24 +26,44 @@ public class UpdateTask implements Command {
 	@Override
 	public Output execute() {
 		try {
-			Task taskToUpdate = this.currState.getTaskList().get(index-1);
-			Task updatedTask = new Task(0, taskToUpdate.getStatus(), formatDate(), formatTime(), this.eventTask);
-			this.currState.getTaskList().set(index-1, updatedTask);
-			this.currState.sort();
-			return new Output(true, updatedTask.toString(), "update");
+			Task taskToUpdate = this.currState.getTaskList().get(index-INT_ONE);
+			Task updatedTask = new Task(INT_ZERO, taskToUpdate.getStatus(), formatDate(), formatTime(), this.eventTask);
+			updateCurrState(updatedTask);
+			return new Output(true, updatedTask.toString(), MESSAGE_TASK_TYPE);
 			
 		} catch (IndexOutOfBoundsException e) {
-			System.out.println("Index unavailable");
-			return new Output(false, "Index Out Of Bounds", "update");
+			System.out.println(MESSAGE_INDEX_UNAVAILABLE);
+			return new Output(false, MESSAGE_INDEX_OUT_OF_BOUNDS, MESSAGE_TASK_TYPE);
 		}
+	}
+
+	private void updateCurrState(Task updatedTask) {
+		this.currState.getTaskList().set(index-INT_ONE, updatedTask);
+		this.currState.sort();
 	}
 
 	@Override
 	public boolean isMutator(Command task) {
-		if (task instanceof UpdateTask) {
-			return true;
+		return true;
+	}
+	
+	public String formatDate() {
+		if (date.size() == INT_TWO && date.get(INT_ONE).equals(MESSAGE_SYMBOL_NOTHING)) {
+			return date.get(INT_ZERO);
+		} else if (date.size() == INT_TWO && date.get(INT_ONE).equals(MESSAGE_SYMBOL_NOTHING)) {
+			return date.get(INT_ZERO) + MESSAGE_SYMBOL_HYPHEN + date.get(INT_ONE);
 		} else {
-			return false;
+			return MESSAGE_SYMBOL_NOTHING;
+		}
+	}
+	
+	public String formatTime() {
+		if (time.get(INT_ONE).equals(MESSAGE_SYMBOL_NOTHING)) {
+			return time.get(INT_ZERO);
+		} else if (time.size() == INT_TWO && !time.get(INT_ONE).equals(MESSAGE_SYMBOL_NOTHING)) {
+			return time.get(INT_ZERO) + MESSAGE_SYMBOL_HYPHEN + time.get(INT_ONE);
+		} else {
+			return MESSAGE_SYMBOL_NOTHING;
 		}
 	}
 	
@@ -81,23 +111,4 @@ public class UpdateTask implements Command {
 		currState = new State(state);
 	}
 	
-	public String formatDate() {
-		if (date.size() == 2 && date.get(1).equals("")) {
-			return date.get(0);
-		} else if (date.size() == 2 && date.get(1).equals("")) {
-			return date.get(0) + "-" + date.get(1);
-		} else {
-			return "";
-		}
-	}
-	
-	public String formatTime() {
-		if (time.get(1).equals("")) {
-			return time.get(0);
-		} else if (time.size() == 2 && !time.get(1).equals("")) {
-			return time.get(0) + "-" + time.get(1);
-		} else {
-			return "";
-		}
-	}
 }
