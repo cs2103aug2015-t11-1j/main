@@ -7,17 +7,17 @@ package parser;
 
 import java.util.ArrayList;
 
-import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import logic.AddTask;
+import logic.ClearList;
 import logic.Command;
 import logic.DeleteTask;
-import logic.MarkDoneTask;
-import logic.MarkUndoneTask;
 import logic.ExitTask;
 import logic.HelpTask;
 import logic.InvalidTask;
+import logic.MarkDoneTask;
+import logic.MarkUndoneTask;
 import logic.SearchTask;
 import logic.SetFilePath;
 import logic.ShowFilePath;
@@ -54,7 +54,7 @@ public class Parser {
 				for (String key : ParserConstants.KW_COMMAND_DONE) {
 					if (str.contains(key)) {
 						show.setShowDone();
-					} 
+					}
 				}
 				if (str.contains(ParserConstants.KW_FLOAT)) {
 					show.setShowFloat();
@@ -141,6 +141,9 @@ public class Parser {
 				return invalid;
 			}
 			return newFilePath;
+		case CLEAR:
+			ClearList clear = new ClearList();
+			return clear;
 		default:
 			// Returned only if the action argument is invalid
 			InvalidTask invalid = new InvalidTask();
