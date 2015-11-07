@@ -1,6 +1,7 @@
 /*
  * @author: Jeston Teo
- * TODO Description of class
+ * 
+ * This class creates the corresponding classes implementing the Command interface 
  */
 
 package parser;
@@ -28,6 +29,10 @@ import parser.ActionParser.ACTION_TYPE;
 
 public class Parser {
 
+	/*
+	 * Returns the corresponding classes with any arguments present in the
+	 * user's input.
+	 */
 	public static Command setCommand(String str) {
 		ACTION_TYPE action = ActionParser.setUserAction(str);
 
