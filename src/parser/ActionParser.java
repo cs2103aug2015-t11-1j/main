@@ -10,7 +10,7 @@ package parser;
 public class ActionParser {
 
 	enum ACTION_TYPE {
-		ADD, SHOW, SEARCH, UPDATE, DONE, UNDONE, DELETE, UNDO, INVALID, EXIT, HELP, FP, CFP;
+		ADD, SHOW, SEARCH, UPDATE, DONE, UNDONE, DELETE, UNDO, INVALID, EXIT, HELP, FP, CFP, CLEAR;
 	}
 
 	protected static ACTION_TYPE setUserAction(String str) {
@@ -41,6 +41,8 @@ public class ActionParser {
 			return ACTION_TYPE.FP;
 		} else if (userAction.equalsIgnoreCase("cfp")) {
 			return ACTION_TYPE.CFP;
+		} else if (userAction.equalsIgnoreCase("clear")) {
+			return ACTION_TYPE.CLEAR;
 		} else {
 			return ACTION_TYPE.INVALID;
 		}
