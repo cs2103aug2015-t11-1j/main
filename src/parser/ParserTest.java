@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import logic.AddTask;
+import logic.ClearList;
 import logic.DeleteTask;
 import logic.MarkDoneTask;
 import logic.MarkUndoneTask;
@@ -198,6 +199,12 @@ public class ParserTest {
 		ShowTask show = (ShowTask) Parser.setCommand(test);
 		assertTrue(show.getShowFloat());
 		assertTrue(show.getShowDone());
+	}
+	
+	@Test
+	public void testClearAction() {
+		String test = "clear";
+		assertTrue(Parser.setCommand(test) instanceof ClearList);
 	}
 
 	// For easier adding to ArrayLists
