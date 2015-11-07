@@ -1,11 +1,21 @@
+/*
+ * @author: Jeston Teo
+ * 
+ * This class parses the file path specified by the user
+ */
+
 package parser;
 
 import java.util.ArrayList;
 
 public class FileParser {
-
+	
+	/*
+	 * This method parses for the file path specified by the user
+	 * 
+	 * Assumptions: There are no spaces in the specified file path
+	 */
 	protected static String getFilePath(String str) throws InvalidInputException {
-
 		ArrayList<String> arr = Parser.toArrayList(str.trim(), ParserConstants.CHAR_SINGLE_WHITESPACE);
 		if (arr.size() > 2) {
 			throw new InvalidInputException("Invalid input: Please enter a valid file path");
