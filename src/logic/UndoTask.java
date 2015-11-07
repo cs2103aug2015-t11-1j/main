@@ -3,21 +3,21 @@ package logic;
 import storage.Output;
 
 public class UndoTask implements Command {
-	
+
 	private static final String MESSAGE_TASK_TYPE = "undo";
 	private static final String MESSAGE_UNDO_DONE = "Undo done";
 	private static final String MESSAGE_NOTHING_TO_UNDO = "Nothing to undo";
-	
+
 	private State currState;
 
-	/***********CONSTRUCTOR**********/
+	/*********** CONSTRUCTOR **********/
 	public UndoTask() {
-		
+
 	}
-	
+
 	@Override
 	public Output execute() {
-		if(Session.undoStack.size() == 1){
+		if (Session.undoStack.size() == 1) {
 			return new Output(false, MESSAGE_NOTHING_TO_UNDO, MESSAGE_TASK_TYPE);
 		}
 		undo();
@@ -36,17 +36,16 @@ public class UndoTask implements Command {
 		return true;
 	}
 
-	/**********  GETTER   **********/
+	/********** GETTER **********/
 	@Override
 	public State getCurrState() {
 		return this.currState;
 	}
-	
-	/**********  SETTER   **********/
+
+	/********** SETTER **********/
 	@Override
 	public void setCurrState(State state) {
 		this.currState = new State(state);
 	}
-
 
 }
