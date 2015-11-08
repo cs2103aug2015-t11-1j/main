@@ -65,11 +65,6 @@ public class Output {
 		this._results = results;
 	}
 	
-	public void set_cmdType(String _cmdType) {
-		this._cmdType = _cmdType;
-	}
-
-
 	public void setCmdType(String cmdType) {
 		this._cmdType = cmdType;
 		

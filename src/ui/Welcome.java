@@ -67,7 +67,7 @@ public class Welcome {
 			if (op.getStatus()) {
 				message = (op.getEntry() + Constants.MESSAGE_DELETED + "\n");
 			} else {
-				message = (Constants.MESSAGE_DELETE_FAIL + "\n");
+				message = "Error! " + op.getEntry() + Constants.MESSAGE_DELETE_FAIL + "\n";
 			}
 			break;
 		case "DONE":

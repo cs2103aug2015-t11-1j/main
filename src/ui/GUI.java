@@ -119,7 +119,6 @@ public class GUI extends Application {
 				};
 			}
 		});
-
 		listToday.getItems().addAll(welcome.printToday());
 		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.printMessageToday(welcome.session.getToday()));
 		listToday.getItems().addAll(todayTasks);
