@@ -2,23 +2,27 @@
  * @author: Jeston Teo
  */
 
-package parser;
+package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
+import org.joda.time.LocalDateTime;
 import org.junit.Test;
 
 import logic.AddTask;
 import logic.ClearList;
 import logic.DeleteTask;
+import logic.InvalidTask;
 import logic.MarkDoneTask;
 import logic.MarkUndoneTask;
-import logic.InvalidTask;
 import logic.SearchTask;
 import logic.ShowTask;
 import logic.UpdateTask;
+import parser.Parser;
 
 public class ParserTest {
 
@@ -32,7 +36,7 @@ public class ParserTest {
 		AddTask add = (AddTask) Parser.setCommand(test);
 
 		String expected = "CS2103T lecture";
-		expectedDate = add(DateTimeParser.getDate(0), DateTimeParser.getDate(0));
+		expectedDate = add(getDate(0), getDate(0));
 		expectedTime = add("1400", "1600");
 
 		assertEquals(expected, add.getEventTask());
@@ -147,7 +151,7 @@ public class ParserTest {
 		assertTrue(Parser.setCommand(test) instanceof ShowTask);
 		ShowTask show = (ShowTask) Parser.setCommand(test);
 
-		String expected = DateTimeParser.getDate(0);
+		String expected = getDate(0);
 		assertEquals(expected, show.getDate());
 	}
 
@@ -157,7 +161,7 @@ public class ParserTest {
 		assertTrue(Parser.setCommand(test) instanceof ShowTask);
 		ShowTask show = (ShowTask) Parser.setCommand(test);
 
-		String expected = DateTimeParser.getDate(0);
+		String expected = getDate(0);
 		assertEquals(expected, show.getDate());
 		assertTrue(show.getShowDone());
 	}
@@ -213,5 +217,11 @@ public class ParserTest {
 		returnArr.add(start);
 		returnArr.add(end);
 		return returnArr;
+	}
+	
+	private static String getDate(int plus) {
+		LocalDateTime date = LocalDateTime.now();
+		date = date.plusDays(plus);
+		return date.toString("dd/MM/yy");
 	}
 }
