@@ -18,12 +18,15 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import storage.Output;
 
@@ -79,6 +82,21 @@ public class GUI extends Application {
 		// Listview of items
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
+		listView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+			@Override
+			public ListCell<String> call(final ListView<String> list) {
+				return new ListCell<String>() {
+					{
+						 Text text = new Text();
+	                     text.wrappingWidthProperty().bind(list.widthProperty().subtract(15));
+	                     text.textProperty().bind(itemProperty());
+
+	                     setPrefWidth(0);
+	                     setGraphic(text);
+					}
+				};
+			}
+		});
 		listView.getItems().addAll(welcome.welcomeMessage());
 		GridPane.setConstraints(listView, 40, 11, 100, 35);
 		
@@ -86,6 +104,22 @@ public class GUI extends Application {
 		// Listview of today's to-do
 		ListView<String> listToday = new ListView<>();
 		listToday.setPrefHeight(433);
+		listToday.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+			@Override
+			public ListCell<String> call(final ListView<String> list) {
+				return new ListCell<String>() {
+					{
+						 Text text = new Text();
+	                     text.wrappingWidthProperty().bind(list.widthProperty().subtract(15));
+	                     text.textProperty().bind(itemProperty());
+
+	                     setPrefWidth(0);
+	                     setGraphic(text);
+					}
+				};
+			}
+		});
+
 		listToday.getItems().addAll(welcome.printToday());
 		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.printMessageToday(welcome.session.getToday()));
 		listToday.getItems().addAll(todayTasks);
