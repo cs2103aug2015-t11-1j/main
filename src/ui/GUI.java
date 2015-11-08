@@ -1,10 +1,6 @@
 package ui;
 
-import java.awt.Color;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -17,24 +13,21 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ListChangeListener.Change;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
-import logic.Task;
 import storage.Output;
 
 public class GUI extends Application {
@@ -61,7 +54,7 @@ public class GUI extends Application {
 		commandInput.setPromptText("Enter Command: ");
 		GridPane.setConstraints(commandInput, 40, 50, 100, 1);
 
-		// Results Text Field
+		// Results label
 		Label lb_results = new Label();
 		GridPane.setConstraints(lb_results, 40, 49, 100, 1);
 
@@ -89,21 +82,49 @@ public class GUI extends Application {
 		// Listview of items
 		ListView<String> listView = new ListView<>();
 		listView.autosize();
+		listView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+			@Override
+			public ListCell<String> call(final ListView<String> list) {
+				return new ListCell<String>() {
+					{
+						 Text text = new Text();
+	                     text.wrappingWidthProperty().bind(list.widthProperty().subtract(15));
+	                     text.textProperty().bind(itemProperty());
+
+	                     setPrefWidth(0);
+	                     setGraphic(text);
+					}
+				};
+			}
+		});
 		listView.getItems().addAll(welcome.welcomeMessage());
 		GridPane.setConstraints(listView, 40, 11, 100, 35);
-		// 30,6,70,43
-		// ObservableList<String> input;
-		// input = listView.getSelectionModel().getSelectedItems();
+		
 
 		// Listview of today's to-do
 		ListView<String> listToday = new ListView<>();
 		listToday.setPrefHeight(433);
+		listToday.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+			@Override
+			public ListCell<String> call(final ListView<String> list) {
+				return new ListCell<String>() {
+					{
+						 Text text = new Text();
+	                     text.wrappingWidthProperty().bind(list.widthProperty().subtract(15));
+	                     text.textProperty().bind(itemProperty());
+
+	                     setPrefWidth(0);
+	                     setGraphic(text);
+					}
+				};
+			}
+		});
+
 		listToday.getItems().addAll(welcome.printToday());
 		ObservableList<String> todayTasks = FXCollections.observableArrayList(Welcome.printMessageToday(welcome.session.getToday()));
 		listToday.getItems().addAll(todayTasks);
 		GridPane.setConstraints(listToday, 0, 11, 40, 35);
 
-		// What happens when "ENTER" is hit
 		commandInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -114,18 +135,17 @@ public class GUI extends Application {
 				ObservableList<String> input;
 				ObservableList<String> input1;
 
-				// Task task = new Task();
-				// DateTime dt = new DateTime();
-
+				//What happens when "ENTER" key is hit
 				if (ke.getCode().equals(KeyCode.ENTER)) {
 					try {
 						Output op = welcome.initiateProg(commandInput.getText());
+						//Results output
 						if (op.getStatus()) {
 							lb_results.setText("Success!");
-
 						} else {
 							lb_results.setText("Failure!");
 						}
+						
 						listView.getItems().add(Welcome.printMessage(op));
 						
 						//Update today's tasks list view
@@ -140,6 +160,7 @@ public class GUI extends Application {
 						
 						//clears list view
 						if(commandInput.getText().equals("clear")){
+							lb_results.setText("Success!");
 							listView.getItems().clear();
 						}
 						
