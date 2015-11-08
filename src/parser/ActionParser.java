@@ -1,4 +1,6 @@
-/*
+/* 
+ * @author: Jeston Teo A0121319R
+ * 
  * This class extracts the user's specified action and returns it as an ACTION_TYPE
  * 
  *  ASSUMPTIONS:
@@ -9,7 +11,7 @@ package parser;
 
 public class ActionParser {
 
-	enum ACTION_TYPE {
+	protected enum ACTION_TYPE {
 		ADD, SHOW, SEARCH, UPDATE, DONE, UNDONE, DELETE, UNDO, INVALID, EXIT, HELP, FP, CFP, CLEAR;
 	}
 
