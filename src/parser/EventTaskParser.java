@@ -1,5 +1,5 @@
 /*
- * @author: Jeston Teo
+ * @author: Jeston Teo A0121319R
  * 
  * This class extracts the string representing the user's event/task
  * 

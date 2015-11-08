@@ -1,5 +1,5 @@
 /*
- * @author: Jeston Teo
+ * @author: Jeston Teo A0121319R
  * 
  * This class parses the file path specified by the user
  */
