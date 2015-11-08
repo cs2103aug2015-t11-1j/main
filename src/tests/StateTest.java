@@ -1,12 +1,15 @@
 //@@author: idawatibustan A0130383N
 
-package logic;
+package tests;
 
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
+
+import logic.State;
+import logic.Task;
 
 public class StateTest {
 

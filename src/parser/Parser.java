@@ -1,23 +1,24 @@
 /*
  * @author: Jeston Teo
- * TODO Description of class
+ * 
+ * This class creates the corresponding classes implementing the Command interface 
  */
 
 package parser;
 
 import java.util.ArrayList;
 
-import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 
 import logic.AddTask;
+import logic.ClearList;
 import logic.Command;
 import logic.DeleteTask;
-import logic.MarkDoneTask;
-import logic.MarkUndoneTask;
 import logic.ExitTask;
 import logic.HelpTask;
 import logic.InvalidTask;
+import logic.MarkDoneTask;
+import logic.MarkUndoneTask;
 import logic.SearchTask;
 import logic.SetFilePath;
 import logic.ShowFilePath;
@@ -28,6 +29,10 @@ import parser.ActionParser.ACTION_TYPE;
 
 public class Parser {
 
+	/*
+	 * Returns the corresponding classes with any arguments present in the
+	 * user's input.
+	 */
 	public static Command setCommand(String str) {
 		ACTION_TYPE action = ActionParser.setUserAction(str);
 
@@ -54,7 +59,7 @@ public class Parser {
 				for (String key : ParserConstants.KW_COMMAND_DONE) {
 					if (str.contains(key)) {
 						show.setShowDone();
-					} 
+					}
 				}
 				if (str.contains(ParserConstants.KW_FLOAT)) {
 					show.setShowFloat();
@@ -141,6 +146,9 @@ public class Parser {
 				return invalid;
 			}
 			return newFilePath;
+		case CLEAR:
+			ClearList clear = new ClearList();
+			return clear;
 		default:
 			// Returned only if the action argument is invalid
 			InvalidTask invalid = new InvalidTask();

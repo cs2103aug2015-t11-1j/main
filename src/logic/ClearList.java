@@ -2,19 +2,20 @@ package logic;
 
 import storage.Output;
 
-public class ExitTask implements Command {
+public class ClearList implements Command {
 
-	private static final String MESSAGE_TASK_TYPE = "exit";
-	private static final String MESSAGE_EXIT_PROGRAM = "Exit Program";
+	private static final String MESSAGE_CLEAR = "clear";
+	private static final String MESSAGE_SYMBOL_NOTHING = "";
 
 	/*********** CONSTRUCTOR **********/
-	public ExitTask() {
+	public ClearList() {
 
 	}
 
 	@Override
 	public Output execute() {
-		return new Output(false, MESSAGE_EXIT_PROGRAM, MESSAGE_TASK_TYPE);
+		String message = MESSAGE_SYMBOL_NOTHING;
+		return new Output(true, message, MESSAGE_CLEAR);
 	}
 
 	@Override

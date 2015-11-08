@@ -1,11 +1,5 @@
 package ui;
 
-import java.io.IOException;
-
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 public class Constants {
 	static final String MESSAGE_MORNING = "Good morning, Jim!";
@@ -26,8 +20,7 @@ public class Constants {
 	static final String MESSAGE_COMPLETED = " is complete :)";
 	static final String MESSAGE_UPDATE_FAIL = "Update failed!";
 	static final String MESSAGE_HELP = "The commands that can be used are: ";
-	//static final String MESSAGE_SHOW = "Events requested for: ";
-	static final String MESSAGE_SHOW_NOTHING = "No upcoming event/task(s)!";
+	static final String MESSAGE_SHOW_NOTHING = "Nothing to show!";
 	static final String MESSAGE_SHOW_FAIL = "There was an error in showing your events, please try again!";
 	static final String MESSAGE_DONE = "Well done you completed this task!";
 	static final String MESSAGE_EXIT = "Goodbye!:)";
@@ -38,18 +31,19 @@ public class Constants {
 	static final String MESSAGE_UNDO = " Your last action has been undone!";
 	static final String MESSAGE_UNDONE = "Event/task is now incomplete";
 	
-	static final String COMMAND_EXIT = "exit";
-	static final String COMMAND_ADD = "add";
-	static final String COMMAND_DELETE = "delete";
-	static final String COMMAND_SHOW = "show";
-	static final String COMMAND_UPDATE = "update";
-	static final String COMMAND_SEARCH = "search";
-	static final String COMMAND_UNDO = "undo";
-	static final String COMMAND_HELP = "help";
-	static final String COMMAND_DONE = "done";
-	static final String COMMAND_UNDONE = "undone";
-	static final String COMMAND_FP = "fp";
-	static final String COMMAND_CFP = "cfp";
+	static final String COMMAND_EXIT = "exit <shut down program>";
+	static final String COMMAND_ADD = "add <event/task>";
+	static final String COMMAND_DELETE = "delete <index>";
+	static final String COMMAND_SHOW = "show <date/today/done>";
+	static final String COMMAND_UPDATE = "update <index>";
+	static final String COMMAND_SEARCH = "search <event/task>";
+	static final String COMMAND_UNDO = "undo <cancel last action>";
+	static final String COMMAND_HELP = "help <list of commands>";
+	static final String COMMAND_DONE = "mark <index>";
+	static final String COMMAND_UNDONE = "unmark <index>";
+	static final String COMMAND_FP = "fp <show file path>";
+	static final String COMMAND_CFP = "cfp <change file path>";
+	static final String COMMAND_CLEAR = "clear <clears the display>";
 	
 	
 	
