@@ -19,7 +19,7 @@ public class Task {
 
 	int _index;
 	String _stats;
-	String _date;
+	private String _date;
 	String _time;
 	String _details;
 
@@ -32,14 +32,14 @@ public class Task {
 		this._index = INT_ZERO;
 		this._stats = MESSAGE_SYMBOL_UNDONE_TASK;
 		this._time = MESSAGE_SYMBOL_NOTHING;
-		this._date = MESSAGE_SYMBOL_NOTHING;
+		this.set_date(MESSAGE_SYMBOL_NOTHING);
 		this._details = details.trim();
 	}
 
 	public Task(String date, String details) {
 		this(details);
 		if (!date.equals(MESSAGE_SYMBOL_NOTHING)) {
-			this._date = date.trim() + MESSAGE_SYMBOL_SPACE;
+			this.set_date(date.trim() + MESSAGE_SYMBOL_SPACE);
 		}
 	}
 
@@ -52,15 +52,15 @@ public class Task {
 
 	public Task(int index, String stat, String date, String time, String details) {
 		if (date.equals(MESSAGE_SYMBOL_NOTHING)) {
-			this._date = date;
+			this.set_date(date);
 			this._time = time;
 			this._details = details.trim();
 		} else if (time.equals(MESSAGE_SYMBOL_NOTHING)) {
-			this._date = date.trim() + MESSAGE_SYMBOL_SPACE;
+			this.set_date(date.trim() + MESSAGE_SYMBOL_SPACE);
 			this._time = time;
 			this._details = details.trim();
 		} else {
-			this._date = date.trim() + MESSAGE_SYMBOL_SPACE;
+			this.set_date(date.trim() + MESSAGE_SYMBOL_SPACE);
 			this._time = time.trim() + MESSAGE_SYMBOL_SPACE;
 			this._details = details.trim();
 		}
@@ -81,32 +81,33 @@ public class Task {
 
 	@Override
 	public String toString() {
-		return _index + MESSAGE_SYMBOL_INDEX_BRACKET + _date + _time + _details;
+		return _index + MESSAGE_SYMBOL_INDEX_BRACKET + get_date() + _time + _details;
 	}
 
 	public String toStorage() {
 		if (_time.equals(MESSAGE_SYMBOL_NOTHING)) {
-			if (_date.equals(MESSAGE_SYMBOL_NOTHING)) {
+			if (get_date().equals(MESSAGE_SYMBOL_NOTHING)) {
 				return _index + MESSAGE_SYMBOL_SPACE + _stats + MESSAGE_SYMBOL_HYPHEN_SPACE
 						+ MESSAGE_SYMBOL_HYPHEN_SPACE + _details;
 			}
-			return _index + MESSAGE_SYMBOL_SPACE + _stats + _date + MESSAGE_SYMBOL_HYPHEN_SPACE + _details;
+			return _index + MESSAGE_SYMBOL_SPACE + _stats + get_date() + MESSAGE_SYMBOL_HYPHEN_SPACE + _details;
 		}
-		return _index + MESSAGE_SYMBOL_SPACE + _stats + _date + _time + _details;
+		return _index + MESSAGE_SYMBOL_SPACE + _stats + get_date() + _time + _details;
 	}
 
 	public boolean equals(Task task) {
-		return (this._stats.equals(task._stats) && this._time.equals(task._time) && this._date.equals(task._date)
-				&& this._details.equals(task._details));
+		return (this._stats.equals(task._stats) && this._time.equals(task._time)
+				&& this.get_date().equals(task.get_date()) && this._details.equals(task._details));
 	}
 
 	public String rotateDF() {
-		if (_date.length() > INT_ONE) {
-			String str = new String(this._date.substring(INT_SIX, INT_EIGHT) + this._date.substring(INT_TWO, INT_SIX)
-					+ this._date.substring(INT_ZERO, INT_TWO) + MESSAGE_SYMBOL_SPACE);
+		if (get_date().length() > INT_ONE) {
+			String str = new String(
+					this.get_date().substring(INT_SIX, INT_EIGHT) + this.get_date().substring(INT_TWO, INT_SIX)
+							+ this.get_date().substring(INT_ZERO, INT_TWO) + MESSAGE_SYMBOL_SPACE);
 			return str;
 		}
-		return _date;
+		return get_date();
 	}
 
 	/********** GETTER **********/
@@ -119,7 +120,7 @@ public class Task {
 	}
 
 	public String getDate() {
-		return _date;
+		return get_date();
 	}
 
 	public String getTime() {
@@ -130,9 +131,17 @@ public class Task {
 		return _details;
 	}
 
+	public String get_date() {
+		return _date;
+	}
+
 	/********** SETTER **********/
 	public void setIndex(int i) {
 		_index = i;
+	}
+
+	public void set_date(String _date) {
+		this._date = _date;
 	}
 
 }
