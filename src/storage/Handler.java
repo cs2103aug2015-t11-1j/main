@@ -1,4 +1,4 @@
-//@@author: idawatibustan A0130383N
+//@@author A0130383N
 
 package storage;
 
@@ -86,7 +86,7 @@ public class Handler {
 	}
 
 	// clear file content
-	protected static void clearFile(File file) throws FileNotFoundException {
+	static void clearFile(File file) throws FileNotFoundException {
 		try {
 			FileWriter fw = new FileWriter(file, false);
 			fw.write("");
@@ -94,6 +94,12 @@ public class Handler {
 		} catch (IOException e) {
 			System.out.println("IOException: Can't clear file." + e.toString());
 			e.printStackTrace();
+		}
+	}
+	
+	static void deleteFile(File file) {
+		if(file.exists()){
+			file.delete();
 		}
 	}
 

@@ -1,4 +1,4 @@
-//@@author: idawatibustan A0130383N
+//@@author A0130383N
 
 package storage;
 
@@ -78,6 +78,7 @@ public class Storage {
 		try {
 			if(str.substring(i-4).equals(".txt")){
 				// change directory of main planner file
+				File oldfile = _file;
 				_filename = str;
 				_file = new File(_filename);
 				Handler.checkFileExist(_file);
@@ -85,6 +86,7 @@ public class Storage {
 				//change stored directory in FilePath.txt
 				Handler.clearFile(_filepath);
 				Handler.writeToFile(_file.getPath(), _filepath);
+				Handler.deleteFile(oldfile);
 				}
 				return _file.getPath();
 			} catch (FileNotFoundException fe){
