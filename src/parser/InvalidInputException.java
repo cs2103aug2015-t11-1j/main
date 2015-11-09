@@ -1,5 +1,5 @@
 /*
- * @@author Jeston Teo A0121319R
+ * @@author A0121319R
  * 
  * This exception is thrown whenever an invalid input is detected in the user's string input
  */
