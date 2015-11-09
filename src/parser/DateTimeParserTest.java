@@ -1,5 +1,5 @@
 /*
- * @author: Jeston Teo
+ * @@author: Jeston Teo A0121319R
  */
 
 package parser;
@@ -30,7 +30,7 @@ public class DateTimeParserTest {
 		assertEquals(expectedTime, resultTime);
 		assertEquals(expectedDate, resultDate);
 	}
-	
+
 	@Test
 	public void testOneStartDateAndTime() throws InvalidInputException {
 		String test = "add meeting with boss today 10.30am";
@@ -42,31 +42,31 @@ public class DateTimeParserTest {
 		assertEquals(expectedDate, resultDate);
 		assertEquals(expectedTime, resultTime);
 	}
-	
+
 	@Test
 	public void testOneEndDateAndTime() throws InvalidInputException {
 		String test = "add submit maths assignment by tomorrow 2359";
 		DateTimeParser.getDateTimeArgs(test);
 		resultDate = DateTimeParser.getDateArgs();
 		resultTime = DateTimeParser.getTimeArgs();
-		expectedDate = add("", DateTimeParser.getDate(1));
-		expectedTime = add("", "2359");
+		expectedDate = add(DateTimeParser.getDate(1), "");
+		expectedTime = add("2359", "");
 		assertEquals(expectedDate, resultDate);
 		assertEquals(expectedTime, resultTime);
 	}
-	
+
 	@Test
 	public void testTravellingCasual() throws InvalidInputException {
 		String test = "add drive from clementi to yishun today 10:00pm";
 		DateTimeParser.getDateTimeArgs(test);
 		resultDate = DateTimeParser.getDateArgs();
 		resultTime = DateTimeParser.getTimeArgs();
-		expectedDate = add("", DateTimeParser.getDate(0));
-		expectedTime = add("", "2200");
+		expectedDate = add(DateTimeParser.getDate(0), "");
+		expectedTime = add("2200", "");
 		assertEquals(expectedDate, resultDate);
 		assertEquals(expectedTime, resultTime);
 	}
-	
+
 	@Test
 	public void testTravellingStrictStartInputs() throws InvalidInputException {
 		String test = "add drive from clementi to yishun > today 10:00pm";
@@ -78,7 +78,7 @@ public class DateTimeParserTest {
 		assertEquals(expectedDate, resultDate);
 		assertEquals(expectedTime, resultTime);
 	}
-	
+
 	@Test
 	public void testTravellingStrictBothInputs() throws InvalidInputException {
 		String test = "add drive from clementi to yishun > today 10:00pm to tomorrow 12.37pm";
@@ -90,8 +90,8 @@ public class DateTimeParserTest {
 		assertEquals(expectedDate, resultDate);
 		assertEquals(expectedTime, resultTime);
 	}
-	
-	@Test (expected = InvalidInputException.class)
+
+	@Test(expected = InvalidInputException.class)
 	public void testWatchMovieCasual() throws InvalidInputException {
 		String test = "add watch day after tomorrow today 10am";
 		DateTimeParser.getDateTimeArgs(test);
@@ -102,7 +102,7 @@ public class DateTimeParserTest {
 		assertEquals(expectedDate, resultDate);
 		assertEquals(expectedTime, resultTime);
 	}
-	
+
 	@Test
 	public void testWatchMovieStrict() throws InvalidInputException {
 		String test = "add watch day after tomorrow > today 10am";
@@ -144,19 +144,19 @@ public class DateTimeParserTest {
 		String test = "add event from 12/12/20 to 13/12/20 14/12/20";
 		DateTimeParser.getDateTimeArgs(test);
 	}
-	
+
 	@Test(expected = InvalidInputException.class)
 	public void testEndDateBeforeStartDate() throws InvalidInputException {
 		String test = "add training tomorrow to today";
 		DateTimeParser.getDateTimeArgs(test);
 	}
-	
+
 	@Test(expected = InvalidInputException.class)
 	public void testEndTimeBeforeStartTime() throws InvalidInputException {
 		String test = "add training 11am to 10am";
 		DateTimeParser.getDateTimeArgs(test);
 	}
-	
+
 	// For easier adding to ArrayLists
 	private static ArrayList<String> add(String start, String end) {
 		ArrayList<String> returnArr = new ArrayList<String>();

@@ -1,18 +1,22 @@
-/*
- * This class extracts the user's specified action and returns it as an ACTION_TYPE
- * 
- *  ASSUMPTIONS:
- *  1) The user action is always in the first index in the entire String
+/* 
+ * @@author: Jeston Teo A0121319R
  */
 
 package parser;
 
 public class ActionParser {
 
-	enum ACTION_TYPE {
+	protected enum ACTION_TYPE {
 		ADD, SHOW, SEARCH, UPDATE, DONE, UNDONE, DELETE, UNDO, INVALID, EXIT, HELP, FP, CFP, CLEAR;
 	}
 
+	/*
+	 * This method extracts the user's specified action and returns it as an
+	 * ACTION_TYPE
+	 * 
+	 * Assumptions: 1) The user action is always in the first index in the
+	 * entire String
+	 */
 	protected static ACTION_TYPE setUserAction(String str) {
 		String[] strArray = str.split(ParserConstants.REGEX_WHITESPACES);
 		String userAction = strArray[ParserConstants.INDEX_FIRST];

@@ -1,8 +1,5 @@
 /*
- * @author: Jeston Teo
- * 
- * This class extracts the string representing the user's event/task
- * 
+ * @@author: Jeston Teo A0121319R
  */
 
 package parser;
@@ -17,15 +14,10 @@ public class EventTaskParser {
 	 * This method returns a String representing the event/task argument. An
 	 * InvalidInputException is thrown when the resulting String extracted is
 	 * empty.
-	 * 
-	 * Assumptions: 1) The String comes between the action argument and any
-	 * date/time arguments. 2) The String may contain words related to
-	 * date/time, but a strict format ">" must be used to separate event/task
-	 * and date/time arguments.
 	 */
 	protected static String getEventTask(String str) throws InvalidInputException {
 		ArrayList<String> arr = Parser.toArrayList(str.trim(), ParserConstants.CHAR_SINGLE_WHITESPACE);
-		assert(arr.size() >= 2);
+		assert (arr.size() >= 2);
 		// Checks for the presence of any integer which represents an index
 		// argument. Removes it from the
 		// second index if it exists
