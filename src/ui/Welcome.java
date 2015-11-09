@@ -171,7 +171,7 @@ public class Welcome {
 
 		}
 
-		return message + "\n";
+		return message;
 	}
 
 	// This method takes the user input and passes it to logic.

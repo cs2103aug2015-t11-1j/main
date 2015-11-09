@@ -14,7 +14,7 @@ public class Task {
 
 	int _index;
 	String _stats;
-	private String _date;
+	String _date;
 	String _time;
 	String _details;
 
