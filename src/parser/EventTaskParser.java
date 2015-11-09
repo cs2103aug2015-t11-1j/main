@@ -32,7 +32,7 @@ public class EventTaskParser {
 		arr.remove(ParserConstants.INDEX_FIRST);
 
 		int strictIndex = Parser.indexOf(ParserConstants.CHAR_RIGHT_ANGLE_BRACKET, arr);
-		if (strictIndex == ParserConstants.INT_NEG_ONE) {
+		if (strictIndex == -1) {
 			/*
 			 * Order of removal 1) Remove any date/time arguments 2) Remove all
 			 * elements after the last instance of a 'end' keyword 3) Remove all
@@ -91,7 +91,7 @@ public class EventTaskParser {
 	}
 
 	private static void removeElementsStartingFromIndex(int index, ArrayList<String> arr) {
-		if (index != ParserConstants.INT_NEG_ONE) {
+		if (index != -1) {
 			for (int i = index; i < arr.size();) {
 				arr.remove(i);
 			}
