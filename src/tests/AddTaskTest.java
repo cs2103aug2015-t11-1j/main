@@ -1,3 +1,5 @@
+//@@author A0122558E
+
 package tests;
 
 import static org.junit.Assert.*;
@@ -52,7 +54,7 @@ public class AddTaskTest {
 		at.setDate(date);
 		at.setTime(time);
 		
-		Output expectedOP = new Output(true, "1 21/10/15-22/10/15 0900-1400 meeting", "add");
+		Output expectedOP = new Output(true, "21/10/15 0900 - 22/10/15 1400 meeting", "add");
 		Output resultOP = at.execute();
 		
 		assertEquals(expectedOP.getEntry(), resultOP.getEntry());
