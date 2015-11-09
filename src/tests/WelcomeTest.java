@@ -1,4 +1,6 @@
-package ui;
+// @@author A0125273L
+
+package tests;
 
 import java.io.IOException;
 
@@ -6,8 +8,9 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import storage.Output;
+import ui.Welcome;
 
-public class JUnitTest {
+public class WelcomeTest {
 
 	@Test
 	public void testPassAddMessage() throws IOException {

@@ -1,7 +1,5 @@
 /*
- * @author: Jeston Teo A0121319R
- * 
- * This class parses the file path specified by the user
+ * @@author Jeston Teo A0121319R
  */
 
 package parser;
@@ -9,11 +7,11 @@ package parser;
 import java.util.ArrayList;
 
 public class FileParser {
-	
+
 	/*
 	 * This method parses for the file path specified by the user
 	 * 
-	 * Assumptions: There are no spaces in the specified file path
+	 * Assumptions: 1)There are no spaces in the specified file path
 	 */
 	protected static String getFilePath(String str) throws InvalidInputException {
 		ArrayList<String> arr = Parser.toArrayList(str.trim(), ParserConstants.CHAR_SINGLE_WHITESPACE);
