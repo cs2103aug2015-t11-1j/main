@@ -1,4 +1,4 @@
-//@@author: idawatibustan A0130383N
+//@@author A0130383N
 
 package storage;
 
