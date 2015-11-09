@@ -1,7 +1,5 @@
 /*
- * @author: Jeston Teo A0121319R
- * 
- * This class creates the corresponding classes implementing the Command interface 
+ * @@author: Jeston Teo A0121319R
  */
 
 package parser;
@@ -45,10 +43,6 @@ public class Parser {
 				add.setDate(DateTimeParser.getDateArgs());
 				add.setTime(DateTimeParser.getTimeArgs());
 			} catch (InvalidInputException e) {
-				// AddTask addFail = new AddTask();
-				// addFail.setInvalid(EventTaskParser.getEventTask(str));
-				// addFail.setInvalidMsg(e.getMessage());
-				// return addFail;
 				InvalidTask invalid = new InvalidTask();
 				return invalid;
 			}

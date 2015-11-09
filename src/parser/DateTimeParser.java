@@ -1,7 +1,5 @@
 /*
- * @author: Jeston Teo A0121319R
- * 
- * This class extracts the date/time arguments in the user's String input
+ * @@author: Jeston Teo A0121319R
  */
 
 package parser;
@@ -20,13 +18,6 @@ public class DateTimeParser {
 
 	/*
 	 * This method parses the input String for date/time arguments
-	 * 
-	 * Assumptions 1) There can only be a maximum of 2 date and 2 time argument
-	 * 2) There may be date/time related words in the event/task argument. Use
-	 * ">" to differentiate them 3) A date which has passed will throw an
-	 * InvalidInputException 4) Start time without a start date will
-	 * automatically have today's date added to dateArgs 5) Having keywords but
-	 * no following date/time arguments will not throw an exception
 	 */
 	protected static void getDateTimeArgs(String str) throws InvalidInputException {
 		LocalDate now = new LocalDate();
@@ -57,10 +48,10 @@ public class DateTimeParser {
 
 		}
 
-		if (dateArgs.size() > ParserConstants.INT_ONE || timeArgs.size() > ParserConstants.INT_ONE) {
+		if (dateArgs.size() > 1 || timeArgs.size() > 1) {
 			throw new InvalidInputException("Invalid input: Too many inputs");
 		} else if (dateArgs.isEmpty() && !timeArgs.isEmpty()) {
-			dateArgs.add(getDate(ParserConstants.INT_ZERO));
+			dateArgs.add(getDate(0));
 		} else if (!dateArgs.isEmpty() && timeArgs.isEmpty()) {
 			timeArgs.add("");
 		} else if (dateArgs.isEmpty() && timeArgs.isEmpty()) {
@@ -89,19 +80,28 @@ public class DateTimeParser {
 
 		}
 
-		if (dateArgs.size() > ParserConstants.INT_TWO || timeArgs.size() > ParserConstants.INT_TWO) {
+		if (dateArgs.size() > 2 || timeArgs.size() > 2) {
 			throw new InvalidInputException("Invalid input: Too many inputs");
-		} else if (dateArgs.size() == ParserConstants.INT_ONE && timeArgs.size() == ParserConstants.INT_TWO) {
+		} else if (dateArgs.size() == 1 && timeArgs.size() == 2) {
 			if (startDate != null) {
 				dateArgs.add(startDate.toString(ParserConstants.FORMAT_DATE_STORAGE));
 			} else {
-				dateArgs.add(getDate(ParserConstants.INT_ZERO));
+				dateArgs.add(getDate(0));
 			}
-		} else if (dateArgs.size() == ParserConstants.INT_TWO && timeArgs.size() == ParserConstants.INT_ONE) {
+		} else if (dateArgs.size() == 2 && timeArgs.size() == 1) {
 			timeArgs.add("");
-		} else if (dateArgs.size() == ParserConstants.INT_ONE && timeArgs.size() == ParserConstants.INT_ONE) {
+		} else if (dateArgs.size() == 1 && timeArgs.size() == 1) {
 			dateArgs.add("");
 			timeArgs.add("");
+		}
+		
+		// Shift the endDate/Time to the first index such that it can be shown on the UI
+		if (dateArgs.get(0).isEmpty() && !dateArgs.get(1).isEmpty() && timeArgs.get(0).isEmpty()
+				&& !timeArgs.get(1).isEmpty()) {
+			dateArgs.set(0, dateArgs.get(1));
+			dateArgs.set(1, "");
+			timeArgs.set(0, timeArgs.get(1));
+			timeArgs.set(1, "");
 		}
 
 		try {
@@ -114,12 +114,12 @@ public class DateTimeParser {
 		}
 
 		if (startDate != null && endDate != null) {
-			if (startDate.compareTo(endDate) == ParserConstants.INT_ONE) {
+			if (startDate.compareTo(endDate) == 1) {
 				throw new InvalidInputException("Invalid input: Start date cannot come after the end date");
-			} else if (startDate.compareTo(endDate) == ParserConstants.INT_ZERO) {
-				if (startTime.compareTo(endTime) == ParserConstants.INT_ONE) {
+			} else if (startDate.compareTo(endDate) == 0) {
+				if (startTime.compareTo(endTime) == 1) {
 					throw new InvalidInputException("Invalid input: Start time cannot come after the end time");
-				} else if (startTime.compareTo(endTime) == ParserConstants.INT_ZERO) {
+				} else if (startTime.compareTo(endTime) == 0) {
 					throw new InvalidInputException(
 							"Invalid input: Start time cannot be the same as the end time within the same day");
 				}
@@ -191,7 +191,7 @@ public class DateTimeParser {
 	private static void convertTmrToDateTime(String target) {
 		for (String keyword : ParserConstants.KW_TOMORROW) {
 			if (target.equals(keyword)) {
-				dateArgs.add(getDate(ParserConstants.INT_ONE));
+				dateArgs.add(getDate(1));
 			}
 		}
 	}
@@ -199,7 +199,7 @@ public class DateTimeParser {
 	private static void convertTodayToDateTime(String target) {
 		for (String keyword : ParserConstants.KW_TODAY) {
 			if (target.equals(keyword)) {
-				dateArgs.add(getDate(ParserConstants.INT_ZERO));
+				dateArgs.add(getDate(0));
 			}
 		}
 	}
@@ -218,12 +218,12 @@ public class DateTimeParser {
 				temp.add(arr.get(i));
 			}
 			int endIndex = Parser.indexOf(ParserConstants.KW_END, temp);
-			if (endIndex == ParserConstants.INT_NEG_ONE) {
-				for (int i = ParserConstants.INT_ZERO; i < temp.size(); i++) {
+			if (endIndex == -1) {
+				for (int i = 0; i < temp.size(); i++) {
 					startArr.add(temp.get(i));
 				}
 			} else {
-				for (int i = ParserConstants.INT_ZERO; i < endIndex; i++) {
+				for (int i = 0; i < endIndex; i++) {
 					startArr.add(temp.get(i));
 				}
 				for (int i = endIndex; i < temp.size(); i++) {
@@ -232,12 +232,12 @@ public class DateTimeParser {
 			}
 		} else {
 			int endIndex = Parser.indexOf(ParserConstants.KW_END, arr);
-			if (endIndex == ParserConstants.INT_NEG_ONE) {
-				for (int i = ParserConstants.INT_ZERO; i < arr.size(); i++) {
+			if (endIndex == -1) {
+				for (int i = 0; i < arr.size(); i++) {
 					startArr.add(arr.get(i));
 				}
 			} else {
-				for (int i = ParserConstants.INT_ZERO; i < endIndex; i++) {
+				for (int i = 0; i < endIndex; i++) {
 					startArr.add(arr.get(i));
 				}
 				for (int i = endIndex; i < arr.size(); i++) {
