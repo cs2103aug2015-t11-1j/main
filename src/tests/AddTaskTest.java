@@ -1,3 +1,5 @@
+//@@author A0122558E
+
 package tests;
 
 import static org.junit.Assert.*;
@@ -28,12 +30,12 @@ public class AddTaskTest {
 		Output expectedOP = new Output(true, "1 21/10/15 1200-1400 meeting", "add");
 		Output resultOP = at.execute();
 		
-		assertEquals(expectedOP.getEntry(), resultOP.getEntry());
-		assertEquals(expectedOP.getCmdType(), resultOP.getCmdType());
+//		assertEquals(expectedOP.getEntry(), resultOP.getEntry());
+//		assertEquals(expectedOP.getCmdType(), resultOP.getCmdType());
 		
 //		assertTrue(expectedOP.equals(resultOP));
 		
-//		assertEquals(expectedOP, resultOP);
+		assertEquals(expectedOP, resultOP);
 		
 	}
 
@@ -52,13 +54,13 @@ public class AddTaskTest {
 		at.setDate(date);
 		at.setTime(time);
 		
-		Output expectedOP = new Output(true, "1 21/10/15-22/10/15 0900-1400 meeting", "add");
+		Output expectedOP = new Output(true, "21/10/15 0900 - 22/10/15 1400 meeting", "add");
 		Output resultOP = at.execute();
 		
-		assertEquals(expectedOP.getEntry(), resultOP.getEntry());
-		assertEquals(expectedOP.getCmdType(), resultOP.getCmdType());
+//		assertEquals(expectedOP.getEntry(), resultOP.getEntry());
+//		assertEquals(expectedOP.getCmdType(), resultOP.getCmdType());
 		
-//		assertEquals(expectedOP, resultOP);
+		assertEquals(expectedOP, resultOP);
 		
 	}
 	
@@ -78,10 +80,10 @@ public class AddTaskTest {
 		Output expectedOP = new Output(true, "23/10/15-24/10/15 holiday", "add");
 		Output resultOP = at.execute();
 		
-		assertEquals(expectedOP.getEntry(), resultOP.getEntry());
-		assertEquals(expectedOP.getCmdType(), resultOP.getCmdType());
+//		assertEquals(expectedOP.getEntry(), resultOP.getEntry());
+//		assertEquals(expectedOP.getCmdType(), resultOP.getCmdType());
 		
-//		assertEquals(expectedOP, resultOP);
+		assertEquals(expectedOP, resultOP);
 		
 	}
 
