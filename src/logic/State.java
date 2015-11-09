@@ -1,4 +1,4 @@
-//@@author: idawatibustan
+//@@author A0130383N
 package logic;
 
 import java.util.ArrayList;
@@ -6,10 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class State {
-
-	private static final String MESSAGE_SYMBOL_NEWLINE = "\n";
-	private static final int INT_ONE = 1;
-	private static final int INT_ZERO = 0;
 
 	private ArrayList<Task> _tasklist = new ArrayList<Task>();
 
@@ -39,22 +35,22 @@ public class State {
 			@Override
 			public int compare(Task t1, Task t2) {
 				int i = t1._stats.compareTo(t2._stats);
-				if (i != INT_ZERO)
+				if (i != 0)
 					return i;
 
 				i = t1.rotateDF().compareTo(t2.rotateDF());
-				if (i != INT_ZERO)
+				if (i != 0)
 					return i;
 
 				i = t1._time.compareTo(t2._time);
-				if (i != INT_ZERO)
+				if (i != 0)
 					return i;
 
 				return t1._details.compareTo(t2._details);
 			}
 		});
 		for (Task t : _tasklist) {
-			t.setIndex(_tasklist.indexOf(t) + INT_ONE);
+			t.setIndex(_tasklist.indexOf(t) + 1);
 		}
 	}
 
@@ -72,7 +68,7 @@ public class State {
 	public String toString() {
 		String str = new String();
 		for (String s : this.toStringList()) {
-			str.concat(s + MESSAGE_SYMBOL_NEWLINE);
+			str.concat(s + "\n");
 		}
 		return str;
 	}
