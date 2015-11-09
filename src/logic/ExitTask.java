@@ -1,4 +1,4 @@
-//@@ author A0122558E
+//@@author A0122558E
 
 package logic;
 
@@ -8,6 +8,7 @@ public class ExitTask implements Command {
 
 	private static final String MESSAGE_TASK_TYPE = "exit";
 	private static final String MESSAGE_EXIT_PROGRAM = "Exit Program";
+	private State currState;
 
 	/*********** CONSTRUCTOR **********/
 	public ExitTask() {
@@ -27,12 +28,12 @@ public class ExitTask implements Command {
 	/********** GETTER **********/
 	@Override
 	public State getCurrState() {
-		return null;
+		return currState;
 	}
 
 	/********** SETTER **********/
 	@Override
 	public void setCurrState(State state) {
-
+		this.currState = state;
 	}
 }
