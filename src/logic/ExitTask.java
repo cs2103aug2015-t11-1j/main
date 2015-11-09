@@ -1,4 +1,4 @@
-//@@ author A0122558E
+//@@author A0122558E
 
 package logic;
 
@@ -21,7 +21,7 @@ public class ExitTask implements Command {
 
 	@Override
 	public boolean isMutator(Command task) {
-		return true;
+		return false;
 	}
 
 	/********** GETTER **********/

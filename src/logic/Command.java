@@ -1,4 +1,4 @@
-//@@ author A0122558E
+//@@author A0122558E
 
 package logic;
 
