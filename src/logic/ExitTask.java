@@ -1,3 +1,5 @@
+//@@ author A0122558E
+
 package logic;
 
 import storage.Output;
@@ -19,7 +21,7 @@ public class ExitTask implements Command {
 
 	@Override
 	public boolean isMutator(Command task) {
-		return false;
+		return true;
 	}
 
 	/********** GETTER **********/
