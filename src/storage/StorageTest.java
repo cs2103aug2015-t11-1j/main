@@ -17,16 +17,20 @@ public class StorageTest {
 	@Test
 	public void textfiletest() throws IOException {
 		Storage s = new Storage();
-		assertEquals("planner.txt", s.getFilePath());
+		assertEquals("Planner.txt", s.getFilePath());
+		
 		ArrayList<Task> tl = new ArrayList<Task>();
-		StorageManager.clearFile(s._file);
+		Handler.clearFile(s._file);
 		tl.add(new Task("12/12/15", "1200", "Meeting with Mrs. Awesome"));
 		tl.add(new Task("Buy dog food"));
-		tl.add(new Task("13/12/15", "Holiday today"));
-		assertEquals("0 ? 12/12/15 1200 Meeting with Mrs. Awesome", tl.get(0).toString());
+		tl.add(new Task("13/12/15", "Holiday"));
+		assertEquals("0) 12/12/15 1200 Meeting with Mrs. Awesome", tl.get(0).toString());
 		State s1 = new State(tl);
+		
+		
 		s1.add(s1.getTaskList().remove(0).markDone());
 		s1.sort();
+		
 		assertEquals("2 @ 12/12/15 1200 Meeting with Mrs. Awesome", s1.getTaskList().get(1).toString());
 		s.update(s1);
 		State s2 = s.extractState();
