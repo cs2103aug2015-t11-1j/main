@@ -1,7 +1,5 @@
 /*
- * @author: Jeston Teo A0121319R
- * 
- * This class extracts the index argument in the user's input.
+ * @@author Jeston Teo A0121319R
  */
 
 package parser;
@@ -13,10 +11,6 @@ public class IndexParser {
 	/*
 	 * This method returns the index present in the String. It throws an
 	 * InvalidInputException if no such index is found
-	 * 
-	 * Assumptions: 1) The index is present 2) The index comes after the action
-	 * argument and before the event/task argument 3) The index is always a
-	 * positive integer
 	 */
 	protected static int getIndex(String str) throws InvalidInputException {
 		ArrayList<String> arr = Parser.toArrayList(str.trim(), ParserConstants.CHAR_SINGLE_WHITESPACE);
