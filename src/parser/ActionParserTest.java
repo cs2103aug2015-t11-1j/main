@@ -1,5 +1,5 @@
 /*
- * @@author Jeston Teo A0121319R
+ * @@author A0121319R
  */
 
 package parser;
